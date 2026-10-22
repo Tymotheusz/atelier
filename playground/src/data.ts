@@ -1,7 +1,7 @@
 import { reactive, computed, watch } from 'vue'
 import { addDays, today, uid, createView, filter, sort, type Property, type PropertyOption, type View } from '@tymotheusz/atelier'
 
-export interface Project { id: string; name: string; status: string; category: string; owner: string | null; start: string | null; end: string | null; color: string; desc: string }
+export interface Project { id: string; name: string; status: string; category: string; owner: string | null; start: string | null; end: string | null; color: string; icon: string; desc: string }
 export interface Milestone { id: string; projectId: string; name: string; status: string; due: string | null; goal: string }
 export interface Task { id: string; projectId: string; milestoneId: string | null; title: string; status: string; priority: string; assignee: string | null; due: string | null; estimate: number | null; tags: string[]; done: boolean; desc: string }
 export type Coll = 'projects' | 'milestones' | 'tasks'
@@ -31,9 +31,9 @@ const PEOPLE: PropertyOption[] = [{ value: 'u1', label: 'Timothée' }, { value: 
 /* ---------- Données d'exemple ---------- */
 function seed() {
   const projects: Project[] = [
-    { id: 'p1', name: 'Atelier DS', status: 'active', category: 'perso', owner: 'u1', start: d(-24), end: d(40), color: 'chart-1', desc: 'Design system : tokens, CSS et composants Vue.' },
-    { id: 'p2', name: 'missel.fr v2', status: 'active', category: 'side', owner: 'u1', start: d(-45), end: d(25), color: 'chart-2', desc: 'Nouvelle maquette, éditeur de livret et offre payante.' },
-    { id: 'p3', name: 'Blog technique', status: 'planned', category: 'perso', owner: 'u1', start: d(10), end: d(70), color: 'chart-3', desc: 'Retours d’expérience et notes techniques.' }
+    { id: 'p1', name: 'Atelier DS', status: 'active', category: 'perso', owner: 'u1', start: d(-24), end: d(40), color: 'chart-1', icon: 'layers', desc: 'Design system : tokens, CSS et composants Vue.' },
+    { id: 'p2', name: 'missel.fr v2', status: 'active', category: 'side', owner: 'u1', start: d(-45), end: d(25), color: 'chart-2', icon: 'book', desc: 'Nouvelle maquette, éditeur de livret et offre payante.' },
+    { id: 'p3', name: 'Blog technique', status: 'planned', category: 'perso', owner: 'u1', start: d(10), end: d(70), color: 'chart-3', icon: 'pen', desc: 'Retours d’expérience et notes techniques.' }
   ]
   const milestones: Milestone[] = [
     { id: 'm1', projectId: 'p1', name: 'Fondations', status: 'done', due: d(-5), goal: 'Tokens, typographie et contrastes validés.' },
@@ -82,6 +82,10 @@ function defaultViews(): Record<string, View[]> {
     milestones: [createView('Toutes', 'table', { sorts: [sort('due')] }), createView('Calendrier', 'calendar')]
   }
 }
+
+/** Icônes proposées pour un projet. */
+export const PROJECT_ICONS = ['folder', 'layers', 'book', 'pen', 'palette', 'code', 'globe', 'box', 'bolt', 'star', 'chart', 'doc', 'calendar', 'flag']
+export const PROJECT_COLORS = ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5'] as const
 
 /* ---------- Store persistant (navigateur) ---------- */
 const KEY = 'atelier-playground-v1'
@@ -147,7 +151,7 @@ export function update(coll: Coll, row: any, key: string, value: unknown) {
 export function create(coll: Coll, defaults: Record<string, unknown>): any {
   let r: any
   if (coll === 'tasks') r = { id: uid(), projectId: store.projects[0]?.id, milestoneId: null, title: '', status: 'todo', priority: 'med', assignee: 'u1', due: null, estimate: null, tags: [], done: false, desc: '' }
-  else if (coll === 'projects') r = { id: uid(), name: '', status: 'planned', category: 'perso', owner: 'u1', start: today(), end: null, color: `chart-${(store.projects.length % 5) + 1}`, desc: '' }
+  else if (coll === 'projects') r = { id: uid(), name: '', status: 'planned', category: 'perso', owner: 'u1', start: today(), end: null, color: `chart-${(store.projects.length % 5) + 1}`, icon: 'folder', desc: '' }
   else r = { id: uid(), projectId: '', name: '', status: 'todo', due: null, goal: '' }
   Object.assign(r, defaults)
   if (coll === 'tasks' && r.milestoneId) { const m = store.milestones.find(x => x.id === r.milestoneId); if (m) r.projectId = m.projectId }

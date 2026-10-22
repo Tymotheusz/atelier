@@ -1,7 +1,10 @@
+import type { TileColor } from '../types';
 type __VLS_Props = {
     icon?: string;
     /** Pastille de couleur (valeur CSS) à la place de l'icône. */
     mark?: string;
+    /** Pose l'icône sur une tuile de couleur. */
+    tile?: TileColor;
     label?: string;
     href?: string;
     active?: boolean;

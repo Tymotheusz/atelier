@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { TileColor } from '@tymotheusz/atelier'
 
+const tileColors: TileColor[] = ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5', 'ink', 'neutral']
+const tileIcons = ['layers', 'book', 'code', 'palette', 'bolt', 'blocks', 'folder']
 const name = ref('Refonte du site perso')
 const search = ref('')
 const status = ref<string | null>('doing')
@@ -87,6 +90,17 @@ const rows = [
     </section>
 
     <section class="pg-sec">
+      <h2 class="t-heading-3">Tuiles d’icône</h2>
+      <div class="pg-row">
+        <AtIconTile v-for="(c, i) in tileColors" :key="c" :name="tileIcons[i]" :color="c" size="lg" />
+      </div>
+      <div class="pg-row">
+        <AtIconTile v-for="(c, i) in tileColors" :key="c" :name="tileIcons[i]" :color="c" size="md" />
+        <AtIconTile v-for="(c, i) in tileColors" :key="c + 'sm'" :name="tileIcons[i]" :color="c" />
+      </div>
+    </section>
+
+    <section class="pg-sec">
       <h2 class="t-heading-3">Navigation</h2>
       <AtTabs v-model="tab" :items="[{ value: 'overview', label: 'Aperçu' }, { value: 'activity', label: 'Activité', count: 12 }, { value: 'settings', label: 'Paramètres' }]" />
       <AtSegment v-model="view" label="Vue" :items="[{ value: 'table', label: 'Tableau', icon: 'table' }, { value: 'board', label: 'Board', icon: 'board' }, { value: 'calendar', label: 'Calendrier', icon: 'calendar' }]" />
@@ -95,9 +109,9 @@ const rows = [
     <section class="pg-sec">
       <h2 class="t-heading-3">Données</h2>
       <div class="pg-stats">
-        <AtStat label="Visiteurs uniques" value="3 482" delta="+12,4 %" trend="up" :spark="[210, 240, 228, 260, 251, 290, 302, 288, 330, 345, 338, 372]" foot="30 derniers jours" />
-        <AtStat label="Temps moyen" value="2 min 41" delta="+8 s" trend="up" :spark="[140, 150, 148, 152, 149, 155, 158, 154, 160, 161, 159, 161]" foot="30 derniers jours" />
-        <AtStat label="Taux de rebond" value="46,2 %" delta="−3,1 pts" trend="up" :spark="[52, 51, 52, 50, 49, 50, 48, 49, 47, 47, 46, 46]" foot="30 derniers jours" />
+        <AtStat label="Visiteurs uniques" value="3 482" delta="+12,4 %" trend="up" :spark="[210, 240, 228, 260, 251, 290, 302, 288, 330, 345, 338, 372]" foot="30 derniers jours" color="chart-1" />
+        <AtStat label="Temps moyen" value="2 min 41" delta="+8 s" trend="up" :spark="[140, 150, 148, 152, 149, 155, 158, 154, 160, 161, 159, 161]" foot="30 derniers jours" color="chart-2" />
+        <AtStat label="Taux de rebond" value="46,2 %" delta="−3,1 pts" trend="up" :spark="[52, 51, 52, 50, 49, 50, 48, 49, 47, 47, 46, 46]" foot="30 derniers jours" color="chart-3" />
       </div>
       <AtTable
         :columns="[{ key: 'page', label: 'Page' }, { key: 'views', label: 'Vues', align: 'right', format: v => v.toLocaleString('fr-FR') }, { key: 'time', label: 'Temps moyen', align: 'right' }, { key: 'source', label: 'Source' }]"
@@ -115,7 +129,7 @@ const rows = [
           <p style="margin: 0">Les sauvegardes quotidiennes sont conservées 30 jours, puis archivées chaque mois.</p>
           <template #footer><AtButton size="sm" @click="modal = true">Ouvrir une modale</AtButton><AtButton size="sm" variant="ghost" @click="drawer = true">Ouvrir un drawer</AtButton></template>
         </AtCard>
-        <AtCard href="#" title="Construire un design system pour ses projets perso" description="Tokens, densité, thèmes : les choix qui font tenir un système sur plusieurs sites.">
+        <AtCard href="#" color="chart-4" title="Construire un design system pour ses projets perso" description="Tokens, densité, thèmes : les choix qui font tenir un système sur plusieurs sites.">
           <div class="pg-row"><AtTag color="blue">Dev</AtTag><span class="at-muted" style="font-size: 12px">5 min de lecture</span></div>
         </AtCard>
         <AtEmpty message="Aucun élément pour l’instant."><template #action><AtButton size="sm" icon="plus">Créer</AtButton></template></AtEmpty>
