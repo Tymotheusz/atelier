@@ -150,7 +150,7 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 | Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem` |
 | Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList` |
 | Mise en page | `AtAppShell`, `AtPage` |
-| Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`) |
+| Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile` |
 
 Règles d'usage : [docs/guidelines.md](docs/guidelines.md) (couleur, typo, densité, ton) et [docs/components.md](docs/components.md) (quand utiliser quoi).
 

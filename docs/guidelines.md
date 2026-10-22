@@ -28,6 +28,7 @@ Atelier est le système de Timothée pour ses sites personnels et ses outils : u
 - États : chaque `success|warning|danger|info` a son `-soft`. Toujours un mot ou une icône avec la couleur.
 - Tags : neuf paires `tag-<couleur>-bg` / `tag-<couleur>-fg`, sans signification système.
 - Graphiques : `chart-1` à `chart-5`, dans cet ordre. Au-delà de cinq séries, regrouper.
+- Entités : une couleur `chart-*` peut identifier une entité (projet). Elle la garde partout : tuile d'icône (version pâle), barre de couleur des widgets et sparkline (`chart-N` plein), marque de relation.
 - Le thème sombre n'est pas une inversion : sols brun-noir, accent éclairci, `on-accent` foncé.
 
 ## Typographie
@@ -65,6 +66,7 @@ Atelier est le système de Timothée pour ses sites personnels et ses outils : u
 - Les aperçus de ce système utilisent des pictos dessinés à la main au même gabarit, en attendant l'intégration de Lucide côté Vue.
 - Couleur : `ink-muted` par défaut, `ink-subtle` dans les en-têtes de tableau, jamais l'accent seul.
 - Icône seule = bouton `at-btn--icon` avec `aria-label`.
+- Tuile d'icône (`at-tile`) pour identifier une entité, à la place d'une initiale. Sur une tuile `chart-*`, l'icône est en `chart-N-ink` sur `chart-N-soft`.
 
 ## Canons de mise en page
 

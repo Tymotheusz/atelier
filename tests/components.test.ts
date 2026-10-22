@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { AtButton, AtDataView, createView, type Property } from '../src'
+import { AtButton, AtCard, AtIconTile, AtStat, AtDataView, createView, type Property } from '../src'
 
 describe('AtButton', () => {
   it('pose les classes de variante et de taille', () => {
@@ -11,6 +11,27 @@ describe('AtButton', () => {
   it('exige un libellé accessible en mode icône seule', () => {
     const w = mount(AtButton, { props: { icon: 'plus', iconOnly: true, label: 'Ajouter' } })
     expect(w.attributes('aria-label')).toBe('Ajouter')
+  })
+})
+
+describe('AtIconTile', () => {
+  it('pose taille et teinte, décorative par défaut', () => {
+    const w = mount(AtIconTile, { props: { name: 'book', color: 'chart-2', size: 'lg' } })
+    expect(w.classes()).toEqual(expect.arrayContaining(['at-tile', 'at-tile--lg', 'at-tone-chart-2']))
+    expect(w.attributes('aria-hidden')).toBe('true')
+  })
+  it('est neutre et détourée sans couleur', () => {
+    const w = mount(AtIconTile, { props: { name: 'folder', label: 'Dossier' } })
+    expect(w.classes()).toContain('at-tile--neutral')
+    expect(w.attributes('role')).toBe('img')
+  })
+})
+
+describe('bande de couleur', () => {
+  it('AtStat et AtCard posent la bande seulement avec color', () => {
+    expect(mount(AtStat, { props: { label: 'Vues', value: '12', color: 'chart-1' } }).classes()).toEqual(expect.arrayContaining(['at-stat--striped', 'at-tone-chart-1']))
+    expect(mount(AtStat, { props: { label: 'Vues', value: '12' } }).classes()).not.toContain('at-stat--striped')
+    expect(mount(AtCard, { props: { title: 'Projet', color: 'danger' } }).classes()).toEqual(expect.arrayContaining(['at-card--striped', 'at-tone-danger']))
   })
 })
 

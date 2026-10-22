@@ -1,8 +1,11 @@
+import type { StripeColor } from '../types';
 type __VLS_Props = {
     title?: string;
     description?: string;
     href?: string;
     as?: string;
+    /** Barre de couleur à gauche du titre. */
+    color?: StripeColor;
 };
 declare function __VLS_template(): {
     attrs: Partial<{}>;

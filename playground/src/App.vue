@@ -23,7 +23,7 @@ const crumbs = computed(() => {
   <AtAppShell :route-key="page + (projectId ?? '')">
     <template #sidebar>
       <AtSidebar>
-        <template #header><div class="at-workspace"><span class="at-workspace__mark">A</span><span class="at-ellipsis">Atelier</span></div></template>
+        <template #header><div class="at-workspace"><AtIconTile name="blocks" color="ink" /><span class="at-ellipsis">Atelier</span></div></template>
         <AtNavGroup>
           <AtNavItem icon="home" :active="page === 'projects'" :count="store.projects.length" @click="go('projects')">Projets</AtNavItem>
           <AtNavItem icon="check-square" :active="page === 'tasks'" :count="openTasks.length" @click="go('tasks')">Toutes les tâches</AtNavItem>
@@ -31,7 +31,7 @@ const crumbs = computed(() => {
         </AtNavGroup>
         <AtNavGroup label="Projets">
           <AtNavItem
-            v-for="p in store.projects" :key="p.id" :mark="`var(--${p.color})`"
+            v-for="p in store.projects" :key="p.id" :icon="p.icon || 'folder'" :tile="p.color as any"
             :active="page === 'project' && projectId === p.id" @click="go('project', p.id)"
           >{{ p.name || 'Sans titre' }}</AtNavItem>
         </AtNavGroup>

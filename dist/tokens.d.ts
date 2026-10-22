@@ -373,6 +373,76 @@ export declare const tokens: {
                 readonly dark: "#d9b73f";
             };
             readonly usage: "Série 5 des graphiques (or). Toujours dans cet ordre ; au-delà de 5 séries, regrouper en « Autres ».";
+        }, {
+            readonly name: "chart-1-soft";
+            readonly value: {
+                readonly light: "#dee3ff";
+                readonly dark: "#323359";
+            };
+            readonly usage: "Fond pâle d'une tuile d'icône chart-1. Jamais pour une série de graphique.";
+        }, {
+            readonly name: "chart-1-ink";
+            readonly value: {
+                readonly light: "#4c4fbe";
+                readonly dark: "#b6bafe";
+            };
+            readonly usage: "Icône ou texte sur chart-1-soft (≥ 4,5:1).";
+        }, {
+            readonly name: "chart-2-soft";
+            readonly value: {
+                readonly light: "#bff0f0";
+                readonly dark: "#024142";
+            };
+            readonly usage: "Fond pâle d'une tuile d'icône chart-2. Jamais pour une série de graphique.";
+        }, {
+            readonly name: "chart-2-ink";
+            readonly value: {
+                readonly light: "#066e70";
+                readonly dark: "#14dbdf";
+            };
+            readonly usage: "Icône ou texte sur chart-2-soft (≥ 4,5:1).";
+        }, {
+            readonly name: "chart-3-soft";
+            readonly value: {
+                readonly light: "#feddc9";
+                readonly dark: "#4f2f0f";
+            };
+            readonly usage: "Fond pâle d'une tuile d'icône chart-3. Jamais pour une série de graphique.";
+        }, {
+            readonly name: "chart-3-ink";
+            readonly value: {
+                readonly light: "#954801";
+                readonly dark: "#ffac5d";
+            };
+            readonly usage: "Icône ou texte sur chart-3-soft (≥ 4,5:1).";
+        }, {
+            readonly name: "chart-4-soft";
+            readonly value: {
+                readonly light: "#ffd9e6";
+                readonly dark: "#51293c";
+            };
+            readonly usage: "Fond pâle d'une tuile d'icône chart-4. Jamais pour une série de graphique.";
+        }, {
+            readonly name: "chart-4-ink";
+            readonly value: {
+                readonly light: "#a42666";
+                readonly dark: "#fe9ecc";
+            };
+            readonly usage: "Icône ou texte sur chart-4-soft (≥ 4,5:1).";
+        }, {
+            readonly name: "chart-5-soft";
+            readonly value: {
+                readonly light: "#efe5c0";
+                readonly dark: "#443706";
+            };
+            readonly usage: "Fond pâle d'une tuile d'icône chart-5. Jamais pour une série de graphique.";
+        }, {
+            readonly name: "chart-5-ink";
+            readonly value: {
+                readonly light: "#735f01";
+                readonly dark: "#e0be46";
+            };
+            readonly usage: "Icône ou texte sur chart-5-soft (≥ 4,5:1).";
         }];
     };
     readonly type: {
@@ -619,6 +689,10 @@ export declare const tokens: {
             readonly name: "measure-page";
             readonly value: "1120px";
             readonly usage: "Largeur max du contenu d'un site.";
+        }, {
+            readonly name: "stripe";
+            readonly value: "4px";
+            readonly usage: "Largeur de la barre de couleur posée à gauche du titre des tuiles de stat et des cartes.";
         }];
     };
     readonly shadow: {
@@ -668,7 +742,7 @@ export declare const tokens: {
         }];
     };
 };
-export type ColorToken = 'bg' | 'surface' | 'surface-sunken' | 'surface-raised' | 'surface-hover' | 'surface-active' | 'border' | 'border-strong' | 'border-control' | 'ink' | 'ink-muted' | 'ink-subtle' | 'ink-disabled' | 'accent' | 'accent-hover' | 'accent-soft' | 'accent-ink' | 'on-accent' | 'focus' | 'overlay' | 'success' | 'success-soft' | 'warning' | 'warning-soft' | 'danger' | 'danger-soft' | 'info' | 'info-soft' | 'on-danger' | 'tag-gray-bg' | 'tag-gray-fg' | 'tag-brown-bg' | 'tag-brown-fg' | 'tag-orange-bg' | 'tag-orange-fg' | 'tag-yellow-bg' | 'tag-yellow-fg' | 'tag-green-bg' | 'tag-green-fg' | 'tag-blue-bg' | 'tag-blue-fg' | 'tag-purple-bg' | 'tag-purple-fg' | 'tag-pink-bg' | 'tag-pink-fg' | 'tag-red-bg' | 'tag-red-fg' | 'chart-1' | 'chart-2' | 'chart-3' | 'chart-4' | 'chart-5';
+export type ColorToken = 'bg' | 'surface' | 'surface-sunken' | 'surface-raised' | 'surface-hover' | 'surface-active' | 'border' | 'border-strong' | 'border-control' | 'ink' | 'ink-muted' | 'ink-subtle' | 'ink-disabled' | 'accent' | 'accent-hover' | 'accent-soft' | 'accent-ink' | 'on-accent' | 'focus' | 'overlay' | 'success' | 'success-soft' | 'warning' | 'warning-soft' | 'danger' | 'danger-soft' | 'info' | 'info-soft' | 'on-danger' | 'tag-gray-bg' | 'tag-gray-fg' | 'tag-brown-bg' | 'tag-brown-fg' | 'tag-orange-bg' | 'tag-orange-fg' | 'tag-yellow-bg' | 'tag-yellow-fg' | 'tag-green-bg' | 'tag-green-fg' | 'tag-blue-bg' | 'tag-blue-fg' | 'tag-purple-bg' | 'tag-purple-fg' | 'tag-pink-bg' | 'tag-pink-fg' | 'tag-red-bg' | 'tag-red-fg' | 'chart-1' | 'chart-2' | 'chart-3' | 'chart-4' | 'chart-5' | 'chart-1-soft' | 'chart-1-ink' | 'chart-2-soft' | 'chart-2-ink' | 'chart-3-soft' | 'chart-3-ink' | 'chart-4-soft' | 'chart-4-ink' | 'chart-5-soft' | 'chart-5-ink';
 /** Référence CSS d'un token : cssVar('accent') → 'var(--accent)'. */
 export declare const cssVar: (name: string) => string;
 /** Couleurs de séries pour les graphiques, dans l'ordre d'usage. */
