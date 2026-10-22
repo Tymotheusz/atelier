@@ -12,6 +12,7 @@ import AtDropdown from './components/AtDropdown.vue'
 import AtEmpty from './components/AtEmpty.vue'
 import AtField from './components/AtField.vue'
 import AtIcon from './components/AtIcon.vue'
+import AtIconTile from './components/AtIconTile.vue'
 import AtInput from './components/AtInput.vue'
 import AtKbd from './components/AtKbd.vue'
 import AtMenu from './components/AtMenu.vue'
@@ -51,6 +52,7 @@ export {
   AtEmpty,
   AtField,
   AtIcon,
+  AtIconTile,
   AtInput,
   AtKbd,
   AtMenu,
@@ -103,6 +105,7 @@ const components = {
   AtEmpty,
   AtField,
   AtIcon,
+  AtIconTile,
   AtInput,
   AtKbd,
   AtMenu,
@@ -152,6 +155,7 @@ declare module 'vue' {
     AtEmpty: typeof AtEmpty
     AtField: typeof AtField
     AtIcon: typeof AtIcon
+    AtIconTile: typeof AtIconTile
     AtInput: typeof AtInput
     AtKbd: typeof AtKbd
     AtMenu: typeof AtMenu

@@ -67,6 +67,16 @@
   --chart-3: #d1690a;
   --chart-4: #c2417f;
   --chart-5: #8a7208;
+  --chart-1-soft: #dee3ff;
+  --chart-1-ink: #4c4fbe;
+  --chart-2-soft: #bff0f0;
+  --chart-2-ink: #066e70;
+  --chart-3-soft: #feddc9;
+  --chart-3-ink: #954801;
+  --chart-4-soft: #ffd9e6;
+  --chart-4-ink: #a42666;
+  --chart-5-soft: #efe5c0;
+  --chart-5-ink: #735f01;
   --shadow-sm: 0 1px 2px rgba(25, 23, 20, 0.06);
   --shadow-md: 0 0 0 1px rgba(25, 23, 20, 0.06), 0 4px 12px rgba(25, 23, 20, 0.08), 0 12px 32px rgba(25, 23, 20, 0.10);
   --shadow-lg: 0 0 0 1px rgba(25, 23, 20, 0.06), 0 8px 24px rgba(25, 23, 20, 0.12), 0 24px 64px rgba(25, 23, 20, 0.16);
@@ -99,6 +109,7 @@
   --topbar: 48px;
   --measure-prose: 720px;
   --measure-page: 1120px;
+  --stripe: 4px;
   --duration-fast: 100ms;
   --duration-base: 160ms;
   --duration-slow: 240ms;
@@ -161,6 +172,16 @@
     --chart-3: #f0a35a;
     --chart-4: #ef8fbd;
     --chart-5: #d9b73f;
+    --chart-1-soft: #323359;
+    --chart-1-ink: #b6bafe;
+    --chart-2-soft: #024142;
+    --chart-2-ink: #14dbdf;
+    --chart-3-soft: #4f2f0f;
+    --chart-3-ink: #ffac5d;
+    --chart-4-soft: #51293c;
+    --chart-4-ink: #fe9ecc;
+    --chart-5-soft: #443706;
+    --chart-5-ink: #e0be46;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
     --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 4px 12px rgba(0, 0, 0, 0.40), 0 12px 32px rgba(0, 0, 0, 0.50);
     --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 8px 24px rgba(0, 0, 0, 0.50), 0 24px 64px rgba(0, 0, 0, 0.60);
@@ -221,6 +242,16 @@
   --chart-3: #f0a35a;
   --chart-4: #ef8fbd;
   --chart-5: #d9b73f;
+  --chart-1-soft: #323359;
+  --chart-1-ink: #b6bafe;
+  --chart-2-soft: #024142;
+  --chart-2-ink: #14dbdf;
+  --chart-3-soft: #4f2f0f;
+  --chart-3-ink: #ffac5d;
+  --chart-4-soft: #51293c;
+  --chart-4-ink: #fe9ecc;
+  --chart-5-soft: #443706;
+  --chart-5-ink: #e0be46;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
   --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 4px 12px rgba(0, 0, 0, 0.40), 0 12px 32px rgba(0, 0, 0, 0.50);
   --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 8px 24px rgba(0, 0, 0, 0.50), 0 24px 64px rgba(0, 0, 0, 0.60);
@@ -392,6 +423,8 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 .at-card__foot { display: flex; align-items: center; gap: var(--space-2); padding-top: var(--space-4); border-top: 1px solid var(--border); }
 .at-card--link { color: inherit; text-decoration: none; cursor: pointer; transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out); }
 .at-card--link:hover { border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
+.at-card--striped .at-card__title { display: flex; gap: var(--space-2); }
+.at-card--striped .at-card__title::before { content: ""; flex: none; width: var(--stripe); height: 18px; margin-top: 3px; border-radius: var(--radius-full); background: var(--at-tone); }
 
 /* ---------- Tabs & Segment ---------- */
 .at-tabs { display: flex; gap: var(--space-4); border-bottom: 1px solid var(--border); }
@@ -457,10 +490,12 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 .at-stat__delta--up { color: var(--success); }
 .at-stat__delta--down { color: var(--danger); }
 .at-stat__spark { display: block; width: 100%; height: 32px; }
-.at-stat__spark .line { fill: none; stroke: var(--chart-1); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
-.at-stat__spark .area { fill: var(--accent-soft); }
-.at-stat__spark .end { fill: var(--chart-1); }
+.at-stat__spark .line { fill: none; stroke: var(--at-tone, var(--chart-1)); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.at-stat__spark .area { fill: var(--at-tone, var(--chart-1)); fill-opacity: .12; }
+.at-stat__spark .end { fill: var(--at-tone, var(--chart-1)); }
 .at-stat__foot { font-size: 12px; color: var(--ink-subtle); }
+.at-stat--striped .at-stat__label { display: flex; align-items: center; gap: var(--space-2); }
+.at-stat--striped .at-stat__label::before { content: ""; flex: none; width: var(--stripe); height: 14px; border-radius: var(--radius-full); background: var(--at-tone); }
 
 /* ---------- Nav (sidebar d'app) ---------- */
 .at-sidebar { display: flex; flex-direction: column; gap: var(--space-4); width: var(--sidebar); padding: var(--space-2); background: var(--surface-sunken); border-right: 1px solid var(--border); }
@@ -475,6 +510,33 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 .at-nav-item .at-nav-count { margin-left: auto; font-size: 12px; color: var(--ink-subtle); font-variant-numeric: tabular-nums; }
 .at-workspace { display: flex; align-items: center; gap: var(--space-2); height: var(--h-md); padding: 0 var(--space-2); border-radius: var(--radius-sm); font-weight: 550; }
 .at-workspace__mark { display: grid; place-items: center; width: 20px; height: 20px; border-radius: var(--radius-sm); background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 650; }
+
+/* ---------- Teintes partagées (tuile, bande, sparkline) ---------- */
+/* --at-tone : couleur forte (bande, sparkline). --at-tone-bg / --at-tone-fg : tuile d'icône. */
+.at-tone-chart-1 { --at-tone: var(--chart-1); --at-tone-bg: var(--chart-1-soft); --at-tone-fg: var(--chart-1-ink); }
+.at-tone-chart-2 { --at-tone: var(--chart-2); --at-tone-bg: var(--chart-2-soft); --at-tone-fg: var(--chart-2-ink); }
+.at-tone-chart-3 { --at-tone: var(--chart-3); --at-tone-bg: var(--chart-3-soft); --at-tone-fg: var(--chart-3-ink); }
+.at-tone-chart-4 { --at-tone: var(--chart-4); --at-tone-bg: var(--chart-4-soft); --at-tone-fg: var(--chart-4-ink); }
+.at-tone-chart-5 { --at-tone: var(--chart-5); --at-tone-bg: var(--chart-5-soft); --at-tone-fg: var(--chart-5-ink); }
+.at-tone-ink { --at-tone: var(--ink); --at-tone-bg: var(--ink); --at-tone-fg: var(--bg); }
+.at-tone-success { --at-tone: var(--success); }
+.at-tone-warning { --at-tone: var(--warning); }
+.at-tone-danger { --at-tone: var(--danger); }
+.at-tone-info { --at-tone: var(--info); }
+
+/* ---------- Tuile d'icône ---------- */
+/* Aplat pâle, icône en couleur forte (≥ 4,5:1), sans dégradé, ombre ni contour. */
+.at-tile {
+  display: inline-grid; place-items: center; flex: none; width: 20px; height: 20px;
+  border-radius: var(--radius-sm); background: var(--at-tone-bg); color: var(--at-tone-fg);
+}
+.at-tile .at-icon { width: 14px; height: 14px; stroke-width: 1.75; }
+.at-tile--md { width: 32px; height: 32px; border-radius: var(--radius-lg); }
+.at-tile--md .at-icon { width: 18px; height: 18px; stroke-width: 1.5; }
+.at-tile--lg { width: 48px; height: 48px; border-radius: var(--radius-xl); }
+.at-tile--lg .at-icon { width: 24px; height: 24px; stroke-width: 1.33; }
+.at-tile--neutral { background: transparent; color: var(--ink-muted); border: 1px solid var(--border-strong); }
+.at-nav-item .at-tile { margin-inline: -2px; }
 
 /* ---------- Valeurs de propriété ---------- */
 .at-pv-title { font-weight: 500; }

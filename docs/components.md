@@ -62,6 +62,7 @@ Conteneur `at-card` : surface blanche, contour `border`, `radius-lg`, padding `s
 - Pas d'ombre au repos : la séparation vient du contour.
 - Ne pas imbriquer de cartes ; à l'intérieur, séparer par `border` ou par l'espacement.
 - Dans une grille de dashboard, gap `space-4` ; sur un site, `space-6`.
+- Prop `color` (`chart-1…5` ou un état) : barre de 4 px à gauche du titre, dans la carte (`at-card--striped`), pour rattacher la carte à une entité (projet) ou à une série.
 
 ## Tabs et Segment
 
@@ -109,6 +110,17 @@ Tuile de chiffre clé pour dashboard : `at-stat`.
 
 - 3 ou 4 tuiles par ligne au plus, en tête de page.
 - La sparkline montre la tendance, sans axes ni valeurs ; le point final marque la valeur affichée.
+- Prop `color` (`chart-1…5` ou un état) : barre de 4 px à gauche du libellé (`at-stat--striped`) ; la sparkline prend la même couleur. Dans une rangée, suivre l'ordre `chart-1`, `chart-2`… ; un état (`danger`) seulement si le libellé dit déjà de quoi il s'agit.
+
+## IconTile
+
+Icône en couleur forte sur un aplat pâle de la même teinte, sans dégradé ni ombre : `at-tile` (20 px), `at-tile--md` (32 px), `at-tile--lg` (48 px). Remplace les monogrammes (lettre sur fond coloré).
+
+**Couleurs** : `chart-1…5` (fond `chart-N-soft`, icône `chart-N-ink`, ≥ 4,5:1), `ink` (aplat `ink`, logo de l'espace de travail), `neutral` (contour `border-strong`, par défaut).
+
+- Une icône de préférence ; le contraste permet aussi une lettre.
+- `lg` dans l'en-tête d'une page d'entité, centrée verticalement sur le titre et la description ; `sm` dans la navigation (`AtNavItem` avec `icon` + `tile`).
+- Une entité garde la même icône et la même couleur partout.
 
 ## Sidebar, NavGroup, NavItem
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { StripeColor } from '../types'
 
 const props = defineProps<{
   label: string
@@ -11,6 +12,8 @@ const props = defineProps<{
   /** Série pour la sparkline (au moins 2 points). */
   spark?: number[]
   foot?: string
+  /** Barre de couleur à gauche du libellé ; la sparkline prend la même couleur. */
+  color?: StripeColor
 }>()
 
 const W = 220, H = 32
@@ -26,7 +29,7 @@ const path = computed(() => {
 </script>
 
 <template>
-  <div class="at-stat">
+  <div :class="['at-stat', color && ['at-stat--striped', `at-tone-${color}`]]">
     <span class="at-stat__label">{{ label }}</span>
     <div class="at-stat__row">
       <span class="at-stat__value"><slot name="value">{{ value }}</slot></span>

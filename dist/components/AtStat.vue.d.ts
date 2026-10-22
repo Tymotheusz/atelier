@@ -1,3 +1,4 @@
+import type { StripeColor } from '../types';
 type __VLS_Props = {
     label: string;
     value: string | number;
@@ -8,6 +9,8 @@ type __VLS_Props = {
     /** Série pour la sparkline (au moins 2 points). */
     spark?: number[];
     foot?: string;
+    /** Barre de couleur à gauche du libellé ; la sparkline prend la même couleur. */
+    color?: StripeColor;
 };
 declare function __VLS_template(): {
     attrs: Partial<{}>;
