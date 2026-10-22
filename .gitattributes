@@ -1,0 +1,4 @@
+dist/** linguist-generated=true
+src/styles/tokens.css linguist-generated=true
+src/tokens.ts linguist-generated=true
+*.woff2 binary

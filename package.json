@@ -1,0 +1,57 @@
+{
+  "name": "@tymotheusz/atelier",
+  "version": "0.1.0",
+  "description": "Atelier — design system personnel : tokens, CSS et composants Vue 3 pour sites et dashboards.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Timothée Cornic",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tymotheusz/atelier.git"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "tokens",
+    "README.md"
+  ],
+  "main": "./dist/atelier.js",
+  "module": "./dist/atelier.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/atelier.js"
+    },
+    "./style.css": "./dist/atelier.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./components.css": "./dist/components.css",
+    "./tokens.json": "./tokens/tokens.json",
+    "./fonts/*": "./dist/fonts/*"
+  },
+  "scripts": {
+    "dev": "vite --config playground/vite.config.ts",
+    "build:tokens": "node scripts/build-tokens.mjs",
+    "build:lib": "vite build && vue-tsc -p tsconfig.build.json",
+    "build:css": "node scripts/build-css.mjs",
+    "build": "npm run build:tokens && npm run build:lib && npm run build:css",
+    "build:playground": "vite build --config playground/vite.config.ts",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^15.7.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4",
+    "vue": "^3.4.38",
+    "vue-tsc": "^2.1.10"
+  }
+}
