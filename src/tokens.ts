@@ -429,6 +429,86 @@ export const tokens = {
           "dark": "#d9b73f"
         },
         "usage": "Série 5 des graphiques (or). Toujours dans cet ordre ; au-delà de 5 séries, regrouper en « Autres »."
+      },
+      {
+        "name": "chart-1-soft",
+        "value": {
+          "light": "#dee3ff",
+          "dark": "#323359"
+        },
+        "usage": "Fond pâle d'une tuile d'icône chart-1. Jamais pour une série de graphique."
+      },
+      {
+        "name": "chart-1-ink",
+        "value": {
+          "light": "#4c4fbe",
+          "dark": "#b6bafe"
+        },
+        "usage": "Icône ou texte sur chart-1-soft (≥ 4,5:1)."
+      },
+      {
+        "name": "chart-2-soft",
+        "value": {
+          "light": "#bff0f0",
+          "dark": "#024142"
+        },
+        "usage": "Fond pâle d'une tuile d'icône chart-2. Jamais pour une série de graphique."
+      },
+      {
+        "name": "chart-2-ink",
+        "value": {
+          "light": "#066e70",
+          "dark": "#14dbdf"
+        },
+        "usage": "Icône ou texte sur chart-2-soft (≥ 4,5:1)."
+      },
+      {
+        "name": "chart-3-soft",
+        "value": {
+          "light": "#feddc9",
+          "dark": "#4f2f0f"
+        },
+        "usage": "Fond pâle d'une tuile d'icône chart-3. Jamais pour une série de graphique."
+      },
+      {
+        "name": "chart-3-ink",
+        "value": {
+          "light": "#954801",
+          "dark": "#ffac5d"
+        },
+        "usage": "Icône ou texte sur chart-3-soft (≥ 4,5:1)."
+      },
+      {
+        "name": "chart-4-soft",
+        "value": {
+          "light": "#ffd9e6",
+          "dark": "#51293c"
+        },
+        "usage": "Fond pâle d'une tuile d'icône chart-4. Jamais pour une série de graphique."
+      },
+      {
+        "name": "chart-4-ink",
+        "value": {
+          "light": "#a42666",
+          "dark": "#fe9ecc"
+        },
+        "usage": "Icône ou texte sur chart-4-soft (≥ 4,5:1)."
+      },
+      {
+        "name": "chart-5-soft",
+        "value": {
+          "light": "#efe5c0",
+          "dark": "#443706"
+        },
+        "usage": "Fond pâle d'une tuile d'icône chart-5. Jamais pour une série de graphique."
+      },
+      {
+        "name": "chart-5-ink",
+        "value": {
+          "light": "#735f01",
+          "dark": "#e0be46"
+        },
+        "usage": "Icône ou texte sur chart-5-soft (≥ 4,5:1)."
       }
     ]
   },
@@ -512,7 +592,7 @@ export const tokens = {
             "lineHeight": "22px",
             "fontWeight": 400,
             "usage": "Texte d'interface par défaut : contrôles, cellules, paragraphes d'app.",
-            "sample": "Modifié il y a 3 minutes par Timothée"
+            "sample": "Modifié il y a 3 minutes par Alice"
           },
           {
             "name": "t-body-strong",
@@ -729,6 +809,11 @@ export const tokens = {
         "name": "measure-page",
         "value": "1120px",
         "usage": "Largeur max du contenu d'un site."
+      },
+      {
+        "name": "stripe",
+        "value": "4px",
+        "usage": "Largeur de la barre de couleur posée à gauche du titre des tuiles de stat et des cartes."
       }
     ]
   },
@@ -790,7 +875,7 @@ export const tokens = {
   }
 } as const
 
-export type ColorToken = 'bg' | 'surface' | 'surface-sunken' | 'surface-raised' | 'surface-hover' | 'surface-active' | 'border' | 'border-strong' | 'border-control' | 'ink' | 'ink-muted' | 'ink-subtle' | 'ink-disabled' | 'accent' | 'accent-hover' | 'accent-soft' | 'accent-ink' | 'on-accent' | 'focus' | 'overlay' | 'success' | 'success-soft' | 'warning' | 'warning-soft' | 'danger' | 'danger-soft' | 'info' | 'info-soft' | 'on-danger' | 'tag-gray-bg' | 'tag-gray-fg' | 'tag-brown-bg' | 'tag-brown-fg' | 'tag-orange-bg' | 'tag-orange-fg' | 'tag-yellow-bg' | 'tag-yellow-fg' | 'tag-green-bg' | 'tag-green-fg' | 'tag-blue-bg' | 'tag-blue-fg' | 'tag-purple-bg' | 'tag-purple-fg' | 'tag-pink-bg' | 'tag-pink-fg' | 'tag-red-bg' | 'tag-red-fg' | 'chart-1' | 'chart-2' | 'chart-3' | 'chart-4' | 'chart-5'
+export type ColorToken = 'bg' | 'surface' | 'surface-sunken' | 'surface-raised' | 'surface-hover' | 'surface-active' | 'border' | 'border-strong' | 'border-control' | 'ink' | 'ink-muted' | 'ink-subtle' | 'ink-disabled' | 'accent' | 'accent-hover' | 'accent-soft' | 'accent-ink' | 'on-accent' | 'focus' | 'overlay' | 'success' | 'success-soft' | 'warning' | 'warning-soft' | 'danger' | 'danger-soft' | 'info' | 'info-soft' | 'on-danger' | 'tag-gray-bg' | 'tag-gray-fg' | 'tag-brown-bg' | 'tag-brown-fg' | 'tag-orange-bg' | 'tag-orange-fg' | 'tag-yellow-bg' | 'tag-yellow-fg' | 'tag-green-bg' | 'tag-green-fg' | 'tag-blue-bg' | 'tag-blue-fg' | 'tag-purple-bg' | 'tag-purple-fg' | 'tag-pink-bg' | 'tag-pink-fg' | 'tag-red-bg' | 'tag-red-fg' | 'chart-1' | 'chart-2' | 'chart-3' | 'chart-4' | 'chart-5' | 'chart-1-soft' | 'chart-1-ink' | 'chart-2-soft' | 'chart-2-ink' | 'chart-3-soft' | 'chart-3-ink' | 'chart-4-soft' | 'chart-4-ink' | 'chart-5-soft' | 'chart-5-ink'
 
 /** Référence CSS d'un token : cssVar('accent') → 'var(--accent)'. */
 export const cssVar = (name: string) => `var(--${name})`

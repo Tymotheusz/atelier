@@ -23,3 +23,8 @@ export interface TableColumn<R> {
     width?: string;
     format?: (v: any, row: R) => string;
 }
+export type ChartColor = 'chart-1' | 'chart-2' | 'chart-3' | 'chart-4' | 'chart-5';
+/** Couleur d'une tuile d'icône : une série chart-*, l'encre, ou neutre (détourée). */
+export type TileColor = ChartColor | 'ink' | 'neutral';
+/** Couleur de la bande d'un widget : une série chart-* ou un état. */
+export type StripeColor = ChartColor | Exclude<Tone, 'neutral'>;

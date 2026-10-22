@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { today, addDays } from '@tymotheusz/atelier'
-import { store, openTasks, tasksOf, progressOf, taskSchema, projectSchema, milestoneSchema, update, create, remove, reset, type Coll } from './data'
+import { store, openTasks, tasksOf, progressOf, taskSchema, projectSchema, milestoneSchema, update, create, remove, reset, PROJECT_ICONS, PROJECT_COLORS, type Coll } from './data'
 
 const props = defineProps<{ page: string; projectId: string | null }>()
 const emit = defineEmits<{ go: [page: any, id?: string | null] }>()
 
 const project = computed(() => (props.page === 'project' ? store.projects.find(p => p.id === props.projectId) ?? null : null))
 const tab = ref<'tasks' | 'milestones'>('tasks')
+const pickerOpen = ref(false)
 
 const stats = computed(() => {
   const open = openTasks.value, now = today()
   const late = open.filter(t => t.due && t.due < now)
   return [
-    { label: 'Projets actifs', value: store.projects.filter(p => p.status === 'active').length, foot: `${store.projects.length} projets au total` },
-    { label: 'Tâches ouvertes', value: open.length, foot: `${open.filter(t => t.due && t.due >= now && t.due <= addDays(now, 7)).length} à rendre cette semaine` },
-    { label: 'En retard', value: late.length, foot: late.length ? 'Échéance dépassée' : 'Rien en retard', trend: late.length ? 'down' : undefined },
-    { label: 'Charge restante', value: `${open.reduce((a, t) => a + (t.estimate ?? 0), 0)} h`, foot: 'Somme des estimations ouvertes' }
+    { label: 'Projets actifs', value: store.projects.filter(p => p.status === 'active').length, foot: `${store.projects.length} projets au total`, color: 'chart-1' },
+    { label: 'Tâches ouvertes', value: open.length, foot: `${open.filter(t => t.due && t.due >= now && t.due <= addDays(now, 7)).length} à rendre cette semaine`, color: 'chart-2' },
+    { label: 'En retard', value: late.length, foot: late.length ? 'Échéance dépassée' : 'Rien en retard', trend: late.length ? 'down' : undefined, color: late.length ? 'danger' : 'success' },
+    { label: 'Charge restante', value: `${open.reduce((a, t) => a + (t.estimate ?? 0), 0)} h`, foot: 'Somme des estimations ouvertes', color: 'chart-4' }
   ]
 })
 
@@ -47,7 +48,7 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
 <template>
   <!-- Accueil -->
   <AtPage v-if="page === 'projects'" title="Projets" description="Vue d’ensemble des projets et de la charge en cours." wide>
-    <div class="pg-stats"><AtStat v-for="s in stats" :key="s.label" v-bind="s" :value="String(s.value)" :trend="s.trend as any" /></div>
+    <div class="pg-stats"><AtStat v-for="s in stats" :key="s.label" v-bind="s" :value="String(s.value)" :trend="s.trend as any" :color="s.color as any" /></div>
     <AtDataView
       v-model:views="store.views.projects" v-model:active-view="store.active.projects"
       :rows="store.projects" :schema="projectSchema" new-label="Nouveau projet"
@@ -71,7 +72,29 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
   <AtPage v-else-if="project" :key="project.id" wide>
     <template #head>
       <div class="pg-proj">
-        <span class="pg-mark" :style="{ background: `var(--${project.color})` }" aria-hidden="true">{{ (project.name || '?')[0].toUpperCase() }}</span>
+        <AtPopover v-model:open="pickerOpen">
+          <template #trigger="{ toggle }">
+            <button type="button" class="pg-tile-btn" aria-label="Changer l’icône et la couleur" @click="toggle">
+              <AtIconTile :name="project.icon || 'folder'" :color="project.color as any" size="lg" />
+            </button>
+          </template>
+          <div class="pg-picker">
+            <span class="at-label">Icône</span>
+            <div class="pg-picker-icons">
+              <AtButton
+                v-for="i in PROJECT_ICONS" :key="i" variant="ghost" size="sm" :icon="i" icon-only :label="i"
+                :aria-pressed="(project.icon || 'folder') === i" :class="(project.icon || 'folder') === i && 'pg-picked'" @click="project.icon = i"
+              />
+            </div>
+            <span class="at-label">Couleur</span>
+            <div class="pg-picker-colors">
+              <button
+                v-for="c in PROJECT_COLORS" :key="c" type="button" class="pg-swatch" :style="{ background: `var(--${c})` }"
+                :aria-label="c" :aria-pressed="project.color === c" @click="project.color = c"
+              />
+            </div>
+          </div>
+        </AtPopover>
         <div style="flex: 1; min-width: 0">
           <input v-model="project.name" class="pg-bare t-heading-1" placeholder="Nom du projet" aria-label="Nom du projet">
           <input v-model="project.desc" class="pg-bare at-muted" placeholder="Ajouter une description" aria-label="Description">
@@ -82,7 +105,7 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
 
     <div style="display: flex; align-items: center; gap: 8px"><h2 class="t-heading-3" style="margin: 0">Milestones</h2></div>
     <div class="pg-ms">
-      <AtCard v-for="m in store.milestones.filter(x => x.projectId === project!.id)" :key="m.id" href="#" :title="m.name || 'Sans titre'" style="padding: 16px; gap: 12px" @click.prevent="open('milestones', m)">
+      <AtCard v-for="m in store.milestones.filter(x => x.projectId === project!.id)" :key="m.id" href="#" :title="m.name || 'Sans titre'" :color="project.color as any" class="pg-ms-card" @click.prevent="open('milestones', m)">
         <template #actions><AtPropertyValue :prop="milestoneSchema[1]" :row="m" /></template>
         <AtProgress :value="msProgress(m.id)" />
         <div class="pg-ms-row"><span>{{ msCount(m.id) }}</span><AtPropertyValue :prop="milestoneSchema[2]" :row="m" /></div>
@@ -133,7 +156,17 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
 <style>
 .pg-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--space-4); }
 .pg-proj { display: flex; gap: var(--space-4); align-items: flex-start; }
-.pg-mark { width: 44px; height: 44px; border-radius: var(--radius-lg); display: grid; place-items: center; font-size: 20px; font-weight: 650; color: var(--bg); flex: none; }
+.pg-tile-btn { display: block; align-self: center; padding: 0; background: none; border: 0; border-radius: var(--radius-xl); cursor: pointer; transition: transform var(--duration-fast) var(--ease-out); }
+.pg-tile-btn:hover { transform: scale(1.05); }
+.pg-tile-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--focus); }
+.pg-picker { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); width: 248px; background: var(--surface-raised); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+.pg-picker-icons { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.pg-picker .pg-picked { background: var(--surface-active); color: var(--ink); }
+.pg-picker-colors { display: flex; gap: var(--space-2); }
+.pg-swatch { width: 24px; height: 24px; padding: 0; border: 0; border-radius: var(--radius-sm); cursor: pointer; }
+.pg-swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--ink); }
+.pg-swatch:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--focus); }
+.pg-ms-card { padding: 16px; gap: 12px; }
 .pg-bare { display: block; width: 100%; font-family: inherit; background: none; border: 0; padding: 2px 4px; margin-left: -4px; color: var(--ink); border-radius: var(--radius-sm); outline: none; }
 .pg-bare:hover { background: var(--surface-hover); }
 .pg-bare:focus-visible { box-shadow: 0 0 0 2px var(--focus); }

@@ -42,7 +42,7 @@ const crumbs = computed(() => {
         </AtNavGroup>
         <AtNavGroup label="Projets">
           <AtNavItem
-            v-for="p in store.projects" :key="p.id" :mark="`var(--${p.color})`"
+            v-for="p in store.projects" :key="p.id" :icon="p.icon || 'folder'" :tile="p.color as any"
             :active="page === 'project' && projectId === p.id" @click="navigate('project', p.id)"
           >{{ p.name || 'Sans titre' }}</AtNavItem>
         </AtNavGroup>
