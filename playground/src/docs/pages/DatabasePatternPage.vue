@@ -59,9 +59,9 @@ function donnees() {
     { key: 'desc', name: 'Description', type: 'text', width: 220 }
   ]
   const rows = ref<Tache[]>([
-    { id: 't1', titre: 'Composant DataView', statut: 'doing', priorite: 'high', due: jour(3), estimate: 10, tags: ['front'], desc: '' },
-    { id: 't2', titre: 'Contrastes clair / sombre', statut: 'done', priorite: 'med', due: jour(-6), estimate: 2, tags: ['design'], desc: '' },
-    { id: 't3', titre: 'Export PDF du livret', statut: 'blocked', priorite: 'high', due: jour(-2), estimate: 8, tags: ['back'], desc: 'Bloqué par WeasyPrint.' },
+    { id: 't1', titre: 'Écran de connexion', statut: 'doing', priorite: 'high', due: jour(3), estimate: 10, tags: ['front'], desc: '' },
+    { id: 't2', titre: 'Tests utilisateurs', statut: 'done', priorite: 'med', due: jour(-6), estimate: 2, tags: ['design'], desc: '' },
+    { id: 't3', titre: 'Formulaire de contact', statut: 'blocked', priorite: 'high', due: jour(-2), estimate: 8, tags: ['back'], desc: 'Bloqué par l’API d’envoi.' },
     { id: 't4', titre: 'Page tarifs', statut: 'todo', priorite: 'low', due: jour(12), estimate: 3, tags: ['front', 'design'], desc: '' }
   ])
   const vues = ref<View[]>([
@@ -84,7 +84,7 @@ function donnees() {
 <template>
   <AtPage title="Canon : base de données" description="Vues enregistrées, densité compacte, panneau de détail. Le composant émet, le parent applique." wide>
     <p class="doc-lead">
-      C’est la mise en page des listes que l’on manipule : tâches, messes, utilisateurs, signalements. Une barre
+      C’est la mise en page des listes que l’on manipule : tâches, commandes, utilisateurs, signalements. Une barre
       de vues, une barre d’outils, la vue, et un panneau de détail qui s’ouvre sans quitter la liste.
     </p>
 

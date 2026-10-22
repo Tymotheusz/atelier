@@ -38,7 +38,7 @@ export const forms: ComponentDoc[] = [
             <AtInput :id="f.id" v-model="mail" :invalid="f.invalid" />
           </AtField>
         `,
-        setup: () => ({ nom: ref('Refonte du site perso'), mail: ref('timothee@exemple') })
+        setup: () => ({ nom: ref('Refonte du site'), mail: ref('alice@exemple') })
       }
     ]
   },
@@ -154,7 +154,7 @@ export const forms: ComponentDoc[] = [
           </AtField>
           <AtField v-slot="f" label="Responsable" hint="Vide par défaut.">
             <AtSelect :id="f.id" v-model="qui" placeholder="Choisir une personne"
-              :options="[{ value: 'u1', label: 'Timothée' }, { value: 'u2', label: 'Marie' }]" />
+              :options="[{ value: 'u1', label: 'Alice' }, { value: 'u2', label: 'Bruno' }]" />
           </AtField>
         `,
         setup: () => ({

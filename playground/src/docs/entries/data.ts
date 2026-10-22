@@ -35,9 +35,9 @@ function jeuDeDonnees() {
     { key: 'fait', name: 'Fait', type: 'checkbox', width: 70 }
   ]
   const rows = ref<Tache[]>([
-    { id: 't1', title: 'Composant DataView', statut: 'doing', priorite: 'high', due: iso(3), estimate: 10, tags: ['front'], fait: false },
-    { id: 't2', title: 'Contrastes clair / sombre', statut: 'done', priorite: 'med', due: iso(-6), estimate: 2, tags: ['design'], fait: true },
-    { id: 't3', title: 'Export PDF du livret', statut: 'blocked', priorite: 'high', due: iso(-2), estimate: 8, tags: ['back'], fait: false },
+    { id: 't1', title: 'Écran de connexion', statut: 'doing', priorite: 'high', due: iso(3), estimate: 10, tags: ['front'], fait: false },
+    { id: 't2', title: 'Tests utilisateurs', statut: 'done', priorite: 'med', due: iso(-6), estimate: 2, tags: ['design'], fait: true },
+    { id: 't3', title: 'Formulaire de contact', statut: 'blocked', priorite: 'high', due: iso(-2), estimate: 8, tags: ['back'], fait: false },
     { id: 't4', title: 'Page tarifs', statut: 'todo', priorite: 'low', due: iso(12), estimate: 3, tags: ['front', 'design'], fait: false }
   ])
   return { schema, rows }
@@ -50,13 +50,15 @@ export const data: ComponentDoc[] = [
     family: 'Données',
     tagline: 'Tuile de chiffre clé, avec variation et sparkline.',
     about: [
-      'La valeur arrive déjà formatée en français : espace fine pour les milliers, virgule décimale, unité. La variation arrive déjà signée, et `trend` dit son **sens métier** — une baisse du taux de rebond est une bonne nouvelle, donc `up`.'
+      'La valeur arrive déjà formatée en français : espace fine pour les milliers, virgule décimale, unité. La variation arrive déjà signée, et `trend` dit son **sens métier** — une baisse du taux de rebond est une bonne nouvelle, donc `up`.',
+      '`color` ajoute une barre de 4 px à gauche du libellé (`at-stat--striped`) et donne sa teinte à la sparkline. Sans elle, la sparkline reste en `chart-1`.'
     ],
     rules: [
       '3 ou 4 tuiles par ligne au plus, en tête de page.',
       'La sparkline montre la tendance, sans axes ni valeurs ; le point final marque la valeur affichée.',
       '`foot` dit la période, toujours la même sur une rangée.',
-      'Pas de tuile sans contexte : un chiffre seul ne dit rien.'
+      'Pas de tuile sans contexte : un chiffre seul ne dit rien.',
+      'Dans une rangée, les couleurs suivent l’ordre `chart-1`, `chart-2`… Un état (`danger`) seulement si le libellé dit déjà de quoi il s’agit.'
     ],
     props: [
       { name: 'label', type: 'string', required: true, desc: 'Ce qui est mesuré.' },
@@ -64,27 +66,39 @@ export const data: ComponentDoc[] = [
       { name: 'delta', type: 'string', desc: 'Variation déjà signée, ex. `+12,4 %`.' },
       { name: 'trend', type: `'up' | 'down'`, desc: 'Sens métier de la variation : `up` = bonne nouvelle.' },
       { name: 'spark', type: 'number[]', desc: 'Série de la sparkline, 2 points au minimum.' },
-      { name: 'foot', type: 'string', desc: 'Période ou précision.' }
+      { name: 'foot', type: 'string', desc: 'Période ou précision.' },
+      { name: 'color', type: `'chart-1' … 'chart-5' | 'success' | 'warning' | 'danger' | 'info'`, desc: 'Barre de couleur à gauche du libellé ; la sparkline prend la même teinte.' }
     ],
     slots: [
       { name: 'value', type: '—', desc: 'Valeur, pour un rendu composé.' },
       { name: 'foot', type: '—', desc: 'Pied de tuile.' }
     ],
-    classes: ['at-stat', 'at-stat__label', 'at-stat__row', 'at-stat__value', 'at-stat__delta', 'at-stat__delta--up|--down', 'at-stat__spark', 'at-stat__foot'],
-    related: ['at-card', 'at-progress'],
+    classes: ['at-stat', 'at-stat--striped', 'at-tone-*', 'at-stat__label', 'at-stat__row', 'at-stat__value', 'at-stat__delta', 'at-stat__delta--up|--down', 'at-stat__spark', 'at-stat__foot'],
+    related: ['at-card', 'at-icon-tile', 'at-progress'],
     examples: [
       {
         title: 'Rangée de tuiles',
         frame: 'plain',
         code: `
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--space-4)">
-            <AtStat label="Visiteurs uniques" value="3 482" delta="+12,4 %" trend="up"
+            <AtStat label="Visiteurs uniques" value="3 482" delta="+12,4 %" trend="up" color="chart-1"
               :spark="[210, 240, 228, 260, 251, 290, 302, 288, 330, 345, 338, 372]" foot="30 derniers jours" />
-            <AtStat label="Temps moyen" value="2 min 41" delta="+8 s" trend="up"
+            <AtStat label="Temps moyen" value="2 min 41" delta="+8 s" trend="up" color="chart-2"
               :spark="[140, 150, 148, 152, 149, 155, 158, 154, 160, 161, 159, 161]" foot="30 derniers jours" />
-            <AtStat label="Taux de rebond" value="46,2 %" delta="−3,1 pts" trend="up"
+            <AtStat label="Taux de rebond" value="46,2 %" delta="−3,1 pts" trend="up" color="chart-3"
               :spark="[52, 51, 52, 50, 49, 50, 48, 49, 47, 47, 46, 46]" foot="30 derniers jours" />
-            <AtStat label="Erreurs signalées" value="7" delta="+3" trend="down" foot="Cette semaine" />
+            <AtStat label="Erreurs signalées" value="7" delta="+3" trend="down" color="danger" foot="Cette semaine" />
+          </div>
+        `
+      },
+      {
+        title: 'Sans bande',
+        desc: 'Sans `color`, pas de barre et la sparkline reste en `chart-1`. C’est le bon choix quand les tuiles ne se rattachent à rien.',
+        frame: 'plain',
+        code: `
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--space-4)">
+            <AtStat label="Projets actifs" value="3" foot="5 projets au total" />
+            <AtStat label="Tâches ouvertes" value="11" foot="4 à rendre cette semaine" />
           </div>
         `
       }
@@ -134,9 +148,9 @@ export const data: ComponentDoc[] = [
             { key: 'source', label: 'Source' }
           ],
           lignes: [
-            { page: '/messe-du-jour', vues: 8214, temps: '3 min 05', source: 'Recherche' },
-            { page: '/calendrier', vues: 2960, temps: '1 min 48', source: 'Direct' },
-            { page: '/livrets', vues: 1127, temps: '4 min 12', source: 'Newsletter' }
+            { page: '/accueil', vues: 8214, temps: '3 min 05', source: 'Recherche' },
+            { page: '/tarifs', vues: 2960, temps: '1 min 48', source: 'Direct' },
+            { page: '/blog/nouveautes', vues: 1127, temps: '4 min 12', source: 'Newsletter' }
           ]
         })
       }

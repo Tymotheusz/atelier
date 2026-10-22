@@ -4,7 +4,7 @@ import { href } from '../../router'
 const principes = [
   {
     titre: 'Le contenu d’abord',
-    corps: 'L’interface se retire : fonds chauds et neutres, peu de contours, aucune décoration. La couleur est réservée à l’action, à l’état et aux données. Ce qui reste à l’écran, c’est le texte de la messe, la ligne du tableau, le chiffre du mois.',
+    corps: 'L’interface se retire : fonds chauds et neutres, peu de contours, aucune décoration. La couleur est réservée à l’action, à l’état et aux données. Ce qui reste à l’écran, c’est le texte de l’article, la ligne du tableau, le chiffre du mois.',
     icon: 'doc'
   },
   {

@@ -36,7 +36,7 @@ const groupes = computed(() => [
   },
   {
     titre: 'Graphiques',
-    intro: '`chart-1` à `chart-5`, dans cet ordre. Au-delà de cinq séries, regrouper plutôt qu’ajouter une sixième couleur.',
+    intro: '`chart-1` à `chart-5`, dans cet ordre, pour les séries et les bandes de couleur. Chaque série a en plus une paire `-soft` / `-ink` : l’aplat pâle d’une tuile d’icône et la couleur de l’icône posée dessus (≥ 4,5:1). Un `-soft` ne sert jamais de couleur de série. Au-delà de cinq séries, regrouper plutôt qu’ajouter une sixième couleur.',
     items: pick(n => n.startsWith('chart'))
   }
 ])
@@ -97,6 +97,32 @@ const tags = computed(() => {
             <code class="doc-token__name">--tag-{{ t.couleur }}-fg</code>
             <span class="doc-token__use">{{ t.bg.usage }}</span>
           </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-sec">
+      <h2 class="t-heading-2">Couleur d’entité</h2>
+      <p class="at-muted" style="margin: 0; max-width: var(--measure-prose); font-size: 14px">
+        Une couleur de série peut identifier une entité — un projet, un dossier. Elle la suit alors partout :
+        tuile d’icône en version pâle, bande de couleur des tuiles de stat et des cartes en version pleine,
+        sparkline, marque de relation. Une entité ne change pas de couleur d’un écran à l’autre.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4)">
+        <div style="display: flex; flex-direction: column; gap: var(--space-3)">
+          <div style="display: flex; align-items: center; gap: var(--space-3)">
+            <AtIconTile name="bolt" color="chart-1" size="md" />
+            <span class="t-body-strong">Application mobile</span>
+          </div>
+          <AtCard color="chart-1" title="Version bêta" description="Connexion, recherche, notifications." />
+        </div>
+        <div style="display: flex; flex-direction: column; gap: var(--space-3)">
+          <div style="display: flex; align-items: center; gap: var(--space-3)">
+            <AtIconTile name="globe" color="chart-2" size="md" />
+            <span class="t-body-strong">Refonte du site</span>
+          </div>
+          <AtStat label="Pages publiées" value="24" delta="+6" trend="up" color="chart-2"
+            :spark="[8, 10, 11, 13, 14, 16, 17, 19, 20, 21, 23, 24]" foot="Depuis le lancement" />
         </div>
       </div>
     </section>

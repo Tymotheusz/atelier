@@ -8,27 +8,30 @@ export const content: ComponentDoc[] = [
     family: 'Contenu',
     tagline: 'Surface de contenu : en-tête, corps libre, pied d’actions.',
     about: [
-      'Avec `href`, la carte entière devient un lien (`at-card--link`) : survol en `border-strong` + `shadow-sm`. C’est le cas des listes d’articles ou de projets.'
+      'Avec `href`, la carte entière devient un lien (`at-card--link`) : survol en `border-strong` + `shadow-sm`. C’est le cas des listes d’articles ou de projets.',
+      '`color` ajoute une barre de 4 px à gauche du titre (`at-card--striped`) : elle rattache la carte à une entité (la couleur du projet) ou à une série. Elle ne remplace pas le texte, elle le double.'
     ],
     rules: [
       'Pas d’ombre au repos : la séparation vient du contour.',
       'Ne pas imbriquer de cartes. À l’intérieur, séparer par un filet `border` ou par l’espacement.',
       'Dans une grille de dashboard, gap `space-4` ; sur un site, `space-6`.',
-      'Le slot `actions` est réservé à une action ou un badge, pas à une barre d’outils.'
+      'Le slot `actions` est réservé à une action ou un badge, pas à une barre d’outils.',
+      '`color` : la couleur de l’entité (`chart-1` à `chart-5`) ou un état. Une carte sans entité n’a pas de bande.'
     ],
     props: [
       { name: 'title', type: 'string', desc: 'Titre de la carte.' },
       { name: 'description', type: 'string', desc: 'Sous-titre.' },
       { name: 'href', type: 'string', desc: 'Rend un `<a>` : toute la carte devient cliquable.' },
-      { name: 'as', type: 'string', default: `'section'`, desc: 'Balise rendue quand il n’y a pas de `href`.' }
+      { name: 'as', type: 'string', default: `'section'`, desc: 'Balise rendue quand il n’y a pas de `href`.' },
+      { name: 'color', type: `'chart-1' … 'chart-5' | 'success' | 'warning' | 'danger' | 'info'`, desc: 'Barre de couleur à gauche du titre.' }
     ],
     slots: [
       { name: 'default', type: '—', desc: 'Corps de la carte.' },
       { name: 'actions', type: '—', desc: 'Action ou badge, à droite du titre.' },
       { name: 'footer', type: '—', desc: 'Pied : actions de la carte.' }
     ],
-    classes: ['at-card', 'at-card--link', 'at-card__head', 'at-card__title', 'at-card__desc', 'at-card__foot'],
-    related: ['at-empty', 'at-stat', 'at-page'],
+    classes: ['at-card', 'at-card--link', 'at-card--striped', 'at-tone-*', 'at-card__head', 'at-card__title', 'at-card__desc', 'at-card__foot'],
+    related: ['at-empty', 'at-stat', 'at-icon-tile', 'at-page'],
     examples: [
       {
         title: 'Carte de dashboard et carte-lien',
@@ -49,6 +52,22 @@ export const content: ComponentDoc[] = [
               <AtTag color="blue">Dev</AtTag>
               <span class="at-muted" style="font-size: 12px">5 min de lecture</span>
             </div>
+          </AtCard>
+        `
+      },
+      {
+        title: 'Bande de couleur',
+        desc: 'La bande reprend la couleur de l’entité : une carte de ce projet se reconnaît sans lire le titre.',
+        frame: 'grid',
+        code: `
+          <AtCard color="chart-1" title="Version bêta" description="Connexion, recherche, notifications.">
+            <AtProgress :value="62" />
+          </AtCard>
+          <AtCard color="chart-2" title="Pages produit" description="Pages produit et comparatif en ligne.">
+            <AtProgress :value="38" />
+          </AtCard>
+          <AtCard color="danger" title="Incident de production" description="Depuis 14:05, file d’envoi bloquée.">
+            <AtBadge tone="danger">En cours</AtBadge>
           </AtCard>
         `
       }
@@ -79,7 +98,7 @@ export const content: ComponentDoc[] = [
           <AtEmpty message="Aucune tâche dans ce projet.">
             <template #action><AtButton size="sm" variant="primary" icon="plus">Nouvelle tâche</AtButton></template>
           </AtEmpty>
-          <AtEmpty message="Aucun résultat pour « livret ». Essayer un autre mot ou retirer un filtre." />
+          <AtEmpty message="Aucun résultat pour « facture ». Essayer un autre mot ou retirer un filtre." />
         `
       }
     ]
@@ -176,7 +195,7 @@ export const content: ComponentDoc[] = [
         `,
         setup: () => ({
           ouvert: ref(false),
-          tache: ref<Record<string, any>>({ title: 'Export PDF du livret', statut: 'doing', due: '2026-11-04', desc: '' }),
+          tache: ref<Record<string, any>>({ title: 'Notifications push', statut: 'doing', due: '2026-11-04', desc: '' }),
           schema: [
             { key: 'statut', name: 'Statut', type: 'status', options: [
               { value: 'todo', label: 'À faire' },

@@ -14,11 +14,11 @@ const TUTOIEMENT = `
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4)">
     <AtCard title="Dans un outil perso" description="Tutoiement">
       <AtField v-slot="f" label="Note privée" hint="Visible uniquement par toi.">
-        <AtInput :id="f.id" placeholder="Un mot sur cette messe…" />
+        <AtInput :id="f.id" placeholder="Un mot sur cette tâche…" />
       </AtField>
     </AtCard>
     <AtCard title="Sur un site public" description="Vouvoiement">
-      <AtField v-slot="f" label="Votre e-mail" hint="Vous recevrez le livret en PDF.">
+      <AtField v-slot="f" label="Votre e-mail" hint="Vous recevrez le guide en PDF.">
         <AtInput :id="f.id" icon="person" placeholder="prenom@exemple.fr" />
       </AtField>
     </AtCard>

@@ -36,7 +36,7 @@ const polices = tokens.type.fonts
             <span style="font-size: 17px; font-weight: 600" :style="{ fontFamily: p.family === 'Inter' ? familles.sans : familles.mono }">{{ p.family }}</span>
             <code class="doc-token__val">{{ p.file }} · graisses {{ p.weight }}</code>
             <span class="doc-token__use" :style="{ fontFamily: p.family === 'Inter' ? familles.sans : familles.mono }">
-              Les 110 messes du propre du temps — 12 480 € — 46,2 %
+              Les 128 tâches de l’équipe — 12 480 € — 46,2 %
             </span>
           </span>
         </div>

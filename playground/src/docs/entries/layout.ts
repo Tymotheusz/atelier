@@ -38,7 +38,7 @@ export const layout: ComponentDoc[] = [
               <template #sidebar>
                 <AtSidebar>
                   <template #header>
-                    <div class="at-workspace"><span class="at-workspace__mark">M</span>Mon outil</div>
+                    <div class="at-workspace"><AtIconTile name="blocks" color="ink" />Mon outil</div>
                   </template>
                   <AtNavGroup>
                     <AtNavItem icon="home" :active="page === 'stats'" @click="page = 'stats'">Statistiques</AtNavItem>
@@ -101,11 +101,10 @@ export const layout: ComponentDoc[] = [
           <AtPage>
             <template #head>
               <div style="display: flex; gap: var(--space-4); align-items: flex-start">
-                <span style="width: 44px; height: 44px; border-radius: var(--radius-lg); display: grid;
-                  place-items: center; font-size: 20px; font-weight: 650; color: var(--bg); background: var(--chart-1)">A</span>
+                <AtIconTile name="bolt" color="chart-1" size="lg" />
                 <div style="flex: 1; min-width: 0">
-                  <h1 class="t-heading-1" style="margin: 0">Atelier DS</h1>
-                  <p class="at-muted" style="margin: 2px 0 0">Design system : tokens, CSS et composants Vue.</p>
+                  <h1 class="t-heading-1" style="margin: 0">Application mobile</h1>
+                  <p class="at-muted" style="margin: 2px 0 0">Première version iOS et Android de l’application client.</p>
                 </div>
                 <AtButton size="sm" icon="expand">Propriétés</AtButton>
               </div>
@@ -167,6 +166,77 @@ export const layout: ComponentDoc[] = [
       {
         title: 'Ajouter des icônes',
         code: `<AtIcon name="info" :size="24" label="Information" /><AtIcon name="alert" :size="24" label="Attention" />`
+      }
+    ]
+  },
+
+  {
+    name: 'AtIconTile',
+    slug: 'at-icon-tile',
+    family: 'Pictogrammes',
+    tagline: 'Icône en couleur forte sur un aplat pâle : l’identité visuelle d’une entité.',
+    about: [
+      'Remplace les monogrammes (une lettre sur un fond coloré). Pas de dégradé, pas d’ombre, pas de contour : un aplat `chart-N-soft` et l’icône en `chart-N-ink`, qui tient 4,5:1 dans les deux thèmes.',
+      'Trois tailles : 20 px dans la navigation, 32 px dans une liste ou une carte, 48 px dans l’en-tête d’une page d’entité. `neutral` est la valeur par défaut : pas d’aplat, un contour `border-strong` et une icône `ink-muted`.'
+    ],
+    rules: [
+      'Une entité garde la même icône et la même couleur partout : navigation, en-tête, bande de carte, marque de relation.',
+      '`ink` est réservé au logo de l’espace de travail, en tête de barre latérale.',
+      '`lg` dans l’en-tête d’une page d’entité, centrée verticalement sur le titre et la description.',
+      'Dans `AtNavItem`, passer `icon` et `tile` plutôt que d’insérer la tuile à la main.',
+      'Sans `label`, la tuile est décorative (`aria-hidden`) : c’est le bon réglage quand le nom de l’entité est juste à côté.'
+    ],
+    props: [
+      { name: 'name', type: 'string', required: true, desc: 'Nom du pictogramme (jeu intégré ou `registerIcons`).' },
+      { name: 'color', type: "'chart-1' … 'chart-5' | 'ink' | 'neutral'", default: "'neutral'", desc: 'Teinte de la tuile.' },
+      { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'sm'", desc: '20, 32 ou 48 px.' },
+      { name: 'label', type: 'string', desc: 'Alternative textuelle ; sans elle, la tuile est décorative.' }
+    ],
+    classes: ['at-tile', 'at-tile--md|--lg', 'at-tile--neutral', 'at-tone-chart-1…5', 'at-tone-ink'],
+    related: ['at-icon', 'at-nav-item', 'at-card', 'at-stat'],
+    examples: [
+      {
+        title: 'Tailles et teintes',
+        frame: 'col',
+        code: `
+          <div style="display: flex; align-items: center; gap: var(--space-4)">
+            <AtIconTile name="layers" color="chart-1" />
+            <AtIconTile name="layers" color="chart-1" size="md" />
+            <AtIconTile name="layers" color="chart-1" size="lg" label="Migration" />
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--space-3)">
+            <AtIconTile v-for="(n, i) in ['bolt', 'globe', 'layers', 'book', 'palette']" :key="n"
+              :name="n" :color="\`chart-\${i + 1}\`" size="md" />
+            <AtIconTile name="blocks" color="ink" size="md" />
+            <AtIconTile name="folder" size="md" />
+          </div>
+        `
+      },
+      {
+        title: 'En situation',
+        desc: 'La même couleur identifie le projet du haut en bas de l’écran : tuile, navigation, bande de carte.',
+        frame: 'plain',
+        code: `
+          <div style="display: grid; grid-template-columns: 240px 1fr; gap: var(--space-5); align-items: start">
+            <div style="background: var(--surface-sunken); padding: 8px; border-radius: var(--radius-lg)">
+              <AtNavGroup label="Projets">
+                <AtNavItem icon="bolt" tile="chart-1" active>Application mobile</AtNavItem>
+                <AtNavItem icon="globe" tile="chart-2">Refonte du site</AtNavItem>
+                <AtNavItem icon="layers" tile="chart-3">Migration cloud</AtNavItem>
+              </AtNavGroup>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--space-4)">
+              <div style="display: flex; gap: var(--space-4); align-items: center">
+                <AtIconTile name="bolt" color="chart-1" size="lg" />
+                <div>
+                  <h2 class="t-heading-2" style="margin: 0">Application mobile</h2>
+                  <p class="at-muted" style="margin: 2px 0 0">Première version iOS et Android.</p>
+                </div>
+              </div>
+              <AtCard color="chart-1" title="Version bêta" description="Connexion, recherche, notifications." />
+            </div>
+          </div>
+        `
       }
     ]
   }

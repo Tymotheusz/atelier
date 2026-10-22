@@ -48,6 +48,7 @@ function copier(n: string) {
         <li>16 px dans toute l’interface. Au-delà, ce n’est plus un picto mais une illustration.</li>
         <li>Une icône seule cliquable est un <code class="t-code">AtButton</code> avec <code class="t-code">iconOnly</code> et <code class="t-code">label</code>, jamais une icône nue.</li>
         <li>Une icône sans <code class="t-code">label</code> est <code class="t-code">aria-hidden</code> : c’est le bon réglage quand un texte l’accompagne.</li>
+        <li>Pour identifier une entité (un projet, un dossier), c’est <code class="t-code">AtIconTile</code> : l’icône sur un aplat de la couleur de l’entité, à la place d’une initiale.</li>
         <li>Pas d’emoji dans l’interface. Une page peut avoir une icône, jamais un titre décoré.</li>
       </ul>
     </section>
@@ -62,10 +63,10 @@ function copier(n: string) {
       <DocCode label="icons.ts" :code="`import { registerIcons } from '@tymotheusz/atelier'
 
 registerIcons({
-  chalice: '<path d=\\'M4 3h8l-1 4a3 3 0 0 1-6 0Z\\' /><path d=\\'M8 11v2M6 13h4\\' />'
+  ticket: '<path d=\\'M2.5 6.5V4.5h11v2a1.5 1.5 0 0 0 0 3v2h-11v-2a1.5 1.5 0 0 0 0-3Z\\' /><path d=\\'M6.5 4.5v7\\' />'
 })
 
-// puis, partout : <AtIcon name='chalice' />`" />
+// puis, partout : <AtIcon name='ticket' /> ou <AtIconTile name='ticket' color='chart-2' />`" />
       <p class="at-muted" style="margin: 0; font-size: 13px">
         Les attributs communs (<code class="t-code">fill</code>, <code class="t-code">stroke</code>,
         <code class="t-code">stroke-width</code>) sont posés par <code class="t-code">AtIcon</code> :

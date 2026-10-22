@@ -8,46 +8,47 @@ const CANON = `
     flex-direction: column; gap: var(--space-12)">
 
     <header style="max-width: var(--measure-prose); display: flex; flex-direction: column; gap: var(--space-4)">
-      <span class="t-overline" style="color: var(--ink-subtle)">Missel traditionnel</span>
-      <h1 class="t-display" style="margin: 0">Le propre du jour, en latin et en français</h1>
+      <span class="t-overline" style="color: var(--ink-subtle)">Suivi de projets</span>
+      <h1 class="t-display" style="margin: 0">Vos projets, de l’idée à la mise en ligne</h1>
       <p class="t-prose" style="margin: 0; color: var(--ink-muted)">
-        Chaque matin, l’intégralité de la messe du jour selon le rite tridentin : propre, ordinaire,
-        préface, en deux colonnes. À lire sur place ou à imprimer en livret.
+        Une vue par équipe, des tâches qui restent lisibles, et le détail d’une ligne sans quitter la liste.
+        Rien à installer : tout tient dans le navigateur.
       </p>
       <div style="display: flex; gap: var(--space-3); flex-wrap: wrap">
-        <AtButton variant="primary" size="lg">Lire la messe du jour</AtButton>
-        <AtButton size="lg" icon="calendar">Voir le calendrier</AtButton>
+        <AtButton variant="primary" size="lg">Essayer gratuitement</AtButton>
+        <AtButton size="lg" icon="doc">Voir la démonstration</AtButton>
       </div>
     </header>
 
     <section style="display: flex; flex-direction: column; gap: var(--space-6)">
       <h2 class="t-heading-2" style="margin: 0">Trois façons de s’en servir</h2>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-6)">
-        <AtCard href="#/doc/canons/site" title="En ligne" description="La messe du jour, mise à jour à minuit.">
+        <AtCard href="#/doc/canons/site" title="En solo" description="Vos projets, vos vues, rien à partager.">
           <div style="display: flex; gap: 8px; align-items: center"><AtTag color="blue">Gratuit</AtTag></div>
         </AtCard>
-        <AtCard href="#/doc/canons/site" title="En PDF" description="Le même texte, prêt à imprimer en A5.">
-          <div style="display: flex; gap: 8px; align-items: center"><AtTag color="green">Deux colonnes</AtTag></div>
+        <AtCard href="#/doc/canons/site" title="En équipe" description="Les mêmes vues pour tout le monde.">
+          <div style="display: flex; gap: 8px; align-items: center"><AtTag color="green">Jusqu’à 10 personnes</AtTag></div>
         </AtCard>
-        <AtCard href="#/doc/canons/site" title="En livret" description="Mariage, funérailles, fête patronale.">
-          <div style="display: flex; gap: 8px; align-items: center"><AtTag color="purple">Sur mesure</AtTag></div>
+        <AtCard href="#/doc/canons/site" title="Sur mesure" description="Vos champs, vos statuts, votre vocabulaire.">
+          <div style="display: flex; gap: 8px; align-items: center"><AtTag color="purple">Sur devis</AtTag></div>
         </AtCard>
       </div>
     </section>
 
     <section style="max-width: var(--measure-prose); display: flex; flex-direction: column; gap: var(--space-4)">
-      <h2 class="t-heading-2" style="margin: 0">Pourquoi deux colonnes</h2>
+      <h2 class="t-heading-2" style="margin: 0">Pourquoi une colonne étroite</h2>
       <p class="t-prose" style="margin: 0">
-        Le latin à gauche, le français à droite, alignés par péricope : on suit l’un en lisant l’autre.
-        C’est la disposition des missels d’avant-guerre, et elle n’a pas été améliorée depuis.
+        Un texte de site se lit sur 720 px au plus. Au-delà, l’œil perd la ligne en revenant à la marge : on
+        relit la même phrase sans s’en rendre compte. La page peut être large ; la colonne de lecture, non.
       </p>
       <p class="t-prose" style="margin: 0">
-        Sur mobile, les deux colonnes se superposent plutôt que de se réduire : une colonne de texte illisible
-        ne vaut pas mieux que pas de colonne.
+        Sur mobile, les contrôles restent en taille <code class="t-code">lg</code> plutôt que de rétrécir :
+        une cible trop petite au pouce ne vaut pas mieux qu’un bouton absent.
       </p>
     </section>
   </div>
 `
+
 </script>
 
 <template>

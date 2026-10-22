@@ -116,14 +116,15 @@ export const navigation: ComponentDoc[] = [
     rules: [
       '4 à 7 items par groupe, libellés d’un ou deux mots.',
       'L’item actif se distingue par le fond `surface-active` et la graisse, jamais par l’accent.',
-      'Les groupes de contenu (projets, dossiers) viennent après les groupes d’outils.'
+      'Les groupes de contenu (projets, dossiers) viennent après les groupes d’outils.',
+      'Le logo de l’espace de travail est une tuile d’icône en `ink`, pas une initiale.'
     ],
     slots: [
       { name: 'header', type: '—', desc: 'Sélecteur d’espace de travail.' },
       { name: 'default', type: '—', desc: 'Groupes de navigation.' },
       { name: 'footer', type: '—', desc: 'Pied, collé en bas.' }
     ],
-    classes: ['at-sidebar', 'at-sidebar__foot', 'at-workspace', 'at-workspace__mark'],
+    classes: ['at-sidebar', 'at-sidebar__foot', 'at-workspace', 'at-workspace__mark', 'at-tile'],
     related: ['at-nav-group', 'at-nav-item', 'at-app-shell'],
     examples: [
       {
@@ -133,7 +134,7 @@ export const navigation: ComponentDoc[] = [
           <div style="height: 320px; display: flex; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden">
             <AtSidebar>
               <template #header>
-                <div class="at-workspace"><span class="at-workspace__mark">A</span>Atelier</div>
+                <div class="at-workspace"><AtIconTile name="blocks" color="ink" />Studio</div>
               </template>
               <AtNavGroup>
                 <AtNavItem icon="home" :active="page === 'accueil'" @click="page = 'accueil'">Accueil</AtNavItem>
@@ -141,10 +142,10 @@ export const navigation: ComponentDoc[] = [
                 <AtNavItem icon="check-square" :count="12" :active="page === 'taches'" @click="page = 'taches'">Tâches</AtNavItem>
               </AtNavGroup>
               <AtNavGroup label="Projets">
-                <AtNavItem mark="var(--chart-1)" :active="page === 'ds'" @click="page = 'ds'">Atelier DS</AtNavItem>
-                <AtNavItem mark="var(--chart-2)" :active="page === 'missel'" @click="page = 'missel'">missel.fr v2</AtNavItem>
+                <AtNavItem icon="bolt" tile="chart-1" :active="page === 'app'" @click="page = 'app'">Application mobile</AtNavItem>
+                <AtNavItem icon="globe" tile="chart-2" :active="page === 'site'" @click="page = 'site'">Refonte du site</AtNavItem>
               </AtNavGroup>
-              <template #footer>Connecté comme Timothée</template>
+              <template #footer>Connecté comme Alice</template>
             </AtSidebar>
           </div>
         `,
@@ -188,15 +189,20 @@ export const navigation: ComponentDoc[] = [
     slug: 'at-nav-item',
     family: 'Navigation',
     tagline: 'Entrée de navigation : icône ou pastille, libellé, compteur.',
-    about: ['Rend un `<a>`. Sans `href`, le clic est intercepté (`preventDefault`) et seul l’événement `click` est émis : à brancher sur le routeur. `active` pose `aria-current="page"`.'],
+    about: [
+      'Rend un `<a>`. Sans `href`, le clic est intercepté (`preventDefault`) et seul l’événement `click` est émis : à brancher sur le routeur. `active` pose `aria-current="page"`.',
+      'Trois façons de marquer l’item à gauche, par ordre de priorité : `mark` (une pastille de couleur), `icon` + `tile` (l’icône sur une tuile de couleur, pour une entité), ou `icon` seul.'
+    ],
     rules: [
-      '`mark` remplace l’icône par une pastille de couleur : c’est la convention pour un projet ou un dossier.',
+      '`icon` + `tile` est la convention pour une entité (projet, dossier) : même icône et même couleur que partout ailleurs.',
+      '`mark` seul, une pastille de couleur, reste possible quand l’entité n’a pas d’icône.',
       '`count` ne montre que ce qui demande une action (non lus, ouvertes), jamais un total décoratif.',
       'Le libellé se tronque par la fin : les noms longs ne cassent pas la largeur.'
     ],
     props: [
       { name: 'icon', type: 'string', desc: 'Pictogramme.' },
       { name: 'mark', type: 'string', desc: 'Pastille de couleur (valeur CSS), à la place de l’icône.' },
+      { name: 'tile', type: `'chart-1' … 'chart-5' | 'ink' | 'neutral'`, desc: 'Pose `icon` sur une tuile de couleur (`AtIconTile`).' },
       { name: 'label', type: 'string', desc: 'Libellé, si le slot par défaut n’est pas utilisé.' },
       { name: 'href', type: 'string', desc: 'Lien réel. Sans `href`, seul l’événement est émis.' },
       { name: 'active', type: 'boolean', desc: 'Page courante.' },
@@ -204,8 +210,8 @@ export const navigation: ComponentDoc[] = [
     ],
     events: [{ name: 'click', type: '(e: MouseEvent)', desc: 'Item activé.' }],
     slots: [{ name: 'default', type: '—', desc: 'Libellé.' }],
-    classes: ['at-nav-item', 'at-nav-count', 'at-nav-mark'],
-    related: ['at-nav-group', 'at-sidebar'],
+    classes: ['at-nav-item', 'at-nav-count', 'at-nav-mark', 'at-tile'],
+    related: ['at-nav-group', 'at-sidebar', 'at-icon-tile'],
     examples: [
       {
         frame: 'plain',
@@ -214,7 +220,8 @@ export const navigation: ComponentDoc[] = [
             <AtNavGroup>
               <AtNavItem icon="home" :active="actif === 'accueil'" @click="actif = 'accueil'">Accueil</AtNavItem>
               <AtNavItem icon="inbox" :count="3" :active="actif === 'boite'" @click="actif = 'boite'">Boîte de réception</AtNavItem>
-              <AtNavItem mark="var(--chart-3)" :active="actif === 'blog'" @click="actif = 'blog'">Blog technique, notes et brouillons</AtNavItem>
+              <AtNavItem icon="globe" tile="chart-2" :active="actif === 'site'" @click="actif = 'site'">Refonte du site</AtNavItem>
+              <AtNavItem mark="var(--chart-3)" :active="actif === 'archives'" @click="actif = 'archives'">Archives, brouillons et notes de travail</AtNavItem>
               <AtNavItem icon="link" href="#/doc/composants">Un lien réel</AtNavItem>
             </AtNavGroup>
           </div>

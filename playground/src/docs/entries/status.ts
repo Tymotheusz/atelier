@@ -94,10 +94,10 @@ export const status: ComponentDoc[] = [
     examples: [
       {
         code: `
-          <AtAvatar name="Timothée Cornic" />
-          <AtAvatar name="Timothée Cornic" size="md" />
-          <AtAvatar name="Marie" size="lg" />
-          <span class="at-pv-person"><AtAvatar name="Lucas Girard" /> Lucas Girard</span>
+          <AtAvatar name="Alice Martin" />
+          <AtAvatar name="Alice Martin" size="md" />
+          <AtAvatar name="Bruno" size="lg" />
+          <span class="at-pv-person"><AtAvatar name="Chloé Lemaire" /> Chloé Lemaire</span>
         `
       }
     ]
