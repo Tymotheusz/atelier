@@ -2326,7 +2326,7 @@ const ct = /* @__PURE__ */ qe(wo, [["render", Mo]]), Ao = {
     kbd: {},
     meta: {},
     danger: { type: Boolean },
-    checked: { type: Boolean },
+    checked: { type: Boolean, default: void 0 },
     disabled: { type: Boolean }
   },
   emits: ["select"],

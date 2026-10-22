@@ -1,0 +1,16 @@
+/* Styles propres au playground : sélecteur d'app et ajustements de la démo. */
+
+.pg-switch {
+  display: flex; align-items: center; gap: var(--space-2); width: 100%;
+  height: calc(var(--h-md) + 8px); padding: 0 var(--space-2);
+  font: inherit; color: var(--ink); text-align: left;
+  background: none; border: 0; border-radius: var(--radius-sm); cursor: pointer;
+}
+.pg-switch:hover { background: var(--surface-hover); }
+.pg-switch:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.pg-switch__text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.pg-switch__name { font-size: 14px; font-weight: 550; line-height: 18px; }
+.pg-switch__desc { font-size: 11px; line-height: 14px; color: var(--ink-subtle); }
+.pg-switch .at-icon { color: var(--ink-subtle); }
+
+@media (max-width: 700px) { .pg-density { display: none !important; } }

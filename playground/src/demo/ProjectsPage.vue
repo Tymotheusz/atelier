@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { today, addDays } from '@tymotheusz/atelier'
-import { store, openTasks, tasksOf, progressOf, taskSchema, projectSchema, milestoneSchema, update, create, remove, reset, type Coll } from '../data'
+import { store, openTasks, tasksOf, progressOf, taskSchema, projectSchema, milestoneSchema, update, create, remove, reset, type Coll } from './data'
 
 const props = defineProps<{ page: string; projectId: string | null }>()
 const emit = defineEmits<{ go: [page: any, id?: string | null] }>()

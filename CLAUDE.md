@@ -8,11 +8,12 @@ Paquet `@tymotheusz/atelier` : design system (tokens, CSS `at-*`, composants Vue
 - `src/styles/components.css` : toutes les classes `at-*`. Les composants Vue n'ont pas de `<style>` : ils posent ces classes.
 - `src/components/At*.vue` : composants, `<script setup lang="ts">`, props typées, textes d'interface en français.
 - `src/dataview/` : types et logique pure de `AtDataView` (testée dans `tests/logic.test.ts`).
-- `playground/` : galerie + app d'exemple, `npm run dev`.
+- `playground/` : deux apps, `npm run dev`. `docs/` est la documentation du système (une page par composant, fondations, canons) ; `demo/` est l'app d'exemple. Le routeur de hash est `playground/src/router.ts` (`#/doc/...`, `#/demo/...`).
+- `playground/src/docs/entries/*.ts` : le registre de la documentation — description, règles, API et exemples de chaque composant. Les exemples sont des templates compilés à l'exécution : aperçu et code affiché sont le même texte.
 
 ## Règles
 - Couleurs via variables (`var(--accent)`) ; vérifier le contraste dans les deux thèmes (texte ≥ 4,5:1, contours de contrôles et focus ≥ 3:1).
 - Hauteurs de contrôle via `--h-sm|md|lg` et `--h-row` (densité), pas les tokens `control-*` directement.
-- Un composant ajouté : l'exporter dans `src/index.ts` (liste + plugin + `GlobalComponents`), l'ajouter à la galerie du playground et au tableau du README.
+- Un composant ajouté : l'exporter dans `src/index.ts` (liste + plugin + `GlobalComponents`), lui écrire une entrée dans `playground/src/docs/entries/` (tagline, règles, API complète, au moins un exemple) et l'ajouter au tableau du README.
 - `AtDataView` n'écrit jamais dans `rows` : il émet `update`, `create`, `open`, `delete`.
 - Avant de commiter : `npm run typecheck && npm test && npm run build`, puis commiter `dist/`.

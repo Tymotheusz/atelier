@@ -1,7 +1,20 @@
 <script setup lang="ts">
 import AtIcon from './AtIcon.vue'
 import AtKbd from './AtKbd.vue'
-defineProps<{ icon?: string; label?: string; kbd?: string; meta?: string; danger?: boolean; checked?: boolean; disabled?: boolean }>()
+/**
+ * `checked` est à trois états : absent = item d'action (`menuitem`), `true`/`false` = item cochable
+ * (`menuitemcheckbox`). Le `default: undefined` est nécessaire : sans lui, Vue castait le booléen absent
+ * à `false` et tous les items devenaient des cases à cocher non cochées.
+ */
+withDefaults(defineProps<{
+  icon?: string
+  label?: string
+  kbd?: string
+  meta?: string
+  danger?: boolean
+  checked?: boolean
+  disabled?: boolean
+}>(), { checked: undefined })
 defineEmits<{ select: [e: MouseEvent] }>()
 </script>
 
