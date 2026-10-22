@@ -29,22 +29,22 @@ export interface GuidePage {
 export const guides: GuidePage[] = [
   { id: '', label: 'Introduction', icon: 'home', group: 'Démarrer', tagline: 'Ce qu’est Atelier, et comment cette documentation est faite.' },
   { id: 'installation', label: 'Installation', icon: 'doc', group: 'Démarrer', tagline: 'Installer le paquet, charger le CSS, enregistrer les composants.' },
-  { id: 'theme', label: 'Thème et densité', icon: 'sun', group: 'Démarrer', tagline: '`useTheme`, `useDensity`, et les attributs posés sur la page.' },
+  { id: 'theme', label: 'Thème et densité', icon: 'sun', group: 'Démarrer', tagline: 'useTheme, useDensity, et les attributs posés sur la page.' },
 
   { id: 'fondations/principes', label: 'Principes', icon: 'star', group: 'Fondations', tagline: 'Les quatre décisions qui tiennent tout le reste.' },
   { id: 'fondations/couleurs', label: 'Couleurs', icon: 'tags', group: 'Fondations', tagline: 'Les 52 couleurs, leur rôle, et leurs valeurs dans les deux thèmes.' },
-  { id: 'fondations/typographie', label: 'Typographie', icon: 'text', group: 'Fondations', tagline: 'Inter et JetBrains Mono, et les douze styles `t-*`.' },
+  { id: 'fondations/typographie', label: 'Typographie', icon: 'text', group: 'Fondations', tagline: 'Inter et JetBrains Mono, et les douze styles t-*.' },
   { id: 'fondations/espacement', label: 'Espacement', icon: 'expand', group: 'Fondations', tagline: 'La grille de 4 px, et où chaque palier sert.' },
   { id: 'fondations/formes', label: 'Formes et ombres', icon: 'checkbox', group: 'Fondations', tagline: 'Rayons par usage, et les trois seules ombres du système.' },
   { id: 'fondations/densite', label: 'Densité et gabarits', icon: 'sliders', group: 'Fondations', tagline: 'Hauteurs de contrôle, lignes de tableau, largeurs de référence.' },
-  { id: 'fondations/mouvement', label: 'Mouvement', icon: 'progress', group: 'Fondations', tagline: 'Trois durées, une courbe, et le respect de `prefers-reduced-motion`.' },
+  { id: 'fondations/mouvement', label: 'Mouvement', icon: 'progress', group: 'Fondations', tagline: 'Trois durées, une courbe, et le respect de prefers-reduced-motion.' },
   { id: 'fondations/etats', label: 'États', icon: 'eye', group: 'Fondations', tagline: 'Survol, focus, désactivé, erreur, sélection.' },
   { id: 'fondations/icones', label: 'Pictogrammes', icon: 'flag', group: 'Fondations', tagline: 'Le jeu intégré, et comment l’étendre.' },
   { id: 'fondations/ton', label: 'Ton et contenu', icon: 'edit', group: 'Fondations', tagline: 'Français, sentence case, libellés à l’infinitif, nombres à la française.' },
 
   { id: 'canons/dashboard', label: 'Dashboard', icon: 'chart', group: 'Canons', tagline: 'Résumé avant détail : shell, tuiles, tableau.' },
   { id: 'canons/base-de-donnees', label: 'Base de données', icon: 'table', group: 'Canons', tagline: 'Vues enregistrées, densité compacte, panneau de détail.' },
-  { id: 'canons/site', label: 'Page de site', icon: 'doc', group: 'Canons', tagline: 'Lecture, respiration, `t-prose` sur `measure-prose`.' }
+  { id: 'canons/site', label: 'Page de site', icon: 'doc', group: 'Canons', tagline: 'Lecture, respiration, t-prose sur measure-prose.' }
 ]
 
 export const GUIDE_GROUPS = ['Démarrer', 'Fondations', 'Canons'] as const

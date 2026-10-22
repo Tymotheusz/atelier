@@ -125,7 +125,7 @@ export const forms: ComponentDoc[] = [
     name: 'AtSelect',
     slug: 'at-select',
     family: 'Formulaires',
-    tagline: 'Choix unique dans une liste courte, sur un `<select>` natif.',
+    tagline: 'Choix unique dans une liste courte, sur un <select> natif.',
     about: [
       'S’appuie sur le `<select>` du navigateur : clavier, recherche à la frappe et affichage mobile sont ceux du système. Pour un choix avec couleurs, icônes ou recherche, utiliser une propriété `select` ou `status` d’`AtDataView`.'
     ],
