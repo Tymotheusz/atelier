@@ -512,7 +512,7 @@ export const tokens = {
             "lineHeight": "22px",
             "fontWeight": 400,
             "usage": "Texte d'interface par défaut : contrôles, cellules, paragraphes d'app.",
-            "sample": "Modifié il y a 3 minutes par Timothée"
+            "sample": "Modifié il y a 3 minutes par Alice"
           },
           {
             "name": "t-body-strong",

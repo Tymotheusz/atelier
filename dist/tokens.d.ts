@@ -443,7 +443,7 @@ export declare const tokens: {
                 readonly lineHeight: "22px";
                 readonly fontWeight: 400;
                 readonly usage: "Texte d'interface par défaut : contrôles, cellules, paragraphes d'app.";
-                readonly sample: "Modifié il y a 3 minutes par Timothée";
+                readonly sample: "Modifié il y a 3 minutes par Alice";
             }, {
                 readonly name: "t-body-strong";
                 readonly fontSize: "14px";

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const name = ref('Refonte du site perso')
+const name = ref('Refonte du site vitrine')
 const search = ref('')
 const status = ref<string | null>('doing')
-const mail = ref('timothee@exemple')
+const mail = ref('alice@exemple')
 const notes = ref('')
 const archived = ref(false)
 const sub = ref(true)
@@ -16,9 +16,9 @@ const modal = ref(false)
 const drawer = ref(false)
 const lastAction = ref('')
 const rows = [
-  { page: '/messe-du-jour', views: 8214, time: '3 min 05', source: 'Recherche' },
-  { page: '/calendrier', views: 2960, time: '1 min 48', source: 'Direct' },
-  { page: '/livrets', views: 1127, time: '4 min 12', source: 'Newsletter' }
+  { page: '/accueil', views: 8214, time: '3 min 05', source: 'Recherche' },
+  { page: '/tarifs', views: 2960, time: '1 min 48', source: 'Direct' },
+  { page: '/blog', views: 1127, time: '4 min 12', source: 'Newsletter' }
 ]
 </script>
 
@@ -81,7 +81,7 @@ const rows = [
       </div>
       <div class="pg-row">
         <AtBadge tone="success">En ligne</AtBadge><AtBadge tone="warning">En attente</AtBadge><AtBadge tone="danger">Échec</AtBadge><AtBadge tone="info">En cours</AtBadge><AtBadge>Brouillon</AtBadge>
-        <AtAvatar name="Timothée Cornic" size="md" /><AtAvatar name="Marie" size="md" /><AtKbd>⌘K</AtKbd>
+        <AtAvatar name="Alice Martin" size="md" /><AtAvatar name="Bruno Lefèvre" size="md" /><AtKbd>⌘K</AtKbd>
         <div style="width: 200px"><AtProgress :value="64" /></div>
       </div>
     </section>
@@ -115,7 +115,7 @@ const rows = [
           <p style="margin: 0">Les sauvegardes quotidiennes sont conservées 30 jours, puis archivées chaque mois.</p>
           <template #footer><AtButton size="sm" @click="modal = true">Ouvrir une modale</AtButton><AtButton size="sm" variant="ghost" @click="drawer = true">Ouvrir un drawer</AtButton></template>
         </AtCard>
-        <AtCard href="#" title="Construire un design system pour ses projets perso" description="Tokens, densité, thèmes : les choix qui font tenir un système sur plusieurs sites.">
+        <AtCard href="#" title="Construire un design system qui dure" description="Tokens, densité, thèmes : les choix qui font tenir un système sur plusieurs sites.">
           <div class="pg-row"><AtTag color="blue">Dev</AtTag><span class="at-muted" style="font-size: 12px">5 min de lecture</span></div>
         </AtCard>
         <AtEmpty message="Aucun élément pour l’instant."><template #action><AtButton size="sm" icon="plus">Créer</AtButton></template></AtEmpty>
