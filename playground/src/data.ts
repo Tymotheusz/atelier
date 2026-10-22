@@ -25,41 +25,41 @@ const TAGS: PropertyOption[] = [
   { value: 'front', label: 'Front', color: 'blue' }, { value: 'back', label: 'Back', color: 'purple' },
   { value: 'design', label: 'Design', color: 'pink' }, { value: 'contenu', label: 'Contenu', color: 'brown' },
   { value: 'infra', label: 'Infra', color: 'gray' }, { value: 'bug', label: 'Bug', color: 'red' }]
-const CATS: PropertyOption[] = [{ value: 'perso', label: 'Perso', color: 'blue' }, { value: 'side', label: 'Side project', color: 'purple' }, { value: 'pro', label: 'Pro', color: 'orange' }]
-const PEOPLE: PropertyOption[] = [{ value: 'u1', label: 'Timothée' }, { value: 'u2', label: 'Marie' }, { value: 'u3', label: 'Lucas' }]
+const CATS: PropertyOption[] = [{ value: 'produit', label: 'Produit', color: 'blue' }, { value: 'marketing', label: 'Marketing', color: 'purple' }, { value: 'interne', label: 'Interne', color: 'orange' }]
+const PEOPLE: PropertyOption[] = [{ value: 'u1', label: 'Alice' }, { value: 'u2', label: 'Bruno' }, { value: 'u3', label: 'Chloé' }]
 
-/* ---------- Données d'exemple ---------- */
+/* ---------- Données d'exemple (fictives) ---------- */
 function seed() {
   const projects: Project[] = [
-    { id: 'p1', name: 'Atelier DS', status: 'active', category: 'perso', owner: 'u1', start: d(-24), end: d(40), color: 'chart-1', icon: 'layers', desc: 'Design system : tokens, CSS et composants Vue.' },
-    { id: 'p2', name: 'missel.fr v2', status: 'active', category: 'side', owner: 'u1', start: d(-45), end: d(25), color: 'chart-2', icon: 'book', desc: 'Nouvelle maquette, éditeur de livret et offre payante.' },
-    { id: 'p3', name: 'Blog technique', status: 'planned', category: 'perso', owner: 'u1', start: d(10), end: d(70), color: 'chart-3', icon: 'pen', desc: 'Retours d’expérience et notes techniques.' }
+    { id: 'p1', name: 'Application mobile', status: 'active', category: 'produit', owner: 'u1', start: d(-24), end: d(40), color: 'chart-1', icon: 'bolt', desc: 'Première version iOS et Android de l’application client.' },
+    { id: 'p2', name: 'Refonte du site', status: 'active', category: 'marketing', owner: 'u2', start: d(-45), end: d(25), color: 'chart-2', icon: 'globe', desc: 'Nouvelle charte, pages produit et page tarifs.' },
+    { id: 'p3', name: 'Migration cloud', status: 'planned', category: 'interne', owner: 'u3', start: d(10), end: d(70), color: 'chart-3', icon: 'layers', desc: 'Déplacer les services vers la nouvelle infrastructure.' }
   ]
   const milestones: Milestone[] = [
-    { id: 'm1', projectId: 'p1', name: 'Fondations', status: 'done', due: d(-5), goal: 'Tokens, typographie et contrastes validés.' },
-    { id: 'm2', projectId: 'p1', name: 'Composants Vue', status: 'doing', due: d(18), goal: 'Table, Board, Menu, Select, DatePicker.' },
-    { id: 'm3', projectId: 'p1', name: 'Documentation', status: 'todo', due: d(40), goal: '' },
-    { id: 'm4', projectId: 'p2', name: 'Éditeur de livret', status: 'doing', due: d(12), goal: 'Composer et exporter un livret en PDF.' },
-    { id: 'm5', projectId: 'p2', name: 'Lancement', status: 'todo', due: d(25), goal: '' },
-    { id: 'm6', projectId: 'p3', name: 'Premiers articles', status: 'todo', due: d(45), goal: '' }
+    { id: 'm1', projectId: 'p1', name: 'Maquettes', status: 'done', due: d(-5), goal: 'Parcours principaux validés en test utilisateur.' },
+    { id: 'm2', projectId: 'p1', name: 'Version bêta', status: 'doing', due: d(18), goal: 'Connexion, recherche, notifications.' },
+    { id: 'm3', projectId: 'p1', name: 'Publication', status: 'todo', due: d(40), goal: '' },
+    { id: 'm4', projectId: 'p2', name: 'Pages produit', status: 'doing', due: d(12), goal: 'Pages produit et comparatif en ligne.' },
+    { id: 'm5', projectId: 'p2', name: 'Mise en ligne', status: 'todo', due: d(25), goal: '' },
+    { id: 'm6', projectId: 'p3', name: 'Audit de l’existant', status: 'todo', due: d(45), goal: '' }
   ]
   const T = (projectId: string, milestoneId: string | null, title: string, status: string, priority: string, assignee: string | null, due: number | null, estimate: number | null, tags: string[]): Task =>
     ({ id: uid(), projectId, milestoneId, title, status, priority, assignee, due: d(due), estimate, tags, done: status === 'done', desc: '' })
   const tasks: Task[] = [
-    T('p1', 'm1', 'Définir les tokens de couleur', 'done', 'high', 'u1', -12, 4, ['design']),
-    T('p1', 'm1', 'Contrastes clair / sombre', 'done', 'high', 'u1', -6, 2, ['design']),
-    T('p1', 'm2', 'Composant DataView', 'doing', 'urgent', 'u1', 3, 10, ['front']),
-    T('p1', 'm2', 'Popover et Menu', 'review', 'high', 'u1', 1, 6, ['front']),
-    T('p1', 'm2', 'Select avec recherche', 'todo', 'med', 'u1', 10, 5, ['front']),
-    T('p1', 'm2', 'DatePicker', 'todo', 'low', null, 16, 4, ['front']),
-    T('p1', 'm3', 'Site de documentation', 'todo', 'med', 'u1', 35, 8, ['contenu', 'front']),
-    T('p2', 'm4', 'Export PDF du livret', 'doing', 'urgent', 'u1', 2, 8, ['back']),
-    T('p2', 'm4', 'Glisser-déposer des lectures', 'blocked', 'high', 'u1', -2, 5, ['front']),
-    T('p2', 'm4', 'Relecture des textes propres', 'todo', 'med', 'u2', 8, 3, ['contenu']),
+    T('p1', 'm1', 'Parcours d’inscription', 'done', 'high', 'u1', -12, 4, ['design']),
+    T('p1', 'm1', 'Tests utilisateurs', 'done', 'high', 'u2', -6, 2, ['design']),
+    T('p1', 'm2', 'Écran de connexion', 'doing', 'urgent', 'u1', 3, 10, ['front']),
+    T('p1', 'm2', 'Notifications push', 'review', 'high', 'u3', 1, 6, ['back']),
+    T('p1', 'm2', 'Recherche avec filtres', 'todo', 'med', 'u1', 10, 5, ['front']),
+    T('p1', 'm2', 'Mode hors ligne', 'todo', 'low', null, 16, 4, ['front']),
+    T('p1', 'm3', 'Fiches des stores', 'todo', 'med', 'u2', 35, 8, ['contenu', 'design']),
+    T('p2', 'm4', 'Intégrer les pages produit', 'doing', 'urgent', 'u1', 2, 8, ['front']),
+    T('p2', 'm4', 'Formulaire de contact', 'blocked', 'high', 'u3', -2, 5, ['front', 'back']),
+    T('p2', 'm4', 'Rédiger les textes', 'todo', 'med', 'u2', 8, 3, ['contenu']),
     T('p2', 'm5', 'Page tarifs', 'todo', 'med', 'u1', 20, 3, ['front', 'contenu']),
-    T('p2', 'm5', 'Configurer le paiement', 'todo', 'high', 'u1', 22, 4, ['back']),
-    T('p3', 'm6', 'Choisir le générateur statique', 'todo', 'med', 'u1', 12, 2, ['infra']),
-    T('p3', 'm6', 'Article : pourquoi un DS perso', 'todo', 'med', 'u1', 30, 4, ['contenu'])
+    T('p2', 'm5', 'Redirections et SEO', 'todo', 'high', 'u3', 22, 4, ['infra']),
+    T('p3', 'm6', 'Inventaire des services', 'todo', 'med', 'u3', 12, 2, ['infra']),
+    T('p3', 'm6', 'Estimer les coûts', 'todo', 'med', 'u1', 30, 4, ['infra'])
   ]
   return { projects, milestones, tasks }
 }
@@ -88,7 +88,7 @@ export const PROJECT_ICONS = ['folder', 'layers', 'book', 'pen', 'palette', 'cod
 export const PROJECT_COLORS = ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5'] as const
 
 /* ---------- Store persistant (navigateur) ---------- */
-const KEY = 'atelier-playground-v1'
+const KEY = 'atelier-playground-v2'
 function load() { try { const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : null } catch { return null } }
 function fresh() {
   const views = defaultViews()
@@ -151,7 +151,7 @@ export function update(coll: Coll, row: any, key: string, value: unknown) {
 export function create(coll: Coll, defaults: Record<string, unknown>): any {
   let r: any
   if (coll === 'tasks') r = { id: uid(), projectId: store.projects[0]?.id, milestoneId: null, title: '', status: 'todo', priority: 'med', assignee: 'u1', due: null, estimate: null, tags: [], done: false, desc: '' }
-  else if (coll === 'projects') r = { id: uid(), name: '', status: 'planned', category: 'perso', owner: 'u1', start: today(), end: null, color: `chart-${(store.projects.length % 5) + 1}`, icon: 'folder', desc: '' }
+  else if (coll === 'projects') r = { id: uid(), name: '', status: 'planned', category: 'produit', owner: 'u1', start: today(), end: null, color: `chart-${(store.projects.length % 5) + 1}`, icon: 'folder', desc: '' }
   else r = { id: uid(), projectId: '', name: '', status: 'todo', due: null, goal: '' }
   Object.assign(r, defaults)
   if (coll === 'tasks' && r.milestoneId) { const m = store.milestones.find(x => x.id === r.milestoneId); if (m) r.projectId = m.projectId }
