@@ -17,7 +17,7 @@ const related = computed(() => (props.entry.related ?? []).map(slug => bySlug[sl
 </script>
 
 <template>
-  <AtPage wide>
+  <AtPage>
     <template #head>
       <div style="display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap">
         <h1 class="t-heading-1" style="margin: 0">{{ entry.name }}</h1>

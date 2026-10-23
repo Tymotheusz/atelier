@@ -52,7 +52,7 @@ const CANON = `
 </script>
 
 <template>
-  <AtPage title="Canon : page de site" description="Lire, respirer, comprendre. Les mêmes tokens, un autre rythme." wide>
+  <AtPage title="Canon : page de site" description="Lire, respirer, comprendre. Les mêmes tokens, un autre rythme.">
     <p class="doc-lead">
       Un site n’est pas un dashboard à gros caractères. Le texte long passe à <code class="t-code">t-prose</code>
       sur une colonne de 720 px, les sections se séparent par de l’espace et non par des fonds colorés, et les

@@ -10,7 +10,7 @@ const fichiers = [
 </script>
 
 <template>
-  <AtPage title="Installation" description="Le paquet est distribué directement depuis GitHub : dist/ est versionné, rien n’est compilé à l’installation." wide>
+  <AtPage title="Installation" description="Le paquet est distribué directement depuis GitHub : dist/ est versionné, rien n’est compilé à l’installation.">
     <section class="doc-sec">
       <h2 class="t-heading-2">Installer</h2>
       <DocCode label="Terminal" :code="`npm install github:Tymotheusz/atelier#v0.1.0\n# ou la branche principale\nnpm install github:Tymotheusz/atelier`" />

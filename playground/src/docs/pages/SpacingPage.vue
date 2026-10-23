@@ -5,7 +5,7 @@ const echelle = tokens.spacing.tokens
 </script>
 
 <template>
-  <AtPage title="Espacement" description="Une grille de 4 px, onze paliers, un usage par palier." wide>
+  <AtPage title="Espacement" description="Une grille de 4 px, onze paliers, un usage par palier.">
     <p class="doc-lead">
       Tout l’espacement du système sort de cette échelle. Une valeur hors échelle se voit : elle casse le rythme
       vertical des pages. Les barres ci-dessous sont à l’échelle réelle.

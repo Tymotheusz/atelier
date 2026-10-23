@@ -51,7 +51,7 @@ const ERREUR = `
 </script>
 
 <template>
-  <AtPage title="États" description="Survol, focus, désactivé, erreur, sélection : les mêmes signaux partout." wide>
+  <AtPage title="États" description="Survol, focus, désactivé, erreur, sélection : les mêmes signaux partout.">
     <p class="doc-lead">
       Un état se lit toujours à deux signaux : la couleur, et quelque chose d’autre — une bordure, un mot, une
       icône. C’est ce qui permet de garder l’interface lisible en thème sombre, à faible contraste et pour qui

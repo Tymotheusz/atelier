@@ -21,7 +21,7 @@ const polices = tokens.type.fonts
 </script>
 
 <template>
-  <AtPage title="Typographie" description="Inter pour tout, JetBrains Mono pour le code. Douze styles, posés par une classe." wide>
+  <AtPage title="Typographie" description="Inter pour tout, JetBrains Mono pour le code. Douze styles, posés par une classe.">
     <p class="doc-lead">
       Les douze classes <code class="t-code">t-*</code> couvrent le site et l’app. Elles se posent directement sur
       l’élément : pas de taille écrite en dur, pas de graisse choisie au cas par cas. Les graisses intermédiaires

@@ -27,7 +27,7 @@ const DEMO = `
 </script>
 
 <template>
-  <AtPage title="Mouvement" description="Trois durées, une seule courbe, et le respect de prefers-reduced-motion." wide>
+  <AtPage title="Mouvement" description="Trois durées, une seule courbe, et le respect de prefers-reduced-motion.">
     <p class="doc-lead">
       Le mouvement sert à rendre un changement compréhensible, jamais à décorer. Une seule courbe,
       <code class="t-code">ease-out</code> : les choses entrent vite et s’arrêtent doucement.

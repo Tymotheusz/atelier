@@ -16,7 +16,7 @@ const total = computed(() => groupes.value.reduce((n, g) => n + g.items.length, 
 </script>
 
 <template>
-  <AtPage title="Composants" :description="`${components.length} composants Vue 3, groupés par famille. Chaque page montre des exemples vivants, les règles d’usage et l’API complète.`" wide>
+  <AtPage title="Composants" :description="`${components.length} composants Vue 3, groupés par famille. Chaque page montre des exemples vivants, les règles d’usage et l’API complète.`">
     <div style="display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap">
       <div style="width: 320px; max-width: 100%">
         <AtInput v-model="q" icon="search" placeholder="Chercher un composant…" aria-label="Chercher un composant" />

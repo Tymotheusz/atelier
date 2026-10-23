@@ -58,7 +58,7 @@ const CANON = `
 </script>
 
 <template>
-  <AtPage title="Canon : dashboard" description="Le résumé avant le détail. C’est la mise en page de tous les outils d’administration." wide>
+  <AtPage title="Canon : dashboard" description="Le résumé avant le détail. C’est la mise en page de tous les outils d’administration.">
     <p class="doc-lead">
       Sidebar, barre supérieure, titre, rangée de tuiles, puis le détail. L’ordre n’est pas négociable : on voit
       d’abord si quelque chose cloche, ensuite où.
