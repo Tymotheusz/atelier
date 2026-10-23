@@ -44,7 +44,7 @@ const CONTROLE = `
 </script>
 
 <template>
-  <AtPage title="Thème et densité" description="Deux réglages, deux attributs, posés sur la page ou sur un conteneur." wide>
+  <AtPage title="Thème et densité" description="Deux réglages, deux attributs, posés sur la page ou sur un conteneur.">
     <p class="doc-lead">
       <code class="t-code">useTheme</code> et <code class="t-code">useDensity</code> posent
       <code class="t-code">data-theme</code> et <code class="t-code">data-density</code> sur

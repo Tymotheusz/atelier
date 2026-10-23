@@ -811,6 +811,11 @@ export const tokens = {
         "usage": "Largeur max du contenu d'un site."
       },
       {
+        "name": "measure-wide",
+        "value": "1920px",
+        "usage": "Garde-fou des pages de données (tableau, board) : fluides jusqu'à cette largeur, gouttières comprises."
+      },
+      {
         "name": "stripe",
         "value": "4px",
         "usage": "Largeur de la barre de couleur posée à gauche du titre des tuiles de stat et des cartes."

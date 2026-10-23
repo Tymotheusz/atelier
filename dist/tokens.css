@@ -109,6 +109,7 @@
   --topbar: 48px;
   --measure-prose: 720px;
   --measure-page: 1120px;
+  --measure-wide: 1920px;
   --stripe: 4px;
   --duration-fast: 100ms;
   --duration-base: 160ms;

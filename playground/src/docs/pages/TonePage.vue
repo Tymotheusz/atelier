@@ -27,7 +27,7 @@ const TUTOIEMENT = `
 </script>
 
 <template>
-  <AtPage title="Ton et contenu" description="Français, sentence case, verbes à l’infinitif, nombres à la française." wide>
+  <AtPage title="Ton et contenu" description="Français, sentence case, verbes à l’infinitif, nombres à la française.">
     <p class="doc-lead">
       Les mots font autant que les couleurs. Le système fixe quelques règles d’écriture pour que deux écrans
       faits à six mois d’intervalle parlent de la même voix.

@@ -15,7 +15,7 @@ function copier(n: string) {
 </script>
 
 <template>
-  <AtPage title="Pictogrammes" :description="`${Object.keys(icons).length} pictogrammes intégrés, 16 px, trait 1,5, à la couleur du texte.`" wide>
+  <AtPage title="Pictogrammes" :description="`${Object.keys(icons).length} pictogrammes intégrés, 16 px, trait 1,5, à la couleur du texte.`">
     <p class="doc-lead">
       Jeu de référence : Lucide. Les pictogrammes du paquet sont dessinés au même gabarit — 16 px, trait 1,5,
       extrémités arrondies, <code class="t-code">currentColor</code> — et couvrent l’interface d’app. Le jeu

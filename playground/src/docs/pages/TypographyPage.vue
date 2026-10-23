@@ -21,7 +21,7 @@ const polices = tokens.type.fonts
 </script>
 
 <template>
-  <AtPage title="Typographie" description="Inter pour tout, JetBrains Mono pour le code. Douze styles, posés par une classe." wide>
+  <AtPage title="Typographie" description="Inter pour tout, JetBrains Mono pour le code. Douze styles, posés par une classe.">
     <p class="doc-lead">
       Les douze classes <code class="t-code">t-*</code> couvrent le site et l’app. Elles se posent directement sur
       l’élément : pas de taille écrite en dur, pas de graisse choisie au cas par cas. Les graisses intermédiaires
@@ -68,6 +68,7 @@ const polices = tokens.type.fonts
       <ul class="doc-list">
         <li><code class="t-code">measure-prose</code> (720 px) : largeur maximale d’un texte long. Au-delà, l’œil perd la ligne.</li>
         <li><code class="t-code">measure-page</code> (1120 px) : largeur d’une page d’app. <code class="t-code">AtPage</code> la pose déjà.</li>
+        <li><code class="t-code">measure-wide</code> (1920 px) : garde-fou d’une page de données (<code class="t-code">AtPage wide</code>), fluide en dessous.</li>
         <li>Un titre peut dépasser la colonne de texte ; un paragraphe, jamais.</li>
       </ul>
       <div style="max-width: var(--measure-prose); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5)">

@@ -6,7 +6,7 @@ const ombres = tokens.shadow.tokens
 </script>
 
 <template>
-  <AtPage title="Formes et ombres" description="Un rayon par usage, et trois ombres réservées à ce qui flotte." wide>
+  <AtPage title="Formes et ombres" description="Un rayon par usage, et trois ombres réservées à ce qui flotte.">
     <p class="doc-lead">
       Les surfaces au repos se séparent par un contour, pas par une ombre. Une ombre dit « ceci est au-dessus » :
       menus, popovers, modales, et le seul survol de carte. Partout ailleurs, <code class="t-code">border</code> suffit.

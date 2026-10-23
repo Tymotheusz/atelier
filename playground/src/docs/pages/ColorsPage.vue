@@ -53,7 +53,7 @@ const tags = computed(() => {
 </script>
 
 <template>
-  <AtPage title="Couleurs" :description="`${all.length} tokens, deux thèmes. Chaque pastille montre la valeur claire puis la valeur sombre.`" wide>
+  <AtPage title="Couleurs" :description="`${all.length} tokens, deux thèmes. Chaque pastille montre la valeur claire puis la valeur sombre.`">
     <p class="doc-lead">
       La couleur est réservée à l’action (<code class="t-code">accent</code>), à l’état
       (<code class="t-code">success</code>, <code class="t-code">warning</code>, <code class="t-code">danger</code>,

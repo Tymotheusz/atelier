@@ -27,7 +27,7 @@ const COMPARAISON = `
 </script>
 
 <template>
-  <AtPage title="Densité et gabarits" description="Deux densités, un seul rythme. Les composants lisent les variables, pas les tokens." wide>
+  <AtPage title="Densité et gabarits" description="Deux densités, un seul rythme. Les composants lisent les variables, pas les tokens.">
     <p class="doc-lead">
       Confortable par défaut ; compacte pour les vues de données, où l’on compare des lignes. Seules les hauteurs
       changent : l’espacement, la typographie et les rayons sont les mêmes. C’est ce qui fait qu’une app compacte

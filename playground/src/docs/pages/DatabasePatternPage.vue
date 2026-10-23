@@ -82,7 +82,7 @@ function donnees() {
 </script>
 
 <template>
-  <AtPage title="Canon : base de données" description="Vues enregistrées, densité compacte, panneau de détail. Le composant émet, le parent applique." wide>
+  <AtPage title="Canon : base de données" description="Vues enregistrées, densité compacte, panneau de détail. Le composant émet, le parent applique.">
     <p class="doc-lead">
       C’est la mise en page des listes que l’on manipule : tâches, commandes, utilisateurs, signalements. Une barre
       de vues, une barre d’outils, la vue, et un panneau de détail qui s’ouvre sans quitter la liste.

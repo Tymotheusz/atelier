@@ -74,7 +74,7 @@ export const layout: ComponentDoc[] = [
     family: 'Mise en page',
     tagline: 'Gabarit de page : titre, ligne de contexte, sections espacées.',
     about: [
-      'Largeur maximale `measure-page` (1120 px), gouttière `space-8` (desktop) ou 16 px (mobile), sections séparées de `space-6`. `wide` passe à 1280 px, pour les vues de données.',
+      'Largeur maximale `measure-page` (1120 px), gouttière `space-8` (desktop) ou 16 px (mobile), sections séparées de `space-6`. `wide` rend la page fluide, bornée par `measure-wide` (1920 px) : un tableau ou un board prend toute la largeur utile au lieu de défiler à côté d’une bande vide. La page reste alignée sur la sidebar, sans centrage : le titre ne bouge pas d’une page à l’autre.',
       'Le slot `head` remplace le titre par un en-tête composé : pastille de projet, titre éditable, actions.'
     ],
     rules: [
@@ -85,7 +85,7 @@ export const layout: ComponentDoc[] = [
     props: [
       { name: 'title', type: 'string', desc: 'Titre de la page.' },
       { name: 'description', type: 'string', desc: 'Une ligne de contexte.' },
-      { name: 'wide', type: 'boolean', desc: 'Largeur 1280 px au lieu de 1120 px.' }
+      { name: 'wide', type: 'boolean', desc: 'Page fluide jusqu’à `measure-wide` (1920 px) au lieu de 1120 px.' }
     ],
     slots: [
       { name: 'default', type: '—', desc: 'Sections de la page.' },

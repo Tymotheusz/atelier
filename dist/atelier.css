@@ -109,6 +109,7 @@
   --topbar: 48px;
   --measure-prose: 720px;
   --measure-page: 1120px;
+  --measure-wide: 1920px;
   --stripe: 4px;
   --duration-fast: 100ms;
   --duration-base: 160ms;
@@ -747,7 +748,7 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 .at-topbar__menu { display: none !important; }
 .at-shell__page { flex: 1; overflow: auto; }
 .at-page { max-width: var(--measure-page); padding: var(--space-8) var(--space-8) var(--space-16); display: flex; flex-direction: column; gap: var(--space-6); }
-.at-page--wide { max-width: 1280px; }
+.at-page--wide { max-width: var(--measure-wide); }
 .at-page__head h1 { margin: 0; }
 .at-page__head p { margin: var(--space-1) 0 0; color: var(--ink-muted); }
 .at-breadcrumbs { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; color: var(--ink-muted); }

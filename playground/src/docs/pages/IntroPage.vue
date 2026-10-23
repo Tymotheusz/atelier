@@ -22,7 +22,6 @@ const portes = [
   <AtPage
     title="Atelier"
     description="Design system personnel : papier chaud, encre presque noire, un seul indigo pour agir."
-    wide
   >
     <p class="doc-lead">
       Atelier sert deux registres avec les mêmes tokens : <strong>le site</strong> (lecture, respiration,

@@ -26,7 +26,7 @@ const principes = [
 </script>
 
 <template>
-  <AtPage title="Principes" description="Quatre décisions, prises une fois, qui tiennent tout le reste." wide>
+  <AtPage title="Principes" description="Quatre décisions, prises une fois, qui tiennent tout le reste.">
     <p class="doc-lead">
       Atelier est le système d’une seule personne pour ses sites et ses outils : un papier chaud, une encre
       presque noire, un seul indigo pour agir. Ces quatre principes expliquent pourquoi les tokens et les

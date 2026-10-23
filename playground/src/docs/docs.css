@@ -40,7 +40,7 @@
   font-family: var(--font-mono); font-size: 12.5px; line-height: 20px; color: var(--ink);
   tab-size: 2;
 }
-.doc-codeblock { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; max-width: var(--measure-page); }
+.doc-codeblock { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
 .doc-codeblock__bar { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3); background: var(--surface-sunken); }
 .doc-codeblock__bar .t-caption { color: var(--ink-subtle); }
 .doc-codeblock .doc-code { border-top: 1px solid var(--border); }
