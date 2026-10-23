@@ -690,6 +690,10 @@ export declare const tokens: {
             readonly value: "1120px";
             readonly usage: "Largeur max du contenu d'un site.";
         }, {
+            readonly name: "measure-wide";
+            readonly value: "1920px";
+            readonly usage: "Garde-fou des pages de données (tableau, board) : fluides jusqu'à cette largeur, gouttières comprises.";
+        }, {
             readonly name: "stripe";
             readonly value: "4px";
             readonly usage: "Largeur de la barre de couleur posée à gauche du titre des tuiles de stat et des cartes.";
