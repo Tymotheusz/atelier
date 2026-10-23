@@ -154,11 +154,26 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 
 Règles d'usage : [docs/guidelines.md](docs/guidelines.md) (couleur, typo, densité, ton) et [docs/components.md](docs/components.md) (quand utiliser quoi).
 
+## Documentation
+
+`npm run dev` ouvre le playground, qui contient **deux apps** et un sélecteur pour passer de l'une à l'autre :
+
+- **Atelier** (`#/doc`) — la documentation du système, bâtie avec le système lui-même : fondations (couleurs,
+  typographie, espacement, formes, densité, mouvement, états, pictogrammes, ton), une page par composant
+  (exemples vivants, règles d'usage, API complète : props, `v-model`, événements, slots, classes `at-*`),
+  et les trois canons de mise en page.
+- **Pilote** (`#/demo`) — une app d'exemple complète (projets, milestones, tâches, vues enregistrées,
+  panneau de détail), pour voir le système en service plutôt qu'expliqué.
+
+Les exemples de la documentation sont compilés à l'exécution : l'aperçu affiché et le code copié sont le même
+texte, ils ne peuvent pas diverger. Le contenu se modifie dans `playground/src/docs/` — `entries/` pour les
+composants, `pages/` pour les fondations et les canons.
+
 ## Développement
 
 ```bash
 npm install
-npm run dev          # playground : galerie des composants + app de gestion de projets d'exemple
+npm run dev          # playground : documentation du système + app d'exemple
 npm test             # tests unitaires (logique de vue, composants)
 npm run typecheck
 npm run build        # tokens → dist/ (JS, types, CSS, polices)

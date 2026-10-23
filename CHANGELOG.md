@@ -1,5 +1,14 @@
 # Changelog
 
+## Non publié
+
+- Playground : le playground devient **deux apps** avec un sélecteur, à la place de l'ancienne page « Composants ».
+  `#/doc` est la documentation du design system, bâtie avec le design system (fondations, une page par composant
+  avec exemples vivants et API complète, canons de mise en page) ; `#/demo` reste l'app d'exemple.
+- `AtMenuItem` : `checked` redevient à trois états. Vue castait le booléen absent à `false`, si bien que tous les
+  items portaient `role="menuitemcheckbox"` et `aria-checked="false"` — et qu'`AtDropdown`, qui ne ferme que sur
+  `role="menuitem"`, ne se refermait jamais au clic sur une action.
+
 ## [0.2.0] - 2026-10-22
 
 - Tuile d'icône pour identifier une entité, à la place des initiales : fond pâle de la couleur, icône en couleur forte
