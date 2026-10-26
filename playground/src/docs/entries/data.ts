@@ -172,6 +172,8 @@ export const data: ComponentDoc[] = [
       'Une propriété avec `compute` est en lecture seule : la calculer dans le schéma, pas dans les lignes.',
       '`options` peut être une fonction de la ligne, pour une relation qui dépend d’une autre colonne (la milestone dépend du projet).',
       '`hideViews` impose une vue unique : à utiliser dans un panneau ou un onglet, pas sur une page de liste.',
+      '`lockViews` garde la barre de vues mais fige leur liste : ni ajout, ni duplication, ni suppression. Les vues restent renommables et paramétrables.',
+      '`iconTools` réduit Filtrer, Trier, Grouper et Propriétés à leur pictogramme quand la place manque ; le libellé reste en infobulle et en `aria-label`, les compteurs restent visibles.',
       'En densité compacte, les lignes passent de 36 à 30 px : c’est le réglage des vues de données.'
     ],
     models: [
@@ -183,7 +185,9 @@ export const data: ComponentDoc[] = [
       { name: 'schema', type: 'Property<R>[]', required: true, desc: 'Propriétés typées.' },
       { name: 'rowKey', type: 'string', default: `'id'`, desc: 'Clé stable d’une ligne.' },
       { name: 'newLabel', type: 'string', default: `'Nouveau'`, desc: 'Libellé du bouton de création.' },
-      { name: 'hideViews', type: 'boolean', desc: 'Masque la barre de vues.' }
+      { name: 'hideViews', type: 'boolean', desc: 'Masque la barre de vues.' },
+      { name: 'lockViews', type: 'boolean', desc: 'Interdit l’ajout, la duplication et la suppression de vues.' },
+      { name: 'iconTools', type: 'boolean', desc: 'Boutons Filtrer, Trier, Grouper, Propriétés sans libellé, pictogramme seul.' }
     ],
     events: [
       { name: 'update', type: '(row: R, key: string, value: unknown)', desc: 'Une valeur a été modifiée : au parent de l’écrire.' },
@@ -220,6 +224,26 @@ export const data: ComponentDoc[] = [
             createView('En retard', 'list', { filters: [filter('due', 'past'), filter('statut', 'isnot', 'done')], sorts: [sort('due')], hidden: ['tags', 'fait'] })
           ])
           return { schema, rows, vues, active: ref(vues.value[0].id), ouverte: ref(''), uid }
+        }
+      },
+      {
+        title: 'Vues figées, outils en pictogrammes',
+        desc: '`lock-views` retire l’ajout et la suppression de vues ; `icon-tools` ne garde que les pictogrammes de la barre d’outils.',
+        frame: 'plain',
+        code: `
+          <AtDataView
+            v-model:views="vues" v-model:active-view="active"
+            :rows="rows" :schema="schema" lock-views icon-tools new-label="Nouvelle tâche"
+            @update="(row, key, value) => (row[key] = value)"
+          />
+        `,
+        setup: () => {
+          const { schema, rows } = jeuDeDonnees()
+          const vues = ref<View[]>([
+            createView('Tableau', 'table', { hidden: ['fait'] }),
+            createView('Kanban', 'board', { groupBy: 'statut', hidden: ['statut', 'estimate', 'fait'] })
+          ])
+          return { schema, rows, vues, active: ref(vues.value[0].id) }
         }
       },
       {

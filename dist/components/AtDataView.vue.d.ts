@@ -24,6 +24,10 @@ declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable
         newLabel?: string;
         /** Masque la barre de vues (une seule vue imposée). */
         hideViews?: boolean;
+        /** Réduit Filtrer, Trier, Grouper et Propriétés à leur pictogramme (libellé en infobulle). */
+        iconTools?: boolean;
+        /** Interdit d'ajouter, de dupliquer ou de supprimer une vue ; les vues restent paramétrables. */
+        lockViews?: boolean;
     })> & import("vue").PublicProps;
     expose(exposed: import("vue").ShallowUnwrapRef<{}>): void;
     attrs: any;

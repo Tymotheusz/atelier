@@ -311,7 +311,7 @@
   padding: 0 var(--space-1); border-radius: var(--radius-xs);
   border: 1px solid var(--border-strong); color: var(--ink-subtle); background: var(--surface);
 }
-:where(.at-btn, .at-input, .at-select select, .at-check, .at-switch, .at-tab, .at-segment button, .at-nav-item, .at-menu-item, .at-card--link):focus-visible {
+:where(.at-btn, .at-input, .at-select select, .at-check, .at-switch, .at-tab, .at-segment button, .at-nav-item, .at-menu-item, .at-card--link, .at-login__foot a):focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
@@ -320,7 +320,7 @@
 .at-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
   height: var(--h-md); padding: 0 var(--space-3);
-  font: inherit; font-size: 14px; font-weight: 550; line-height: 1; white-space: nowrap;
+  font: inherit; font-size: 14px; font-weight: 550; line-height: 1; white-space: nowrap; text-decoration: none;
   border-radius: var(--radius-md); border: 1px solid transparent; cursor: pointer;
   transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
 }
@@ -772,6 +772,37 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
   .at-topbar__menu { display: inline-flex !important; }
   .at-topbar { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
   .at-page { padding: var(--space-6) max(16px, env(safe-area-inset-right, 0px)) var(--space-12) max(16px, env(safe-area-inset-left, 0px)); }
+}
+
+/* ---------- Connexion ---------- */
+/* Écran seul, centré : marque, carte (titre, erreur, formulaire), pied discret. */
+.at-login {
+  min-height: 100vh; min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); place-items: center;
+  padding: max(var(--space-6), env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(var(--space-6), env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: var(--bg);
+}
+.at-login__panel { width: min(400px, 100%); display: flex; flex-direction: column; gap: var(--space-6); }
+.at-login__brand { display: flex; align-items: center; justify-content: center; gap: var(--space-2); font-weight: 550; color: var(--ink); }
+.at-login__brand .at-workspace__mark { width: 24px; height: 24px; font-size: 13px; }
+.at-login__card {
+  display: flex; flex-direction: column; gap: var(--space-5);
+  padding: var(--space-8); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm);
+}
+.at-login__title { margin: 0; font-size: 22px; line-height: 30px; font-weight: 600; letter-spacing: -0.012em; }
+.at-login__desc { margin: var(--space-1) 0 0; font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+.at-login__error { margin: 0; padding: var(--space-2) var(--space-3); font-size: 13px; line-height: 20px; color: var(--danger); background: var(--danger-soft); border-radius: var(--radius-md); }
+.at-login__form { display: flex; flex-direction: column; gap: var(--space-4); }
+.at-login__submit { width: 100%; height: auto; min-height: var(--h-lg); padding-block: var(--space-2); white-space: normal; line-height: 20px; text-align: center; }
+.at-login__form .at-login__submit { margin-top: var(--space-1); }
+.at-login__or { display: flex; align-items: center; gap: var(--space-3); font-size: 12px; line-height: 16px; color: var(--ink-subtle); }
+.at-login__or::before, .at-login__or::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.at-login__foot { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-1) var(--space-4); font-size: 12px; line-height: 16px; color: var(--ink-subtle); }
+.at-login__foot a { color: var(--ink-muted); text-decoration: none; border-radius: var(--radius-xs); }
+.at-login__foot a:hover { color: var(--ink); text-decoration: underline; }
+@media (max-width: 480px) {
+  .at-login { place-items: start center; }
+  .at-login__card { padding: var(--space-6) var(--space-5); }
 }
 
 /* ---------- Divers ---------- */

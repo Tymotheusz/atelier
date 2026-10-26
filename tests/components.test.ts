@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { AtButton, AtCard, AtIconTile, AtLogo, registerLogoApps, AtStat, AtDataView, createView, type Property } from '../src'
+import { AtButton, AtCard, AtLogin, AtIconTile, AtLogo, registerLogoApps, AtStat, AtDataView, createView, type Property } from '../src'
 
 describe('AtButton', () => {
   it('pose les classes de variante et de taille', () => {
@@ -81,5 +81,32 @@ describe('AtDataView', () => {
     const w = mount(AtDataView, { props: { rows, schema, views, activeView: views[0].id } })
     await w.findAll('.at-dv-col')[1].find('.at-dv-new').trigger('click')
     expect(w.emitted('create')?.[0]).toEqual([{ status: 'done' }])
+  })
+})
+
+describe('AtLogin', () => {
+  it('émet submit avec l’identifiant nettoyé, seulement si les deux champs sont remplis', async () => {
+    const w = mount(AtLogin, { props: { username: '  timothee ', password: '' } })
+    await w.find('form').trigger('submit')
+    expect(w.emitted('submit')).toBeUndefined()
+    await w.setProps({ password: 'secret' })
+    await w.find('form').trigger('submit')
+    expect(w.emitted('submit')?.[0]).toEqual([{ username: 'timothee', password: 'secret', remember: false }])
+  })
+  it('annonce l’erreur et bloque le formulaire pendant le chargement', async () => {
+    const w = mount(AtLogin, { props: { username: 'a', password: 'b', error: 'Identifiant ou mot de passe incorrect.', loading: 'passkey', passkey: true } })
+    expect(w.find('[role="alert"]').text()).toBe('Identifiant ou mot de passe incorrect.')
+    expect(w.findAll('input').every(i => i.attributes('disabled') !== undefined)).toBe(true)
+    await w.find('form').trigger('submit')
+    expect(w.emitted('submit')).toBeUndefined()
+    const boutons = w.findAll('button')
+    expect(boutons[boutons.length - 1].attributes('aria-busy')).toBe('true')
+  })
+  it('pose le titre comme nom de la carte et la première lettre de la marque', () => {
+    const w = mount(AtLogin, { props: { brand: 'cornic.org', as: 'div' } })
+    expect(w.element.tagName).toBe('DIV')
+    expect(w.find('.at-workspace__mark').text()).toBe('C')
+    const h1 = w.find('h1')
+    expect(w.find('section').attributes('aria-labelledby')).toBe(h1.attributes('id'))
   })
 })

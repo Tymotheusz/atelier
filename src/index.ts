@@ -16,6 +16,7 @@ import AtIconTile from './components/AtIconTile.vue'
 import AtInput from './components/AtInput.vue'
 import AtKbd from './components/AtKbd.vue'
 import AtLogo from './components/AtLogo.vue'
+import AtLogin from './components/AtLogin.vue'
 import AtMenu from './components/AtMenu.vue'
 import AtMenuItem from './components/AtMenuItem.vue'
 import AtMenuLabel from './components/AtMenuLabel.vue'
@@ -57,6 +58,7 @@ export {
   AtInput,
   AtKbd,
   AtLogo,
+  AtLogin,
   AtMenu,
   AtMenuItem,
   AtMenuLabel,
@@ -113,6 +115,7 @@ const components = {
   AtInput,
   AtKbd,
   AtLogo,
+  AtLogin,
   AtMenu,
   AtMenuItem,
   AtMenuLabel,
@@ -164,6 +167,7 @@ declare module 'vue' {
     AtInput: typeof AtInput
     AtKbd: typeof AtKbd
     AtLogo: typeof AtLogo
+    AtLogin: typeof AtLogin
     AtMenu: typeof AtMenu
     AtMenuItem: typeof AtMenuItem
     AtMenuLabel: typeof AtMenuLabel

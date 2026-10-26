@@ -11,7 +11,7 @@ Le paquet est distribué **directement depuis GitHub** : `dist/` est versionné,
 ## Installation
 
 ```bash
-npm install github:Tymotheusz/atelier#v0.1.0
+npm install github:Tymotheusz/atelier#v0.3.0
 # ou la branche principale
 npm install github:Tymotheusz/atelier
 ```
@@ -118,6 +118,8 @@ const active = ref(views.value[0].id)
 
 Types de propriété : `title`, `text`, `number`, `select`, `status`, `multi`, `person`, `relation`, `date`, `progress`, `checkbox`. Une propriété avec `compute` est calculée et en lecture seule. `options` peut être une fonction de la ligne (relation dépendante d'une autre colonne).
 
+Options d'affichage : `hide-views` masque la barre de vues, `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue, `icon-tools` réduit Filtrer, Trier, Grouper et Propriétés à leur pictogramme.
+
 Pour un panneau de détail : `AtDrawer` + `AtPropertyList` (même schéma, même événement `update`).
 
 ## Utilisation sans Vue (CSS seul)
@@ -150,7 +152,7 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 | Contenu | `AtCard`, `AtEmpty`, `AtModal`, `AtDrawer` |
 | Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem` |
 | Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList` |
-| Mise en page | `AtAppShell`, `AtPage` |
+| Mise en page | `AtAppShell`, `AtPage`, `AtLogin` |
 | Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile`, `AtLogo` (marque Atelier et logos des apps, extensible avec `registerLogoApps`) |
 
 Règles d'usage : [docs/guidelines.md](docs/guidelines.md) (couleur, typo, densité, ton) et [docs/components.md](docs/components.md) (quand utiliser quoi).
