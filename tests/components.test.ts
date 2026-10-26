@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { AtButton, AtCard, AtIconTile, AtStat, AtDataView, createView, type Property } from '../src'
+import { AtButton, AtCard, AtIconTile, AtLogo, registerLogoApps, AtStat, AtDataView, createView, type Property } from '../src'
 
 describe('AtButton', () => {
   it('pose les classes de variante et de taille', () => {
@@ -24,6 +24,27 @@ describe('AtIconTile', () => {
     const w = mount(AtIconTile, { props: { name: 'folder', label: 'Dossier' } })
     expect(w.classes()).toContain('at-tile--neutral')
     expect(w.attributes('role')).toBe('img')
+  })
+})
+
+describe('AtLogo', () => {
+  it('pose la couleur de l’app en variable, décorative par défaut', () => {
+    const w = mount(AtLogo, { props: { app: 'tasks', size: 32 } })
+    expect(w.classes()).toContain('at-logo')
+    expect(w.attributes('style')).toContain('--at-logo-fill: var(--chart-3)')
+    expect(w.attributes('aria-hidden')).toBe('true')
+    expect(w.find('.at-logo__glyph').html()).toContain('<path')
+  })
+  it('affiche le nom avec wordmark et retombe sur atelier pour une app inconnue', () => {
+    const w = mount(AtLogo, { props: { app: 'inconnue', wordmark: true } })
+    expect(w.find('.at-logo__name').text()).toBe('Atelier')
+    expect(w.attributes('style')).toContain('var(--ink)')
+  })
+  it('accepte une app enregistrée', () => {
+    registerLogoApps({ notes: { name: 'Notes', glyph: '<path d="M8 6h8v12H8z"/>', color: 'tag-yellow-fg' } })
+    const w = mount(AtLogo, { props: { app: 'notes', label: 'Notes' } })
+    expect(w.attributes('role')).toBe('img')
+    expect(w.attributes('style')).toContain('var(--tag-yellow-fg)')
   })
 })
 

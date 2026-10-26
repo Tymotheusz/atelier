@@ -57,7 +57,7 @@ Les deux posent `data-theme` et `data-density` sur `<html>`. On peut aussi les p
 <AtAppShell :route-key="route.fullPath">
   <template #sidebar>
     <AtSidebar>
-      <template #header><div class="at-workspace"><span class="at-workspace__mark">A</span>Mon outil</div></template>
+      <template #header><div class="at-workspace"><AtLogo app="dashboard" />Mon outil</div></template>
       <AtNavGroup>
         <AtNavItem icon="home" active>Accueil</AtNavItem>
         <AtNavItem icon="inbox" :count="3">Boîte de réception</AtNavItem>
@@ -136,6 +136,7 @@ Si le dépôt est public, la même feuille est servie par jsDelivr : `https://cd
 | `@tymotheusz/atelier/tokens.css` | polices + variables CSS + classes typographiques `t-*` |
 | `@tymotheusz/atelier/components.css` | classes `at-*` seules (à charger après les tokens) |
 | `@tymotheusz/atelier/tokens.json` | source des tokens (outillage, graphiques) |
+| `@tymotheusz/atelier/brand/…` | logos SVG : `atelier-logo.svg`, `mono/<app>.svg` (une couleur), `color/<app>.svg` (favicon) |
 
 En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 
@@ -150,7 +151,7 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 | Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem` |
 | Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList` |
 | Mise en page | `AtAppShell`, `AtPage` |
-| Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile` |
+| Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile`, `AtLogo` (marque Atelier et logos des apps, extensible avec `registerLogoApps`) |
 
 Règles d'usage : [docs/guidelines.md](docs/guidelines.md) (couleur, typo, densité, ton) et [docs/components.md](docs/components.md) (quand utiliser quoi).
 

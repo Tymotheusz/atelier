@@ -40,6 +40,7 @@ export const guides: GuidePage[] = [
   { id: 'fondations/mouvement', label: 'Mouvement', icon: 'progress', group: 'Fondations', tagline: 'Trois durées, une courbe, et le respect de prefers-reduced-motion.' },
   { id: 'fondations/etats', label: 'États', icon: 'eye', group: 'Fondations', tagline: 'Survol, focus, désactivé, erreur, sélection.' },
   { id: 'fondations/icones', label: 'Pictogrammes', icon: 'flag', group: 'Fondations', tagline: 'Le jeu intégré, et comment l’étendre.' },
+  { id: 'fondations/marque', label: 'Marque', icon: 'palette', group: 'Fondations', tagline: 'Le compas d’Atelier et la famille de logos des apps.' },
   { id: 'fondations/ton', label: 'Ton et contenu', icon: 'edit', group: 'Fondations', tagline: 'Français, sentence case, libellés à l’infinitif, nombres à la française.' },
 
   { id: 'canons/dashboard', label: 'Dashboard', icon: 'chart', group: 'Canons', tagline: 'Résumé avant détail : shell, tuiles, tableau.' },

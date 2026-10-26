@@ -117,14 +117,14 @@ export const navigation: ComponentDoc[] = [
       '4 à 7 items par groupe, libellés d’un ou deux mots.',
       'L’item actif se distingue par le fond `surface-active` et la graisse, jamais par l’accent.',
       'Les groupes de contenu (projets, dossiers) viennent après les groupes d’outils.',
-      'Le logo de l’espace de travail est une tuile d’icône en `ink`, pas une initiale.'
+      'Le logo de l’espace de travail est `AtLogo` : la marque Atelier ou celle de la sous-app. Pour un outil hors famille, une tuile d’icône en `ink` — jamais une initiale.'
     ],
     slots: [
       { name: 'header', type: '—', desc: 'Sélecteur d’espace de travail.' },
       { name: 'default', type: '—', desc: 'Groupes de navigation.' },
       { name: 'footer', type: '—', desc: 'Pied, collé en bas.' }
     ],
-    classes: ['at-sidebar', 'at-sidebar__foot', 'at-workspace', 'at-workspace__mark', 'at-tile'],
+    classes: ['at-sidebar', 'at-sidebar__foot', 'at-workspace', 'at-workspace__mark', 'at-logo', 'at-tile'],
     related: ['at-nav-group', 'at-nav-item', 'at-app-shell'],
     examples: [
       {
@@ -134,7 +134,7 @@ export const navigation: ComponentDoc[] = [
           <div style="height: 320px; display: flex; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden">
             <AtSidebar>
               <template #header>
-                <div class="at-workspace"><AtIconTile name="blocks" color="ink" />Studio</div>
+                <div class="at-workspace"><AtLogo app="docs" />Studio</div>
               </template>
               <AtNavGroup>
                 <AtNavItem icon="home" :active="page === 'accueil'" @click="page = 'accueil'">Accueil</AtNavItem>

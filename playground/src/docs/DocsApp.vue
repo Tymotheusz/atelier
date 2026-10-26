@@ -19,6 +19,7 @@ import MotionPage from './pages/MotionPage.vue'
 import StatesPage from './pages/StatesPage.vue'
 import IconsPage from './pages/IconsPage.vue'
 import TonePage from './pages/TonePage.vue'
+import BrandPage from './pages/BrandPage.vue'
 import DashboardPatternPage from './pages/DashboardPatternPage.vue'
 import DatabasePatternPage from './pages/DatabasePatternPage.vue'
 import SitePatternPage from './pages/SitePatternPage.vue'
@@ -45,6 +46,7 @@ const GUIDES: Record<string, Component> = {
   'fondations/mouvement': MotionPage,
   'fondations/etats': StatesPage,
   'fondations/icones': IconsPage,
+  'fondations/marque': BrandPage,
   'fondations/ton': TonePage,
   'canons/dashboard': DashboardPatternPage,
   'canons/base-de-donnees': DatabasePatternPage,
