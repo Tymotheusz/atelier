@@ -26,6 +26,10 @@ const props = withDefaults(defineProps<{
   newLabel?: string
   /** Masque la barre de vues (une seule vue imposée). */
   hideViews?: boolean
+  /** Réduit Filtrer, Trier, Grouper et Propriétés à leur pictogramme (libellé en infobulle). */
+  iconTools?: boolean
+  /** Interdit d'ajouter, de dupliquer ou de supprimer une vue ; les vues restent paramétrables. */
+  lockViews?: boolean
 }>(), { rowKey: 'id', newLabel: 'Nouveau' })
 
 const views = defineModel<View[]>('views', { default: () => [createView('Tableau', 'table')] })
@@ -86,17 +90,19 @@ function selectView(v: View) {
 }
 const defaultGroup = () => statusProp.value?.key ?? groupable.value[0]?.key ?? null
 function addView(layout: Layout) {
+  if (props.lockViews) return
   const v = createView(LAYOUTS.find(l => l.value === layout)!.label, layout, { groupBy: layout === 'board' ? defaultGroup() : null })
   views.value.push(v); activeView.value = v.id; menu.value = null
   nextTick(() => openMenu('settings', tabRefs.value[v.id]))
 }
 function setLayout(l: Layout) { view.value.layout = l; if (l === 'board' && !view.value.groupBy) view.value.groupBy = defaultGroup() }
 function duplicateView() {
+  if (props.lockViews) return
   const v: View = JSON.parse(JSON.stringify(view.value)); v.id = uid(); v.name = view.value.name + ' (copie)'
   views.value.push(v); activeView.value = v.id; menu.value = null
 }
 function deleteView() {
-  if (views.value.length < 2) return
+  if (props.lockViews || views.value.length < 2) return
   const i = views.value.indexOf(view.value); views.value.splice(i, 1)
   activeView.value = views.value[Math.max(0, i - 1)].id; menu.value = null
 }
@@ -203,6 +209,10 @@ const undated = computed(() => (dateKey.value ? sorted.value.filter(r => !r[date
 const TONE: Record<string, string> = { neutral: 'var(--ink-subtle)', info: 'var(--info)', success: 'var(--success)', warning: 'var(--warning)', danger: 'var(--danger)' }
 const toneOf = (r: R) => { const p = statusProp.value; const o = p ? findOption(p, r, r[p.key]) : undefined; return TONE[o?.tone ?? 'neutral'] }
 const isDone = (r: R) => { const p = statusProp.value; if (!p) return false; const o = optionsOf(p, r); return o.length > 0 && r[p.key] === o[o.length - 1].value }
+/** Attributs d'un bouton d'outil : en mode pictogramme, le libellé passe en aria-label et infobulle. */
+const tool = (label: string, n = 0) => (props.iconTools
+  ? { iconOnly: !n, label, title: label, 'aria-label': n ? `${label} (${n})` : label }
+  : {})
 const layoutIcon = (l: Layout) => LAYOUTS.find(x => x.value === l)?.icon ?? 'table'
 const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLowerCase()}` : ''))
 </script>
@@ -218,17 +228,17 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
             :title="v.id === view.id ? 'Paramètres de la vue' : undefined" @click="selectView(v)"
           ><AtIcon :name="layoutIcon(v.layout)" />{{ v.name }}</button>
         </div>
-        <AtButton variant="ghost" size="sm" icon="plus" icon-only label="Ajouter une vue" @click="openMenu('add', $event.currentTarget as HTMLElement)" />
+        <AtButton v-if="!lockViews" variant="ghost" size="sm" icon="plus" icon-only label="Ajouter une vue" @click="openMenu('add', $event.currentTarget as HTMLElement)" />
       </template>
       <div class="at-toolbar at-dv-toolbar">
-        <AtButton variant="ghost" size="sm" icon="filter" :class="{ 'is-on': activeFilters.length }" @click="openMenu('filter', $event.currentTarget as HTMLElement)">
-          Filtrer<span v-if="activeFilters.length" class="at-dv-n">{{ activeFilters.length }}</span>
+        <AtButton v-bind="tool('Filtrer', activeFilters.length)" variant="ghost" size="sm" icon="filter" :class="{ 'is-on': activeFilters.length }" @click="openMenu('filter', $event.currentTarget as HTMLElement)">
+          <template v-if="!iconTools">Filtrer</template><span v-if="activeFilters.length" class="at-dv-n">{{ activeFilters.length }}</span>
         </AtButton>
-        <AtButton variant="ghost" size="sm" icon="sort" :class="{ 'is-on': activeSorts.length }" @click="openMenu('sort', $event.currentTarget as HTMLElement)">
-          Trier<span v-if="activeSorts.length" class="at-dv-n">{{ activeSorts.length }}</span>
+        <AtButton v-bind="tool('Trier', activeSorts.length)" variant="ghost" size="sm" icon="sort" :class="{ 'is-on': activeSorts.length }" @click="openMenu('sort', $event.currentTarget as HTMLElement)">
+          <template v-if="!iconTools">Trier</template><span v-if="activeSorts.length" class="at-dv-n">{{ activeSorts.length }}</span>
         </AtButton>
-        <AtButton v-if="view.layout !== 'calendar'" variant="ghost" size="sm" icon="group" :class="{ 'is-on': view.groupBy }" @click="openMenu('group', $event.currentTarget as HTMLElement)">Grouper</AtButton>
-        <AtButton variant="ghost" size="sm" icon="eye" @click="openMenu('props', $event.currentTarget as HTMLElement)">Propriétés</AtButton>
+        <AtButton v-if="view.layout !== 'calendar'" v-bind="tool('Grouper')" variant="ghost" size="sm" icon="group" :class="{ 'is-on': view.groupBy }" @click="openMenu('group', $event.currentTarget as HTMLElement)">Grouper</AtButton>
+        <AtButton v-bind="tool('Propriétés')" variant="ghost" size="sm" icon="eye" @click="openMenu('props', $event.currentTarget as HTMLElement)">Propriétés</AtButton>
         <div class="at-input-wrap at-dv-search"><AtIcon name="search" /><input v-model="search" class="at-input" placeholder="Rechercher" aria-label="Rechercher dans la vue"></div>
         <AtButton v-if="!hideViews" variant="ghost" size="sm" icon="sliders" icon-only label="Paramètres de la vue" @click="openMenu('settings', $event.currentTarget as HTMLElement)" />
         <AtButton variant="primary" size="sm" icon="plus" @click="create()">{{ newLabel }}</AtButton>
@@ -483,9 +493,11 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
             <select :value="dateKey ?? ''" aria-label="Date utilisée" @change="view.dateProp = ($event.target as HTMLSelectElement).value"><option v-for="p in dateProps" :key="p.key" :value="p.key">{{ p.name }}</option></select><AtIcon name="chevron-down" />
           </div>
         </div>
-        <div class="at-menu-sep" />
-        <button type="button" class="at-menu-item" @click="duplicateView"><AtIcon name="copy" />Dupliquer la vue</button>
-        <button type="button" class="at-menu-item at-menu-item--danger" :disabled="views.length < 2" @click="deleteView"><AtIcon name="trash" />Supprimer la vue</button>
+        <template v-if="!lockViews">
+          <div class="at-menu-sep" />
+          <button type="button" class="at-menu-item" @click="duplicateView"><AtIcon name="copy" />Dupliquer la vue</button>
+          <button type="button" class="at-menu-item at-menu-item--danger" :disabled="views.length < 2" @click="deleteView"><AtIcon name="trash" />Supprimer la vue</button>
+        </template>
       </div>
     </AtPopover>
 
