@@ -1,7 +1,14 @@
 # Changelog
 
-## Non publié
+## [0.3.0] - 2026-10-26
 
+- `AtLogin` : écran de connexion (marque, carte centrée, identifiant et mot de passe, « Rester connecté »,
+  bouton passkey en option). Il émet `submit` et `passkey` sans appeler de service : le parent branche son
+  authentification (Authelia, API maison) et repasse `loading` et `error`. Classes `at-login*` utilisables sans Vue.
+- `AtDataView` : `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue ; `icon-tools` réduit Filtrer,
+  Trier, Grouper et Propriétés à leur pictogramme.
+- Pictogramme `key`.
+- `AtButton` avec `href` : le lien n'est plus souligné.
 - Playground : le playground devient **deux apps** avec un sélecteur, à la place de l'ancienne page « Composants ».
   `#/doc` est la documentation du design system, bâtie avec le design system (fondations, une page par composant
   avec exemples vivants et API complète, canons de mise en page) ; `#/demo` reste l'app d'exemple.
