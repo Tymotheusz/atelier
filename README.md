@@ -11,7 +11,7 @@ Le paquet est distribué **directement depuis GitHub** : `dist/` est versionné,
 ## Installation
 
 ```bash
-npm install github:Tymotheusz/atelier#v0.1.0
+npm install github:Tymotheusz/atelier#v0.3.0
 # ou la branche principale
 npm install github:Tymotheusz/atelier
 ```
@@ -149,7 +149,7 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 | Contenu | `AtCard`, `AtEmpty`, `AtModal`, `AtDrawer` |
 | Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem` |
 | Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList` |
-| Mise en page | `AtAppShell`, `AtPage` |
+| Mise en page | `AtAppShell`, `AtPage`, `AtLogin` |
 | Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile` |
 
 Règles d'usage : [docs/guidelines.md](docs/guidelines.md) (couleur, typo, densité, ton) et [docs/components.md](docs/components.md) (quand utiliser quoi).

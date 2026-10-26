@@ -132,6 +132,17 @@ Barre latérale d'application : `at-sidebar` (largeur `sidebar`, fond `surface-s
 - L'item actif se distingue par le fond `surface-active` et la graisse, jamais par l'accent.
 - Sur mobile, la sidebar devient un drawer (composant Vue).
 
+## Login (écran de connexion)
+
+Écran seul : fond `bg`, marque centrée (`at-login__brand`, pastille `at-workspace__mark` en 24 px), carte `surface` de 400 px (`at-login__card`, `radius-xl`, padding `space-8`, `shadow-sm`), pied en `ink-subtle`.
+
+**Parties** : titre `t-heading-2` + une ligne de description ; message d'échec `at-login__error` (`danger` sur `danger-soft`, `role="alert"`) ; formulaire identifiant / mot de passe en `at-field`, bouton principal `lg` pleine largeur ; séparateur « ou » (`at-login__or`) puis bouton secondaire passkey.
+
+- Le composant n'appelle aucun service : il émet `submit` ou `passkey`, le parent repasse `loading` et `error`.
+- Message d'échec unique pour les deux champs ; vider le mot de passe, garder l'identifiant.
+- Garder `autocomplete="username"` et `current-password`.
+- Sous 480 px, la carte remonte en haut pour laisser la place au clavier.
+
 ## AppShell (canon dashboard)
 
 Canon de page de dashboard : sidebar + barre supérieure + contenu. Gabarit à copier, pas un composant unique.
