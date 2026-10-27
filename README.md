@@ -11,7 +11,7 @@ Le paquet est distribué **directement depuis GitHub** : `dist/` est versionné,
 ## Installation
 
 ```bash
-npm install github:Tymotheusz/atelier#v0.4.0
+npm install github:Tymotheusz/atelier#v0.5.0
 # ou la branche principale
 npm install github:Tymotheusz/atelier
 ```
