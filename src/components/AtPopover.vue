@@ -7,7 +7,13 @@ import { ref, watch, nextTick, onBeforeUnmount, computed } from 'vue'
  * - prop `anchor` (élément) + v-model:open : ancrage externe (cellules, menus contextuels).
  */
 const open = defineModel<boolean>('open', { default: false })
-const props = withDefaults(defineProps<{ anchor?: HTMLElement | null; align?: 'start' | 'end'; offset?: number }>(), { align: 'start', offset: 4 })
+const props = withDefaults(defineProps<{
+  anchor?: HTMLElement | null
+  align?: 'start' | 'end'
+  /** `bottom` : sous l'ancre (au-dessus s'il manque de place). `right` : à droite de l'ancre, bas contre bas. */
+  placement?: 'bottom' | 'right'
+  offset?: number
+}>(), { align: 'start', placement: 'bottom', offset: 4 })
 const emit = defineEmits<{ close: [] }>()
 
 const triggerEl = ref<HTMLElement>()
@@ -19,6 +25,12 @@ function place() {
   const a = anchorEl.value, p = el.value
   if (!a || !p) return
   const r = a.getBoundingClientRect(), w = p.offsetWidth, h = p.offsetHeight
+  if (props.placement === 'right') {
+    const left = Math.max(8, Math.min(r.right + props.offset, window.innerWidth - w - 8))
+    const top = Math.max(8, Math.min(r.bottom - h, window.innerHeight - h - 8))
+    if (Math.abs(top - pos.value.top) > 0.5 || Math.abs(left - pos.value.left) > 0.5) pos.value = { top, left }
+    return
+  }
   let left = props.align === 'end' ? r.right - w : r.left
   left = Math.max(8, Math.min(left, window.innerWidth - w - 8))
   let top = r.bottom + props.offset

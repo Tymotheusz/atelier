@@ -62,6 +62,7 @@ Les deux posent `data-theme` et `data-density` sur `<html>`. On peut aussi les p
         <AtNavItem icon="home" active>Accueil</AtNavItem>
         <AtNavItem icon="inbox" :count="3">Boîte de réception</AtNavItem>
       </AtNavGroup>
+      <template #footer><AtUserMenu name="Timothée Cornic" email="timothee@exemple.fr" @logout="logout" /></template>
     </AtSidebar>
   </template>
   <template #topbar>
@@ -150,7 +151,7 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 | Formulaires | `AtField`, `AtInput`, `AtTextarea`, `AtSelect`, `AtCheckbox`, `AtSwitch` |
 | Statut | `AtTag`, `AtBadge`, `AtAvatar`, `AtProgress`, `AtKbd` |
 | Contenu | `AtCard`, `AtEmpty`, `AtModal`, `AtDrawer` |
-| Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem` |
+| Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem`, `AtUserMenu` |
 | Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList` |
 | Mise en page | `AtAppShell`, `AtPage`, `AtLogin` |
 | Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile`, `AtLogo` (marque Atelier et logos des apps, extensible avec `registerLogoApps`) |

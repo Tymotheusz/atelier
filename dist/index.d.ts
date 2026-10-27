@@ -39,7 +39,8 @@ import AtTable from './components/AtTable.vue';
 import AtTabs from './components/AtTabs.vue';
 import AtTag from './components/AtTag.vue';
 import AtTextarea from './components/AtTextarea.vue';
-export { AtAppShell, AtAvatar, AtBadge, AtBreadcrumbs, AtButton, AtCard, AtCheckbox, AtDataView, AtDrawer, AtDropdown, AtEmpty, AtField, AtIcon, AtIconTile, AtInput, AtKbd, AtLogo, AtLogin, AtMenu, AtMenuItem, AtMenuLabel, AtMenuSeparator, AtModal, AtNavGroup, AtNavItem, AtPage, AtPopover, AtProgress, AtPropertyEditor, AtPropertyList, AtPropertyValue, AtSegment, AtSelect, AtSidebar, AtStat, AtSwitch, AtTable, AtTabs, AtTag, AtTextarea };
+import AtUserMenu from './components/AtUserMenu.vue';
+export { AtAppShell, AtAvatar, AtBadge, AtBreadcrumbs, AtButton, AtCard, AtCheckbox, AtDataView, AtDrawer, AtDropdown, AtEmpty, AtField, AtIcon, AtIconTile, AtInput, AtKbd, AtLogo, AtLogin, AtMenu, AtMenuItem, AtMenuLabel, AtMenuSeparator, AtModal, AtNavGroup, AtNavItem, AtPage, AtPopover, AtProgress, AtPropertyEditor, AtPropertyList, AtPropertyValue, AtSegment, AtSelect, AtSidebar, AtStat, AtSwitch, AtTable, AtTabs, AtTag, AtTextarea, AtUserMenu };
 export * from './types';
 export * from './dataview/types';
 export { createView, filter, sort, applyView, groupRows, matchRule, compareRows, defaultsFromFilters, getValue, optionsOf, findOption, isEmpty, formatDate, formatMonth, monthGrid, shiftMonth, today, addDays, uid, LAYOUTS, OPS, OP_LABEL, NONE } from './dataview/logic';
@@ -95,5 +96,6 @@ declare module 'vue' {
         AtTabs: typeof AtTabs;
         AtTag: typeof AtTag;
         AtTextarea: typeof AtTextarea;
+        AtUserMenu: typeof AtUserMenu;
     }
 }

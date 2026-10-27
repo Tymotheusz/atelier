@@ -2,6 +2,7 @@
 type __VLS_Props = {
     label?: string;
     align?: 'start' | 'end';
+    placement?: 'bottom' | 'right';
     minWidth?: number;
 };
 declare function __VLS_template(): {
@@ -19,12 +20,15 @@ declare function __VLS_template(): {
 type __VLS_TemplateResult = ReturnType<typeof __VLS_template>;
 declare const __VLS_component: import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_Props>, {
     align: string;
+    placement: string;
     minWidth: number;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_Props>, {
     align: string;
+    placement: string;
     minWidth: number;
 }>>>, {
     align: "start" | "end";
+    placement: "bottom" | "right";
     minWidth: number;
 }, {}>;
 declare const _default: __VLS_WithTemplateSlots<typeof __VLS_component, __VLS_TemplateResult["slots"]>;

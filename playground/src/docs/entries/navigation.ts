@@ -122,10 +122,10 @@ export const navigation: ComponentDoc[] = [
     slots: [
       { name: 'header', type: '—', desc: 'Sélecteur d’espace de travail.' },
       { name: 'default', type: '—', desc: 'Groupes de navigation.' },
-      { name: 'footer', type: '—', desc: 'Pied, collé en bas.' }
+      { name: 'footer', type: '—', desc: 'Pied, collé en bas. Pour le compte connecté, `AtUserMenu`.' }
     ],
     classes: ['at-sidebar', 'at-sidebar__foot', 'at-workspace', 'at-workspace__mark', 'at-logo', 'at-tile'],
-    related: ['at-nav-group', 'at-nav-item', 'at-app-shell'],
+    related: ['at-nav-group', 'at-nav-item', 'at-user-menu', 'at-app-shell'],
     examples: [
       {
         title: 'Barre latérale complète',
@@ -150,6 +150,76 @@ export const navigation: ComponentDoc[] = [
           </div>
         `,
         setup: () => ({ page: ref('accueil') })
+      }
+    ]
+  },
+
+  {
+    name: 'AtUserMenu',
+    slug: 'at-user-menu',
+    family: 'Navigation',
+    tagline: 'Menu utilisateur du pied de sidebar : le compte connecté et ses préférences.',
+    about: [
+      'Un bouton en deux lignes — avatar en initiales teinté indigo, nom, e-mail — qui ouvre un menu à droite de la sidebar. Le menu regroupe le compte (profil, paramètres, items libres) puis les préférences, et finit par la déconnexion.',
+      'Thème et densité sont branchés sur `useTheme()` et `useDensity()` : rien à câbler, le choix s’applique tout de suite et reste mémorisé. Les items cochables ne ferment pas le menu, on voit le résultat avant de partir.',
+      'Profil, Paramètres et Se déconnecter n’apparaissent que si leur événement est écouté.'
+    ],
+    rules: [
+      'Un seul par application, dans le slot `footer` d’`AtSidebar`.',
+      'Toujours fournir `email` quand il existe : il dit avec quel compte on est connecté.',
+      'Le slot ajoute des items de compte (documentation, changer d’espace) ; les réglages propres à l’app vont dans sa page Paramètres, pas dans ce menu.',
+      'La déconnexion n’est pas une action destructive : pas de `danger`.'
+    ],
+    props: [
+      { name: 'name', type: 'string', required: true, desc: 'Nom complet : source des initiales et libellé du bouton.' },
+      { name: 'email', type: 'string', desc: 'Deuxième ligne du bouton.' },
+      { name: 'src', type: 'string', desc: 'Photo, à la place des initiales.' },
+      { name: 'theme', type: 'boolean', default: 'true', desc: 'Affiche le choix du thème (Système, Clair, Sombre).' },
+      { name: 'density', type: 'boolean', default: 'true', desc: 'Affiche le choix de densité (Confortable, Compacte).' }
+    ],
+    events: [
+      { name: 'profile', type: '()', desc: '« Mon profil » choisi. Écouter l’événement affiche l’item.' },
+      { name: 'settings', type: '()', desc: '« Paramètres » choisi. Écouter l’événement affiche l’item.' },
+      { name: 'logout', type: '()', desc: '« Se déconnecter » choisi. Écouter l’événement affiche l’item.' }
+    ],
+    slots: [{ name: 'default', type: '—', desc: '`AtMenuItem` supplémentaires, placés après Profil et Paramètres.' }],
+    classes: ['at-user', 'at-user__text', 'at-user__name', 'at-user__sub', 'at-avatar--accent'],
+    related: ['at-sidebar', 'at-dropdown', 'at-avatar'],
+    examples: [
+      {
+        title: 'Dans le pied de la sidebar',
+        frame: 'plain',
+        code: `
+          <div style="height: 360px; display: flex; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden">
+            <AtSidebar>
+              <template #header>
+                <div class="at-workspace"><AtLogo app="docs" />Studio</div>
+              </template>
+              <AtNavGroup>
+                <AtNavItem icon="home" active>Accueil</AtNavItem>
+                <AtNavItem icon="inbox" :count="3">Boîte de réception</AtNavItem>
+              </AtNavGroup>
+              <template #footer>
+                <AtUserMenu name="Timothée Cornic" email="timothee@exemple.fr"
+                  @profile="last = 'Mon profil'" @settings="last = 'Paramètres'" @logout="last = 'Se déconnecter'">
+                  <AtMenuItem icon="book" @select="last = 'Documentation'">Documentation</AtMenuItem>
+                </AtUserMenu>
+              </template>
+            </AtSidebar>
+            <div style="padding: 16px" class="at-muted">Dernier choix : {{ last || '—' }}</div>
+          </div>
+        `,
+        setup: () => ({ last: ref('') })
+      },
+      {
+        title: 'Préférences seules',
+        desc: 'Sans événement écouté, le menu ne garde que le thème et la densité.',
+        frame: 'plain',
+        code: `
+          <div style="width: 240px; background: var(--surface-sunken); padding: 8px; border-radius: var(--radius-lg)">
+            <AtUserMenu name="Alice Martin" />
+          </div>
+        `
       }
     ]
   },

@@ -39,6 +39,7 @@ import AtTable from './components/AtTable.vue'
 import AtTabs from './components/AtTabs.vue'
 import AtTag from './components/AtTag.vue'
 import AtTextarea from './components/AtTextarea.vue'
+import AtUserMenu from './components/AtUserMenu.vue'
 
 export {
   AtAppShell,
@@ -80,7 +81,8 @@ export {
   AtTable,
   AtTabs,
   AtTag,
-  AtTextarea
+  AtTextarea,
+  AtUserMenu
 }
 
 export * from './types'
@@ -137,7 +139,8 @@ const components = {
   AtTable,
   AtTabs,
   AtTag,
-  AtTextarea
+  AtTextarea,
+  AtUserMenu
 }
 
 /** Plugin : enregistre tous les composants globalement. `app.use(Atelier)` */
@@ -190,5 +193,6 @@ declare module 'vue' {
     AtTabs: typeof AtTabs
     AtTag: typeof AtTag
     AtTextarea: typeof AtTextarea
+    AtUserMenu: typeof AtUserMenu
   }
 }

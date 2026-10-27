@@ -103,6 +103,7 @@ export const actions: ComponentDoc[] = [
     props: [
       { name: 'label', type: 'string', desc: 'Titre du groupe, affiché en tête du menu et exposé comme `aria-label`.' },
       { name: 'align', type: `'start' | 'end'`, default: `'start'`, desc: 'Bord du déclencheur sur lequel le menu s’aligne.' },
+      { name: 'placement', type: `'bottom' | 'right'`, default: `'bottom'`, desc: 'Sous le déclencheur, ou à sa droite (bas contre bas, pour un pied de sidebar).' },
       { name: 'minWidth', type: 'number', default: '220', desc: 'Largeur minimale du menu, en pixels.' }
     ],
     slots: [
@@ -292,6 +293,7 @@ export const actions: ComponentDoc[] = [
     props: [
       { name: 'anchor', type: 'HTMLElement | null', desc: 'Élément d’ancrage, quand le déclencheur est extérieur au composant.' },
       { name: 'align', type: `'start' | 'end'`, default: `'start'`, desc: 'Bord de l’ancre sur lequel aligner la surface.' },
+      { name: 'placement', type: `'bottom' | 'right'`, default: `'bottom'`, desc: '`bottom` : sous l’ancre, retourné au-dessus s’il manque de place. `right` : à droite de l’ancre, bas contre bas, gardé dans l’écran.' },
       { name: 'offset', type: 'number', default: '4', desc: 'Distance à l’ancre, en pixels.' }
     ],
     events: [{ name: 'close', type: '()', desc: 'Fermé par Échap, par un clic extérieur ou par `close()`.' }],

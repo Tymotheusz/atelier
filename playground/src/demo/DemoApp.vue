@@ -46,7 +46,7 @@ const crumbs = computed(() => {
             :active="page === 'project' && projectId === p.id" @click="navigate('project', p.id)"
           >{{ p.name || 'Sans titre' }}</AtNavItem>
         </AtNavGroup>
-        <template #footer>App d’exemple bâtie avec <code>@tymotheusz/atelier</code></template>
+        <template #footer><AtUserMenu name="Timothée Cornic" email="timothee@exemple.fr" /></template>
       </AtSidebar>
     </template>
     <template #topbar>
