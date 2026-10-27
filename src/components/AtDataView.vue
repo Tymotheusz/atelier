@@ -26,11 +26,11 @@ const props = withDefaults(defineProps<{
   newLabel?: string
   /** Masque la barre de vues (une seule vue imposée). */
   hideViews?: boolean
-  /** Réduit Filtrer, Trier, Grouper et Propriétés à leur pictogramme (libellé en infobulle). */
+  /** Filtrer, Trier, Grouper et Propriétés en pictogramme seul (libellé en infobulle). Activé par défaut ; `false` affiche les libellés. */
   iconTools?: boolean
   /** Interdit d'ajouter, de dupliquer ou de supprimer une vue ; les vues restent paramétrables. */
   lockViews?: boolean
-}>(), { rowKey: 'id', newLabel: 'Nouveau' })
+}>(), { rowKey: 'id', newLabel: 'Nouveau', iconTools: true })
 
 const views = defineModel<View[]>('views', { default: () => [createView('Tableau', 'table')] })
 const activeView = defineModel<string>('activeView', { default: '' })

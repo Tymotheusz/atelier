@@ -940,7 +940,7 @@ const bn = (d) => {
     rowKey: { default: "id" },
     newLabel: { default: "Nouveau" },
     hideViews: { type: Boolean },
-    iconTools: { type: Boolean },
+    iconTools: { type: Boolean, default: !0 },
     lockViews: { type: Boolean }
   }, {
     views: { default: () => [Dt("Tableau", "table")] },

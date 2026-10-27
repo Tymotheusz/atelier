@@ -119,7 +119,7 @@ const active = ref(views.value[0].id)
 
 Types de propriété : `title`, `text`, `number`, `select`, `status`, `multi`, `person`, `relation`, `date`, `progress`, `checkbox`. Une propriété avec `compute` est calculée et en lecture seule. `options` peut être une fonction de la ligne (relation dépendante d'une autre colonne).
 
-Options d'affichage : `hide-views` masque la barre de vues, `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue, `icon-tools` réduit Filtrer, Trier, Grouper et Propriétés à leur pictogramme.
+Options d'affichage : `hide-views` masque la barre de vues, `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue, Filtrer, Trier, Grouper et Propriétés n'affichent que leur pictogramme par défaut ; `:icon-tools="false"` remet les libellés.
 
 Pour un panneau de détail : `AtDrawer` + `AtPropertyList` (même schéma, même événement `update`).
 
