@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0] - 2026-10-27
+
+- Marque : le logo Atelier (un compas d'atelier dans une tuile au coin d'équerre) et une famille de logos pour les
+  apps — `dashboard`, `admin`, `tasks`, `mail`, `agenda`, `docs`, `files`, `contacts` — sur une construction commune
+  (grille de 24, trait 2, glyphe en `bg` sur une couleur de token). Composant `AtLogo`, `registerLogoApps` pour en
+  ajouter, fichiers SVG monochromes et en couleur dans `brand/` (générés par `npm run build:brand`, exportés en
+  `@tymotheusz/atelier/brand/*`), page Fondations › Marque, favicon du playground.
+
 ## [0.3.0] - 2026-10-26
 
 - `AtLogin` : écran de connexion (marque, carte centrée, identifiant et mot de passe, « Rester connecté »,
@@ -9,11 +17,6 @@
   Trier, Grouper et Propriétés à leur pictogramme.
 - Pictogramme `key`.
 - `AtButton` avec `href` : le lien n'est plus souligné.
-- Marque : le logo Atelier (un compas d'atelier dans une tuile au coin d'équerre) et une famille de logos pour les
-  apps — `dashboard`, `admin`, `tasks`, `mail`, `agenda`, `docs`, `files`, `contacts` — sur une construction commune
-  (grille de 24, trait 2, glyphe en `bg` sur une couleur de token). Composant `AtLogo`, `registerLogoApps` pour en
-  ajouter, fichiers SVG monochromes et en couleur dans `brand/` (générés par `npm run build:brand`, exportés en
-  `@tymotheusz/atelier/brand/*`), page Fondations › Marque, favicon du playground.
 - Playground : le playground devient **deux apps** avec un sélecteur, à la place de l'ancienne page « Composants ».
   `#/doc` est la documentation du design system, bâtie avec le design system (fondations, une page par composant
   avec exemples vivants et API complète, canons de mise en page) ; `#/demo` reste l'app d'exemple.
