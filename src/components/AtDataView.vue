@@ -12,7 +12,7 @@ import AtButton from './AtButton.vue'
 import AtPopover from './AtPopover.vue'
 import AtPropertyValue from './AtPropertyValue.vue'
 import AtPropertyEditor from './AtPropertyEditor.vue'
-import type { Property, View, Layout, FilterRule } from '../dataview/types'
+import type { Property, PropertyOption, View, Layout, FilterRule } from '../dataview/types'
 import {
   NONE, LAYOUTS, OPS, OP_LABEL, NO_VALUE, applyView, groupRows, monthGrid, shiftMonth, createView,
   defaultsFromFilters, getValue, isEmpty, isEditable, isOptionType, optionsOf, findOption, typeIcon,
@@ -26,11 +26,11 @@ const props = withDefaults(defineProps<{
   newLabel?: string
   /** Masque la barre de vues (une seule vue imposée). */
   hideViews?: boolean
-  /** Réduit Filtrer, Trier, Grouper et Propriétés à leur pictogramme (libellé en infobulle). */
+  /** Filtrer, Trier, Grouper et Propriétés en pictogramme seul (libellé en infobulle). Activé par défaut ; `false` affiche les libellés. */
   iconTools?: boolean
   /** Interdit d'ajouter, de dupliquer ou de supprimer une vue ; les vues restent paramétrables. */
   lockViews?: boolean
-}>(), { rowKey: 'id', newLabel: 'Nouveau' })
+}>(), { rowKey: 'id', newLabel: 'Nouveau', iconTools: true })
 
 const views = defineModel<View[]>('views', { default: () => [createView('Tableau', 'table')] })
 const activeView = defineModel<string>('activeView', { default: '' })
@@ -40,6 +40,9 @@ const emit = defineEmits<{
   create: [defaults: Partial<R>]
   open: [row: R]
   delete: [rows: R[]]
+  createOption: [prop: Property<R>, option: PropertyOption]
+  updateOption: [prop: Property<R>, value: string, patch: Partial<PropertyOption>]
+  deleteOption: [prop: Property<R>, value: string]
 }>()
 
 const id = (r: R) => r[props.rowKey] as string | number
@@ -504,6 +507,9 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
     <AtPropertyEditor
       v-model:open="editorOpen" :prop="editor?.prop ?? null" :row="editor?.row" :anchor="editorAnchor"
       @update="v => editor && emit('update', editor.row, editor.prop.key, v)"
+      @create-option="o => editor && emit('createOption', editor.prop, o)"
+      @update-option="(v, patch) => editor && emit('updateOption', editor.prop, v, patch)"
+      @delete-option="v => editor && emit('deleteOption', editor.prop, v)"
     />
   </section>
 </template>

@@ -87,9 +87,10 @@ export const status: ComponentDoc[] = [
     props: [
       { name: 'name', type: 'string', required: true, desc: 'Nom complet : source des initiales et de l’alternative textuelle.' },
       { name: 'src', type: 'string', desc: 'URL de la photo.' },
-      { name: 'size', type: `'sm' | 'md' | 'lg'`, default: `'sm'`, desc: 'Diamètre.' }
+      { name: 'size', type: `'sm' | 'md' | 'lg'`, default: `'sm'`, desc: 'Diamètre.' },
+      { name: 'tone', type: `'neutral' | 'accent'`, default: `'neutral'`, desc: '`accent` : fond indigo doux, réservé à l’utilisateur connecté (`AtUserMenu`).' }
     ],
-    classes: ['at-avatar', 'at-avatar--md', 'at-avatar--lg'],
+    classes: ['at-avatar', 'at-avatar--md', 'at-avatar--lg', 'at-avatar--accent'],
     related: ['at-property-value'],
     examples: [
       {
@@ -97,6 +98,7 @@ export const status: ComponentDoc[] = [
           <AtAvatar name="Alice Martin" />
           <AtAvatar name="Alice Martin" size="md" />
           <AtAvatar name="Bruno" size="lg" />
+          <AtAvatar name="Timothée Cornic" size="md" tone="accent" />
           <span class="at-pv-person"><AtAvatar name="Chloé Lemaire" /> Chloé Lemaire</span>
         `
       }

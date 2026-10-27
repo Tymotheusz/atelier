@@ -63,3 +63,49 @@ describe('calendrier', () => {
     expect(days.filter(d => !d.outside)).toHaveLength(31)
   })
 })
+
+import { matchOptions, canCreate, nextTagColor, splitMatch, formatRelative, splitMentions, mentionAt } from '../src'
+
+describe('saisie de tags', () => {
+  const opts = [{ value: 'produit', label: 'Produit', color: 'blue' as const }, { value: 'marketing', label: 'Marketing', color: 'purple' as const }, { value: 'interne', label: 'Interne', color: 'orange' as const }]
+  it('filtre sans tenir compte de la casse ni des accents', () => {
+    expect(matchOptions(opts, 'IN').map(o => o.value)).toEqual(['marketing', 'interne'])
+    expect(matchOptions([{ value: 'e', label: 'Équipe' }], 'equ')).toHaveLength(1)
+  })
+  it('exclut les valeurs déjà choisies et montre tout sans saisie', () => {
+    expect(matchOptions(opts, '', ['produit']).map(o => o.value)).toEqual(['marketing', 'interne'])
+  })
+  it('propose « Créer » sauf pour une option exacte', () => {
+    expect(canCreate(opts, 'in')).toBe(true)
+    expect(canCreate(opts, ' interne ')).toBe(false)
+    expect(canCreate(opts, '  ')).toBe(false)
+  })
+  it('donne la première couleur libre', () => {
+    expect(nextTagColor(opts)).toBe('green')
+    expect(nextTagColor([...opts, { value: 'x', label: 'X', color: 'green' }])).toBe('yellow')
+  })
+  it('découpe le libellé autour de la correspondance', () => {
+    expect(splitMatch('Marketing', 'in')).toEqual(['Market', 'in', 'g'])
+    expect(splitMatch('Produit', 'zz')).toEqual(['Produit', '', ''])
+  })
+})
+
+describe('commentaires', () => {
+  const now = new Date(2026, 9, 27, 18, 0)
+  it('formate les dates relatives', () => {
+    expect(formatRelative(new Date(2026, 9, 27, 17, 59, 40).toISOString(), now)).toBe('à l’instant')
+    expect(formatRelative(new Date(2026, 9, 27, 17, 55).toISOString(), now)).toBe('il y a 5 min')
+    expect(formatRelative(new Date(2026, 9, 27, 16, 0).toISOString(), now)).toBe('il y a 2 h')
+    expect(formatRelative(new Date(2026, 9, 26, 16, 40).toISOString(), now)).toBe('hier à 16:40')
+    expect(formatRelative(new Date(2026, 9, 12, 9, 5).toISOString(), now)).toBe('12 oct. à 9:05')
+    expect(formatRelative(new Date(2025, 9, 12, 9, 5).toISOString(), now)).toBe('12 oct. 2025')
+  })
+  it('repère les mentions des personnes connues', () => {
+    expect(splitMentions('Merci @Chloé, et @Bob ?', ['Chloé', 'Bruno'])).toEqual([
+      { text: 'Merci ' }, { text: '@Chloé', mention: true }, { text: ', et @Bob ?' }])
+  })
+  it('détecte la mention en cours de saisie', () => {
+    expect(mentionAt('Merci @Ch', 9)).toEqual({ start: 6, query: 'Ch' })
+    expect(mentionAt('mail@exemple', 12)).toBeNull()
+  })
+})

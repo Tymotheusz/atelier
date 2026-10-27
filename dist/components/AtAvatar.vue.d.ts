@@ -2,13 +2,17 @@ type __VLS_Props = {
     name: string;
     src?: string;
     size?: 'sm' | 'md' | 'lg';
+    tone?: 'neutral' | 'accent';
 };
 declare const _default: import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_Props>, {
     size: string;
+    tone: string;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_Props>, {
     size: string;
+    tone: string;
 }>>>, {
     size: "sm" | "md" | "lg";
+    tone: "neutral" | "accent";
 }, {}>;
 export default _default;
 type __VLS_WithDefaults<P, D> = {

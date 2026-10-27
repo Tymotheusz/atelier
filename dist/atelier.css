@@ -729,6 +729,7 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 .at-avatar { display: inline-grid; place-items: center; flex: none; width: 20px; height: 20px; border-radius: var(--radius-full); background: var(--tag-gray-bg); color: var(--tag-gray-fg); font-size: 10px; font-weight: 600; overflow: hidden; }
 .at-avatar--md { width: 28px; height: 28px; font-size: 12px; }
 .at-avatar--lg { width: 40px; height: 40px; font-size: 15px; }
+.at-avatar--accent { background: var(--accent-soft); color: var(--accent-ink); }
 .at-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- Modal ---------- */
@@ -813,3 +814,76 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 @keyframes at-spin { to { transform: rotate(360deg); } }
 .at-menu-item:disabled { color: var(--ink-disabled); cursor: not-allowed; background: none; }
 .at-menu-item[aria-checked="true"], .at-menu-item[aria-selected="true"] { font-weight: 500; }
+
+/* ---------- Menu utilisateur (pied de sidebar) ---------- */
+.at-sidebar__foot:has(> .at-user) { padding: var(--space-1) 0 0; font-size: 14px; color: var(--ink); }
+.at-user {
+  display: flex; align-items: center; gap: var(--space-2); width: 100%; min-width: 0; padding: var(--space-2);
+  font: inherit; font-size: 14px; line-height: 18px; color: var(--ink); text-align: left;
+  background: none; border: 0; border-radius: var(--radius-sm); cursor: pointer;
+}
+.at-user:hover { background: var(--surface-hover); }
+.at-user[aria-expanded="true"] { background: var(--surface-active); }
+.at-user:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.at-user > .at-icon { margin-left: auto; color: var(--ink-subtle); }
+.at-user__text { display: flex; flex-direction: column; min-width: 0; }
+.at-user__name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.at-user__sub { font-size: 12px; line-height: 16px; color: var(--ink-subtle); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Saisie de tags (select, multi) ---------- */
+.at-tagedit { display: flex; flex-direction: column; gap: var(--space-1); max-width: calc(100vw - 16px); }
+.at-tagedit__field {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-2);
+  background: var(--surface); border-radius: var(--radius-sm); box-shadow: inset 0 0 0 2px var(--focus), var(--shadow-md); cursor: text;
+}
+.at-tagedit__field input { flex: 1; min-width: 48px; height: 22px; padding: 0; font: inherit; font-size: 14px; color: var(--ink); background: none; border: 0; outline: none; }
+.at-tagedit__field .at-tag button { display: inline-grid; place-items: center; width: 14px; height: 14px; margin-right: -2px; padding: 0; color: inherit; background: none; border: 0; border-radius: 2px; cursor: pointer; opacity: .7; }
+.at-tagedit__field .at-tag button:hover { opacity: 1; background: var(--surface-active); }
+.at-tagedit__field .at-tag button:focus-visible { opacity: 1; outline: 2px solid var(--focus); }
+.at-tagedit__field .at-tag .at-icon { width: 12px; height: 12px; }
+.at-tagedit__menu { min-width: 0; }
+.at-tagedit__opt { position: relative; cursor: pointer; user-select: none; }
+.at-tagedit__opt.is-active { background: var(--surface-hover); }
+.at-tagedit__opt mark { background: none; color: inherit; font-weight: 650; }
+.at-tagedit__create { color: var(--ink-muted); }
+.at-tagedit__more { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-left: auto; padding: 0; color: var(--ink-subtle); background: none; border: 0; border-radius: var(--radius-xs); cursor: pointer; opacity: 0; }
+.at-menu-check + .at-tagedit__more { margin-left: var(--space-1); }
+.at-tagedit__opt:hover .at-tagedit__more, .at-tagedit__opt.is-active .at-tagedit__more, .at-tagedit__more[aria-expanded="true"], .at-tagedit__more:focus-visible { opacity: 1; }
+.at-tagedit__more:hover, .at-tagedit__more[aria-expanded="true"] { background: var(--surface-active); color: var(--ink); }
+.at-tagedit__more:focus-visible { outline: 2px solid var(--focus); outline-offset: 0; }
+.at-tagedit__hint { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); margin-top: var(--space-1); padding: 6px var(--space-2) var(--space-1); border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-subtle); }
+.at-tagedit__hint span { display: inline-flex; align-items: center; gap: var(--space-1); }
+.at-tagedit__panel { width: 208px; min-width: 0; }
+.at-tagedit__panel .at-input { height: var(--h-sm); margin-bottom: var(--space-1); font-size: 14px; }
+.at-tagedit__swatch { width: 18px; padding: 0; }
+
+/* ---------- Fil de commentaires ---------- */
+.at-comments { display: flex; flex-direction: column; gap: var(--space-4); }
+.at-comments__head { display: flex; align-items: center; gap: var(--space-2); }
+.at-comments__list { display: flex; flex-direction: column; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
+.at-comments__empty { margin: 0; font-size: 13px; color: var(--ink-subtle); }
+.at-comment { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 2px var(--space-3); }
+.at-comment > .at-avatar { grid-row: span 2; }
+.at-comment__meta { display: flex; align-items: baseline; gap: var(--space-2); min-height: 20px; font-size: 13px; line-height: 20px; }
+.at-comment__meta b { font-weight: 600; color: var(--ink); }
+.at-comment__meta time, .at-comment__edited { font-size: 12px; color: var(--ink-subtle); }
+.at-comment__actions { display: flex; gap: 2px; margin: -4px 0 -4px auto; align-self: center; opacity: 0; transition: opacity var(--duration-fast) var(--ease-out); }
+.at-comment:hover .at-comment__actions, .at-comment__actions:focus-within { opacity: 1; }
+@media (hover: none) { .at-comment__actions { opacity: 1; } }
+.at-comment__body { margin: 0; font-size: 14px; line-height: 22px; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+.at-mention { padding: 0 3px; font-weight: 500; color: var(--accent-ink); background: var(--accent-soft); border-radius: var(--radius-xs); }
+.at-comment__edit { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-2) var(--space-3); background: var(--surface); border: 1px solid var(--focus); border-radius: var(--radius-md); box-shadow: 0 0 0 1px var(--focus); }
+.at-event { display: flex; align-items: center; gap: var(--space-2); padding-left: 6px; font-size: 12px; line-height: 18px; color: var(--ink-subtle); }
+.at-event::before { content: ""; flex: none; width: 16px; height: 16px; border-radius: 50%; background: var(--surface-active); box-shadow: inset 0 0 0 4px var(--surface-raised); }
+.at-event b { font-weight: 500; color: var(--ink-muted); }
+.at-composer { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: var(--space-3); align-items: start; }
+.at-composer__box { position: relative; display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-2) var(--space-3); background: var(--surface); border: 1px solid var(--border-control); border-radius: var(--radius-md); }
+.at-composer__box:focus-within { border-color: var(--focus); box-shadow: 0 0 0 1px var(--focus); }
+.at-composer__text { display: block; width: 100%; min-height: 22px; max-height: 240px; padding: 0; font: inherit; font-size: 14px; line-height: 22px; color: var(--ink); background: none; border: 0; outline: none; resize: none; field-sizing: content; }
+.at-composer__text::placeholder { color: var(--ink-subtle); }
+.at-composer__foot { display: flex; align-items: center; gap: var(--space-2); }
+.at-composer__hint { display: inline-flex; align-items: center; gap: var(--space-1); margin-right: auto; font-size: 12px; color: var(--ink-subtle); }
+.at-composer__mentions { position: absolute; left: 0; bottom: calc(100% + 4px); z-index: 10; min-width: 200px; }
+.at-composer__mentions .at-menu-item { cursor: pointer; }
+.at-composer__mentions .at-menu-item.is-active { background: var(--surface-hover); }
+.at-composer__mentions mark { background: none; color: inherit; font-weight: 650; }

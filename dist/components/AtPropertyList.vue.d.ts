@@ -1,4 +1,4 @@
-import type { Property } from '../dataview/types';
+import type { Property, PropertyOption } from '../dataview/types';
 /** Liste libellé / valeur éditable d'une ligne, pour un panneau de détail. */
 type __VLS_Props = {
     schema: Property[];
@@ -7,8 +7,14 @@ type __VLS_Props = {
 };
 declare const _default: import("vue").DefineComponent<__VLS_TypePropsToOption<__VLS_Props>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     update: (key: string, value: unknown) => void;
+    createOption: (key: string, option: PropertyOption) => void;
+    updateOption: (key: string, value: string, patch: Partial<PropertyOption>) => void;
+    deleteOption: (key: string, value: string) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToOption<__VLS_Props>>> & {
     onUpdate?: ((key: string, value: unknown) => any) | undefined;
+    onCreateOption?: ((key: string, option: PropertyOption) => any) | undefined;
+    onUpdateOption?: ((key: string, value: string, patch: Partial<PropertyOption>) => any) | undefined;
+    onDeleteOption?: ((key: string, value: string) => any) | undefined;
 }, {}, {}>;
 export default _default;
 type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;

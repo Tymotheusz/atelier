@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.5.0] - 2026-10-27
+
+- **À savoir en mettant à jour** : dans `AtDataView`, Filtrer, Trier, Grouper et Propriétés n'affichent plus que leur
+  pictogramme par défaut (`iconTools` vaut `true` ; libellé en infobulle et `aria-label`, compteurs visibles).
+  `:icon-tools="false"` remet les libellés.
+- `AtUserMenu` : menu utilisateur du pied de sidebar. Bouton deux lignes (avatar en initiales teinté indigo, nom,
+  e-mail) ouvrant un menu à droite : profil, paramètres, items libres, thème et densité (branchés sur `useTheme` et
+  `useDensity`), déconnexion. Profil, Paramètres et Se déconnecter n'apparaissent que si leur événement est écouté.
+- Tags saisis dans la cellule : select et multi s'éditent en tapant, les options se filtrent dessous (casse et accents
+  ignorés), ↑↓ / Entrée / Retour arrière / Échap. Avec `creatable: true` sur la propriété, « Créer … » ajoute une
+  option (couleur suivante de la palette) et « ⋯ » la renomme, la recolore ou la supprime. `AtDataView`,
+  `AtPropertyList` et `AtPropertyEditor` émettent `create-option`, `update-option` et `delete-option`.
+- `AtComments` : fil d'activité. Commentaires et changements (`kind: 'event'`) mêlés par date, saisie en bas
+  (⌘/Ctrl Entrée), mentions `@` avec suggestions, modification et suppression de ses propres messages. Émet `post`,
+  `edit`, `delete` ; type `CommentItem`.
+- `AtPopover` et `AtDropdown` : `placement` (`'bottom'`, `'right'`, et `'over'` pour l'édition en place).
+- `AtAvatar` : `tone` (`'neutral'`, `'accent'`).
+- Fonctions exportées : `matchOptions`, `canCreate`, `nextTagColor`, `splitMatch`, `normalize`, `TAG_ROTATION`,
+  `formatRelative`, `splitMentions`, `mentionAt`.
+- Pictogramme `logout`.
+- Playground : dans Pilote, menu utilisateur, Catégorie et Étiquettes créables, fil d'activité des tâches qui consigne
+  les changements de statut, priorité et assignation.
+
 ## [0.4.0] - 2026-10-27
 
 - Marque : le logo Atelier (un compas d'atelier dans une tuile au coin d'équerre) et une famille de logos pour les
