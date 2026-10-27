@@ -15,6 +15,7 @@
   "files": [
     "dist",
     "tokens",
+    "brand",
     "README.md"
   ],
   "main": "./dist/atelier.js",
@@ -29,14 +30,16 @@
     "./tokens.css": "./dist/tokens.css",
     "./components.css": "./dist/components.css",
     "./tokens.json": "./tokens/tokens.json",
-    "./fonts/*": "./dist/fonts/*"
+    "./fonts/*": "./dist/fonts/*",
+    "./brand/*": "./brand/*"
   },
   "scripts": {
     "dev": "vite --config playground/vite.config.ts",
     "build:tokens": "node scripts/build-tokens.mjs",
+    "build:brand": "node scripts/build-brand.mjs",
     "build:lib": "vite build && vue-tsc -p tsconfig.build.json",
     "build:css": "node scripts/build-css.mjs",
-    "build": "npm run build:tokens && npm run build:lib && npm run build:css",
+    "build": "npm run build:tokens && npm run build:brand && npm run build:lib && npm run build:css",
     "build:playground": "vite build --config playground/vite.config.ts",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "test": "vitest run"

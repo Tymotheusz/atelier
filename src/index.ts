@@ -15,6 +15,7 @@ import AtIcon from './components/AtIcon.vue'
 import AtIconTile from './components/AtIconTile.vue'
 import AtInput from './components/AtInput.vue'
 import AtKbd from './components/AtKbd.vue'
+import AtLogo from './components/AtLogo.vue'
 import AtLogin from './components/AtLogin.vue'
 import AtMenu from './components/AtMenu.vue'
 import AtMenuItem from './components/AtMenuItem.vue'
@@ -56,6 +57,7 @@ export {
   AtIconTile,
   AtInput,
   AtKbd,
+  AtLogo,
   AtLogin,
   AtMenu,
   AtMenuItem,
@@ -91,6 +93,8 @@ export { useTheme, useDensity } from './composables/useTheme'
 export { useId } from './composables/useId'
 export { icons, registerIcons } from './icons'
 export { tokens, cssVar, chartColors } from './tokens'
+export { logoApps, registerLogoApps, brandGrid, LOGO_TILE, WORDMARK } from './brand'
+export type { LogoApp, LogoAppId } from './brand'
 export type { ColorToken } from './tokens'
 
 const components = {
@@ -110,6 +114,7 @@ const components = {
   AtIconTile,
   AtInput,
   AtKbd,
+  AtLogo,
   AtLogin,
   AtMenu,
   AtMenuItem,
@@ -161,6 +166,7 @@ declare module 'vue' {
     AtIconTile: typeof AtIconTile
     AtInput: typeof AtInput
     AtKbd: typeof AtKbd
+    AtLogo: typeof AtLogo
     AtLogin: typeof AtLogin
     AtMenu: typeof AtMenu
     AtMenuItem: typeof AtMenuItem

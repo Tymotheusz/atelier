@@ -264,6 +264,14 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 .at-tile--neutral { background: transparent; color: var(--ink-muted); border: 1px solid var(--border-strong); }
 .at-nav-item .at-tile { margin-inline: -2px; }
 
+/* ---------- Logo (marque Atelier et apps de la famille) ---------- */
+/* Tuile pleine --at-logo-fill (token de l'app, ≥ 3:1 contre bg), glyphe au trait en bg. Posé par AtLogo. */
+.at-logo { display: inline-flex; align-items: center; gap: calc(var(--at-logo-size, 20px) * 0.4); flex: none; color: var(--ink); line-height: 1; vertical-align: middle; }
+.at-logo__mark { display: block; flex: none; width: var(--at-logo-size, 20px); height: var(--at-logo-size, 20px); }
+.at-logo__tile { fill: var(--at-logo-fill, var(--ink)); }
+.at-logo__glyph { fill: none; stroke: var(--bg); color: var(--bg); stroke-linecap: round; stroke-linejoin: round; }
+.at-logo__name { font-size: calc(var(--at-logo-size, 20px) * 0.7); font-weight: 650; letter-spacing: -0.015em; white-space: nowrap; }
+
 /* ---------- Valeurs de propriété ---------- */
 .at-pv-title { font-weight: 500; }
 .at-pv-empty { color: var(--ink-muted); }

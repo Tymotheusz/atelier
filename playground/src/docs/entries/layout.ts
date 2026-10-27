@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import { icons } from '@tymotheusz/atelier'
+import { icons, logoApps } from '@tymotheusz/atelier'
 import type { ComponentDoc } from '../types'
 
 export const layout: ComponentDoc[] = [
@@ -38,7 +38,7 @@ export const layout: ComponentDoc[] = [
               <template #sidebar>
                 <AtSidebar>
                   <template #header>
-                    <div class="at-workspace"><AtIconTile name="blocks" color="ink" />Mon outil</div>
+                    <div class="at-workspace"><AtLogo app="dashboard" />Mon outil</div>
                   </template>
                   <AtNavGroup>
                     <AtNavItem icon="home" :active="page === 'stats'" @click="page = 'stats'">Statistiques</AtNavItem>
@@ -287,7 +287,7 @@ export const layout: ComponentDoc[] = [
     ],
     rules: [
       'Une entité garde la même icône et la même couleur partout : navigation, en-tête, bande de carte, marque de relation.',
-      '`ink` est réservé au logo de l’espace de travail, en tête de barre latérale.',
+      '`ink` est réservé à l’espace de travail sans marque propre. Une app de la famille Atelier pose `AtLogo` à cet endroit.',
       '`lg` dans l’en-tête d’une page d’entité, centrée verticalement sur le titre et la description.',
       'Dans `AtNavItem`, passer `icon` et `tile` plutôt que d’insérer la tuile à la main.',
       'Sans `label`, la tuile est décorative (`aria-hidden`) : c’est le bon réglage quand le nom de l’entité est juste à côté.'
@@ -341,6 +341,71 @@ export const layout: ComponentDoc[] = [
               </div>
               <AtCard color="chart-1" title="Version bêta" description="Connexion, recherche, notifications." />
             </div>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    name: 'AtLogo',
+    slug: 'at-logo',
+    family: 'Pictogrammes',
+    tagline: 'La marque Atelier et celle de chaque app de la famille : une tuile pleine, un glyphe au trait.',
+    about: [
+      'Une seule construction pour toute la famille : tuile de 24 × 24 avec un coin d’équerre en bas à gauche, glyphe au trait 2 dans la zone utile 5 → 19, posé en `bg` sur la couleur de l’app. `atelier` (le compas, en `ink`) est la marque mère ; `dashboard`, `admin`, `tasks`, `mail`, `agenda`, `docs`, `files` et `contacts` sont ses déclinaisons.',
+      'C’est ce qui occupe la tuile de l’espace de travail, en tête de barre latérale. La page Fondations › Marque détaille la grille, les tailles et la procédure pour ajouter une app.'
+    ],
+    rules: [
+      'En tête de barre latérale, `AtLogo` à 20 px, suivi du nom de l’app en texte (classe `at-workspace`).',
+      'Une app garde son glyphe et sa couleur partout : barre latérale, favicon, sélecteur d’apps, écran de connexion.',
+      '16 px au minimum. En dessous, utiliser `AtIcon` seul.',
+      '`wordmark` affiche le nom en Inter 650 à 0,7 × la taille de la marque ; pour un nom au corps du texte voisin, écrire le nom à côté plutôt qu’utiliser `wordmark`.',
+      'Sans `wordmark` ni `label`, la marque est décorative (`aria-hidden`) : c’est le bon réglage quand le nom est juste à côté.'
+    ],
+    avoid: [
+      'Recolorer le glyphe, ajouter un contour, une ombre ou un dégradé.',
+      'Poser une initiale ou une icône du jeu courant dans la tuile : un glyphe de marque se dessine sur la grille de 24.',
+      'Donner l’indigo (`accent`, `chart-1`, `tag-purple-*`) à une app : il reste réservé à l’action.'
+    ],
+    props: [
+      { name: 'app', type: "'atelier' | 'dashboard' | 'admin' | 'tasks' | 'mail' | 'agenda' | 'docs' | 'files' | 'contacts' | string", default: "'atelier'", desc: 'App de la famille. Une app inconnue retombe sur `atelier` ; `registerLogoApps` en ajoute.' },
+      { name: 'size', type: 'number', default: '20', desc: 'Côté de la marque en px (16 au minimum). Le nom suit : corps 0,7 ×, écart 0,4 ×.' },
+      { name: 'wordmark', type: 'boolean', default: 'false', desc: 'Affiche le nom de l’app à droite de la marque.' },
+      { name: 'name', type: 'string', desc: 'Remplace le nom affiché par `wordmark`.' },
+      { name: 'label', type: 'string', desc: 'Alternative textuelle de la marque seule ; sans elle, la marque est décorative.' }
+    ],
+    classes: ['at-logo', 'at-logo--wordmark', 'at-logo__mark', 'at-logo__tile', 'at-logo__glyph', 'at-logo__name', '--at-logo-size', '--at-logo-fill'],
+    related: ['at-icon-tile', 'at-sidebar', 'at-icon'],
+    examples: [
+      {
+        title: 'La marque et son nom',
+        frame: 'col',
+        code: `
+          <AtLogo :size="32" wordmark />
+          <div style="display: flex; align-items: flex-end; gap: var(--space-4)">
+            <AtLogo v-for="s in [16, 20, 24, 32, 48]" :key="s" :size="s" />
+          </div>
+        `
+      },
+      {
+        title: 'La famille',
+        desc: 'Même tuile, même trait, un glyphe et une couleur par app.',
+        frame: 'row',
+        code: `
+          <AtLogo v-for="[id, a] in apps" :key="id" :app="id" :size="32" :label="a.name" />
+        `,
+        setup: () => ({ apps: Object.entries(logoApps) })
+      },
+      {
+        title: 'En tête de barre latérale',
+        frame: 'plain',
+        code: `
+          <div style="width: 240px; background: var(--surface-sunken); padding: 8px; border-radius: var(--radius-lg)">
+            <div class="at-workspace"><AtLogo app="tasks" />Tâches</div>
+            <AtNavGroup>
+              <AtNavItem icon="inbox" active :count="4">Aujourd’hui</AtNavItem>
+              <AtNavItem icon="calendar">À venir</AtNavItem>
+            </AtNavGroup>
           </div>
         `
       }

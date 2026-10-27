@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Tableau de bord">
+<!-- Généré par scripts/build-brand.mjs depuis src/brand.ts et tokens/tokens.json. Ne pas éditer à la main. -->
+<title>Tableau de bord</title>
+<mask id="at-logo-dashboard" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+  <path d="M6 0H18A6 6 0 0 1 24 6V18A6 6 0 0 1 18 24H1A1 1 0 0 1 0 23V6A6 6 0 0 1 6 0Z" fill="#fff"/>
+  <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#000" color="#000"><path d="M7.76 17.24a6 6 0 1 1 8.48 0"/><path d="M12 13l3-3"/></g>
+</mask>
+<g fill="currentColor">
+  <path d="M6 0H18A6 6 0 0 1 24 6V18A6 6 0 0 1 18 24H1A1 1 0 0 1 0 23V6A6 6 0 0 1 6 0Z" mask="url(#at-logo-dashboard)"/>
+</g>
+</svg>

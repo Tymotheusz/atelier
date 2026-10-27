@@ -23,7 +23,7 @@ jobs:
       - run: npm test
       - run: npm run build
       - name: dist/ est à jour
-        run: git diff --exit-code -- dist src/styles/tokens.css src/tokens.ts || (echo "Lancer npm run build et commiter dist/" && exit 1)
+        run: git diff --exit-code -- dist brand playground/public src/styles/tokens.css src/tokens.ts || (echo "Lancer npm run build et commiter dist/" && exit 1)
       - run: npm run build:playground
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
