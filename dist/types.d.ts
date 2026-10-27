@@ -28,3 +28,18 @@ export type ChartColor = 'chart-1' | 'chart-2' | 'chart-3' | 'chart-4' | 'chart-
 export type TileColor = ChartColor | 'ink' | 'neutral';
 /** Couleur de la bande d'un widget : une série chart-* ou un état. */
 export type StripeColor = ChartColor | Exclude<Tone, 'neutral'>;
+/**
+ * Élément d'un fil de commentaires (`AtComments`). `comment` : un message ; `event` : un changement
+ * consigné par l'app (« a passé le statut à En revue »), affiché en ligne grise.
+ */
+export interface CommentItem {
+    id: string;
+    kind?: 'comment' | 'event';
+    /** Nom complet de l'auteur : source des initiales. */
+    author: string;
+    text: string;
+    /** Date ISO complète, ex. `2026-10-27T16:40:00`. */
+    at: string;
+    /** Date de la dernière modification. */
+    editedAt?: string;
+}

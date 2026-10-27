@@ -1,4 +1,5 @@
 import type { Property, PropertyOption, View, FilterRule, FilterOp, Layout } from './types';
+import type { TagColor } from '../types';
 export declare const NONE = "__none";
 export declare const toISODate: (d: Date) => string;
 export declare const today: () => string;
@@ -51,3 +52,15 @@ export declare function defaultsFromFilters<R>(view: View, schema: Property<R>[]
 export declare const fmtNumber: Intl.NumberFormat;
 export declare function formatDate(iso?: string | null): string;
 export declare const formatMonth: (month: string) => string;
+/** Minuscules sans accents ni espaces de bord : base de la recherche d'options. */
+export declare const normalize: (s: string) => string;
+/** Options dont le libellé contient la saisie, hors valeurs exclues (déjà choisies). */
+export declare const matchOptions: (options: PropertyOption[], query: string, exclude?: string[]) => PropertyOption[];
+/** « Créer » est proposé tant que la saisie n'est pas exactement une option existante. */
+export declare const canCreate: (options: PropertyOption[], query: string) => boolean;
+/** Ordre des couleurs données aux options créées. */
+export declare const TAG_ROTATION: TagColor[];
+/** Première couleur pas encore prise, sinon on reprend le cycle. */
+export declare const nextTagColor: (options: PropertyOption[]) => TagColor;
+/** Découpe un libellé autour de la partie qui correspond à la saisie, pour la mettre en gras. */
+export declare const splitMatch: (label: string, query: string) => [string, string, string];

@@ -293,7 +293,7 @@ export const actions: ComponentDoc[] = [
     props: [
       { name: 'anchor', type: 'HTMLElement | null', desc: 'Élément d’ancrage, quand le déclencheur est extérieur au composant.' },
       { name: 'align', type: `'start' | 'end'`, default: `'start'`, desc: 'Bord de l’ancre sur lequel aligner la surface.' },
-      { name: 'placement', type: `'bottom' | 'right'`, default: `'bottom'`, desc: '`bottom` : sous l’ancre, retourné au-dessus s’il manque de place. `right` : à droite de l’ancre, bas contre bas, gardé dans l’écran.' },
+      { name: 'placement', type: `'bottom' | 'right' | 'over'`, default: `'bottom'`, desc: '`bottom` : sous l’ancre, retourné au-dessus s’il manque de place. `right` : à droite de l’ancre, bas contre bas, gardé dans l’écran. `over` : posé sur l’ancre, pour une édition en place.' },
       { name: 'offset', type: 'number', default: '4', desc: 'Distance à l’ancre, en pixels.' }
     ],
     events: [{ name: 'close', type: '()', desc: 'Fermé par Échap, par un clic extérieur ou par `close()`.' }],

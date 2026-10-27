@@ -119,6 +119,8 @@ const active = ref(views.value[0].id)
 
 Types de propriété : `title`, `text`, `number`, `select`, `status`, `multi`, `person`, `relation`, `date`, `progress`, `checkbox`. Une propriété avec `compute` est calculée et en lecture seule. `options` peut être une fonction de la ligne (relation dépendante d'une autre colonne).
 
+Select et multi s'éditent en tapant dans la cellule : les options se filtrent dessous. Avec `creatable: true` sur la propriété, « Créer … » ajoute une option et « ⋯ » la renomme, la recolore ou la supprime ; le composant émet `create-option`, `update-option` et `delete-option`, l'app enregistre (et retire de ses lignes une option supprimée).
+
 Options d'affichage : `hide-views` masque la barre de vues, `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue, Filtrer, Trier, Grouper et Propriétés n'affichent que leur pictogramme par défaut ; `:icon-tools="false"` remet les libellés.
 
 Pour un panneau de détail : `AtDrawer` + `AtPropertyList` (même schéma, même événement `update`).
@@ -150,7 +152,7 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 | Actions | `AtButton`, `AtDropdown`, `AtMenu`, `AtMenuItem`, `AtMenuLabel`, `AtMenuSeparator`, `AtPopover` |
 | Formulaires | `AtField`, `AtInput`, `AtTextarea`, `AtSelect`, `AtCheckbox`, `AtSwitch` |
 | Statut | `AtTag`, `AtBadge`, `AtAvatar`, `AtProgress`, `AtKbd` |
-| Contenu | `AtCard`, `AtEmpty`, `AtModal`, `AtDrawer` |
+| Contenu | `AtCard`, `AtEmpty`, `AtModal`, `AtDrawer`, `AtComments` |
 | Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem`, `AtUserMenu` |
 | Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList` |
 | Mise en page | `AtAppShell`, `AtPage`, `AtLogin` |

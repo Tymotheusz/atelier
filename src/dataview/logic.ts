@@ -1,4 +1,5 @@
 import type { Property, PropertyOption, View, FilterRule, FilterOp, Layout } from './types'
+import type { TagColor } from '../types'
 
 export const NONE = '__none'
 
@@ -161,3 +162,24 @@ export function formatDate(iso?: string | null) {
   return (d.getFullYear() === new Date().getFullYear() ? fmtShort : fmtLong).format(d)
 }
 export const formatMonth = (month: string) => { const [y, m] = month.split('-').map(Number); return new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(y, m - 1, 1)) }
+
+/* ---------- Saisie de tags ---------- */
+/** Minuscules sans accents ni espaces de bord : base de la recherche d'options. */
+export const normalize = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim()
+/** Options dont le libellé contient la saisie, hors valeurs exclues (déjà choisies). */
+export const matchOptions = (options: PropertyOption[], query: string, exclude: string[] = []) => {
+  const q = normalize(query)
+  return options.filter(o => !exclude.includes(o.value) && (!q || normalize(o.label).includes(q)))
+}
+/** « Créer » est proposé tant que la saisie n'est pas exactement une option existante. */
+export const canCreate = (options: PropertyOption[], query: string) => !!normalize(query) && !options.some(o => normalize(o.label) === normalize(query))
+/** Ordre des couleurs données aux options créées. */
+export const TAG_ROTATION: TagColor[] = ['green', 'yellow', 'pink', 'brown', 'red', 'blue', 'purple', 'orange', 'gray']
+/** Première couleur pas encore prise, sinon on reprend le cycle. */
+export const nextTagColor = (options: PropertyOption[]): TagColor =>
+  TAG_ROTATION.find(c => !options.some(o => o.color === c)) ?? TAG_ROTATION[options.length % TAG_ROTATION.length]
+/** Découpe un libellé autour de la partie qui correspond à la saisie, pour la mettre en gras. */
+export const splitMatch = (label: string, query: string): [string, string, string] => {
+  const q = normalize(query), i = q ? normalize(label).indexOf(q) : -1
+  return i < 0 ? [label, '', ''] : [label.slice(0, i), label.slice(i, i + q.length), label.slice(i + q.length)]
+}

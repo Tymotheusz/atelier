@@ -55,11 +55,11 @@ declare function __VLS_template(): {
             modelValue: {
                 type: import("vue").PropType<string | number | null>;
             };
-            invalid: {
-                type: import("vue").PropType<boolean>;
-            };
             placeholder: {
                 type: import("vue").PropType<string>;
+            };
+            invalid: {
+                type: import("vue").PropType<boolean>;
             };
         }>> & {
             "onUpdate:modelValue"?: ((value: string | number | null) => any) | undefined;
@@ -89,11 +89,11 @@ declare function __VLS_template(): {
             modelValue: {
                 type: import("vue").PropType<string | number | null>;
             };
-            invalid: {
-                type: import("vue").PropType<boolean>;
-            };
             placeholder: {
                 type: import("vue").PropType<string>;
+            };
+            invalid: {
+                type: import("vue").PropType<boolean>;
             };
         }>> & {
             "onUpdate:modelValue"?: ((value: string | number | null) => any) | undefined;
@@ -128,11 +128,11 @@ declare function __VLS_template(): {
             modelValue: {
                 type: import("vue").PropType<string | number | null>;
             };
-            invalid: {
-                type: import("vue").PropType<boolean>;
-            };
             placeholder: {
                 type: import("vue").PropType<string>;
+            };
+            invalid: {
+                type: import("vue").PropType<boolean>;
             };
         }>> & {
             "onUpdate:modelValue"?: ((value: string | number | null) => any) | undefined;
@@ -164,11 +164,11 @@ declare function __VLS_template(): {
             modelValue: {
                 type: import("vue").PropType<string | number | null>;
             };
-            invalid: {
-                type: import("vue").PropType<boolean>;
-            };
             placeholder: {
                 type: import("vue").PropType<string>;
+            };
+            invalid: {
+                type: import("vue").PropType<boolean>;
             };
         }>> & {
             "onUpdate:modelValue"?: ((value: string | number | null) => any) | undefined;
@@ -198,11 +198,11 @@ declare function __VLS_template(): {
             modelValue: {
                 type: import("vue").PropType<string | number | null>;
             };
-            invalid: {
-                type: import("vue").PropType<boolean>;
-            };
             placeholder: {
                 type: import("vue").PropType<string>;
+            };
+            invalid: {
+                type: import("vue").PropType<boolean>;
             };
         }>> & {
             "onUpdate:modelValue"?: ((value: string | number | null) => any) | undefined;
@@ -237,11 +237,11 @@ declare function __VLS_template(): {
             modelValue: {
                 type: import("vue").PropType<string | number | null>;
             };
-            invalid: {
-                type: import("vue").PropType<boolean>;
-            };
             placeholder: {
                 type: import("vue").PropType<string>;
+            };
+            invalid: {
+                type: import("vue").PropType<boolean>;
             };
         }>> & {
             "onUpdate:modelValue"?: ((value: string | number | null) => any) | undefined;

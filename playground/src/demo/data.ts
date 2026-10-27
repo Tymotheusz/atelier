@@ -1,10 +1,16 @@
 import { reactive, computed, watch } from 'vue'
-import { addDays, today, uid, createView, filter, sort, type Property, type PropertyOption, type View } from '@tymotheusz/atelier'
+import { addDays, today, uid, createView, filter, sort, type Property, type PropertyOption, type View, type CommentItem } from '@tymotheusz/atelier'
 
 export interface Project { id: string; name: string; status: string; category: string; owner: string | null; start: string | null; end: string | null; color: string; icon: string; desc: string }
 export interface Milestone { id: string; projectId: string; name: string; status: string; due: string | null; goal: string }
 export interface Task { id: string; projectId: string; milestoneId: string | null; title: string; status: string; priority: string; assignee: string | null; due: string | null; estimate: number | null; tags: string[]; done: boolean; desc: string }
 export type Coll = 'projects' | 'milestones' | 'tasks'
+/** Entrée du fil d'une tâche : commentaire ou changement consigné. */
+export interface Activity extends CommentItem { taskId: string }
+
+/** Personne connectée dans l'app d'exemple, et personnes mentionnables. */
+export const ME = 'Timothée Cornic'
+export const PEOPLE_NAMES = ['Alice', 'Bruno', 'Chloé', ME]
 
 const d = (n: number | null) => (n == null ? null : addDays(today(), n))
 
@@ -26,7 +32,7 @@ const TAGS: PropertyOption[] = [
   { value: 'design', label: 'Design', color: 'pink' }, { value: 'contenu', label: 'Contenu', color: 'brown' },
   { value: 'infra', label: 'Infra', color: 'gray' }, { value: 'bug', label: 'Bug', color: 'red' }]
 const CATS: PropertyOption[] = [{ value: 'produit', label: 'Produit', color: 'blue' }, { value: 'marketing', label: 'Marketing', color: 'purple' }, { value: 'interne', label: 'Interne', color: 'orange' }]
-const PEOPLE: PropertyOption[] = [{ value: 'u1', label: 'Alice' }, { value: 'u2', label: 'Bruno' }, { value: 'u3', label: 'Chloé' }]
+export const PEOPLE: PropertyOption[] = [{ value: 'u1', label: 'Alice' }, { value: 'u2', label: 'Bruno' }, { value: 'u3', label: 'Chloé' }]
 
 /* ---------- Données d'exemple (fictives) ---------- */
 function seed() {
@@ -61,7 +67,19 @@ function seed() {
     T('p3', 'm6', 'Inventaire des services', 'todo', 'med', 'u3', 12, 2, ['infra']),
     T('p3', 'm6', 'Estimer les coûts', 'todo', 'med', 'u1', 30, 4, ['infra'])
   ]
-  return { projects, milestones, tasks }
+  const ago = (min: number) => new Date(Date.now() - min * 60000).toISOString()
+  const notif = tasks[3].id, contact = tasks[8].id
+  const activity: Activity[] = [
+    { id: uid(), taskId: notif, kind: 'event', author: 'Alice', text: 'a créé la tâche', at: ago(5 * 1440) },
+    { id: uid(), taskId: notif, author: 'Bruno', text: 'Les notifications partent bien sur iOS. Android reste bloqué par le certificat, @Chloé tu peux regarder ?', at: ago(1500) },
+    { id: uid(), taskId: notif, kind: 'event', author: 'Chloé', text: 'a passé le statut à En revue', at: ago(125) },
+    { id: uid(), taskId: notif, author: 'Chloé', text: 'Certificat renouvelé, c’est bon des deux côtés.', at: ago(120) },
+    { id: uid(), taskId: contact, kind: 'event', author: 'Chloé', text: 'a passé le statut à Bloqué', at: ago(2 * 1440) },
+    { id: uid(), taskId: contact, author: 'Chloé', text: 'En attente de la clé de l’API d’envoi d’e-mails.', at: ago(2 * 1440 - 3) }
+  ]
+  /** Options modifiables depuis les tableaux (création, couleur, nom). */
+  const options = { category: CATS.map(o => ({ ...o })), tags: TAGS.map(o => ({ ...o })) }
+  return { projects, milestones, tasks, activity, options }
 }
 
 function defaultViews(): Record<string, View[]> {
@@ -115,14 +133,14 @@ export function taskSchema(projectId?: string): Property<Task>[] {
     { key: 'assignee', name: 'Assigné à', type: 'person', options: PEOPLE, width: 140 },
     { key: 'due', name: 'Échéance', type: 'date', width: 120, overdue: r => !!r.due && r.due < today() && r.status !== 'done' },
     { key: 'estimate', name: 'Estimation', type: 'number', suffix: ' h', width: 110 },
-    { key: 'tags', name: 'Étiquettes', type: 'multi', options: TAGS, width: 180 },
+    { key: 'tags', name: 'Étiquettes', type: 'multi', options: () => store.options.tags, creatable: true, width: 180 },
     { key: 'done', name: 'Fait', type: 'checkbox', width: 70 })
   return s
 }
 export const projectSchema: Property<Project>[] = [
   { key: 'name', name: 'Nom', type: 'title', width: 240 },
   { key: 'status', name: 'Statut', type: 'status', options: STATUS_PROJECT, width: 120 },
-  { key: 'category', name: 'Catégorie', type: 'select', options: CATS, width: 130 },
+  { key: 'category', name: 'Catégorie', type: 'select', options: () => store.options.category, creatable: true, width: 140 },
   { key: 'owner', name: 'Responsable', type: 'person', options: PEOPLE, width: 140 },
   { key: 'progress', name: 'Avancement', type: 'progress', width: 170, compute: r => progressOf(tasksOf(r.id)) },
   { key: 'open', name: 'Tâches ouvertes', type: 'number', width: 130, compute: r => tasksOf(r.id).filter(t => t.status !== 'done').length },
@@ -139,8 +157,18 @@ export const milestoneSchema: Property<Milestone>[] = [
 ]
 
 /* ---------- Mutations ---------- */
+const LOGGED: Record<string, { label: string; options: () => PropertyOption[] }> = {
+  status: { label: 'le statut', options: () => STATUS_TASK },
+  priority: { label: 'la priorité', options: () => PRIO },
+  assignee: { label: 'l’assignation', options: () => PEOPLE }
+}
 export function update(coll: Coll, row: any, key: string, value: unknown) {
+  const before = row[key]
   row[key] = value
+  if (coll === 'tasks' && LOGGED[key] && before !== value) {
+    const l = LOGGED[key], name = l.options().find(o => o.value === value)?.label
+    log(row.id, name ? `a passé ${l.label} à ${name}` : `a retiré ${l.label}`)
+  }
   if (coll === 'tasks') {
     if (key === 'done') row.status = value ? 'done' : (row.status === 'done' ? 'todo' : row.status)
     if (key === 'status') row.done = value === 'done'
@@ -156,6 +184,7 @@ export function create(coll: Coll, defaults: Record<string, unknown>): any {
   Object.assign(r, defaults)
   if (coll === 'tasks' && r.milestoneId) { const m = store.milestones.find(x => x.id === r.milestoneId); if (m) r.projectId = m.projectId }
   ;(store[coll] as any[]).push(r)
+  if (coll === 'tasks') log(r.id, 'a créé la tâche')
   return store[coll].find((x: any) => x.id === r.id)
 }
 export function remove(coll: Coll, ids: string[]) {
@@ -163,4 +192,29 @@ export function remove(coll: Coll, ids: string[]) {
   if (coll === 'projects') { store.tasks = store.tasks.filter(t => !set.has(t.projectId)); store.milestones = store.milestones.filter(m => !set.has(m.projectId)) }
   if (coll === 'milestones') store.tasks.forEach(t => { if (t.milestoneId && set.has(t.milestoneId)) t.milestoneId = null })
   ;(store as any)[coll] = (store[coll] as any[]).filter(r => !set.has(r.id))
+  if (coll !== 'milestones') { const tasks = new Set(store.tasks.map(t => t.id)); store.activity = store.activity.filter(a => tasks.has(a.taskId)) }
 }
+
+/* ---------- Options modifiables (Catégorie, Étiquettes) ---------- */
+type OptKey = keyof ReturnType<typeof seed>['options']
+const optColl = (key: string): Coll => (key === 'category' ? 'projects' : 'tasks')
+export function createOption(key: string, o: PropertyOption) { store.options[key as OptKey]?.push(o) }
+export function updateOption(key: string, value: string, patch: Partial<PropertyOption>) {
+  const o = store.options[key as OptKey]?.find(x => x.value === value); if (o) Object.assign(o, patch)
+}
+/** Supprime l'option et la retire des lignes qui la portaient. */
+export function deleteOption(key: string, value: string) {
+  const list = store.options[key as OptKey]; if (!list) return
+  store.options[key as OptKey] = list.filter(x => x.value !== value)
+  ;(store[optColl(key)] as any[]).forEach(r => {
+    if (Array.isArray(r[key])) r[key] = r[key].filter((v: string) => v !== value)
+    else if (r[key] === value) r[key] = null
+  })
+}
+
+/* ---------- Fil d'activité des tâches ---------- */
+export const activityOf = (taskId: string) => store.activity.filter(a => a.taskId === taskId)
+function log(taskId: string, text: string) { store.activity.push({ id: uid(), taskId, kind: 'event', author: ME, text, at: new Date().toISOString() }) }
+export function addComment(taskId: string, text: string) { store.activity.push({ id: uid(), taskId, author: ME, text, at: new Date().toISOString() }) }
+export function editComment(id: string, text: string) { const a = store.activity.find(x => x.id === id); if (a) { a.text = text; a.editedAt = new Date().toISOString() } }
+export function deleteComment(id: string) { store.activity = store.activity.filter(x => x.id !== id) }

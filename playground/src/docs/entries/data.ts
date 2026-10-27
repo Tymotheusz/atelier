@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { createView, filter, sort, uid, type Property, type View } from '@tymotheusz/atelier'
+import { createView, filter, sort, uid, type Property, type PropertyOption, type View } from '@tymotheusz/atelier'
 import type { ComponentDoc } from '../types'
 
 interface Tache { id: string; title: string; statut: string; priorite: string; due: string | null; estimate: number | null; tags: string[]; fait: boolean }
@@ -24,14 +24,15 @@ const OPT_TAGS = [
 const iso = (n: number) => { const d = new Date(); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10) }
 
 /** Schéma et lignes communs aux exemples de propriétés et de vue de données. */
-function jeuDeDonnees() {
+function jeuDeDonnees(creatable = false) {
+  const tags = ref<PropertyOption[]>(OPT_TAGS.map(o => ({ ...o })))
   const schema: Property<Tache>[] = [
     { key: 'title', name: 'Nom', type: 'title', width: 260 },
     { key: 'statut', name: 'Statut', type: 'status', options: OPT_STATUT, width: 130 },
     { key: 'priorite', name: 'Priorité', type: 'select', options: OPT_PRIO, width: 120 },
     { key: 'due', name: 'Échéance', type: 'date', width: 120, overdue: r => !!r.due && r.due < iso(0) && r.statut !== 'done' },
     { key: 'estimate', name: 'Estimation', type: 'number', suffix: ' h', width: 110 },
-    { key: 'tags', name: 'Étiquettes', type: 'multi', options: OPT_TAGS, width: 170 },
+    { key: 'tags', name: 'Étiquettes', type: 'multi', options: () => tags.value, creatable, width: 170 },
     { key: 'fait', name: 'Fait', type: 'checkbox', width: 70 }
   ]
   const rows = ref<Tache[]>([
@@ -40,7 +41,13 @@ function jeuDeDonnees() {
     { id: 't3', title: 'Formulaire de contact', statut: 'blocked', priorite: 'high', due: iso(-2), estimate: 8, tags: ['back'], fait: false },
     { id: 't4', title: 'Page tarifs', statut: 'todo', priorite: 'low', due: iso(12), estimate: 3, tags: ['front', 'design'], fait: false }
   ])
-  return { schema, rows }
+  /** Gestion des options créées depuis les cellules (exemples avec `creatable`). */
+  const options = {
+    create: (o: PropertyOption) => { tags.value.push(o) },
+    update: (v: string, patch: Partial<PropertyOption>) => { const o = tags.value.find(x => x.value === v); if (o) Object.assign(o, patch) },
+    remove: (v: string) => { tags.value = tags.value.filter(o => o.value !== v); rows.value.forEach(r => { r.tags = r.tags.filter(t => t !== v) }) }
+  }
+  return { schema, rows, options }
 }
 
 export const data: ComponentDoc[] = [
@@ -173,6 +180,7 @@ export const data: ComponentDoc[] = [
       '`options` peut être une fonction de la ligne, pour une relation qui dépend d’une autre colonne (la milestone dépend du projet).',
       '`hideViews` impose une vue unique : à utiliser dans un panneau ou un onglet, pas sur une page de liste.',
       '`lockViews` garde la barre de vues mais fige leur liste : ni ajout, ni duplication, ni suppression. Les vues restent renommables et paramétrables.',
+      '`creatable` sur une propriété select ou multi : on crée une option en tapant son nom, « ⋯ » la renomme, la recolore ou la supprime. Le composant émet `create-option`, `update-option`, `delete-option` ; l’app enregistre l’option et, à la suppression, la retire de ses lignes.',
       'Par défaut, Filtrer, Trier, Grouper et Propriétés n’affichent que leur pictogramme ; le libellé reste en infobulle et en `aria-label`, les compteurs restent visibles. `:icon-tools="false"` remet les libellés, quand la place ne manque pas et que la barre doit se lire d’un coup d’œil.',
       'En densité compacte, les lignes passent de 36 à 30 px : c’est le réglage des vues de données.'
     ],
@@ -193,14 +201,17 @@ export const data: ComponentDoc[] = [
       { name: 'update', type: '(row: R, key: string, value: unknown)', desc: 'Une valeur a été modifiée : au parent de l’écrire.' },
       { name: 'create', type: '(defaults: Partial<R>)', desc: 'Création demandée, avec les valeurs induites par les filtres et le groupe courant.' },
       { name: 'open', type: '(row: R)', desc: 'Ouverture d’une ligne (panneau de détail ou page).' },
-      { name: 'delete', type: '(rows: R[])', desc: 'Suppression demandée.' }
+      { name: 'delete', type: '(rows: R[])', desc: 'Suppression demandée.' },
+      { name: 'createOption', type: '(prop: Property<R>, option: PropertyOption)', desc: 'Option créée depuis une cellule (`creatable`) : l’ajouter aux options de la propriété. La valeur choisie suit dans un `update`.' },
+      { name: 'updateOption', type: '(prop: Property<R>, value: string, patch: Partial<PropertyOption>)', desc: 'Option renommée (`label`) ou recolorée (`color`).' },
+      { name: 'deleteOption', type: '(prop: Property<R>, value: string)', desc: 'Option supprimée : la retirer des options et des lignes qui la portent.' }
     ],
     classes: ['at-dv-viewsbar', 'at-dv-toolbar', 'at-dv-table', 'at-dv-board', 'at-dv-list', 'at-dv-calwrap', 'at-dv-card', 'at-dv-chip'],
     related: ['at-property-list', 'at-property-editor', 'at-table', 'at-drawer'],
     examples: [
       {
         title: 'Quatre vues sur les mêmes tâches',
-        desc: 'Changer de vue, filtrer, trier, grouper, modifier une cellule : tout est actif. Les lignes restent au parent.',
+        desc: 'Changer de vue, filtrer, trier, grouper, modifier une cellule : tout est actif. Les étiquettes sont `creatable` : tapez un nom nouveau pour en créer une. Les lignes restent au parent.',
         frame: 'plain',
         open: true,
         code: `
@@ -208,6 +219,7 @@ export const data: ComponentDoc[] = [
             v-model:views="vues" v-model:active-view="active"
             :rows="rows" :schema="schema" new-label="Nouvelle tâche"
             @update="(row, key, value) => (row[key] = value)"
+            @create-option="(p, o) => options.create(o)" @update-option="(p, v, patch) => options.update(v, patch)" @delete-option="(p, v) => options.remove(v)"
             @create="defaults => rows.push({ id: uid(), title: '', statut: 'todo', priorite: 'med',
               due: null, estimate: null, tags: [], fait: false, ...defaults })"
             @open="row => (ouverte = row.title || 'Sans titre')"
@@ -216,14 +228,14 @@ export const data: ComponentDoc[] = [
           <p v-if="ouverte" class="at-muted">Ligne ouverte : {{ ouverte }} — dans une vraie app, un AtDrawer s’ouvrirait ici.</p>
         `,
         setup: () => {
-          const { schema, rows } = jeuDeDonnees()
+          const { schema, rows, options } = jeuDeDonnees(true)
           const vues = ref<View[]>([
             createView('Tableau', 'table', { hidden: ['fait'] }),
             createView('Kanban', 'board', { groupBy: 'statut', hidden: ['statut', 'estimate', 'fait'] }),
             createView('Calendrier', 'calendar', { dateProp: 'due' }),
             createView('En retard', 'list', { filters: [filter('due', 'past'), filter('statut', 'isnot', 'done')], sorts: [sort('due')], hidden: ['tags', 'fait'] })
           ])
-          return { schema, rows, vues, active: ref(vues.value[0].id), ouverte: ref(''), uid }
+          return { schema, rows, options, vues, active: ref(vues.value[0].id), ouverte: ref(''), uid }
         }
       },
       {
@@ -311,7 +323,8 @@ export const data: ComponentDoc[] = [
     family: 'Données',
     tagline: 'Éditeur flottant d’une propriété, ancré sur une cellule ou une valeur.',
     about: [
-      'Choisit son éditeur selon le type : liste d’options pour un statut, un select, une relation ou une personne ; cases à cocher pour un multi ; champ date avec « Aujourd’hui » et « Effacer » ; champ texte ou nombre sinon. Une propriété `required` perd l’action « Effacer ».',
+      'Choisit son éditeur selon le type. Select et multi s’éditent en place : un champ se pose sur la cellule, on tape et les options se filtrent dessous (↑↓, Entrée, Retour arrière retire la dernière valeur, Échap ferme). Statut, relation et personne gardent une liste d’options ; date : champ avec « Aujourd’hui » et « Effacer » ; texte ou nombre sinon. Une propriété `required` perd l’action « Effacer ».',
+      'Avec `creatable`, « Créer … » apparaît tant que la saisie n’est pas exactement une option (la couleur suivante de la palette est prise), et « ⋯ » à droite de chaque option ouvre renommer, couleur et supprimer.',
       'Il n’écrit pas : il émet `update`. La fermeture valide le champ texte en cours.'
     ],
     rules: [
@@ -325,7 +338,12 @@ export const data: ComponentDoc[] = [
       { name: 'row', type: 'any', required: true, desc: 'Ligne concernée.' },
       { name: 'anchor', type: 'HTMLElement | null', required: true, desc: 'Élément d’ancrage.' }
     ],
-    events: [{ name: 'update', type: '(value: unknown)', desc: 'Nouvelle valeur choisie.' }],
+    events: [
+      { name: 'update', type: '(value: unknown)', desc: 'Nouvelle valeur choisie.' },
+      { name: 'createOption', type: '(option: PropertyOption)', desc: 'Option créée en tapant (`creatable`). Émis avant l’`update` qui la choisit.' },
+      { name: 'updateOption', type: '(value: string, patch: Partial<PropertyOption>)', desc: 'Option renommée ou recolorée.' },
+      { name: 'deleteOption', type: '(value: string)', desc: 'Option supprimée.' }
+    ],
     related: ['at-property-value', 'at-property-list', 'at-popover'],
     examples: [
       {
@@ -366,23 +384,29 @@ export const data: ComponentDoc[] = [
       { name: 'row', type: 'any', required: true, desc: 'Ligne affichée.' },
       { name: 'exclude', type: 'string[]', desc: 'Clés à ne pas afficher.' }
     ],
-    events: [{ name: 'update', type: '(key: string, value: unknown)', desc: 'Valeur modifiée.' }],
+    events: [
+      { name: 'update', type: '(key: string, value: unknown)', desc: 'Valeur modifiée.' },
+      { name: 'createOption', type: '(key: string, option: PropertyOption)', desc: 'Option créée (`creatable`), comme pour `AtDataView`.' },
+      { name: 'updateOption', type: '(key: string, value: string, patch: Partial<PropertyOption>)', desc: 'Option renommée ou recolorée.' },
+      { name: 'deleteOption', type: '(key: string, value: string)', desc: 'Option supprimée.' }
+    ],
     classes: ['at-proplist', 'at-proplist__value'],
     related: ['at-property-editor', 'at-drawer', 'at-data-view'],
     examples: [
       {
         title: 'Propriétés d’une tâche',
-        desc: 'Cliquer une valeur pour la modifier : statut, priorité, échéance, étiquettes, estimation.',
+        desc: 'Cliquer une valeur pour la modifier : statut, priorité, échéance, étiquettes, estimation. Les étiquettes sont `creatable`.',
         frame: 'plain',
         code: `
           <div style="max-width: 420px">
             <AtPropertyList :schema="schema" :row="ligne" :exclude="['fait']"
-              @update="(k, v) => (ligne[k] = v)" />
+              @update="(k, v) => (ligne[k] = v)"
+              @create-option="(k, o) => options.create(o)" @update-option="(k, v, patch) => options.update(v, patch)" @delete-option="(k, v) => options.remove(v)" />
           </div>
         `,
         setup: () => {
-          const { schema, rows } = jeuDeDonnees()
-          return { schema, ligne: rows.value[0] }
+          const { schema, rows, options } = jeuDeDonnees(true)
+          return { schema, ligne: rows.value[0], options }
         }
       }
     ]

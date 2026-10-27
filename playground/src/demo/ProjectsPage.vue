@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { today, addDays } from '@tymotheusz/atelier'
-import { store, openTasks, tasksOf, progressOf, taskSchema, projectSchema, milestoneSchema, update, create, remove, reset, PROJECT_ICONS, PROJECT_COLORS, type Coll } from './data'
+import { store, openTasks, tasksOf, progressOf, taskSchema, projectSchema, milestoneSchema, update, create, remove, reset, createOption, updateOption, deleteOption, activityOf, addComment, editComment, deleteComment, ME, PEOPLE_NAMES, PROJECT_ICONS, PROJECT_COLORS, type Coll } from './data'
 
 const props = defineProps<{ page: string; projectId: string | null }>()
 const emit = defineEmits<{ go: [page: any, id?: string | null] }>()
@@ -54,6 +54,7 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
       :rows="store.projects" :schema="projectSchema" new-label="Nouveau projet"
       @update="(r, k, v) => update('projects', r, k, v)" @create="d => onCreate('projects', d)"
       @open="r => open('projects', r)" @delete="rs => remove('projects', rs.map(r => r.id))"
+      @create-option="(p, o) => createOption(p.key, o)" @update-option="(p, v, patch) => updateOption(p.key, v, patch)" @delete-option="(p, v) => deleteOption(p.key, v)"
     />
     <p class="at-muted" style="font-size: 12px">Données d’exemple enregistrées dans ce navigateur. <a href="#" @click.prevent="reset">Réinitialiser</a></p>
   </AtPage>
@@ -65,6 +66,7 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
       :rows="store.tasks" :schema="taskSchema()" new-label="Nouvelle tâche"
       @update="(r, k, v) => update('tasks', r, k, v)" @create="d => onCreate('tasks', d)"
       @open="r => open('tasks', r)" @delete="rs => remove('tasks', rs.map(r => r.id))"
+      @create-option="(p, o) => createOption(p.key, o)" @update-option="(p, v, patch) => updateOption(p.key, v, patch)" @delete-option="(p, v) => deleteOption(p.key, v)"
     />
   </AtPage>
 
@@ -119,6 +121,7 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
       :rows="tasksOf(project.id)" :schema="taskSchema(project.id)" new-label="Nouvelle tâche"
       @update="(r, k, v) => update('tasks', r, k, v)" @create="d => onCreate('tasks', { projectId: project!.id, ...d })"
       @open="r => open('tasks', r)" @delete="rs => remove('tasks', rs.map(r => r.id))"
+      @create-option="(p, o) => createOption(p.key, o)" @update-option="(p, v, patch) => updateOption(p.key, v, patch)" @delete-option="(p, v) => deleteOption(p.key, v)"
     />
     <AtDataView
       v-else :key="'m' + project.id"
@@ -137,10 +140,20 @@ const msCount = (id: string) => { const l = store.tasks.filter(t => t.milestoneI
     </template>
     <template v-if="peekRow">
       <textarea v-model="peekRow[titleKey]" class="at-title-input" rows="1" placeholder="Sans titre" aria-label="Titre" />
-      <AtPropertyList :schema="peekSchema" :row="peekRow" @update="(k, v) => update(peek!.coll, peekRow, k, v)" />
+      <AtPropertyList
+        :schema="peekSchema" :row="peekRow" @update="(k, v) => update(peek!.coll, peekRow, k, v)"
+        @create-option="createOption" @update-option="updateOption" @delete-option="deleteOption"
+      />
       <div class="at-divider" />
       <label class="at-label" for="pg-desc">{{ peek?.coll === 'milestones' ? 'Objectif' : 'Description' }}</label>
       <textarea id="pg-desc" v-model="peekRow[descKey]" class="at-bare-textarea" placeholder="Ajouter quelques lignes…" />
+      <template v-if="peek?.coll === 'tasks'">
+        <div class="at-divider" />
+        <AtComments
+          :items="activityOf(peekRow.id)" :me="ME" :people="PEOPLE_NAMES"
+          @post="t => addComment(peekRow.id, t)" @edit="(c, t) => editComment(c.id, t)" @delete="c => deleteComment(c.id)"
+        />
+      </template>
       <template v-if="peek?.coll !== 'tasks'">
         <span class="at-label">{{ peek?.coll === 'milestones' ? 'Tâches liées' : 'Milestones' }} · {{ linked.length }}</span>
         <div v-if="linked.length" class="at-linked">

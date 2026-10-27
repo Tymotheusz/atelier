@@ -6,6 +6,7 @@ import AtBreadcrumbs from './components/AtBreadcrumbs.vue'
 import AtButton from './components/AtButton.vue'
 import AtCard from './components/AtCard.vue'
 import AtCheckbox from './components/AtCheckbox.vue'
+import AtComments from './components/AtComments.vue'
 import AtDataView from './components/AtDataView.vue'
 import AtDrawer from './components/AtDrawer.vue'
 import AtDropdown from './components/AtDropdown.vue'
@@ -49,6 +50,7 @@ export {
   AtButton,
   AtCard,
   AtCheckbox,
+  AtComments,
   AtDataView,
   AtDrawer,
   AtDropdown,
@@ -89,8 +91,10 @@ export * from './types'
 export * from './dataview/types'
 export {
   createView, filter, sort, applyView, groupRows, matchRule, compareRows, defaultsFromFilters,
-  getValue, optionsOf, findOption, isEmpty, formatDate, formatMonth, monthGrid, shiftMonth, today, addDays, uid, LAYOUTS, OPS, OP_LABEL, NONE
+  getValue, optionsOf, normalize, matchOptions, canCreate, nextTagColor, splitMatch, TAG_ROTATION, findOption, isEmpty, formatDate, formatMonth, monthGrid, shiftMonth, today, addDays, uid, LAYOUTS, OPS, OP_LABEL, NONE
 } from './dataview/logic'
+export { formatRelative, splitMentions, mentionAt } from './comments'
+export type { TextPart } from './comments'
 export { useTheme, useDensity } from './composables/useTheme'
 export { useId } from './composables/useId'
 export { icons, registerIcons } from './icons'
@@ -107,6 +111,7 @@ const components = {
   AtButton,
   AtCard,
   AtCheckbox,
+  AtComments,
   AtDataView,
   AtDrawer,
   AtDropdown,
@@ -160,6 +165,7 @@ declare module 'vue' {
     AtButton: typeof AtButton
     AtCard: typeof AtCard
     AtCheckbox: typeof AtCheckbox
+    AtComments: typeof AtComments
     AtDataView: typeof AtDataView
     AtDrawer: typeof AtDrawer
     AtDropdown: typeof AtDropdown

@@ -23,6 +23,8 @@ export interface Property<R = any> {
   /** Valeur calculée : la propriété devient en lecture seule. */
   compute?: (row: R) => unknown
   readonly?: boolean
+  /** Select, multi : options créées en tapant, renommées, recolorées et supprimées depuis l'éditeur (« ⋯ »). L'app les enregistre via les événements `*-option`. */
+  creatable?: boolean
   /** Interdit « Effacer » dans l'éditeur. */
   required?: boolean
   /** Date : marque la valeur en rouge quand ce prédicat est vrai. */

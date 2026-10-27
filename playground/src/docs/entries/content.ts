@@ -105,6 +105,64 @@ export const content: ComponentDoc[] = [
   },
 
   {
+    name: 'AtComments',
+    slug: 'at-comments',
+    family: 'Contenu',
+    tagline: 'Fil d’activité : commentaires et changements mêlés, saisie en bas.',
+    about: [
+      'Les éléments sont triés par date. Un `comment` affiche l’avatar, le nom, l’heure relative et le texte ; un `event` (« a passé le statut à En revue ») est une ligne grise, plus discrète. La saisie est en bas, comme dans une conversation : ⌘ Entrée (Ctrl Entrée) envoie.',
+      '`@` ouvre la liste des personnes de `people` ; la mention est mise en valeur dans le message. Ses propres messages (auteur = `me`) se modifient et se suppriment au survol.',
+      '**Le composant n’écrit jamais dans `items`** : il émet `post`, `edit` et `delete`. C’est à l’app de consigner les changements (`kind: \'event\'`) quand elle modifie une ligne.'
+    ],
+    rules: [
+      'Dans un panneau de détail, sous la description, séparé par un `at-divider`.',
+      'Les événements disent un changement, au passé composé et sans sujet : « a passé le statut à Bloqué », « a créé la tâche ». L’auteur est affiché devant.',
+      'Ne consigner que ce qui aide à comprendre l’histoire (statut, assignation, priorité), pas chaque frappe.',
+      '`at` est une date ISO complète : l’heure relative (« il y a 2 h », « hier à 16:40 ») est calculée à l’affichage et se met à jour.'
+    ],
+    props: [
+      { name: 'items', type: 'CommentItem[]', required: true, desc: '`{ id, kind?: \'comment\' | \'event\', author, text, at, editedAt? }`.' },
+      { name: 'me', type: 'string', required: true, desc: 'Nom de la personne connectée : avatar de la saisie, droit de modifier ses messages.' },
+      { name: 'people', type: 'string[]', default: '[]', desc: 'Personnes mentionnables avec `@`.' },
+      { name: 'label', type: 'string', default: `'Activité'`, desc: 'Titre du fil, aussi `aria-label`. Vide : pas de titre.' },
+      { name: 'placeholder', type: 'string', default: `'Ajouter un commentaire…'`, desc: 'Texte d’attente de la saisie.' }
+    ],
+    events: [
+      { name: 'post', type: '(text: string)', desc: 'Nouveau commentaire envoyé.' },
+      { name: 'edit', type: '(item: CommentItem, text: string)', desc: 'Commentaire modifié : penser à `editedAt`.' },
+      { name: 'delete', type: '(item: CommentItem)', desc: 'Commentaire supprimé.' }
+    ],
+    classes: ['at-comments', 'at-comment', 'at-comment__meta', 'at-comment__body', 'at-mention', 'at-event', 'at-composer', 'at-composer__box', 'at-composer__text'],
+    related: ['at-drawer', 'at-avatar', 'at-property-list'],
+    examples: [
+      {
+        title: 'Fil d’une tâche',
+        desc: 'Écrire un message, mentionner avec @, modifier ou supprimer ses propres messages au survol.',
+        frame: 'plain',
+        code: `
+          <div style="max-width: 460px">
+            <AtComments :items="fil" me="Timothée Cornic" :people="['Alice', 'Bruno', 'Chloé']"
+              @post="t => fil.push({ id: String(Date.now()), author: 'Timothée Cornic', text: t, at: new Date().toISOString() })"
+              @edit="(c, t) => Object.assign(c, { text: t, editedAt: new Date().toISOString() })"
+              @delete="c => fil.splice(fil.indexOf(c), 1)" />
+          </div>
+        `,
+        setup: () => {
+          const ago = (min: number) => new Date(Date.now() - min * 60000).toISOString()
+          return {
+            fil: ref([
+              { id: 'e1', kind: 'event', author: 'Alice', text: 'a créé la tâche', at: ago(4 * 1440) },
+              { id: 'c1', author: 'Bruno', text: 'Les notifications partent bien sur iOS. Android reste bloqué par le certificat, @Chloé tu peux regarder ?', at: ago(1500) },
+              { id: 'e2', kind: 'event', author: 'Chloé', text: 'a passé le statut à En revue', at: ago(125) },
+              { id: 'c2', author: 'Chloé', text: 'Certificat renouvelé, c’est bon des deux côtés.', at: ago(120) },
+              { id: 'c3', author: 'Timothée Cornic', text: 'Parfait, je relis demain matin.', at: ago(30) }
+            ])
+          }
+        }
+      }
+    ]
+  },
+  {
     name: 'AtModal',
     slug: 'at-modal',
     family: 'Contenu',

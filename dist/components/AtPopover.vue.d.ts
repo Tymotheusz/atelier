@@ -1,8 +1,8 @@
 type __VLS_Props = {
     anchor?: HTMLElement | null;
     align?: 'start' | 'end';
-    /** `bottom` : sous l'ancre (au-dessus s'il manque de place). `right` : à droite de l'ancre, bas contre bas. */
-    placement?: 'bottom' | 'right';
+    /** `bottom` : sous l'ancre (au-dessus s'il manque de place). `right` : à droite de l'ancre, bas contre bas. `over` : posé sur l'ancre (édition en place). */
+    placement?: 'bottom' | 'right' | 'over';
     offset?: number;
 };
 declare function place(): void;
@@ -49,7 +49,7 @@ declare const __VLS_component: import("vue").DefineComponent<__VLS_WithDefaults<
     "onUpdate:open"?: ((value: boolean) => any) | undefined;
 }, {
     align: "start" | "end";
-    placement: "bottom" | "right";
+    placement: "bottom" | "right" | "over";
     offset: number;
 }, {}>;
 declare const _default: __VLS_WithTemplateSlots<typeof __VLS_component, __VLS_TemplateResult["slots"]>;
