@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0] - 2026-10-29
+
+- Filtre « Moi » dans les vues de données : une règle sur l'utilisateur courant, proposée en tête des propriétés
+  personne, qui vaut aussi pour la création depuis la vue.
+- Vues système : ni renommées ni supprimées, filtres affichés mais fixes ; identifiant fixe possible à la création.
+- Raccourcis clavier au niveau de la page, en pile, muets pendant la saisie et quand un menu ou une modale est ouvert.
+- Toasts : file en bas à droite, action « Annuler » ou « Ouvrir », pause au survol, utilisables hors composant.
+- `AtList` : liste parcourue au clavier (J / K, flèches, Entrée), au focus ou sur toute la page.
+- `AtPropertyList` : ouverture d'un champ depuis le code, pour les raccourcis.
+- Éditeur de date : Aujourd'hui, Demain, Lundi prochain, Dans une semaine, Effacer.
+- Pictogramme `lock`.
+
 ## [0.5.0] - 2026-10-27
 
 - **À savoir en mettant à jour** : dans `AtDataView`, Filtrer, Trier, Grouper et Propriétés n'affichent plus que leur

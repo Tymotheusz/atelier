@@ -7,4 +7,5 @@ import DocsApp from './docs/DocsApp.vue'
 <template>
   <DocsApp v-if="app === 'doc'" />
   <DemoApp v-else />
+  <AtToaster />
 </template>

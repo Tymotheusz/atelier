@@ -3,11 +3,10 @@ import { computed, ref, watch, nextTick } from 'vue'
 import AtPopover from './AtPopover.vue'
 import AtPropertyValue from './AtPropertyValue.vue'
 import AtIcon from './AtIcon.vue'
-import AtButton from './AtButton.vue'
 import AtKbd from './AtKbd.vue'
 import type { Property, PropertyOption } from '../dataview/types'
 import type { TagColor } from '../types'
-import { optionsOf, isOptionType, today, uid, matchOptions, canCreate, nextTagColor, splitMatch } from '../dataview/logic'
+import { optionsOf, isOptionType, today, addDays, nextMonday, formatDate, uid, matchOptions, canCreate, nextTagColor, splitMatch } from '../dataview/logic'
 import { useId } from '../composables/useId'
 
 /**
@@ -109,6 +108,17 @@ watch(open, v => {
     const i = box.value?.querySelector<HTMLElement>('input, button'); i?.focus(); (i as HTMLInputElement)?.select?.()
   })
 })
+/** Quick picks of the date editor, computed when it opens. */
+const quickDates = computed(() => {
+  void open.value
+  const t = today()
+  return [
+    { label: 'Aujourd’hui', value: t },
+    { label: 'Demain', value: addDays(t, 1) },
+    { label: 'Lundi prochain', value: nextMonday(t) },
+    { label: 'Dans une semaine', value: addDays(t, 7) }
+  ]
+})
 const fake = (value: unknown) => ({ ...props.row, [props.prop!.key]: value })
 function set(value: unknown, close = true) { emit('update', value); if (close) open.value = false }
 function commit() {
@@ -195,9 +205,14 @@ function onClose() { if (kind.value === 'input') { let v: unknown = draft.value;
       <div v-else-if="kind === 'date'" class="at-menu at-menu-pad" style="min-width: 240px">
         <span class="at-menu-title">{{ prop.name }}</span>
         <input type="date" class="at-input" :value="current ?? ''" :aria-label="prop.name" @change="set(($event.target as HTMLInputElement).value || null, false)">
-        <div class="at-menu-actions">
-          <AtButton size="sm" @click="set(today())">Aujourd’hui</AtButton>
-          <AtButton size="sm" variant="ghost" @click="set(null)">Effacer</AtButton>
+        <div class="at-datequick" role="group" aria-label="Raccourcis">
+          <button v-for="d in quickDates" :key="d.label" type="button" class="at-menu-item" @click="set(d.value)">
+            {{ d.label }}<span class="at-menu-meta">{{ formatDate(d.value) }}</span>
+          </button>
+          <template v-if="!prop.required">
+            <div class="at-menu-sep" />
+            <button type="button" class="at-menu-item" :disabled="!current" @click="set(null)"><AtIcon name="x" />Effacer</button>
+          </template>
         </div>
       </div>
       <div v-else class="at-menu at-menu-pad" style="min-width: 280px">

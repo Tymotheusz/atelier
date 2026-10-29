@@ -5,7 +5,11 @@ type __VLS_Props = {
     row: any;
     exclude?: string[];
 };
-declare const _default: import("vue").DefineComponent<__VLS_TypePropsToOption<__VLS_Props>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+/** Opens the editor of a field as a click would; no-op for a read-only, hidden or unknown field. */
+declare function edit(key: string): void;
+declare const _default: import("vue").DefineComponent<__VLS_TypePropsToOption<__VLS_Props>, {
+    edit: typeof edit;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     update: (key: string, value: unknown) => void;
     createOption: (key: string, option: PropertyOption) => void;
     updateOption: (key: string, value: string, patch: Partial<PropertyOption>) => void;

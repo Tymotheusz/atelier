@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { useToast } from '@tymotheusz/atelier'
 import type { ComponentDoc } from '../types'
 
 export const status: ComponentDoc[] = [
@@ -158,6 +159,63 @@ export const status: ComponentDoc[] = [
           <span>Enregistrer <AtKbd>⌘S</AtKbd></span>
           <span>Fermer <AtKbd>Échap</AtKbd></span>
         `
+      }
+    ]
+  },
+
+  {
+    name: 'AtToaster',
+    slug: 'at-toaster',
+    family: 'Statut',
+    tagline: 'Toasts : confirmation brève d’une action, avec « Annuler » ou « Ouvrir ».',
+    about: [
+      '`AtToaster` se monte **une fois**, à la racine de l’app : il affiche la file en bas à droite. `useToast()` renvoie `{ toast, dismiss }` et marche partout, y compris hors d’un composant (un store, un appel d’API) : la file est un état partagé du module.',
+      'Trois toasts au plus sont visibles ; les suivants attendent, et leur minuteur ne part qu’à leur affichage. Le survol ou le focus suspend tous les minuteurs. Cliquer l’action l’exécute puis ferme le toast.',
+      'La zone est `aria-live="polite"` ; un toast `danger` passe en `role="alert"` (assertif). Avec `prefers-reduced-motion`, ils apparaissent sans glisser.'
+    ],
+    rules: [
+      'Une phrase courte au passé : « Idée classée dans Site vitrine. »',
+      'Une seule action, à l’infinitif ou en un mot : « Annuler », « Ouvrir ».',
+      'Pour une erreur qui bloque la saisie, un message dans la page (`AtField` en erreur), pas un toast qui disparaît.',
+      '`duration: 0` garde le toast jusqu’à sa fermeture : à réserver à ce qui demande une réponse.'
+    ],
+    params: [
+      { name: 'message', type: 'string', required: true, desc: 'Texte du toast.' },
+      { name: 'tone', type: `'neutral' | 'success' | 'danger' | 'warning' | 'info'`, default: `'neutral'`, desc: 'Pictogramme et, pour `danger`, annonce assertive.' },
+      { name: 'action', type: '{ label: string; onClick: () => void }', desc: 'Bouton d’action ; le toast se ferme après l’appel.' },
+      { name: 'duration', type: 'number', default: '5000', desc: 'Millisecondes avant fermeture ; `0` : jusqu’à fermeture.' }
+    ],
+    exposes: [
+      { name: 'toast', type: '(opts: ToastOptions) => number', desc: 'Ajoute un toast à la file et renvoie son identifiant.' },
+      { name: 'dismiss', type: '(id?: number) => void', desc: 'Ferme un toast, ou tous sans identifiant.' }
+    ],
+    imports: `import { AtToaster, useToast } from '@tymotheusz/atelier'
+// une fois, à la racine : <AtToaster />
+const { toast, dismiss } = useToast()`,
+    classes: ['at-toaster', 'at-toast', 'at-toast--success|--danger|--warning|--info', 'at-toast__icon', 'at-toast__msg', 'at-toast__action'],
+    related: ['at-button', 'use-shortcut'],
+    examples: [
+      {
+        title: 'Confirmer, proposer d’annuler',
+        desc: 'Le toaster de cette documentation est monté une fois à la racine. Survoler un toast suspend sa fermeture.',
+        code: `
+          <AtButton @click="classer">Classer l’idée</AtButton>
+          <AtButton variant="secondary" @click="toast({ message: 'Projet enregistré.', tone: 'success' })">Enregistrer</AtButton>
+          <AtButton variant="danger" @click="toast({ message: 'Envoi impossible : connexion perdue.', tone: 'danger', duration: 0 })">Erreur</AtButton>
+          <span class="at-muted">{{ etat }}</span>
+        `,
+        setup: () => {
+          const { toast } = useToast()
+          const etat = ref('Dans l’inbox')
+          function classer() {
+            etat.value = 'Classée dans Site vitrine'
+            toast({
+              message: 'Idée classée dans Site vitrine.',
+              action: { label: 'Annuler', onClick: () => { etat.value = 'Dans l’inbox' } }
+            })
+          }
+          return { toast, etat, classer }
+        }
       }
     ]
   }
