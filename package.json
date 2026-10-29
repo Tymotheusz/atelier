@@ -1,6 +1,6 @@
 {
   "name": "@tymotheusz/atelier",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Atelier — design system personnel : tokens, CSS et composants Vue 3 pour sites et dashboards.",
   "type": "module",
   "license": "MIT",

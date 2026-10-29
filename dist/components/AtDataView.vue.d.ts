@@ -10,6 +10,7 @@ declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable
         "onUpdate:views"?: ((value: View[]) => any) | undefined;
         "onUpdate:activeView"?: ((value: string) => any) | undefined;
         onCreate?: ((defaults: Partial<R>) => any) | undefined;
+        onResetViews?: (() => any) | undefined;
     } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{}>> & {
         onDelete?: ((rows: R[]) => any) | undefined;
         onUpdate?: ((row: R, key: string, value: unknown) => any) | undefined;
@@ -20,7 +21,8 @@ declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable
         "onUpdate:views"?: ((value: View[]) => any) | undefined;
         "onUpdate:activeView"?: ((value: string) => any) | undefined;
         onCreate?: ((defaults: Partial<R>) => any) | undefined;
-    }, never>, "onDelete" | "onUpdate" | "onCreateOption" | "onUpdateOption" | "onDeleteOption" | "onOpen" | "onUpdate:views" | "onUpdate:activeView" | "onCreate"> & Partial<{}> & ({
+        onResetViews?: (() => any) | undefined;
+    }, never>, "onDelete" | "onUpdate" | "onCreateOption" | "onUpdateOption" | "onDeleteOption" | "onOpen" | "onUpdate:views" | "onUpdate:activeView" | "onCreate" | "onResetViews"> & Partial<{}> & ({
         views?: View[];
         activeView?: string;
     } & {
@@ -34,13 +36,15 @@ declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable
         iconTools?: boolean;
         /** Interdit d'ajouter, de dupliquer ou de supprimer une vue ; les vues restent paramétrables. */
         lockViews?: boolean;
+        /** Affiche « Réinitialiser les vues » dans les paramètres de la vue (même avec `lockViews`) ; émet `reset-views`. */
+        resettable?: boolean;
         /** Valeurs de contexte des filtres : `me` est l'utilisateur courant, substitué à la valeur `'@me'` (« Moi »). */
         context?: FilterContext;
     })> & import("vue").PublicProps;
     expose(exposed: import("vue").ShallowUnwrapRef<{}>): void;
     attrs: any;
     slots: {};
-    emit: (((evt: "delete", rows: R[]) => void) & ((evt: "open", row: R) => void) & ((evt: "update", row: R, key: string, value: unknown) => void) & ((evt: "createOption", prop: Property<R>, option: PropertyOption) => void) & ((evt: "updateOption", prop: Property<R>, value: string, patch: Partial<PropertyOption>) => void) & ((evt: "deleteOption", prop: Property<R>, value: string) => void) & ((evt: "create", defaults: Partial<R>) => void)) & (((evt: "update:views", value: View[]) => void) & ((evt: "update:activeView", value: string) => void));
+    emit: (((evt: "delete", rows: R[]) => void) & ((evt: "open", row: R) => void) & ((evt: "update", row: R, key: string, value: unknown) => void) & ((evt: "createOption", prop: Property<R>, option: PropertyOption) => void) & ((evt: "updateOption", prop: Property<R>, value: string, patch: Partial<PropertyOption>) => void) & ((evt: "deleteOption", prop: Property<R>, value: string) => void) & ((evt: "create", defaults: Partial<R>) => void) & ((evt: "resetViews") => void)) & (((evt: "update:views", value: View[]) => void) & ((evt: "update:activeView", value: string) => void));
 }>) => import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
     [key: string]: any;
 }> & {

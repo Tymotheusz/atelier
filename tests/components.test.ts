@@ -82,6 +82,27 @@ describe('AtDataView', () => {
     await w.findAll('.at-dv-col')[1].find('.at-dv-new').trigger('click')
     expect(w.emitted('create')?.[0]).toEqual([{ status: 'done' }])
   })
+  it('émet reset-views depuis les paramètres de la vue, même avec lockViews, sans toucher aux vues', async () => {
+    const views = [createView('Tableau', 'table'), createView('Liste', 'list')]
+    const openSettings = (w: ReturnType<typeof mount>) => w.find('button[aria-label="Paramètres de la vue"]').trigger('click')
+    const resetItem = () => [...document.body.querySelectorAll<HTMLButtonElement>('.at-menu-item')].find(b => b.textContent?.includes('Réinitialiser les vues'))
+
+    const plain = mount(AtDataView, { props: { rows, schema, views, activeView: views[0].id }, attachTo: document.body })
+    await openSettings(plain)
+    expect(resetItem()).toBeUndefined()
+    plain.unmount()
+
+    const w = mount(AtDataView, { props: { rows, schema, views, activeView: views[0].id, lockViews: true, resettable: true }, attachTo: document.body })
+    await openSettings(w)
+    const item = resetItem()
+    expect(item).toBeDefined()
+    item!.click()
+    await w.vm.$nextTick()
+    expect(w.emitted('resetViews')).toEqual([[]])
+    expect(w.emitted('update:views')).toBeUndefined()
+    expect(resetItem()).toBeUndefined()
+    w.unmount()
+  })
 })
 
 describe('AtLogin', () => {

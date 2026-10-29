@@ -121,7 +121,7 @@ Types de propriété : `title`, `text`, `number`, `select`, `status`, `multi`, `
 
 Select et multi s'éditent en tapant dans la cellule : les options se filtrent dessous. Avec `creatable: true` sur la propriété, « Créer … » ajoute une option et « ⋯ » la renomme, la recolore ou la supprime ; le composant émet `create-option`, `update-option` et `delete-option`, l'app enregistre (et retire de ses lignes une option supprimée).
 
-Options d'affichage : `hide-views` masque la barre de vues, `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue, Filtrer, Trier, Grouper et Propriétés n'affichent que leur pictogramme par défaut ; `:icon-tools="false"` remet les libellés.
+Options d'affichage : `hide-views` masque la barre de vues, `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue (renommage, disposition, filtres, tris, groupes et propriétés restent libres), `resettable` ajoute « Réinitialiser les vues » aux paramètres de la vue, même avec `lock-views`, et émet `reset-views` (l'app confirme puis remplace `views`, le composant n'y touche pas). Filtrer, Trier, Grouper et Propriétés n'affichent que leur pictogramme par défaut ; `:icon-tools="false"` remet les libellés.
 
 Vue système et filtre « Moi » : une vue `locked: true` ne se renomme ni ne se supprime et ses filtres sont fixes ; la valeur de filtre `ME` (`'@me'`) est remplacée par `context.me`, au filtrage comme à la création.
 

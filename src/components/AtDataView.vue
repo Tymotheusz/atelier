@@ -30,6 +30,8 @@ const props = withDefaults(defineProps<{
   iconTools?: boolean
   /** Interdit d'ajouter, de dupliquer ou de supprimer une vue ; les vues restent paramétrables. */
   lockViews?: boolean
+  /** Affiche « Réinitialiser les vues » dans les paramètres de la vue (même avec `lockViews`) ; émet `reset-views`. */
+  resettable?: boolean
   /** Valeurs de contexte des filtres : `me` est l'utilisateur courant, substitué à la valeur `'@me'` (« Moi »). */
   context?: FilterContext
 }>(), { rowKey: 'id', newLabel: 'Nouveau', iconTools: true })
@@ -45,6 +47,7 @@ const emit = defineEmits<{
   createOption: [prop: Property<R>, option: PropertyOption]
   updateOption: [prop: Property<R>, value: string, patch: Partial<PropertyOption>]
   deleteOption: [prop: Property<R>, value: string]
+  resetViews: []
 }>()
 
 const id = (r: R) => r[props.rowKey] as string | number
@@ -112,6 +115,8 @@ function deleteView() {
   const i = views.value.indexOf(view.value); views.value.splice(i, 1)
   activeView.value = views.value[Math.max(0, i - 1)].id; menu.value = null
 }
+// The app confirms and replaces `views` itself: nothing is changed here.
+function resetViews() { menu.value = null; emit('resetViews') }
 watch(() => view.value.id, () => { sel.value = []; menu.value = null })
 
 /* ---------- Filtres et tris ---------- */
@@ -514,6 +519,10 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
           <div class="at-menu-sep" />
           <button type="button" class="at-menu-item" @click="duplicateView"><AtIcon name="copy" />Dupliquer la vue</button>
           <button v-if="!view.locked" type="button" class="at-menu-item at-menu-item--danger" :disabled="views.length < 2" @click="deleteView"><AtIcon name="trash" />Supprimer la vue</button>
+        </template>
+        <template v-if="resettable">
+          <div class="at-menu-sep" />
+          <button type="button" class="at-menu-item" @click="resetViews"><AtIcon name="reset" />Réinitialiser les vues</button>
         </template>
       </div>
     </AtPopover>
