@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.0] - 2026-10-29
+
+- Vues de données réinitialisables : entrée « Réinitialiser les vues » dans les paramètres de la vue, disponible même
+  quand les vues sont figées ; l'app confirme et remplace les vues.
+- Pictogramme `reset`.
+
 ## [0.6.0] - 2026-10-29
 
 - Filtre « Moi » dans les vues de données : une règle sur l'utilisateur courant, proposée en tête des propriétés

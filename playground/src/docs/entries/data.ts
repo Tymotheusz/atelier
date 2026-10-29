@@ -179,7 +179,8 @@ export const data: ComponentDoc[] = [
       'Une propriété avec `compute` est en lecture seule : la calculer dans le schéma, pas dans les lignes.',
       '`options` peut être une fonction de la ligne, pour une relation qui dépend d’une autre colonne (la milestone dépend du projet).',
       '`hideViews` impose une vue unique : à utiliser dans un panneau ou un onglet, pas sur une page de liste.',
-      '`lockViews` garde la barre de vues mais fige leur liste : ni ajout, ni duplication, ni suppression. Les vues restent renommables et paramétrables.',
+      '`lockViews` garde la barre de vues mais fige leur liste : le bouton « + » et les entrées Dupliquer et Supprimer disparaissent. Tout le reste reste libre et écrit dans `views` : passer d’une vue à l’autre, la renommer (sauf vue système), changer sa disposition, son groupe ou sa date, ses filtres, ses tris, les propriétés affichées, leur ordre et leur largeur.',
+      '`resettable` ajoute « Réinitialiser les vues » en bas des paramètres de la vue, y compris avec `lockViews` (sans effet avec `hideViews`, qui retire ces paramètres). Le clic ferme le menu et émet `reset-views` ; le composant ne touche pas aux vues : l’app demande confirmation puis remplace `views` par ses vues par défaut.',
       'Une vue `locked: true` est une **vue système** (« Mes tâches ») : ni renommée ni supprimée, ses filtres s’affichent mais ne se modifient pas ; disposition, tri, colonnes et groupes restent libres. Elle se crée avec un identifiant fixe : `createView(\'Mes tâches\', \'list\', { id: \'mine\', locked: true, filters: [filter(\'assignee\', \'is\', ME)] })`.',
       'Filtre « Moi » : la valeur `ME` (`\'@me\'`) est remplacée par `context.me` au filtrage et à la création (une tâche créée depuis « Mes tâches » est assignée à l’utilisateur courant). L’éditeur de filtre la propose en tête des propriétés personne. Sans `context.me`, la règle ne retient rien.',
       '`creatable` sur une propriété select ou multi : on crée une option en tapant son nom, « ⋯ » la renomme, la recolore ou la supprime. Le composant émet `create-option`, `update-option`, `delete-option` ; l’app enregistre l’option et, à la suppression, la retire de ses lignes.',
@@ -196,7 +197,8 @@ export const data: ComponentDoc[] = [
       { name: 'rowKey', type: 'string', default: `'id'`, desc: 'Clé stable d’une ligne.' },
       { name: 'newLabel', type: 'string', default: `'Nouveau'`, desc: 'Libellé du bouton de création.' },
       { name: 'hideViews', type: 'boolean', desc: 'Masque la barre de vues.' },
-      { name: 'lockViews', type: 'boolean', desc: 'Interdit l’ajout, la duplication et la suppression de vues.' },
+      { name: 'lockViews', type: 'boolean', desc: 'Interdit l’ajout, la duplication et la suppression de vues ; renommage et réglages restent possibles.' },
+      { name: 'resettable', type: 'boolean', desc: 'Affiche « Réinitialiser les vues » dans les paramètres de la vue, même avec `lockViews`. Émet `reset-views`.' },
       { name: 'iconTools', type: 'boolean', default: 'true', desc: 'Boutons Filtrer, Trier, Grouper, Propriétés en pictogramme seul. `false` affiche les libellés.' },
       { name: 'context', type: '{ me?: string }', desc: 'Valeurs des filtres de contexte : `me`, l’utilisateur courant, remplace `ME` (« Moi »).' }
     ],
@@ -207,7 +209,8 @@ export const data: ComponentDoc[] = [
       { name: 'delete', type: '(rows: R[])', desc: 'Suppression demandée.' },
       { name: 'createOption', type: '(prop: Property<R>, option: PropertyOption)', desc: 'Option créée depuis une cellule (`creatable`) : l’ajouter aux options de la propriété. La valeur choisie suit dans un `update`.' },
       { name: 'updateOption', type: '(prop: Property<R>, value: string, patch: Partial<PropertyOption>)', desc: 'Option renommée (`label`) ou recolorée (`color`).' },
-      { name: 'deleteOption', type: '(prop: Property<R>, value: string)', desc: 'Option supprimée : la retirer des options et des lignes qui la portent.' }
+      { name: 'deleteOption', type: '(prop: Property<R>, value: string)', desc: 'Option supprimée : la retirer des options et des lignes qui la portent.' },
+      { name: 'resetViews', type: '()', desc: 'Réinitialisation demandée (`resettable`) : confirmer, puis remplacer `views`. Le composant ne modifie rien.' }
     ],
     classes: ['at-dv-viewsbar', 'at-dv-toolbar', 'at-dv-table', 'at-dv-board', 'at-dv-list', 'at-dv-calwrap', 'at-dv-card', 'at-dv-chip'],
     related: ['at-property-list', 'at-property-editor', 'at-table', 'at-drawer'],
@@ -274,23 +277,28 @@ export const data: ComponentDoc[] = [
         }
       },
       {
-        title: 'Vues figées, outils avec libellés',
-        desc: '`lock-views` retire l’ajout et la suppression de vues ; `:icon-tools="false"` affiche les libellés de la barre d’outils.',
+        title: 'Vues figées, réinitialisables, outils avec libellés',
+        desc: '`lock-views` retire l’ajout, la duplication et la suppression de vues ; `resettable` ajoute « Réinitialiser les vues » aux paramètres de la vue, et l’app remplace les vues sur `reset-views`. `:icon-tools="false"` affiche les libellés de la barre d’outils.',
         frame: 'plain',
         code: `
           <AtDataView
             v-model:views="vues" v-model:active-view="active"
-            :rows="rows" :schema="schema" lock-views :icon-tools="false" new-label="Nouvelle tâche"
+            :rows="rows" :schema="schema" lock-views resettable :icon-tools="false" new-label="Nouvelle tâche"
             @update="(row, key, value) => (row[key] = value)"
+            @reset-views="reinitialiser"
           />
         `,
         setup: () => {
           const { schema, rows } = jeuDeDonnees()
-          const vues = ref<View[]>([
+          const parDefaut = () => [
             createView('Tableau', 'table', { hidden: ['fait'] }),
             createView('Kanban', 'board', { groupBy: 'statut', hidden: ['statut', 'estimate', 'fait'] })
-          ])
-          return { schema, rows, vues, active: ref(vues.value[0].id) }
+          ]
+          const vues = ref<View[]>(parDefaut())
+          const active = ref(vues.value[0].id)
+          // In a real app, confirm first (AtModal), then save the defaults.
+          const reinitialiser = () => { vues.value = parDefaut(); active.value = vues.value[0].id }
+          return { schema, rows, vues, active, reinitialiser }
         }
       },
       {
