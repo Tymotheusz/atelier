@@ -109,3 +109,52 @@ describe('commentaires', () => {
     expect(mentionAt('mail@exemple', 12)).toBeNull()
   })
 })
+
+import { ME, resolveValue, nextMonday } from '../src'
+
+describe('filtre « moi »', () => {
+  interface T { id: string; title: string; assignee: string | null }
+  const people: Property<T>[] = [
+    { key: 'title', name: 'Nom', type: 'title' },
+    { key: 'assignee', name: 'Assigné à', type: 'person', options: [{ value: 'u1', label: 'Alice' }, { value: 'u2', label: 'Bruno' }] }
+  ]
+  const tasks: T[] = [{ id: 'a', title: 'A', assignee: 'u1' }, { id: 'b', title: 'B', assignee: 'u2' }, { id: 'c', title: 'C', assignee: null }]
+  const mine = createView('Mes tâches', 'list', { id: 'mine', locked: true, filters: [filter('assignee', 'is', ME)] })
+
+  it('remplace @me par l’utilisateur courant', () => {
+    expect(applyView(tasks, people, mine, '', { me: 'u2' }).map(t => t.id)).toEqual(['b'])
+    const others = createView('t', 'table', { filters: [filter('assignee', 'isnot', ME)] })
+    expect(applyView(tasks, people, others, '', { me: 'u2' }).map(t => t.id)).toEqual(['a', 'c'])
+  })
+  it('ne retient rien sans utilisateur courant', () => {
+    expect(applyView(tasks, people, mine)).toEqual([])
+    expect(matchRule(tasks[0], people[1], filter('assignee', 'isnot', ME))).toBe(false)
+    expect(resolveValue(ME)).toBeUndefined()
+    expect(resolveValue('u1', { me: 'u2' })).toBe('u1')
+  })
+  it('vaut aussi pour les listes', () => {
+    interface M { id: string; title: string; people: string[] }
+    const s: Property<M>[] = [{ key: 'title', name: 'Nom', type: 'title' }, { key: 'people', name: 'Personnes', type: 'multi' }]
+    const v = createView('t', 'table', { filters: [filter('people', 'contains', ME)] })
+    const rs: M[] = [{ id: '1', title: '1', people: ['u1', 'u2'] }, { id: '2', title: '2', people: ['u2'] }]
+    expect(applyView(rs, s, v, '', { me: 'u1' }).map(r => r.id)).toEqual(['1'])
+    expect(defaultsFromFilters(v, s, { me: 'u1' })).toEqual({ people: ['u1'] })
+  })
+  it('crée depuis une vue filtrée sur moi avec l’utilisateur courant', () => {
+    expect(defaultsFromFilters(mine, people, { me: 'u1' })).toEqual({ assignee: 'u1' })
+    expect(defaultsFromFilters(mine, people)).toEqual({})
+  })
+  it('createView accepte un id fixe et le verrou', () => {
+    expect(mine.id).toBe('mine')
+    expect(mine.locked).toBe(true)
+    expect(createView('x').locked).toBeUndefined()
+  })
+})
+
+describe('dates', () => {
+  it('lundi prochain est toujours après le jour donné', () => {
+    expect(nextMonday('2026-10-29')).toBe('2026-11-02') // jeudi
+    expect(nextMonday('2026-11-02')).toBe('2026-11-09') // lundi
+    expect(nextMonday('2026-11-01')).toBe('2026-11-02') // dimanche
+  })
+})

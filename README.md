@@ -123,7 +123,28 @@ Select et multi s'éditent en tapant dans la cellule : les options se filtrent d
 
 Options d'affichage : `hide-views` masque la barre de vues, `lock-views` interdit d'ajouter, dupliquer ou supprimer une vue, Filtrer, Trier, Grouper et Propriétés n'affichent que leur pictogramme par défaut ; `:icon-tools="false"` remet les libellés.
 
-Pour un panneau de détail : `AtDrawer` + `AtPropertyList` (même schéma, même événement `update`).
+Vue système et filtre « Moi » : une vue `locked: true` ne se renomme ni ne se supprime et ses filtres sont fixes ; la valeur de filtre `ME` (`'@me'`) est remplacée par `context.me`, au filtrage comme à la création.
+
+```ts
+import { createView, filter, ME } from '@tymotheusz/atelier'
+const mine = createView('Mes tâches', 'list', { id: 'mine', locked: true, filters: [filter('assignee', 'is', ME)] })
+// <AtDataView :context="{ me: currentUser.id }" … />
+```
+
+Pour un panneau de détail : `AtDrawer` + `AtPropertyList` (même schéma, même événement `update`). `AtPropertyList` expose `edit(key)`, qui ouvre l'éditeur d'un champ depuis un raccourci.
+
+### Clavier et toasts
+
+```ts
+import { useShortcut, useToast } from '@tymotheusz/atelier'
+
+useShortcut('c', () => capture.value?.focus())                       // retiré au démontage
+useShortcut('mod+enter', save, { allowInInput: true })               // ⌘↵ / Ctrl ↵, aussi dans un champ
+const { toast } = useToast()                                         // <AtToaster /> monté une fois à la racine
+toast({ message: 'Idée classée.', action: { label: 'Annuler', onClick: undo } })
+```
+
+Les raccourcis se taisent pendant la saisie (sauf `allowInInput`) et quand un menu, une modale ou un panneau est ouvert ; sur une même touche, le dernier inscrit gagne. `AtList` s'appuie dessus pour J / K / Entrée avec `global`.
 
 ## Utilisation sans Vue (CSS seul)
 
@@ -149,12 +170,12 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 
 | Famille | Composants |
 | --- | --- |
-| Actions | `AtButton`, `AtDropdown`, `AtMenu`, `AtMenuItem`, `AtMenuLabel`, `AtMenuSeparator`, `AtPopover` |
+| Actions | `AtButton`, `AtDropdown`, `AtMenu`, `AtMenuItem`, `AtMenuLabel`, `AtMenuSeparator`, `AtPopover`, `useShortcut` (raccourcis clavier) |
 | Formulaires | `AtField`, `AtInput`, `AtTextarea`, `AtSelect`, `AtCheckbox`, `AtSwitch` |
-| Statut | `AtTag`, `AtBadge`, `AtAvatar`, `AtProgress`, `AtKbd` |
+| Statut | `AtTag`, `AtBadge`, `AtAvatar`, `AtProgress`, `AtKbd`, `AtToaster` (toasts, alimentés par `useToast`) |
 | Contenu | `AtCard`, `AtEmpty`, `AtModal`, `AtDrawer`, `AtComments` |
 | Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem`, `AtUserMenu` |
-| Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList` |
+| Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList`, `AtList` (liste parcourue au clavier) |
 | Mise en page | `AtAppShell`, `AtPage`, `AtLogin` |
 | Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile`, `AtLogo` (marque Atelier et logos des apps, extensible avec `registerLogoApps`) |
 

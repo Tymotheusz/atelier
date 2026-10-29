@@ -1,12 +1,16 @@
-import type { Property, PropertyOption, View, FilterRule, FilterOp, Layout } from './types'
+import type { Property, PropertyOption, View, FilterRule, FilterOp, FilterContext, Layout } from './types'
 import type { TagColor } from '../types'
 
 export const NONE = '__none'
+/** Filter value standing for the current user, replaced by `context.me` when filtering. */
+export const ME = '@me'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 export const toISODate = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
 export const today = () => toISODate(new Date())
 export const addDays = (iso: string, n: number) => { const d = new Date(iso + 'T00:00'); d.setDate(d.getDate() + n); return toISODate(d) }
+/** The Monday strictly after the given day (a Monday gives the following one). */
+export const nextMonday = (iso = today()) => { const dow = (new Date(iso + 'T00:00').getDay() + 6) % 7; return addDays(iso, 7 - dow) }
 
 export const uid = () => Math.random().toString(36).slice(2, 10)
 export const isEmpty = (v: unknown) => v == null || v === '' || (Array.isArray(v) && v.length === 0)
@@ -51,9 +55,17 @@ export const OP_LABEL: Record<FilterOp, string> = {
 }
 export const NO_VALUE: FilterOp[] = ['empty', 'notempty', 'past', 'week', 'checked', 'unchecked']
 
-export function matchRule<R>(row: R, p: Property<R>, r: FilterRule, now = today()): boolean {
+/** Value of a rule once context placeholders are replaced; `undefined` when `@me` has no user to stand for. */
+export function resolveValue(value: string, context: FilterContext = {}): string | undefined {
+  return value === ME ? (context.me || undefined) : value
+}
+
+export function matchRule<R>(row: R, p: Property<R>, rule: FilterRule, now = today(), context: FilterContext = {}): boolean {
   const v = getValue(row, p) as any
-  if (!NO_VALUE.includes(r.op) && isEmpty(r.value)) return true // règle incomplète : ignorée
+  if (!NO_VALUE.includes(rule.op) && isEmpty(rule.value)) return true // règle incomplète : ignorée
+  const value = resolveValue(rule.value, context)
+  if (value === undefined) return false // « moi » sans utilisateur courant : rien ne correspond
+  const r = { ...rule, value }
   const s = (x: unknown) => String(x ?? '').toLowerCase()
   switch (r.op) {
     case 'empty': return isEmpty(v)
@@ -87,13 +99,13 @@ export function compareRows<R>(p: Property<R>, a: R, b: R): number {
 }
 
 /** Recherche plein texte sur le titre + filtres (ET) + tris successifs. */
-export function applyView<R>(rows: R[], schema: Property<R>[], view: View, search = ''): R[] {
+export function applyView<R>(rows: R[], schema: Property<R>[], view: View, search = '', context: FilterContext = {}): R[] {
   const map = Object.fromEntries(schema.map(p => [p.key, p]))
   const title = schema.find(p => p.type === 'title')
   const q = search.trim().toLowerCase()
   const out = rows.filter(r =>
     (!q || !title || String((r as any)[title.key] ?? '').toLowerCase().includes(q)) &&
-    view.filters.every(f => !map[f.prop] || matchRule(r, map[f.prop], f)))
+    view.filters.every(f => !map[f.prop] || matchRule(r, map[f.prop], f, today(), context)))
   const sorts = view.sorts.filter(s => map[s.prop])
   if (!sorts.length) return out
   return out.sort((a, b) => {
@@ -142,13 +154,15 @@ export const filter = (prop: string, op: FilterOp, value = ''): FilterRule => ({
 export const sort = (prop: string, dir: 'asc' | 'desc' = 'asc') => ({ id: uid(), prop, dir })
 
 /** Valeurs par défaut d'une nouvelle ligne déduites des filtres « est » / « contient » de la vue. */
-export function defaultsFromFilters<R>(view: View, schema: Property<R>[]) {
+export function defaultsFromFilters<R>(view: View, schema: Property<R>[], context: FilterContext = {}) {
   const d: Record<string, unknown> = {}
   for (const f of view.filters) {
     const p = schema.find(x => x.key === f.prop)
     if (!p || !isEditable(p) || isEmpty(f.value)) continue
-    if (f.op === 'is') d[f.prop] = f.value
-    if (f.op === 'contains' && p.type === 'multi') d[f.prop] = [f.value]
+    const value = resolveValue(f.value, context)
+    if (value === undefined) continue
+    if (f.op === 'is') d[f.prop] = value
+    if (f.op === 'contains' && p.type === 'multi') d[f.prop] = [value]
   }
   return d
 }

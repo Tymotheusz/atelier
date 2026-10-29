@@ -40,6 +40,10 @@ export interface FilterRule {
     op: FilterOp;
     value: string;
 }
+/** Valeurs de contexte substituées dans les filtres : `me` remplace la valeur `'@me'` (ME). */
+export interface FilterContext {
+    me?: string;
+}
 export interface SortRule {
     id: string;
     prop: string;
@@ -61,4 +65,6 @@ export interface View {
     collapsed: string[];
     /** Mois affiché par le calendrier, 'AAAA-MM'. */
     month: string | null;
+    /** Vue système : ni renommée ni supprimée, filtres en lecture seule (disposition, tri, colonnes et groupes restent modifiables). */
+    locked?: boolean;
 }

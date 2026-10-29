@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { createView, filter, sort, uid, type Property, type PropertyOption, type View } from '@tymotheusz/atelier'
+import { createView, filter, sort, uid, ME, type Property, type PropertyOption, type View } from '@tymotheusz/atelier'
 import type { ComponentDoc } from '../types'
 
 interface Tache { id: string; title: string; statut: string; priorite: string; due: string | null; estimate: number | null; tags: string[]; fait: boolean }
@@ -180,6 +180,8 @@ export const data: ComponentDoc[] = [
       '`options` peut être une fonction de la ligne, pour une relation qui dépend d’une autre colonne (la milestone dépend du projet).',
       '`hideViews` impose une vue unique : à utiliser dans un panneau ou un onglet, pas sur une page de liste.',
       '`lockViews` garde la barre de vues mais fige leur liste : ni ajout, ni duplication, ni suppression. Les vues restent renommables et paramétrables.',
+      'Une vue `locked: true` est une **vue système** (« Mes tâches ») : ni renommée ni supprimée, ses filtres s’affichent mais ne se modifient pas ; disposition, tri, colonnes et groupes restent libres. Elle se crée avec un identifiant fixe : `createView(\'Mes tâches\', \'list\', { id: \'mine\', locked: true, filters: [filter(\'assignee\', \'is\', ME)] })`.',
+      'Filtre « Moi » : la valeur `ME` (`\'@me\'`) est remplacée par `context.me` au filtrage et à la création (une tâche créée depuis « Mes tâches » est assignée à l’utilisateur courant). L’éditeur de filtre la propose en tête des propriétés personne. Sans `context.me`, la règle ne retient rien.',
       '`creatable` sur une propriété select ou multi : on crée une option en tapant son nom, « ⋯ » la renomme, la recolore ou la supprime. Le composant émet `create-option`, `update-option`, `delete-option` ; l’app enregistre l’option et, à la suppression, la retire de ses lignes.',
       'Par défaut, Filtrer, Trier, Grouper et Propriétés n’affichent que leur pictogramme ; le libellé reste en infobulle et en `aria-label`, les compteurs restent visibles. `:icon-tools="false"` remet les libellés, quand la place ne manque pas et que la barre doit se lire d’un coup d’œil.',
       'En densité compacte, les lignes passent de 36 à 30 px : c’est le réglage des vues de données.'
@@ -195,7 +197,8 @@ export const data: ComponentDoc[] = [
       { name: 'newLabel', type: 'string', default: `'Nouveau'`, desc: 'Libellé du bouton de création.' },
       { name: 'hideViews', type: 'boolean', desc: 'Masque la barre de vues.' },
       { name: 'lockViews', type: 'boolean', desc: 'Interdit l’ajout, la duplication et la suppression de vues.' },
-      { name: 'iconTools', type: 'boolean', default: 'true', desc: 'Boutons Filtrer, Trier, Grouper, Propriétés en pictogramme seul. `false` affiche les libellés.' }
+      { name: 'iconTools', type: 'boolean', default: 'true', desc: 'Boutons Filtrer, Trier, Grouper, Propriétés en pictogramme seul. `false` affiche les libellés.' },
+      { name: 'context', type: '{ me?: string }', desc: 'Valeurs des filtres de contexte : `me`, l’utilisateur courant, remplace `ME` (« Moi »).' }
     ],
     events: [
       { name: 'update', type: '(row: R, key: string, value: unknown)', desc: 'Une valeur a été modifiée : au parent de l’écrire.' },
@@ -236,6 +239,38 @@ export const data: ComponentDoc[] = [
             createView('En retard', 'list', { filters: [filter('due', 'past'), filter('statut', 'isnot', 'done')], sorts: [sort('due')], hidden: ['tags', 'fait'] })
           ])
           return { schema, rows, options, vues, active: ref(vues.value[0].id), ouverte: ref(''), uid }
+        }
+      },
+      {
+        title: 'Mes tâches : vue système filtrée sur moi',
+        desc: 'La première vue est `locked` et filtre `Assigné à est Moi` ; `context.me` dit qui est « moi ». Changer d’utilisateur, ou créer une tâche depuis la vue : elle vous est assignée.',
+        frame: 'plain',
+        code: `
+          <AtSegment v-model="moi" label="Utilisateur courant" :items="[{ value: 'alice', label: 'Je suis Alice' }, { value: 'bruno', label: 'Je suis Bruno' }]" />
+          <AtDataView
+            v-model:views="vues" v-model:active-view="active" :context="{ me: moi }"
+            :rows="rows" :schema="schema" new-label="Nouvelle tâche"
+            @update="(row, key, value) => (row[key] = value)"
+            @create="defaults => rows.push({ id: uid(), title: 'Nouvelle tâche', statut: 'todo', assignee: null, ...defaults })"
+          />
+        `,
+        setup: () => {
+          const schema: Property[] = [
+            { key: 'title', name: 'Nom', type: 'title', width: 260 },
+            { key: 'statut', name: 'Statut', type: 'status', options: OPT_STATUT, width: 130 },
+            { key: 'assignee', name: 'Assigné à', type: 'person', width: 150, options: [{ value: 'alice', label: 'Alice Martin' }, { value: 'bruno', label: 'Bruno Petit' }] }
+          ]
+          const rows = ref([
+            { id: 'm1', title: 'Relire la maquette', statut: 'doing', assignee: 'alice' },
+            { id: 'm2', title: 'Préparer la démo', statut: 'todo', assignee: 'bruno' },
+            { id: 'm3', title: 'Corriger le formulaire', statut: 'todo', assignee: 'alice' },
+            { id: 'm4', title: 'Écrire le compte rendu', statut: 'todo', assignee: null }
+          ])
+          const vues = ref<View[]>([
+            createView('Mes tâches', 'list', { id: 'mine', locked: true, filters: [filter('assignee', 'is', ME)] }),
+            createView('Toutes', 'table')
+          ])
+          return { schema, rows, vues, active: ref('mine'), moi: ref('alice'), uid }
         }
       },
       {
@@ -323,7 +358,7 @@ export const data: ComponentDoc[] = [
     family: 'Données',
     tagline: 'Éditeur flottant d’une propriété, ancré sur une cellule ou une valeur.',
     about: [
-      'Choisit son éditeur selon le type. Select et multi s’éditent en place : un champ se pose sur la cellule, on tape et les options se filtrent dessous (↑↓, Entrée, Retour arrière retire la dernière valeur, Échap ferme). Statut, relation et personne gardent une liste d’options ; date : champ avec « Aujourd’hui » et « Effacer » ; texte ou nombre sinon. Une propriété `required` perd l’action « Effacer ».',
+      'Choisit son éditeur selon le type. Select et multi s’éditent en place : un champ se pose sur la cellule, on tape et les options se filtrent dessous (↑↓, Entrée, Retour arrière retire la dernière valeur, Échap ferme). Statut, relation et personne gardent une liste d’options ; date : champ et raccourcis (Aujourd’hui, Demain, Lundi prochain, Dans une semaine, Effacer) ; texte ou nombre sinon. Une propriété `required` perd l’action « Effacer ».',
       'Avec `creatable`, « Créer … » apparaît tant que la saisie n’est pas exactement une option (la couleur suivante de la palette est prise), et « ⋯ » à droite de chaque option ouvre renommer, couleur et supprimer.',
       'Il n’écrit pas : il émet `update`. La fermeture valide le champ texte en cours.'
     ],
@@ -372,7 +407,8 @@ export const data: ComponentDoc[] = [
     tagline: 'Liste libellé / valeur éditable d’une ligne, pour un panneau de détail.',
     about: [
       'Rend un `<dl>` : à gauche l’icône du type et le nom, à droite la valeur cliquable. Un clic ouvre `AtPropertyEditor` ancré sur la valeur ; une case à cocher bascule directement.',
-      'La propriété `title` est exclue d’office : dans un panneau, le titre est édité en haut, à même le texte.'
+      'La propriété `title` est exclue d’office : dans un panneau, le titre est édité en haut, à même le texte.',
+      'Avec une `ref`, `edit(key)` ouvre l’éditeur d’un champ comme un clic : c’est la porte des raccourcis clavier (`#` pour le projet, `D` pour l’échéance). Sans effet sur un champ en lecture seule, masqué ou inconnu.'
     ],
     rules: [
       'Même schéma que la vue de données : les deux restent d’accord sans effort.',
@@ -390,6 +426,7 @@ export const data: ComponentDoc[] = [
       { name: 'updateOption', type: '(key: string, value: string, patch: Partial<PropertyOption>)', desc: 'Option renommée ou recolorée.' },
       { name: 'deleteOption', type: '(key: string, value: string)', desc: 'Option supprimée.' }
     ],
+    exposes: [{ name: 'edit', type: '(key: string) => void', desc: 'Ouvre l’éditeur du champ `key`, comme un clic ; sans effet s’il est en lecture seule ou absent.' }],
     classes: ['at-proplist', 'at-proplist__value'],
     related: ['at-property-editor', 'at-drawer', 'at-data-view'],
     examples: [
@@ -408,6 +445,93 @@ export const data: ComponentDoc[] = [
           const { schema, rows, options } = jeuDeDonnees(true)
           return { schema, ligne: rows.value[0], options }
         }
+      },
+      {
+        title: 'Ouvrir un champ depuis le code',
+        desc: '`edit(key)` ouvre l’éditeur comme un clic. Ici des boutons ; dans une app, un raccourci (`useShortcut(\'d\', () => liste.value?.edit(\'due\'))`).',
+        frame: 'plain',
+        code: `
+          <div class="at-toolbar" style="margin-bottom: var(--space-3)">
+            <AtButton size="sm" icon="calendar" @click="liste.edit('due')">Échéance</AtButton>
+            <AtButton size="sm" icon="status" @click="liste.edit('statut')">Statut</AtButton>
+          </div>
+          <div style="max-width: 420px">
+            <AtPropertyList ref="liste" :schema="schema" :row="ligne" :exclude="['fait', 'tags']" @update="(k, v) => (ligne[k] = v)" />
+          </div>
+        `,
+        setup: () => {
+          const { schema, rows } = jeuDeDonnees()
+          return { schema, ligne: rows.value[1], liste: ref() }
+        }
+      }
+    ]
+  },
+
+  {
+    name: 'AtList',
+    slug: 'at-list',
+    family: 'Données',
+    tagline: 'Liste sélectionnable au clavier : J / K pour parcourir, Entrée pour ouvrir.',
+    about: [
+      'Un `listbox` dont l’élément actif est une clé (`v-model:active`). ↓ / J et ↑ / K le déplacent, Début et Fin vont aux extrémités, Entrée ou le double-clic émettent `open` ; un clic sélectionne. La liste défile pour garder l’élément actif visible, et pose `aria-activedescendant`.',
+      'Par défaut, les touches marchent quand la liste a le focus. Avec `global`, elles marchent partout sur la page tant que la liste est montée (via `useShortcut` : pas pendant la saisie dans un champ, ni avec un menu ou une modale ouverts). `global` est lu au montage.',
+      'Si l’élément actif disparaît de `items` (classé, supprimé), la liste ne choisit rien à la place : l’app décide quel élément devient actif.'
+    ],
+    rules: [
+      'Pour un écran de tri (inbox, cadrage) : la liste à gauche, le détail de l’élément actif à droite.',
+      '`global` sur un seul composant par écran, sinon J / K hésitent (le dernier monté gagne).',
+      'Le contenu d’un élément reste sur une ligne : titre, puis une ou deux valeurs en `at-muted`.',
+      'Pour des données tabulaires à filtrer et trier, c’est `AtDataView`.'
+    ],
+    models: [{ name: 'active', type: 'string | null', default: 'null', desc: 'Clé de l’élément actif.' }],
+    props: [
+      { name: 'items', type: 'T[]', required: true, desc: 'Éléments, dans l’ordre affiché.' },
+      { name: 'rowKey', type: 'string | ((item: T) => string)', required: true, desc: 'Clé d’un élément : nom de champ ou fonction.' },
+      { name: 'global', type: 'boolean', default: 'false', desc: 'Touches actives sur toute la page, pas seulement au focus.' },
+      { name: 'label', type: 'string', desc: '`aria-label` de la liste.' }
+    ],
+    events: [
+      { name: 'update:active', type: '(key: string | null)', desc: 'Nouvel élément actif.' },
+      { name: 'open', type: '(item: T)', desc: 'Entrée ou double-clic sur un élément.' }
+    ],
+    slots: [
+      { name: 'item', type: '{ item: T; active: boolean; index: number }', desc: 'Rendu d’un élément (par défaut : `label`, `title` ou `name`).' },
+      { name: 'empty', type: '—', desc: 'Contenu quand la liste est vide.' }
+    ],
+    exposes: [
+      { name: 'focus', type: '() => void', desc: 'Donne le focus à la liste.' },
+      { name: 'move', type: '(step: number) => void', desc: 'Déplace l’élément actif.' }
+    ],
+    classes: ['at-list', 'at-list__item', 'is-active', 'at-list__empty'],
+    related: ['use-shortcut', 'at-property-list', 'at-data-view'],
+    examples: [
+      {
+        title: 'Inbox : parcourir et ouvrir',
+        desc: 'Cliquer dans la liste puis J / K ou ↓ / ↑, Entrée pour ouvrir.',
+        frame: 'plain',
+        code: `
+          <div style="display: grid; grid-template-columns: 280px 1fr; gap: var(--space-4); align-items: start">
+            <AtList v-model:active="active" :items="idees" row-key="id" label="Idées" style="max-height: 240px; border: 1px solid var(--border)"
+              @open="i => (ouverte = i.title)">
+              <template #item="{ item }">
+                <span class="at-ellipsis" style="flex: 1">{{ item.title }}</span><span class="at-muted">{{ item.age }}</span>
+              </template>
+              <template #empty>Inbox vide.</template>
+            </AtList>
+            <p class="at-muted">Active : {{ active ?? 'aucune' }}<br>Ouverte : {{ ouverte || '—' }}</p>
+          </div>
+        `,
+        setup: () => ({
+          idees: [
+            { id: 'i1', title: 'Newsletter mensuelle', age: '2 j' },
+            { id: 'i2', title: 'Refaire la page tarifs', age: '3 j' },
+            { id: 'i3', title: 'Mode hors-ligne', age: '1 sem.' },
+            { id: 'i4', title: 'Export CSV des contacts', age: '2 sem.' },
+            { id: 'i5', title: 'Thème sombre de l’admin', age: '1 mois' }
+          ],
+          active: ref<string | null>('i1'),
+          ouverte: ref('')
+        })
       }
     ]
   }

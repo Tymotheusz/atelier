@@ -41,6 +41,12 @@ export interface ComponentDoc {
   models?: ApiRow[]
   events?: ApiRow[]
   slots?: ApiRow[]
+  /** Paramètres d'un composable. */
+  params?: ApiRow[]
+  /** Méthodes exposées (`ref` sur le composant), ou valeur renvoyée par un composable. */
+  exposes?: ApiRow[]
+  /** Code d'import affiché, s'il diffère de l'import d'un composant. */
+  imports?: string
   /** Classes `at-*` posées par le composant, pour l'usage en CSS seul. */
   classes?: string[]
   examples: Example[]

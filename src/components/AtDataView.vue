@@ -12,9 +12,9 @@ import AtButton from './AtButton.vue'
 import AtPopover from './AtPopover.vue'
 import AtPropertyValue from './AtPropertyValue.vue'
 import AtPropertyEditor from './AtPropertyEditor.vue'
-import type { Property, PropertyOption, View, Layout, FilterRule } from '../dataview/types'
+import type { Property, PropertyOption, View, Layout, FilterRule, FilterContext } from '../dataview/types'
 import {
-  NONE, LAYOUTS, OPS, OP_LABEL, NO_VALUE, applyView, groupRows, monthGrid, shiftMonth, createView,
+  NONE, ME, LAYOUTS, OPS, OP_LABEL, NO_VALUE, applyView, groupRows, monthGrid, shiftMonth, createView,
   defaultsFromFilters, getValue, isEmpty, isEditable, isOptionType, optionsOf, findOption, typeIcon,
   formatDate, formatMonth, fmtNumber, uid, today
 } from '../dataview/logic'
@@ -30,6 +30,8 @@ const props = withDefaults(defineProps<{
   iconTools?: boolean
   /** Interdit d'ajouter, de dupliquer ou de supprimer une vue ; les vues restent paramétrables. */
   lockViews?: boolean
+  /** Valeurs de contexte des filtres : `me` est l'utilisateur courant, substitué à la valeur `'@me'` (« Moi »). */
+  context?: FilterContext
 }>(), { rowKey: 'id', newLabel: 'Nouveau', iconTools: true })
 
 const views = defineModel<View[]>('views', { default: () => [createView('Tableau', 'table')] })
@@ -64,7 +66,8 @@ const dateProps = computed(() => props.schema.filter(p => p.type === 'date'))
 const statusProp = computed(() => props.schema.find(p => p.type === 'status'))
 
 const search = ref('')
-const sorted = computed(() => applyView(props.rows, props.schema, view.value, search.value))
+const ctx = computed<FilterContext>(() => props.context ?? {})
+const sorted = computed(() => applyView(props.rows, props.schema, view.value, search.value, ctx.value))
 const groupKey = computed(() => {
   const g = view.value.groupBy && pmap.value[view.value.groupBy] ? view.value.groupBy : null
   if (view.value.layout === 'board' && !g) return statusProp.value?.key ?? groupable.value[0]?.key ?? null
@@ -101,11 +104,11 @@ function addView(layout: Layout) {
 function setLayout(l: Layout) { view.value.layout = l; if (l === 'board' && !view.value.groupBy) view.value.groupBy = defaultGroup() }
 function duplicateView() {
   if (props.lockViews) return
-  const v: View = JSON.parse(JSON.stringify(view.value)); v.id = uid(); v.name = view.value.name + ' (copie)'
+  const v: View = JSON.parse(JSON.stringify(view.value)); v.id = uid(); v.name = view.value.name + ' (copie)'; delete v.locked
   views.value.push(v); activeView.value = v.id; menu.value = null
 }
 function deleteView() {
-  if (props.lockViews || views.value.length < 2) return
+  if (props.lockViews || view.value.locked || views.value.length < 2) return
   const i = views.value.indexOf(view.value); views.value.splice(i, 1)
   activeView.value = views.value[Math.max(0, i - 1)].id; menu.value = null
 }
@@ -113,6 +116,7 @@ watch(() => view.value.id, () => { sel.value = []; menu.value = null })
 
 /* ---------- Filtres et tris ---------- */
 function addFilter() {
+  if (view.value.locked) return
   const p = props.schema.find(x => x.type !== 'title' && x.type !== 'progress') ?? props.schema[0]
   view.value.filters.push({ id: uid(), prop: p.key, op: OPS[p.type][0], value: '' })
 }
@@ -131,7 +135,7 @@ function summary(f: FilterRule) {
   const p = pmap.value[f.prop]; let val = ''
   if (needsValue(f)) {
     const k = valueKind(f)
-    val = k === 'options' ? (findOption(p, undefined, f.value)?.label ?? '…') : k === 'date' ? (formatDate(f.value) || '…') : (f.value === '' ? '…' : f.value)
+    val = f.value === ME && p.type === 'person' ? 'Moi' : k === 'options' ? (findOption(p, undefined, f.value)?.label ?? '…') : k === 'date' ? (formatDate(f.value) || '…') : (f.value === '' ? '…' : f.value)
   }
   return { name: p.name, op: OP_LABEL[f.op], val }
 }
@@ -141,7 +145,8 @@ function addSort() {
   view.value.sorts.push({ id: uid(), prop: p.key, dir: 'asc' })
 }
 const removeFrom = <T,>(list: T[], item: T) => { const i = list.indexOf(item); if (i >= 0) list.splice(i, 1) }
-function clearRules() { view.value.filters.splice(0); view.value.sorts.splice(0) }
+function clearRules() { if (!view.value.locked) view.value.filters.splice(0); view.value.sorts.splice(0) }
+const canClear = computed(() => !view.value.locked || activeSorts.value.length > 0)
 function setGroup(k: string | null) { view.value.groupBy = k; view.value.collapsed = []; if (view.value.layout !== 'board') menu.value = null }
 
 /* ---------- Propriétés ---------- */
@@ -193,7 +198,7 @@ function cellClick(e: MouseEvent, r: R, p: Property<R>) {
   if (p.type === 'checkbox') { emit('update', r, p.key, !r[p.key]); return }
   editorAnchor.value = e.currentTarget as HTMLElement; editor.value = { row: r, prop: p }; editorOpen.value = true
 }
-function create(extra: Partial<R> = {}) { emit('create', { ...defaultsFromFilters(view.value, props.schema), ...extra } as Partial<R>) }
+function create(extra: Partial<R> = {}) { emit('create', { ...defaultsFromFilters(view.value, props.schema, ctx.value), ...extra } as Partial<R>) }
 
 /* ---------- Glisser-déposer ---------- */
 const dragId = ref<string | number | null>(null)
@@ -229,7 +234,7 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
             v-for="v in views" :key="v.id" :ref="el => { if (el) tabRefs[v.id] = el as HTMLElement }"
             type="button" class="at-tab" role="tab" :aria-selected="v.id === view.id"
             :title="v.id === view.id ? 'Paramètres de la vue' : undefined" @click="selectView(v)"
-          ><AtIcon :name="layoutIcon(v.layout)" />{{ v.name }}</button>
+          ><AtIcon :name="layoutIcon(v.layout)" />{{ v.name }}<AtIcon v-if="v.locked" name="lock" class="at-dv-lock" label="Vue système" /></button>
         </div>
         <AtButton v-if="!lockViews" variant="ghost" size="sm" icon="plus" icon-only label="Ajouter une vue" @click="openMenu('add', $event.currentTarget as HTMLElement)" />
       </template>
@@ -255,7 +260,7 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
       <button v-for="s in activeSorts" :key="s.id" type="button" class="at-dv-chip" @click="openMenu('sort', $event.currentTarget as HTMLElement)">
         <AtIcon name="sort" />{{ pmap[s.prop].name }} <b>{{ s.dir === 'asc' ? '↑' : '↓' }}</b>
       </button>
-      <AtButton variant="ghost" size="sm" @click="clearRules">Tout effacer</AtButton>
+      <AtButton v-if="canClear" variant="ghost" size="sm" @click="clearRules">{{ view.locked ? 'Effacer les tris' : 'Tout effacer' }}</AtButton>
     </div>
 
     <!-- ===== Tableau ===== -->
@@ -409,14 +414,19 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
     <AtPopover v-model:open="mFilter" :anchor="anchor" align="end">
       <div class="at-menu at-menu-pad" style="min-width: 320px">
         <span class="at-menu-title">Filtres · toutes les conditions</span>
-        <div class="at-rules">
+        <div v-if="view.locked" class="at-rules">
+          <p class="at-dv-locknote"><AtIcon name="lock" />Vue système : ses filtres ne se modifient pas.</p>
+          <span v-if="!activeFilters.length" class="at-menu-empty">Aucun filtre : la vue affiche toutes les lignes.</span>
+          <div v-for="f in activeFilters" :key="f.id" class="at-dv-chip is-static"><AtIcon name="filter" />{{ summary(f).name }} {{ summary(f).op }} <b>{{ summary(f).val }}</b></div>
+        </div>
+        <div v-else class="at-rules">
           <span v-if="!view.filters.length" class="at-menu-empty">Aucun filtre : la vue affiche toutes les lignes.</span>
           <div v-for="f in view.filters" :key="f.id" class="at-rule">
             <div class="at-select"><select v-model="f.prop" aria-label="Propriété" @change="filterPropChange(f)"><option v-for="p in schema" :key="p.key" :value="p.key">{{ p.name }}</option></select><AtIcon name="chevron-down" /></div>
             <div class="at-select"><select v-model="f.op" aria-label="Condition"><option v-for="o in opsFor(f)" :key="o" :value="o">{{ OP_LABEL[o] }}</option></select><AtIcon name="chevron-down" /></div>
             <template v-if="needsValue(f)">
               <div v-if="valueKind(f) === 'options'" class="at-select">
-                <select v-model="f.value" aria-label="Valeur"><option value="">Choisir…</option><option v-for="o in optionsOf(pmap[f.prop])" :key="o.value" :value="o.value">{{ o.label }}</option></select><AtIcon name="chevron-down" />
+                <select v-model="f.value" aria-label="Valeur"><option value="">Choisir…</option><option v-if="pmap[f.prop].type === 'person'" :value="ME">Moi</option><option v-for="o in optionsOf(pmap[f.prop])" :key="o.value" :value="o.value">{{ o.label }}</option></select><AtIcon name="chevron-down" />
               </div>
               <input v-else-if="valueKind(f) === 'date'" v-model="f.value" type="date" class="at-input" aria-label="Date">
               <input v-else-if="valueKind(f) === 'number'" v-model="f.value" type="number" class="at-input" aria-label="Valeur">
@@ -426,7 +436,7 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
             <AtButton variant="ghost" size="sm" icon="x" icon-only label="Retirer le filtre" @click="removeFrom(view.filters, f)" />
           </div>
         </div>
-        <div class="at-menu-actions"><AtButton variant="ghost" size="sm" icon="plus" @click="addFilter">Ajouter un filtre</AtButton></div>
+        <div v-if="!view.locked" class="at-menu-actions"><AtButton variant="ghost" size="sm" icon="plus" @click="addFilter">Ajouter un filtre</AtButton></div>
       </div>
     </AtPopover>
 
@@ -477,7 +487,11 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
     <AtPopover v-model:open="mSettings" :anchor="anchor">
       <div class="at-menu at-menu-pad" style="width: 320px">
         <span class="at-menu-title">Paramètres de la vue</span>
-        <input v-model="view.name" class="at-input" aria-label="Nom de la vue" placeholder="Nom de la vue">
+        <template v-if="view.locked">
+          <span class="at-dv-viewname">{{ view.name }}</span>
+          <p class="at-dv-locknote"><AtIcon name="lock" />Vue système : ni renommée ni supprimée, filtres fixes.</p>
+        </template>
+        <input v-else v-model="view.name" class="at-input" aria-label="Nom de la vue" placeholder="Nom de la vue">
         <div class="at-layout-grid" role="group" aria-label="Disposition">
           <button v-for="l in LAYOUTS" :key="l.value" type="button" class="at-layout-opt" :aria-pressed="view.layout === l.value" @click="setLayout(l.value)"><AtIcon :name="l.icon" />{{ l.label }}</button>
         </div>
@@ -499,7 +513,7 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
         <template v-if="!lockViews">
           <div class="at-menu-sep" />
           <button type="button" class="at-menu-item" @click="duplicateView"><AtIcon name="copy" />Dupliquer la vue</button>
-          <button type="button" class="at-menu-item at-menu-item--danger" :disabled="views.length < 2" @click="deleteView"><AtIcon name="trash" />Supprimer la vue</button>
+          <button v-if="!view.locked" type="button" class="at-menu-item at-menu-item--danger" :disabled="views.length < 2" @click="deleteView"><AtIcon name="trash" />Supprimer la vue</button>
         </template>
       </div>
     </AtPopover>

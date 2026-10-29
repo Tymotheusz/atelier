@@ -4,13 +4,15 @@ import { inline } from './inline'
 import type { ApiRow } from './types'
 
 /** Tableau d'API : props, v-model, événements ou slots d'un composant. */
-const props = defineProps<{ rows: ApiRow[]; kind: 'prop' | 'model' | 'event' | 'slot' }>()
+const props = defineProps<{ rows: ApiRow[]; kind: 'prop' | 'model' | 'event' | 'slot' | 'param' | 'expose' }>()
 
 const HEAD = {
   prop: ['Prop', 'Type', 'Défaut'],
   model: ['v-model', 'Type', 'Défaut'],
   event: ['Événement', 'Charge utile', ''],
-  slot: ['Slot', 'Props exposées', '']
+  slot: ['Slot', 'Props exposées', ''],
+  param: ['Paramètre', 'Type', 'Défaut'],
+  expose: ['Nom', 'Signature', '']
 } as const
 
 const columns = computed(() => {

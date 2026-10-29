@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { useShortcut, formatShortcut } from '@tymotheusz/atelier'
 import type { ComponentDoc } from '../types'
 
 export const actions: ComponentDoc[] = [
@@ -340,6 +341,56 @@ export const actions: ComponentDoc[] = [
           </AtPopover>
         `,
         setup: () => ({ ouvert: ref(false), cellule: ref<HTMLElement | null>(null) })
+      }
+    ]
+  },
+
+  {
+    name: 'useShortcut',
+    slug: 'use-shortcut',
+    family: 'Actions',
+    tagline: 'Raccourci clavier au niveau de la page, actif tant que le composant est monté.',
+    about: [
+      'Les touches s’écrivent en minuscules, comme `e.key` : `c`, `j`, `arrowdown`, `enter`, `escape`, `delete`, `backspace`, `#`, `1`. Les modificateurs se joignent par `+` : `mod` vaut ⌘ sur Mac et Ctrl ailleurs (`mod+enter`), et `ctrl`, `meta`, `alt`, `shift` existent aussi. Un caractère est comparé tel qu’il est tapé : `#` marche quel que soit le clavier.',
+      'Le raccourci se tait quand le focus est dans un champ (input, textarea, select, contenteditable), sauf avec `allowInInput`, et quand une couche Atelier est ouverte : popover ou menu (`.at-pop`), modale ou panneau (`[aria-modal="true"]`). Exception : un raccourci `allowInInput` tapé dans un champ **de cette couche** passe, pour ⌘↵ dans le formulaire d’une modale. Entrée et Espace sur un bouton ou un lien qui a le focus restent à ce contrôle.',
+      'Plusieurs raccourcis sur la même touche forment une pile : le dernier inscrit gagne ; si son `when()` est faux, le précédent a sa chance. Le gestionnaire appelé reçoit l’événement, déjà `preventDefault()`. L’inscription est retirée à `onBeforeUnmount` ; hors composant, appeler la fonction renvoyée.'
+    ],
+    rules: [
+      'Une lettre seule pour les actions fréquentes d’un écran (`c` capturer, `j` / `k` parcourir) ; `mod+…` pour valider.',
+      'Afficher le raccourci là où l’action est proposée, avec `AtKbd` et `formatShortcut(\'mod+enter\')` (⌘↵ ou Ctrl ↵).',
+      'Ne pas redéfinir les raccourcis du navigateur (⌘L, ⌘T, ⌘W) ni ceux de l’édition de texte.',
+      '`when` plutôt qu’un `if` dans le gestionnaire : un raccourci inactif laisse la touche aux autres.'
+    ],
+    params: [
+      { name: 'keys', type: 'string | string[]', required: true, desc: 'Une combinaison ou plusieurs équivalentes, ex. `[\'j\', \'arrowdown\']`.' },
+      { name: 'handler', type: '(e: KeyboardEvent) => void', required: true, desc: 'Action ; l’événement est déjà `preventDefault()`.' },
+      { name: 'opts.when', type: '() => boolean', desc: 'Raccourci actif seulement quand la fonction renvoie vrai.' },
+      { name: 'opts.allowInInput', type: 'boolean', default: 'false', desc: 'Actif aussi quand le focus est dans un champ.' }
+    ],
+    exposes: [
+      { name: 'stop', type: '() => void', desc: 'Retire le raccourci (fait tout seul au démontage du composant).' },
+      { name: 'formatShortcut', type: '(combo: string) => string', desc: 'Libellé à afficher : `mod+enter` → `⌘↵` ou `Ctrl ↵`.' }
+    ],
+    imports: "import { useShortcut, formatShortcut } from '@tymotheusz/atelier'",
+    related: ['at-kbd', 'at-list'],
+    examples: [
+      {
+        title: 'Parcourir et capturer',
+        desc: 'Cliquer hors d’un champ puis taper `J`, `K` ou `C`. Dans la zone de texte, `J` s’écrit et ⌘↵ / Ctrl ↵ ajoute la ligne.',
+        frame: 'col',
+        code: `
+          <p>Ligne {{ ligne + 1 }} sur 5 — <AtKbd>J</AtKbd> suivante, <AtKbd>K</AtKbd> précédente, <AtKbd>C</AtKbd> capturer</p>
+          <textarea ref="champ" v-model="texte" class="at-input" rows="2" placeholder="Une idée…" style="height: auto; max-width: 420px" />
+          <span class="at-muted">Ajouter <AtKbd>{{ valider }}</AtKbd> · {{ idees.length }} idée{{ idees.length > 1 ? 's' : '' }}</span>
+        `,
+        setup: () => {
+          const ligne = ref(0), texte = ref(''), idees = ref<string[]>([]), champ = ref<HTMLTextAreaElement>()
+          useShortcut('j', () => { ligne.value = Math.min(4, ligne.value + 1) })
+          useShortcut('k', () => { ligne.value = Math.max(0, ligne.value - 1) })
+          useShortcut('c', () => champ.value?.focus())
+          useShortcut('mod+enter', () => { if (texte.value.trim()) { idees.value.push(texte.value.trim()); texte.value = '' } }, { allowInInput: true })
+          return { ligne, texte, idees, champ, valider: formatShortcut('mod+enter') }
+        }
       }
     ]
   }

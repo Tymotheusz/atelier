@@ -11,7 +11,7 @@ import type { ComponentDoc } from '../types'
 /** Page générique d'un composant : exemples vivants, règles d'usage, API complète. */
 const props = defineProps<{ entry: ComponentDoc }>()
 
-const imports = computed(() => `import { ${props.entry.name} } from '@tymotheusz/atelier'
+const imports = computed(() => props.entry.imports ?? `import { ${props.entry.name} } from '@tymotheusz/atelier'
 // ou, avec le plugin : app.use(Atelier) enregistre <${props.entry.name}> globalement`)
 const related = computed(() => (props.entry.related ?? []).map(slug => bySlug[slug]).filter(Boolean))
 </script>
@@ -70,7 +70,15 @@ const related = computed(() => (props.entry.related ?? []).map(slug => bySlug[sl
         <h3 class="t-heading-3">Slots</h3>
         <DocApi :rows="entry.slots" kind="slot" />
       </template>
-      <p v-if="!entry.models && !entry.props && !entry.events && !entry.slots" class="at-muted">
+      <template v-if="entry.params">
+        <h3 class="t-heading-3">Paramètres</h3>
+        <DocApi :rows="entry.params" kind="param" />
+      </template>
+      <template v-if="entry.exposes">
+        <h3 class="t-heading-3">{{ entry.params ? 'Valeur renvoyée' : 'Méthodes exposées' }}</h3>
+        <DocApi :rows="entry.exposes" kind="expose" />
+      </template>
+      <p v-if="!entry.models && !entry.props && !entry.events && !entry.slots && !entry.params && !entry.exposes" class="at-muted">
         Ce composant ne prend ni prop ni événement : il n’est qu’une surface.
       </p>
       <h3 class="t-heading-3">Import</h3>

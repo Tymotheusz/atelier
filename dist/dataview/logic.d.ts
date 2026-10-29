@@ -1,9 +1,13 @@
-import type { Property, PropertyOption, View, FilterRule, FilterOp, Layout } from './types';
+import type { Property, PropertyOption, View, FilterRule, FilterOp, FilterContext, Layout } from './types';
 import type { TagColor } from '../types';
 export declare const NONE = "__none";
+/** Filter value standing for the current user, replaced by `context.me` when filtering. */
+export declare const ME = "@me";
 export declare const toISODate: (d: Date) => string;
 export declare const today: () => string;
 export declare const addDays: (iso: string, n: number) => string;
+/** The Monday strictly after the given day (a Monday gives the following one). */
+export declare const nextMonday: (iso?: string) => string;
 export declare const uid: () => string;
 export declare const isEmpty: (v: unknown) => boolean;
 export declare const getValue: <R>(row: R, p: Property<R>) => any;
@@ -22,10 +26,12 @@ export declare const LAYOUTS: {
 export declare const OPS: Record<string, FilterOp[]>;
 export declare const OP_LABEL: Record<FilterOp, string>;
 export declare const NO_VALUE: FilterOp[];
-export declare function matchRule<R>(row: R, p: Property<R>, r: FilterRule, now?: string): boolean;
+/** Value of a rule once context placeholders are replaced; `undefined` when `@me` has no user to stand for. */
+export declare function resolveValue(value: string, context?: FilterContext): string | undefined;
+export declare function matchRule<R>(row: R, p: Property<R>, rule: FilterRule, now?: string, context?: FilterContext): boolean;
 export declare function compareRows<R>(p: Property<R>, a: R, b: R): number;
 /** Recherche plein texte sur le titre + filtres (ET) + tris successifs. */
-export declare function applyView<R>(rows: R[], schema: Property<R>[], view: View, search?: string): R[];
+export declare function applyView<R>(rows: R[], schema: Property<R>[], view: View, search?: string, context?: FilterContext): R[];
 export interface Group<R> {
     key: string;
     option: PropertyOption | null;
@@ -48,7 +54,7 @@ export declare const sort: (prop: string, dir?: "asc" | "desc") => {
     dir: "desc" | "asc";
 };
 /** Valeurs par défaut d'une nouvelle ligne déduites des filtres « est » / « contient » de la vue. */
-export declare function defaultsFromFilters<R>(view: View, schema: Property<R>[]): Record<string, unknown>;
+export declare function defaultsFromFilters<R>(view: View, schema: Property<R>[], context?: FilterContext): Record<string, unknown>;
 export declare const fmtNumber: Intl.NumberFormat;
 export declare function formatDate(iso?: string | null): string;
 export declare const formatMonth: (month: string) => string;
