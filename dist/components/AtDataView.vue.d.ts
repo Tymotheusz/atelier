@@ -3,9 +3,9 @@ declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable
     props: __VLS_PrettifyLocal<Pick<Partial<{}> & Omit<{
         onDelete?: ((rows: R[]) => any) | undefined;
         onUpdate?: ((row: R, key: string, value: unknown) => any) | undefined;
-        onCreateOption?: ((prop: Property<R>, option: PropertyOption) => any) | undefined;
-        onUpdateOption?: ((prop: Property<R>, value: string, patch: Partial<PropertyOption>) => any) | undefined;
-        onDeleteOption?: ((prop: Property<R>, value: string) => any) | undefined;
+        onCreateOption?: ((prop: Property<R>, option: PropertyOption, row: R) => any) | undefined;
+        onUpdateOption?: ((prop: Property<R>, value: string, patch: Partial<PropertyOption>, row: R) => any) | undefined;
+        onDeleteOption?: ((prop: Property<R>, value: string, row: R) => any) | undefined;
         onOpen?: ((row: R) => any) | undefined;
         "onUpdate:views"?: ((value: View[]) => any) | undefined;
         "onUpdate:activeView"?: ((value: string) => any) | undefined;
@@ -14,9 +14,9 @@ declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable
     } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{}>> & {
         onDelete?: ((rows: R[]) => any) | undefined;
         onUpdate?: ((row: R, key: string, value: unknown) => any) | undefined;
-        onCreateOption?: ((prop: Property<R>, option: PropertyOption) => any) | undefined;
-        onUpdateOption?: ((prop: Property<R>, value: string, patch: Partial<PropertyOption>) => any) | undefined;
-        onDeleteOption?: ((prop: Property<R>, value: string) => any) | undefined;
+        onCreateOption?: ((prop: Property<R>, option: PropertyOption, row: R) => any) | undefined;
+        onUpdateOption?: ((prop: Property<R>, value: string, patch: Partial<PropertyOption>, row: R) => any) | undefined;
+        onDeleteOption?: ((prop: Property<R>, value: string, row: R) => any) | undefined;
         onOpen?: ((row: R) => any) | undefined;
         "onUpdate:views"?: ((value: View[]) => any) | undefined;
         "onUpdate:activeView"?: ((value: string) => any) | undefined;
@@ -44,7 +44,7 @@ declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable
     expose(exposed: import("vue").ShallowUnwrapRef<{}>): void;
     attrs: any;
     slots: {};
-    emit: (((evt: "delete", rows: R[]) => void) & ((evt: "open", row: R) => void) & ((evt: "update", row: R, key: string, value: unknown) => void) & ((evt: "createOption", prop: Property<R>, option: PropertyOption) => void) & ((evt: "updateOption", prop: Property<R>, value: string, patch: Partial<PropertyOption>) => void) & ((evt: "deleteOption", prop: Property<R>, value: string) => void) & ((evt: "create", defaults: Partial<R>) => void) & ((evt: "resetViews") => void)) & (((evt: "update:views", value: View[]) => void) & ((evt: "update:activeView", value: string) => void));
+    emit: (((evt: "delete", rows: R[]) => void) & ((evt: "open", row: R) => void) & ((evt: "update", row: R, key: string, value: unknown) => void) & ((evt: "createOption", prop: Property<R>, option: PropertyOption, row: R) => void) & ((evt: "updateOption", prop: Property<R>, value: string, patch: Partial<PropertyOption>, row: R) => void) & ((evt: "deleteOption", prop: Property<R>, value: string, row: R) => void) & ((evt: "create", defaults: Partial<R>) => void) & ((evt: "resetViews") => void)) & (((evt: "update:views", value: View[]) => void) & ((evt: "update:activeView", value: string) => void));
 }>) => import("vue").VNode<import("vue").RendererNode, import("vue").RendererElement, {
     [key: string]: any;
 }> & {

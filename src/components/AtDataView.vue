@@ -44,9 +44,9 @@ const emit = defineEmits<{
   create: [defaults: Partial<R>]
   open: [row: R]
   delete: [rows: R[]]
-  createOption: [prop: Property<R>, option: PropertyOption]
-  updateOption: [prop: Property<R>, value: string, patch: Partial<PropertyOption>]
-  deleteOption: [prop: Property<R>, value: string]
+  createOption: [prop: Property<R>, option: PropertyOption, row: R]
+  updateOption: [prop: Property<R>, value: string, patch: Partial<PropertyOption>, row: R]
+  deleteOption: [prop: Property<R>, value: string, row: R]
   resetViews: []
 }>()
 
@@ -530,9 +530,9 @@ const noneLabel = computed(() => (gprop.value ? `Sans ${gprop.value.name.toLower
     <AtPropertyEditor
       v-model:open="editorOpen" :prop="editor?.prop ?? null" :row="editor?.row" :anchor="editorAnchor"
       @update="v => editor && emit('update', editor.row, editor.prop.key, v)"
-      @create-option="o => editor && emit('createOption', editor.prop, o)"
-      @update-option="(v, patch) => editor && emit('updateOption', editor.prop, v, patch)"
-      @delete-option="v => editor && emit('deleteOption', editor.prop, v)"
+      @create-option="o => editor && emit('createOption', editor.prop, o, editor.row)"
+      @update-option="(v, patch) => editor && emit('updateOption', editor.prop, v, patch, editor.row)"
+      @delete-option="v => editor && emit('deleteOption', editor.prop, v, editor.row)"
     />
   </section>
 </template>
