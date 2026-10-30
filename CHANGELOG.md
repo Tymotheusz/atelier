@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.1] - 2026-10-30
+
+- Listes : l'élément actif n'est plus marqué que par son fond pâle, sans barre de couleur à gauche.
+
 ## [0.7.0] - 2026-10-29
 
 - Vues de données réinitialisables : entrée « Réinitialiser les vues » dans les paramètres de la vue, disponible même
