@@ -183,7 +183,9 @@ export const data: ComponentDoc[] = [
       '`resettable` ajoute « Réinitialiser les vues » en bas des paramètres de la vue, y compris avec `lockViews` (sans effet avec `hideViews`, qui retire ces paramètres). Le clic ferme le menu et émet `reset-views` ; le composant ne touche pas aux vues : l’app demande confirmation puis remplace `views` par ses vues par défaut.',
       'Une vue `locked: true` est une **vue système** (« Mes tâches ») : ni renommée ni supprimée, ses filtres s’affichent mais ne se modifient pas ; disposition, tri, colonnes et groupes restent libres. Elle se crée avec un identifiant fixe : `createView(\'Mes tâches\', \'list\', { id: \'mine\', locked: true, filters: [filter(\'assignee\', \'is\', ME)] })`.',
       'Filtre « Moi » : la valeur `ME` (`\'@me\'`) est remplacée par `context.me` au filtrage et à la création (une tâche créée depuis « Mes tâches » est assignée à l’utilisateur courant). L’éditeur de filtre la propose en tête des propriétés personne. Sans `context.me`, la règle ne retient rien.',
-      '`creatable` sur une propriété select ou multi : on crée une option en tapant son nom, « ⋯ » la renomme, la recolore ou la supprime. Le composant émet `create-option`, `update-option`, `delete-option` ; l’app enregistre l’option et, à la suppression, la retire de ses lignes.',
+      '`creatable` sur une propriété select ou multi : on crée une option en tapant son nom, « ⋯ » la renomme, la recolore ou la supprime. Le composant émet `create-option`, `update-option`, `delete-option`, avec la ligne éditée en dernier argument ; l’app enregistre l’option et, à la suppression, la retire de ses lignes.',
+      'Étiquettes : `select` pour **une seule** par ligne (une catégorie), `multi` pour plusieurs. Les deux se saisissent de la même façon, avec `creatable`. Seule l’étiquette unique se **groupe** (menu Grouper, colonnes du board, glisser une carte change sa valeur) : une ligne à plusieurs étiquettes n’a pas de groupe à elle.',
+      'Options propres à une partie des lignes (les catégories d’un projet) : `options` est une fonction de la ligne, et appelée sans ligne (filtres, groupes) elle rend toutes les options. La ligne transmise par `create-option` dit où enregistrer la nouvelle.',
       'Par défaut, Filtrer, Trier, Grouper et Propriétés n’affichent que leur pictogramme ; le libellé reste en infobulle et en `aria-label`, les compteurs restent visibles. `:icon-tools="false"` remet les libellés, quand la place ne manque pas et que la barre doit se lire d’un coup d’œil.',
       'En densité compacte, les lignes passent de 36 à 30 px : c’est le réglage des vues de données.'
     ],
@@ -207,9 +209,9 @@ export const data: ComponentDoc[] = [
       { name: 'create', type: '(defaults: Partial<R>)', desc: 'Création demandée, avec les valeurs induites par les filtres et le groupe courant.' },
       { name: 'open', type: '(row: R)', desc: 'Ouverture d’une ligne (panneau de détail ou page).' },
       { name: 'delete', type: '(rows: R[])', desc: 'Suppression demandée.' },
-      { name: 'createOption', type: '(prop: Property<R>, option: PropertyOption)', desc: 'Option créée depuis une cellule (`creatable`) : l’ajouter aux options de la propriété. La valeur choisie suit dans un `update`.' },
-      { name: 'updateOption', type: '(prop: Property<R>, value: string, patch: Partial<PropertyOption>)', desc: 'Option renommée (`label`) ou recolorée (`color`).' },
-      { name: 'deleteOption', type: '(prop: Property<R>, value: string)', desc: 'Option supprimée : la retirer des options et des lignes qui la portent.' },
+      { name: 'createOption', type: '(prop: Property<R>, option: PropertyOption, row: R)', desc: 'Option créée depuis la cellule de `row` (`creatable`) : l’ajouter aux options de la propriété. La valeur choisie suit dans un `update`.' },
+      { name: 'updateOption', type: '(prop: Property<R>, value: string, patch: Partial<PropertyOption>, row: R)', desc: 'Option renommée (`label`) ou recolorée (`color`) depuis la cellule de `row`.' },
+      { name: 'deleteOption', type: '(prop: Property<R>, value: string, row: R)', desc: 'Option supprimée depuis la cellule de `row` : la retirer des options et des lignes qui la portent.' },
       { name: 'resetViews', type: '()', desc: 'Réinitialisation demandée (`resettable`) : confirmer, puis remplacer `views`. Le composant ne modifie rien.' }
     ],
     classes: ['at-dv-viewsbar', 'at-dv-toolbar', 'at-dv-table', 'at-dv-board', 'at-dv-list', 'at-dv-calwrap', 'at-dv-card', 'at-dv-chip'],
@@ -242,6 +244,42 @@ export const data: ComponentDoc[] = [
             createView('En retard', 'list', { filters: [filter('due', 'past'), filter('statut', 'isnot', 'done')], sorts: [sort('due')], hidden: ['tags', 'fait'] })
           ])
           return { schema, rows, options, vues, active: ref(vues.value[0].id), ouverte: ref(''), uid }
+        }
+      },
+      {
+        title: 'Catégorie : une étiquette unique, groupée',
+        desc: 'La catégorie est un `select` `creatable` : une seule par tâche, créée en tapant. Le board est groupé par catégorie ; glisser une carte d’une colonne à l’autre change sa catégorie.',
+        frame: 'plain',
+        code: `
+          <AtDataView
+            v-model:views="vues" v-model:active-view="active"
+            :rows="rows" :schema="schema" new-label="Nouvelle tâche"
+            @update="(row, key, value) => (row[key] = value)"
+            @create-option="(p, o) => categories.push(o)"
+            @update-option="(p, v, patch) => Object.assign(categories.find(o => o.value === v), patch)"
+            @delete-option="(p, v) => { categories = categories.filter(o => o.value !== v); rows.forEach(r => { if (r.categorie === v) r.categorie = null }) }"
+            @create="defaults => rows.push({ id: uid(), title: '', statut: 'todo', categorie: null, ...defaults })"
+          />
+        `,
+        setup: () => {
+          const categories = ref<PropertyOption[]>(OPT_TAGS.map(o => ({ ...o })))
+          const schema: Property[] = [
+            { key: 'title', name: 'Nom', type: 'title', width: 260 },
+            { key: 'statut', name: 'Statut', type: 'status', options: OPT_STATUT, width: 130 },
+            { key: 'categorie', name: 'Catégorie', type: 'select', options: () => categories.value, creatable: true, width: 150 }
+          ]
+          const rows = ref([
+            { id: 'c1', title: 'Écran de connexion', statut: 'doing', categorie: 'front' },
+            { id: 'c2', title: 'Formulaire de contact', statut: 'todo', categorie: 'back' },
+            { id: 'c3', title: 'Maquette de l’accueil', statut: 'done', categorie: 'design' },
+            { id: 'c4', title: 'Page tarifs', statut: 'todo', categorie: 'front' },
+            { id: 'c5', title: 'Idée à classer', statut: 'todo', categorie: null }
+          ])
+          const vues = ref<View[]>([
+            createView('Par catégorie', 'board', { groupBy: 'categorie', hidden: ['categorie'] }),
+            createView('Tableau', 'table', { groupBy: 'categorie' })
+          ])
+          return { schema, rows, categories, vues, active: ref(vues.value[0].id), uid }
         }
       },
       {

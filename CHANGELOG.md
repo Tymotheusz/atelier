@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0] - 2026-10-30
+
+- `AtDataView` : `create-option`, `update-option` et `delete-option` transmettent la ligne éditée en dernier argument,
+  pour les options propres à une partie des lignes (les catégories d'un projet).
+- Documentation : étiquette unique (`select`) ou multiple (`multi`), et regroupement par étiquette unique ; exemple
+  « Catégorie : une étiquette unique, groupée ».
+
 ## [0.7.1] - 2026-10-30
 
 - Listes : l'élément actif n'est plus marqué que par son fond pâle, sans barre de couleur à gauche.
