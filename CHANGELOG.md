@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.9.0] - 2026-11-03
+
+- Tuiles d’icône et bandes de widget aux 9 couleurs des tags, pour les entités que l’utilisateur colore (projet, domaine).
+- `AtNavGroup` repliable (`collapsible`, `v-model:open`), avec pastille de couleur devant le titre (`mark`).
+
 ## [0.8.0] - 2026-10-30
 
 - `AtDataView` : `create-option`, `update-option` et `delete-option` transmettent la ligne éditée en dernier argument,

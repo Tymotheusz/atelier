@@ -36,7 +36,7 @@
   padding: 0 var(--space-1); border-radius: var(--radius-xs);
   border: 1px solid var(--border-strong); color: var(--ink-subtle); background: var(--surface);
 }
-:where(.at-btn, .at-input, .at-select select, .at-check, .at-switch, .at-tab, .at-segment button, .at-nav-item, .at-menu-item, .at-card--link, .at-login__foot a):focus-visible {
+:where(.at-btn, .at-input, .at-select select, .at-check, .at-switch, .at-tab, .at-segment button, .at-nav-item, .at-nav-toggle, .at-menu-item, .at-card--link, .at-login__foot a):focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
@@ -226,7 +226,15 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 /* ---------- Nav (sidebar d'app) ---------- */
 .at-sidebar { display: flex; flex-direction: column; gap: var(--space-4); width: var(--sidebar); padding: var(--space-2); background: var(--surface-sunken); border-right: 1px solid var(--border); }
 .at-nav { display: flex; flex-direction: column; gap: 1px; }
-.at-nav-label { padding: var(--space-1) var(--space-2); font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-subtle); }
+.at-nav-label { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-2); font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-subtle); }
+.at-nav-toggle {
+  display: flex; align-items: center; gap: var(--space-2); width: 100%; background: none; border: 0;
+  border-radius: var(--radius-sm); font-family: inherit; text-align: left; cursor: pointer;
+}
+.at-nav-toggle:hover { background: var(--surface-hover); color: var(--ink-muted); }
+.at-nav-toggle .at-icon { width: 12px; height: 12px; margin-left: auto; flex: none; transition: transform var(--duration-fast) var(--ease-out); }
+.at-nav-toggle .at-nav-mark { width: 8px; height: 8px; border-radius: 2px; }
+.at-nav-body { display: flex; flex-direction: column; gap: 1px; }
 .at-nav-item {
   display: flex; align-items: center; gap: var(--space-2); height: var(--h-sm); padding: 0 var(--space-2);
   font-size: 14px; color: var(--ink-muted); text-decoration: none; border-radius: var(--radius-sm); cursor: pointer;
@@ -244,6 +252,16 @@ textarea.at-input { height: auto; min-height: 80px; padding: var(--space-2) var(
 .at-tone-chart-3 { --at-tone: var(--chart-3); --at-tone-bg: var(--chart-3-soft); --at-tone-fg: var(--chart-3-ink); }
 .at-tone-chart-4 { --at-tone: var(--chart-4); --at-tone-bg: var(--chart-4-soft); --at-tone-fg: var(--chart-4-ink); }
 .at-tone-chart-5 { --at-tone: var(--chart-5); --at-tone-bg: var(--chart-5-soft); --at-tone-fg: var(--chart-5-ink); }
+/* Couleurs des tags : pour une entité colorée par l'utilisateur (projet, domaine). */
+.at-tone-gray { --at-tone: var(--tag-gray-fg); --at-tone-bg: var(--tag-gray-bg); --at-tone-fg: var(--tag-gray-fg); }
+.at-tone-brown { --at-tone: var(--tag-brown-fg); --at-tone-bg: var(--tag-brown-bg); --at-tone-fg: var(--tag-brown-fg); }
+.at-tone-orange { --at-tone: var(--tag-orange-fg); --at-tone-bg: var(--tag-orange-bg); --at-tone-fg: var(--tag-orange-fg); }
+.at-tone-yellow { --at-tone: var(--tag-yellow-fg); --at-tone-bg: var(--tag-yellow-bg); --at-tone-fg: var(--tag-yellow-fg); }
+.at-tone-green { --at-tone: var(--tag-green-fg); --at-tone-bg: var(--tag-green-bg); --at-tone-fg: var(--tag-green-fg); }
+.at-tone-blue { --at-tone: var(--tag-blue-fg); --at-tone-bg: var(--tag-blue-bg); --at-tone-fg: var(--tag-blue-fg); }
+.at-tone-purple { --at-tone: var(--tag-purple-fg); --at-tone-bg: var(--tag-purple-bg); --at-tone-fg: var(--tag-purple-fg); }
+.at-tone-pink { --at-tone: var(--tag-pink-fg); --at-tone-bg: var(--tag-pink-bg); --at-tone-fg: var(--tag-pink-fg); }
+.at-tone-red { --at-tone: var(--tag-red-fg); --at-tone-bg: var(--tag-red-bg); --at-tone-fg: var(--tag-red-fg); }
 .at-tone-ink { --at-tone: var(--ink); --at-tone-bg: var(--ink); --at-tone-fg: var(--bg); }
 .at-tone-success { --at-tone: var(--success); }
 .at-tone-warning { --at-tone: var(--warning); }
