@@ -1,5 +1,5 @@
-import { ref } from 'vue'
-import { createView, filter, sort, uid, ME, type Property, type PropertyOption, type View } from '@tymotheusz/atelier'
+import { computed, onBeforeUnmount, ref } from 'vue'
+import { createView, filter, sort, uid, ME, type ChecklistGroup, type ChecklistItem, type Property, type PropertyOption, type StreakDay, type View } from '@tymotheusz/atelier'
 import type { ComponentDoc } from '../types'
 
 interface Tache { id: string; title: string; statut: string; priorite: string; due: string | null; estimate: number | null; tags: string[]; fait: boolean }
@@ -48,6 +48,37 @@ function jeuDeDonnees(creatable = false) {
     remove: (v: string) => { tags.value = tags.value.filter(o => o.value !== v); rows.value.forEach(r => { r.tags = r.tags.filter(t => t !== v) }) }
   }
   return { schema, rows, options }
+}
+
+
+/* ---------- Routine du matin (AtChecklist, AtStreak) ---------- */
+type Etape = ChecklistItem & { minutes: number; heure: string }
+const TEMPS: ChecklistGroup[] = [
+  { id: 'collecter', label: 'Collecter', hint: 'Tout ce qui demande une action part dans l’inbox.' },
+  { id: 'planifier', label: 'Planifier' },
+  { id: 'traiter', label: 'Traiter', hint: 'Jusqu’à la première réunion.' }
+]
+const routine = (): Etape[] => [
+  { id: 'pro', title: 'Mail pro', group: 'collecter', state: 'done', href: 'https://mail.example.com', minutes: 5, heure: '8 h 33' },
+  { id: 'perso', title: 'Mail perso', group: 'collecter', state: 'done', href: 'https://mail.example.org', minutes: 2, heure: '8 h 34' },
+  { id: 'missel', title: 'Mail missel', group: 'collecter', state: 'skipped', minutes: 2, heure: '' },
+  { id: 'teams', title: 'Teams', group: 'collecter', state: 'todo', href: 'https://teams.example.com', minutes: 1, heure: '',
+    note: 'Canaux d’équipe et conversations privées.\nUne demande = une idée dans l’inbox.' },
+  { id: 'whatsapp', title: 'WhatsApp', group: 'collecter', state: 'todo', href: 'https://web.whatsapp.example', minutes: 1, heure: '' },
+  { id: 'inbox', title: 'Trier l’inbox', group: 'planifier', state: 'todo', minutes: 5, heure: '',
+    note: 'Chaque idée : une tâche datée, un projet, ou la corbeille.' },
+  { id: 'agenda', title: 'Agenda du jour', group: 'planifier', state: 'todo', minutes: 2, heure: '' },
+  { id: 'trois', title: 'Choisir les trois tâches du jour', group: 'planifier', state: 'todo', minutes: 3, heure: '' },
+  { id: 'premiere', title: 'Première tâche', group: 'traiter', state: 'todo', minutes: 25, heure: '' }
+]
+/** 30 jours jusqu'au 3 novembre 2026, niveaux fixes pour une doc stable. */
+const trenteJours = (): StreakDay[] => {
+  const niveaux = '222220022221022202100122220021'
+  return [...niveaux].map((n, i) => {
+    const d = new Date(2026, 9, 5 + i)
+    const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    return { date, level: Number(n) as StreakDay['level'] }
+  })
 }
 
 export const data: ComponentDoc[] = [
@@ -578,6 +609,168 @@ export const data: ComponentDoc[] = [
           active: ref<string | null>('i1'),
           ouverte: ref('')
         })
+      }
+    ]
+  },
+
+  {
+    name: 'AtChecklist',
+    slug: 'at-checklist',
+    family: 'Données',
+    tagline: 'Déroulé d’étapes ordonnées à cocher : routine du matin, onboarding, procédure de mise en production.',
+    about: [
+      'Une liste `ol` numérotée en continu, avec des intertitres quand `groups` est fourni (groupes dans l’ordre de `groups`, étapes sans groupe connu à la fin ; dans un groupe, l’ordre du tableau). Chaque ligne : numéro, case, titre, slot `meta` à droite, bouton « Ouvrir » si l’étape a un `href`.',
+      '**Le composant ne modifie jamais `items`.** Cocher émet `check(id, \'done\')`, décocher `check(id, \'todo\')` ; le parent change l’état. Quand l’étape courante passe à faite ou passée, `current` avance à la prochaine étape à faire après elle (sinon la première, sinon `null`).',
+      'L’étape courante (`v-model:current`, `aria-current="step"`) a un fond pâle et se déplie : sa `note` (texte simple, retours à la ligne gardés) puis le slot `actions`. Un clic sur un titre la choisit. Après chaque coche, une zone `aria-live` annonce « 3 sur 13 ».',
+      'Avec `keyboard`, les touches marchent partout sur la page : J / K ou ↓ / ↑ changent d’étape, Espace coche ou décoche, Entrée ouvre le lien, S passe l’étape. Elles se taisent pendant la saisie dans un champ, avec un menu ou une modale ouverts, et avec Ctrl, ⌘ ou Alt enfoncés. Espace et Entrée sur un bouton ou une case qui a le focus gardent leur effet propre.',
+      'Sur écran étroit (≤ 640 px), la case passe à 20 px et chaque ligne fait au moins 44 px de haut.'
+    ],
+    rules: [
+      'Un titre court par étape, à l’infinitif ou en un nom : « Mail pro », « Trier l’inbox ».',
+      '`meta` reçoit une seule valeur discrète : l’heure de la coche, une durée prévue, ou `AtTimer` sur l’étape courante.',
+      '`actions` reprend les touches de clavier dans les boutons (`AtKbd`) : « Fait Espace », « Passer S ».',
+      '`collapseDone` sur mobile ou pour une longue liste : seules les N dernières étapes faites restent visibles avant l’étape courante.',
+      '`keyboard` sur un seul composant par écran.',
+      'Pour une liste à parcourir sans rien cocher, c’est `AtList`.'
+    ],
+    models: [{ name: 'current', type: 'string | null', default: 'null', desc: 'Identifiant de l’étape courante.' }],
+    props: [
+      { name: 'items', type: 'ChecklistItem[]', required: true, desc: '`{ id, title, href?, note?, group?, state: \'todo\' | \'done\' | \'skipped\' }`. Jamais modifiés par le composant.' },
+      { name: 'groups', type: 'ChecklistGroup[]', desc: 'Intertitres `{ id, label, hint? }`, dans l’ordre affiché.' },
+      { name: 'numbered', type: 'boolean', default: 'true', desc: 'Numéro devant chaque étape, continu sur toute la liste.' },
+      { name: 'collapseDone', type: 'number', desc: 'Ne garde visibles que les N dernières étapes faites ou passées avant l’étape courante ; les autres se replient derrière « N faites masquées », qui les déplie.' },
+      { name: 'keyboard', type: 'boolean', default: 'false', desc: 'J / K, ↓ / ↑, Espace, Entrée et S au niveau de la page.' }
+    ],
+    events: [
+      { name: 'update:current', type: '(id: string | null)', desc: 'Nouvelle étape courante : clic sur un titre, J / K, ou avance après une coche.' },
+      { name: 'check', type: `(id: string, state: 'todo' | 'done' | 'skipped')`, desc: 'Nouvel état demandé pour une étape.' },
+      { name: 'open', type: '(item: ChecklistItem)', desc: 'Bouton « Ouvrir » ou Entrée sur une étape qui a un `href` : l’app ouvre le lien (dans l’app ou dans un onglet).' }
+    ],
+    slots: [
+      { name: 'meta', type: '{ item: ChecklistItem; current: boolean }', desc: 'À droite de la ligne : heure, durée, minuteur.' },
+      { name: 'actions', type: '{ item: ChecklistItem }', desc: 'Boutons sous la note de l’étape courante.' },
+      { name: 'empty', type: '—', desc: 'Contenu quand il n’y a aucune étape (par défaut « Aucune étape »).' }
+    ],
+    exposes: [{ name: 'move', type: '(step: number) => void', desc: 'Déplace l’étape courante, comme J / K.' }],
+    imports: `import { AtChecklist, type ChecklistItem, type ChecklistGroup } from '@tymotheusz/atelier'`,
+    classes: [
+      'at-checklist', 'at-checklist--plain', 'at-checklist__list', 'at-checklist__group', 'at-checklist__group-label', 'at-checklist__group-hint',
+      'at-checklist__item', 'at-checklist__item--todo|--done|--skipped|--current', 'at-checklist__line', 'at-checklist__num', 'at-checklist__check',
+      'at-checklist__title', 'at-checklist__text', 'at-checklist__skipped', 'at-checklist__meta', 'at-checklist__open', 'at-checklist__body',
+      'at-checklist__note', 'at-checklist__actions', 'at-checklist__more', 'at-checklist__more-btn', 'at-checklist__empty'
+    ],
+    related: ['at-timer', 'at-streak', 'at-list', 'use-shortcut'],
+    examples: [
+      {
+        title: 'Routine du matin',
+        desc: 'Les touches marchent sur toute la page : J / K, Espace pour cocher, S pour passer, Entrée pour ouvrir. Le minuteur de l’étape courante repart à chaque coche.',
+        frame: 'plain',
+        code: `
+          <AtCard style="padding: var(--space-2) var(--space-2) var(--space-3); gap: var(--space-2); max-width: 640px">
+            <AtChecklist v-model:current="courante" :items="etapes" :groups="temps" keyboard
+              @check="cocher" @open="e => (ouverte = e.title)">
+              <template #meta="{ item, current }">
+                <AtTimer v-if="current" :seconds="secondes" :target="item.minutes * 60" :paused="pause" @toggle="pause = !pause" />
+                <span v-else-if="item.state === 'done'">{{ item.heure }}</span>
+                <span v-else>{{ item.minutes }} min</span>
+              </template>
+              <template #actions="{ item }">
+                <AtButton variant="primary" size="sm" icon="check" @click="cocher(item.id, 'done')">Fait <AtKbd>Espace</AtKbd></AtButton>
+                <AtButton v-if="item.href" size="sm" icon="arrow" @click="ouverte = item.title">Ouvrir <AtKbd>Entrée</AtKbd></AtButton>
+                <AtButton variant="ghost" size="sm" @click="cocher(item.id, 'skipped')">Passer <AtKbd>S</AtKbd></AtButton>
+              </template>
+            </AtChecklist>
+            <p class="at-muted" style="margin: 0 var(--space-3); font-size: 13px">{{ faites }} sur {{ etapes.length }} · Ouverte : {{ ouverte || '—' }}</p>
+          </AtCard>
+        `,
+        setup: () => {
+          const etapes = ref(routine())
+          const courante = ref<string | null>('teams')
+          const secondes = ref(42)
+          const pause = ref(false)
+          const tic = setInterval(() => { if (!pause.value) secondes.value++ }, 1000)
+          onBeforeUnmount(() => clearInterval(tic))
+          const cocher = (id: string, state: ChecklistItem['state']) => {
+            const e = etapes.value.find(x => x.id === id)
+            if (!e) return
+            e.state = state
+            e.heure = state === 'done' ? '8 h 36' : ''
+            secondes.value = 0
+          }
+          return {
+            etapes, courante, secondes, pause, cocher, temps: TEMPS, ouverte: ref(''),
+            faites: computed(() => etapes.value.filter(e => e.state !== 'todo').length)
+          }
+        }
+      },
+      {
+        title: 'Mobile : faites repliées, sans numéros',
+        desc: '`collapse-done="1"` ne garde que la dernière étape faite avant l’étape courante.',
+        frame: 'plain',
+        code: `
+          <div style="max-width: 360px; border: 1px solid var(--border); border-radius: var(--radius-lg)">
+            <AtChecklist v-model:current="courante" :items="etapes" :numbered="false" :collapse-done="1"
+              @check="(id, state) => (etapes.find(e => e.id === id).state = state)">
+              <template #meta="{ item }"><span>{{ item.minutes }} min</span></template>
+            </AtChecklist>
+          </div>
+        `,
+        setup: () => ({ etapes: ref(routine().slice(0, 6)), courante: ref<string | null>('teams') })
+      }
+    ]
+  },
+
+  {
+    name: 'AtStreak',
+    slug: 'at-streak',
+    family: 'Données',
+    tagline: 'Grille de régularité : un carré par jour, trois niveaux, sans notion d’échec.',
+    about: [
+      'Un carré par jour, dans l’ordre du tableau, sur `columns` colonnes (10 par défaut, 7 pour des semaines). Niveau 0 : neutre (fond enfoncé et contour) ; 1 : fond pâle et contour de la teinte ; 2 : plein. Jamais de rouge : un jour sans rien n’est pas une faute.',
+      'Chaque carré est un bouton : son infobulle et son nom accessible disent la date (ou `label`) et le niveau, par exemple « 3 nov. : Terminée ». Un clic émet `select(date)`. La légende et le résumé, sous la grille, portent aussi l’information : la couleur ne la porte jamais seule.'
+    ],
+    rules: [
+      'Un résumé en mots, compté par l’app : « 21 matins sur 30 ».',
+      '`success` pour une habitude tenue ; `accent` pour une activité sans idée de réussite (jours d’usage).',
+      'Les jours dans l’ordre chronologique, du plus ancien au plus récent.',
+      'Pas de série (« 12 jours d’affilée ») : la grille montre la régularité, pas une performance à défendre.'
+    ],
+    props: [
+      { name: 'days', type: 'StreakDay[]', required: true, desc: '`{ date, level: 0 | 1 | 2, label? }`, un par carré.' },
+      { name: 'columns', type: 'number', default: '10', desc: 'Nombre de colonnes.' },
+      { name: 'tone', type: `'success' | 'accent'`, default: `'success'`, desc: 'Teinte des niveaux 1 et 2.' },
+      { name: 'summary', type: 'string', desc: 'Résumé sous la grille ; sert aussi de nom à la grille.' },
+      { name: 'legend', type: 'boolean', default: 'true', desc: 'Affiche la légende des trois niveaux.' },
+      { name: 'labels', type: '[string, string, string]', default: `['Rien', 'Commencée', 'Terminée']`, desc: 'Libellés des niveaux 0, 1 et 2 : légende et infobulles.' }
+    ],
+    events: [{ name: 'select', type: '(date: string)', desc: 'Clic sur un jour.' }],
+    imports: `import { AtStreak, type StreakDay } from '@tymotheusz/atelier'`,
+    classes: ['at-streak', 'at-streak--accent', 'at-streak__grid', 'at-streak__day', 'at-streak__day--1|--2', 'at-streak__foot', 'at-streak__summary', 'at-streak__legend', 'at-streak__swatch'],
+    related: ['at-checklist', 'at-stat'],
+    examples: [
+      {
+        title: 'Routine du matin sur 30 jours',
+        frame: 'col',
+        code: `
+          <div style="width: 260px">
+            <AtStreak :days="jours" :summary="resume" @select="d => (choisi = d)" />
+          </div>
+          <p class="at-muted" style="margin: 0">Jour choisi : {{ choisi || '—' }}</p>
+        `,
+        setup: () => {
+          const jours = trenteJours()
+          return { jours, choisi: ref(''), resume: `${jours.filter(j => j.level === 2).length} matins sur 30` }
+        }
+      },
+      {
+        title: 'Semaines, en accent',
+        frame: 'col',
+        code: `
+          <div style="width: 200px">
+            <AtStreak :days="jours.slice(-28)" :columns="7" tone="accent" :labels="['Aucune visite', 'Courte', 'Longue']" summary="4 semaines" />
+          </div>
+        `,
+        setup: () => ({ jours: trenteJours() })
       }
     ]
   }

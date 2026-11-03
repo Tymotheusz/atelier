@@ -6,6 +6,7 @@ import AtBreadcrumbs from './components/AtBreadcrumbs.vue'
 import AtButton from './components/AtButton.vue'
 import AtCard from './components/AtCard.vue'
 import AtCheckbox from './components/AtCheckbox.vue'
+import AtChecklist from './components/AtChecklist.vue'
 import AtComments from './components/AtComments.vue'
 import AtDataView from './components/AtDataView.vue'
 import AtDrawer from './components/AtDrawer.vue'
@@ -36,11 +37,13 @@ import AtSegment from './components/AtSegment.vue'
 import AtSelect from './components/AtSelect.vue'
 import AtSidebar from './components/AtSidebar.vue'
 import AtStat from './components/AtStat.vue'
+import AtStreak from './components/AtStreak.vue'
 import AtSwitch from './components/AtSwitch.vue'
 import AtTable from './components/AtTable.vue'
 import AtTabs from './components/AtTabs.vue'
 import AtTag from './components/AtTag.vue'
 import AtTextarea from './components/AtTextarea.vue'
+import AtTimer from './components/AtTimer.vue'
 import AtToaster from './components/AtToaster.vue'
 import AtUserMenu from './components/AtUserMenu.vue'
 
@@ -52,6 +55,7 @@ export {
   AtButton,
   AtCard,
   AtCheckbox,
+  AtChecklist,
   AtComments,
   AtDataView,
   AtDrawer,
@@ -82,11 +86,13 @@ export {
   AtSelect,
   AtSidebar,
   AtStat,
+  AtStreak,
   AtSwitch,
   AtTable,
   AtTabs,
   AtTag,
   AtTextarea,
+  AtTimer,
   AtToaster,
   AtUserMenu
 }
@@ -98,6 +104,8 @@ export {
   getValue, optionsOf, normalize, matchOptions, canCreate, nextTagColor, splitMatch, TAG_ROTATION, findOption, isEmpty, formatDate, formatMonth, monthGrid, shiftMonth, today, addDays, nextMonday, uid, LAYOUTS, OPS, OP_LABEL, NONE, ME, resolveValue
 } from './dataview/logic'
 export { formatRelative, splitMentions, mentionAt } from './comments'
+export { formatDuration } from './checklist'
+export type { ChecklistItem, ChecklistGroup, ChecklistState } from './checklist'
 export type { TextPart } from './comments'
 export { useTheme, useDensity } from './composables/useTheme'
 export { useId } from './composables/useId'
@@ -119,6 +127,7 @@ const components = {
   AtButton,
   AtCard,
   AtCheckbox,
+  AtChecklist,
   AtComments,
   AtDataView,
   AtDrawer,
@@ -149,11 +158,13 @@ const components = {
   AtSelect,
   AtSidebar,
   AtStat,
+  AtStreak,
   AtSwitch,
   AtTable,
   AtTabs,
   AtTag,
   AtTextarea,
+  AtTimer,
   AtToaster,
   AtUserMenu
 }
@@ -175,6 +186,7 @@ declare module 'vue' {
     AtButton: typeof AtButton
     AtCard: typeof AtCard
     AtCheckbox: typeof AtCheckbox
+    AtChecklist: typeof AtChecklist
     AtComments: typeof AtComments
     AtDataView: typeof AtDataView
     AtDrawer: typeof AtDrawer
@@ -205,11 +217,13 @@ declare module 'vue' {
     AtSelect: typeof AtSelect
     AtSidebar: typeof AtSidebar
     AtStat: typeof AtStat
+    AtStreak: typeof AtStreak
     AtSwitch: typeof AtSwitch
     AtTable: typeof AtTable
     AtTabs: typeof AtTabs
     AtTag: typeof AtTag
     AtTextarea: typeof AtTextarea
+    AtTimer: typeof AtTimer
     AtToaster: typeof AtToaster
     AtUserMenu: typeof AtUserMenu
   }

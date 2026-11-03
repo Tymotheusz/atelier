@@ -43,3 +43,13 @@ export interface CommentItem {
     /** Date de la dernière modification. */
     editedAt?: string;
 }
+/**
+ * Jour d'une grille de régularité (`AtStreak`). `level` : 0 rien, 1 commencé, 2 terminé.
+ * `label` remplace la date dans l'infobulle, ex. `lundi 3 novembre`.
+ */
+export interface StreakDay {
+    /** Date ISO, ex. `2026-11-03`. */
+    date: string;
+    level: 0 | 1 | 2;
+    label?: string;
+}

@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { useToast } from '@tymotheusz/atelier'
 import type { ComponentDoc } from '../types'
 
@@ -135,6 +135,63 @@ export const status: ComponentDoc[] = [
           <AtButton size="sm" @click="avance = (avance + 10) % 110">Avancer</AtButton>
         `,
         setup: () => ({ avance: ref(40) })
+      }
+    ]
+  },
+
+  {
+    name: 'AtTimer',
+    slug: 'at-timer',
+    family: 'Statut',
+    tagline: 'Minuteur discret : temps écoulé sur une étape, face au temps prévu.',
+    about: [
+      'Une pastille-bouton : un petit anneau (arc proportionnel à `seconds / target`, plein au-delà) et un texte en chiffres tabulaires. **Le composant ne compte pas** : le parent lui passe les secondes écoulées, calculées par exemple depuis la dernière coche.',
+      'Texte : « 0:42 / 1:00 » dans le temps, « +0:40 » au-delà, « 0:42 » sans `target`, « En pause · 0:42 » en pause. Au-delà, l’anneau et le texte passent en `warning` ; en pause, ils s’atténuent. Sans `target`, l’arc suit les secondes de la minute en cours.',
+      'Un clic émet `toggle` ; `aria-pressed` reflète `paused` et l’`aria-label` dit le temps écoulé et le temps prévu. Avec `prefers-reduced-motion`, l’arc avance sans transition.',
+      '`formatDuration(seconds)` donne le même format ailleurs dans l’app : `m:ss`, `h:mm:ss` au-delà d’une heure, zéro pour un négatif.'
+    ],
+    rules: [
+      'Indicatif : il ne bloque rien et ne sonne pas. Le dépassement est une information, pas une alerte.',
+      '`sm` en ligne (slot `meta` d’`AtChecklist`), `md` seul dans un en-tête.',
+      'Un seul minuteur visible à la fois : celui de l’étape en cours.'
+    ],
+    props: [
+      { name: 'seconds', type: 'number', required: true, desc: 'Secondes écoulées, comptées par le parent.' },
+      { name: 'target', type: 'number | null', default: 'null', desc: 'Secondes prévues.' },
+      { name: 'size', type: `'sm' | 'md'`, default: `'sm'`, desc: '`sm` : pastille de 24 px ; `md` : hauteur de contrôle.' },
+      { name: 'paused', type: 'boolean', default: 'false', desc: 'En pause : texte « En pause · m:ss », couleurs atténuées, `aria-pressed`.' }
+    ],
+    events: [{ name: 'toggle', type: '()', desc: 'Clic : le parent met en pause ou reprend.' }],
+    imports: `import { AtTimer, formatDuration } from '@tymotheusz/atelier'
+formatDuration(3725) // '1:02:05'`,
+    classes: ['at-timer', 'at-timer--md', 'at-timer--over', 'at-timer--paused', 'at-timer__ring', 'at-timer__track', 'at-timer__val', 'at-timer__text'],
+    related: ['at-checklist', 'at-progress'],
+    examples: [
+      {
+        title: 'États',
+        code: `
+          <AtTimer :seconds="42" :target="60" />
+          <AtTimer :seconds="100" :target="60" />
+          <AtTimer :seconds="42" :target="60" paused />
+          <AtTimer :seconds="75" />
+          <AtTimer :seconds="1530" :target="1500" size="md" />
+        `
+      },
+      {
+        title: 'En marche',
+        desc: 'Le parent compte chaque seconde et met en pause au clic.',
+        code: `
+          <AtTimer :seconds="secondes" :target="90" :paused="pause" @toggle="pause = !pause" />
+          <AtTimer :seconds="secondes" :target="90" :paused="pause" size="md" @toggle="pause = !pause" />
+          <AtButton size="sm" variant="ghost" @click="secondes = 0">Remettre à zéro</AtButton>
+        `,
+        setup: () => {
+          const secondes = ref(80)
+          const pause = ref(false)
+          const tic = setInterval(() => { if (!pause.value) secondes.value++ }, 1000)
+          onBeforeUnmount(() => clearInterval(tic))
+          return { secondes, pause }
+        }
       }
     ]
   },

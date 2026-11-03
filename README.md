@@ -172,10 +172,10 @@ En JS : `import { tokens, cssVar, chartColors } from '@tymotheusz/atelier'`.
 | --- | --- |
 | Actions | `AtButton`, `AtDropdown`, `AtMenu`, `AtMenuItem`, `AtMenuLabel`, `AtMenuSeparator`, `AtPopover`, `useShortcut` (raccourcis clavier) |
 | Formulaires | `AtField`, `AtInput`, `AtTextarea`, `AtSelect`, `AtCheckbox`, `AtSwitch` |
-| Statut | `AtTag`, `AtBadge`, `AtAvatar`, `AtProgress`, `AtKbd`, `AtToaster` (toasts, alimentés par `useToast`) |
+| Statut | `AtTag`, `AtBadge`, `AtAvatar`, `AtProgress`, `AtKbd`, `AtToaster` (toasts, alimentés par `useToast`), `AtTimer` (minuteur d'étape, `formatDuration`) |
 | Contenu | `AtCard`, `AtEmpty`, `AtModal`, `AtDrawer`, `AtComments` |
 | Navigation | `AtTabs`, `AtSegment`, `AtBreadcrumbs`, `AtSidebar`, `AtNavGroup`, `AtNavItem`, `AtUserMenu` |
-| Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList`, `AtList` (liste parcourue au clavier) |
+| Données | `AtStat`, `AtTable`, `AtDataView`, `AtPropertyValue`, `AtPropertyEditor`, `AtPropertyList`, `AtList` (liste parcourue au clavier), `AtChecklist` (étapes ordonnées à cocher), `AtStreak` (grille de régularité) |
 | Mise en page | `AtAppShell`, `AtPage`, `AtLogin` |
 | Pictogrammes | `AtIcon` (jeu intégré, extensible avec `registerIcons`), `AtIconTile`, `AtLogo` (marque Atelier et logos des apps, extensible avec `registerLogoApps`) |
 
