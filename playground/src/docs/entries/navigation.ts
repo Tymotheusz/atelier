@@ -228,15 +228,27 @@ export const navigation: ComponentDoc[] = [
     name: 'AtNavGroup',
     slug: 'at-nav-group',
     family: 'Navigation',
-    tagline: 'Groupe d’items de navigation, avec titre optionnel.',
+    tagline: 'Groupe d’items de navigation, avec titre optionnel, repliable.',
+    about: [
+      'Avec `collapsible`, le titre devient un bouton (`aria-expanded`) qui replie le groupe ; le chevron pivote. L’état se lie avec `v-model:open` : c’est à l’app de le mémoriser si elle le souhaite.',
+      '`mark` pose une pastille de couleur devant le titre, pour un groupe qui porte une couleur (un domaine de projets).'
+    ],
     rules: [
       'Le premier groupe n’a pas de titre : ce sont les destinations principales.',
       'Les groupes suivants sont titrés par ce qu’ils contiennent (« Projets », « Archives »).',
-      'Le titre est posé en sentence case : le style le met en majuscules.'
+      'Le titre est posé en sentence case : le style le met en majuscules.',
+      'Repliable seulement quand la liste est longue ou découpée en catégories : les destinations principales restent toujours visibles.',
+      'Le groupe qui contient la page courante s’ouvre : l’app repasse `open` à `true`.'
     ],
-    props: [{ name: 'label', type: 'string', desc: 'Titre du groupe, aussi utilisé comme `aria-label`.' }],
+    props: [
+      { name: 'label', type: 'string', desc: 'Titre du groupe, aussi utilisé comme `aria-label`.' },
+      { name: 'collapsible', type: 'boolean', desc: 'Le titre replie le groupe. Nécessite `label`.' },
+      { name: 'open', type: 'boolean', default: 'true', desc: 'Groupe ouvert (`v-model:open`).' },
+      { name: 'mark', type: 'string', desc: 'Pastille de couleur (valeur CSS) devant le titre.' }
+    ],
+    events: [{ name: 'update:open', type: '(open: boolean)', desc: 'Groupe replié ou rouvert.' }],
     slots: [{ name: 'default', type: '—', desc: 'Items.' }],
-    classes: ['at-nav', 'at-nav-label'],
+    classes: ['at-nav', 'at-nav-label', 'at-nav-toggle', 'at-nav-body', 'at-nav-mark'],
     related: ['at-nav-item', 'at-sidebar'],
     examples: [
       {
@@ -250,6 +262,24 @@ export const navigation: ComponentDoc[] = [
             </AtNavGroup>
           </div>
         `
+      },
+      {
+        title: 'Groupes repliables, colorés par catégorie',
+        desc: 'Les projets d’une même catégorie partagent sa couleur de tag.',
+        frame: 'plain',
+        code: `
+          <div style="width: 240px; background: var(--surface-sunken); padding: 8px; border-radius: var(--radius-lg)">
+            <AtNavGroup label="Perso" collapsible mark="var(--tag-green-fg)" v-model:open="perso">
+              <AtNavItem icon="star" tile="green">Mariage</AtNavItem>
+              <AtNavItem icon="calendar" tile="green">Vacances</AtNavItem>
+            </AtNavGroup>
+            <AtNavGroup label="Dev" collapsible mark="var(--tag-purple-fg)" v-model:open="dev">
+              <AtNavItem icon="code" tile="purple" active>vps3</AtNavItem>
+              <AtNavItem icon="globe" tile="yellow">Site vitrine</AtNavItem>
+            </AtNavGroup>
+          </div>
+        `,
+        setup: () => ({ perso: ref(true), dev: ref(true) })
       }
     ]
   },
@@ -272,7 +302,7 @@ export const navigation: ComponentDoc[] = [
     props: [
       { name: 'icon', type: 'string', desc: 'Pictogramme.' },
       { name: 'mark', type: 'string', desc: 'Pastille de couleur (valeur CSS), à la place de l’icône.' },
-      { name: 'tile', type: `'chart-1' … 'chart-5' | 'ink' | 'neutral'`, desc: 'Pose `icon` sur une tuile de couleur (`AtIconTile`).' },
+      { name: 'tile', type: `'chart-1' … 'chart-5' | TagColor | 'ink' | 'neutral'`, desc: 'Pose `icon` sur une tuile de couleur (`AtIconTile`).' },
       { name: 'label', type: 'string', desc: 'Libellé, si le slot par défaut n’est pas utilisé.' },
       { name: 'href', type: 'string', desc: 'Lien réel. Sans `href`, seul l’événement est émis.' },
       { name: 'active', type: 'boolean', desc: 'Page courante.' },

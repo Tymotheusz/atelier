@@ -294,11 +294,11 @@ export const layout: ComponentDoc[] = [
     ],
     props: [
       { name: 'name', type: 'string', required: true, desc: 'Nom du pictogramme (jeu intégré ou `registerIcons`).' },
-      { name: 'color', type: "'chart-1' … 'chart-5' | 'ink' | 'neutral'", default: "'neutral'", desc: 'Teinte de la tuile.' },
+      { name: 'color', type: "'chart-1' … 'chart-5' | TagColor | 'ink' | 'neutral'", default: "'neutral'", desc: 'Teinte de la tuile. Les couleurs de tag servent aux entités que l’utilisateur colore lui-même (projet, domaine).' },
       { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'sm'", desc: '20, 32 ou 48 px.' },
       { name: 'label', type: 'string', desc: 'Alternative textuelle ; sans elle, la tuile est décorative.' }
     ],
-    classes: ['at-tile', 'at-tile--md|--lg', 'at-tile--neutral', 'at-tone-chart-1…5', 'at-tone-ink'],
+    classes: ['at-tile', 'at-tile--md|--lg', 'at-tile--neutral', 'at-tone-chart-1…5', 'at-tone-<tag>', 'at-tone-ink'],
     related: ['at-icon', 'at-nav-item', 'at-card', 'at-stat'],
     examples: [
       {
@@ -315,6 +315,10 @@ export const layout: ComponentDoc[] = [
               :name="n" :color="\`chart-\${i + 1}\`" size="md" />
             <AtIconTile name="blocks" color="ink" size="md" />
             <AtIconTile name="folder" size="md" />
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--space-3)">
+            <AtIconTile v-for="c in ['gray', 'brown', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'red']" :key="c"
+              name="folder" :color="c" size="md" />
           </div>
         `
       },

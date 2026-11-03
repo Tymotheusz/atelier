@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { AtButton, AtCard, AtLogin, AtIconTile, AtLogo, registerLogoApps, AtStat, AtDataView, createView, type Property } from '../src'
+import { AtButton, AtCard, AtLogin, AtIconTile, AtNavGroup, AtLogo, registerLogoApps, AtStat, AtDataView, createView, type Property } from '../src'
 
 describe('AtButton', () => {
   it('pose les classes de variante et de taille', () => {
@@ -24,6 +24,29 @@ describe('AtIconTile', () => {
     const w = mount(AtIconTile, { props: { name: 'folder', label: 'Dossier' } })
     expect(w.classes()).toContain('at-tile--neutral')
     expect(w.attributes('role')).toBe('img')
+  })
+})
+
+describe('AtNavGroup', () => {
+  it('replie le groupe au clic sur le titre', async () => {
+    const w = mount(AtNavGroup, { props: { label: 'Dev', collapsible: true, mark: 'red' }, slots: { default: '<a>vps3</a>' } })
+    const b = w.find('button.at-nav-toggle')
+    expect(b.attributes('aria-expanded')).toBe('true')
+    expect(w.find('.at-nav-mark').attributes('style')).toContain('red')
+    await b.trigger('click')
+    expect(w.emitted('update:open')?.[0]).toEqual([false])
+  })
+  it('reste un simple titre sans collapsible', () => {
+    const w = mount(AtNavGroup, { props: { label: 'Projets' } })
+    expect(w.find('button').exists()).toBe(false)
+    expect(w.find('.at-nav-label').text()).toBe('Projets')
+  })
+})
+
+describe('AtIconTile en couleur de tag', () => {
+  it('pose la teinte du tag', () => {
+    const w = mount(AtIconTile, { props: { name: 'folder', color: 'yellow' } })
+    expect(w.classes()).toContain('at-tone-yellow')
   })
 })
 
