@@ -107,6 +107,22 @@ describe('AtChecklist', () => {
     key('j')
     expect(emitted).toHaveLength(n)
   })
+  it('avance aussi quand le parent coche l’étape courante (bouton « Fait » du slot)', async () => {
+    const w = mount(AtChecklist, { props: { items, groups, current: 'teams' } })
+    await w.setProps({ items: items.map(i => (i.id === 'teams' ? { ...i, state: 'done' as const } : i)) })
+    expect(w.emitted('update:current')).toEqual([['agenda']])
+    // Choosing a done step is not a check: it stays current
+    await w.setProps({ current: 'pro' })
+    expect(w.emitted('update:current')).toHaveLength(1)
+  })
+  it('garde Espace pour l’étape courante quand le focus est sur un titre', async () => {
+    const w = mount(AtChecklist, { props: { items, groups, current: 'teams', keyboard: true }, attachTo: document.body })
+    const title = w.find('[aria-current="step"] .at-checklist__title').element as HTMLElement
+    title.focus()
+    title.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true }))
+    expect(w.emitted('check')).toEqual([['teams', 'done']])
+    w.unmount()
+  })
   it('affiche le contenu vide', () => {
     expect(mount(AtChecklist, { props: { items: [] } }).text()).toContain('Aucune étape')
   })

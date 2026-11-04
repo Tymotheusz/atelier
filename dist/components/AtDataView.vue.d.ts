@@ -1,28 +1,28 @@
 import type { Property, PropertyOption, View, FilterContext } from '../dataview/types';
 declare const _default: <R extends Record<string, any>>(__VLS_props: NonNullable<Awaited<typeof __VLS_setup>>["props"], __VLS_ctx?: __VLS_PrettifyLocal<Pick<NonNullable<Awaited<typeof __VLS_setup>>, "attrs" | "emit" | "slots">>, __VLS_expose?: NonNullable<Awaited<typeof __VLS_setup>>["expose"], __VLS_setup?: Promise<{
     props: __VLS_PrettifyLocal<Pick<Partial<{}> & Omit<{
+        onOpen?: ((row: R) => any) | undefined;
         onDelete?: ((rows: R[]) => any) | undefined;
         onUpdate?: ((row: R, key: string, value: unknown) => any) | undefined;
         onCreateOption?: ((prop: Property<R>, option: PropertyOption, row: R) => any) | undefined;
         onUpdateOption?: ((prop: Property<R>, value: string, patch: Partial<PropertyOption>, row: R) => any) | undefined;
         onDeleteOption?: ((prop: Property<R>, value: string, row: R) => any) | undefined;
-        onOpen?: ((row: R) => any) | undefined;
         "onUpdate:views"?: ((value: View[]) => any) | undefined;
         "onUpdate:activeView"?: ((value: string) => any) | undefined;
         onCreate?: ((defaults: Partial<R>) => any) | undefined;
         onResetViews?: (() => any) | undefined;
     } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{}>> & {
+        onOpen?: ((row: R) => any) | undefined;
         onDelete?: ((rows: R[]) => any) | undefined;
         onUpdate?: ((row: R, key: string, value: unknown) => any) | undefined;
         onCreateOption?: ((prop: Property<R>, option: PropertyOption, row: R) => any) | undefined;
         onUpdateOption?: ((prop: Property<R>, value: string, patch: Partial<PropertyOption>, row: R) => any) | undefined;
         onDeleteOption?: ((prop: Property<R>, value: string, row: R) => any) | undefined;
-        onOpen?: ((row: R) => any) | undefined;
         "onUpdate:views"?: ((value: View[]) => any) | undefined;
         "onUpdate:activeView"?: ((value: string) => any) | undefined;
         onCreate?: ((defaults: Partial<R>) => any) | undefined;
         onResetViews?: (() => any) | undefined;
-    }, never>, "onDelete" | "onUpdate" | "onCreateOption" | "onUpdateOption" | "onDeleteOption" | "onOpen" | "onUpdate:views" | "onUpdate:activeView" | "onCreate" | "onResetViews"> & Partial<{}> & ({
+    }, never>, "onOpen" | "onDelete" | "onUpdate" | "onCreateOption" | "onUpdateOption" | "onDeleteOption" | "onUpdate:views" | "onUpdate:activeView" | "onCreate" | "onResetViews"> & Partial<{}> & ({
         views?: View[];
         activeView?: string;
     } & {

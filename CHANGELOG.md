@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.11.0] - 2026-11-04
+
+- `PropertyOption.quiet` : option choisissable mais sans colonne vide au board (statut « Archivé ») ; sa colonne
+  n’apparaît que si des lignes l’ont.
+
 ## [0.10.0] - 2026-11-03
 
 - `AtChecklist` : étapes ordonnées à cocher (routine, onboarding, procédure), numérotées en continu, avec intertitres de

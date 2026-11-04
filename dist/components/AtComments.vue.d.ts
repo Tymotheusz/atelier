@@ -18,16 +18,16 @@ declare const _default: import("vue").DefineComponent<__VLS_WithDefaults<__VLS_T
     placeholder: string;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     edit: (item: CommentItem, text: string) => void;
-    post: (text: string) => void;
     delete: (item: CommentItem) => void;
+    post: (text: string) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_Props>, {
     people: () => never[];
     label: string;
     placeholder: string;
 }>>> & {
     onEdit?: ((item: CommentItem, text: string) => any) | undefined;
-    onPost?: ((text: string) => any) | undefined;
     onDelete?: ((item: CommentItem) => any) | undefined;
+    onPost?: ((text: string) => any) | undefined;
 }, {
     label: string;
     people: string[];

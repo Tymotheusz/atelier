@@ -10,6 +10,8 @@ export interface PropertyOption {
     tone?: Tone;
     /** Pastille de couleur CSS (relation), ex. 'var(--chart-2)'. */
     mark?: string;
+    /** Option discrète : choisissable, mais sans colonne vide au board (ex. statut « Archivé »). */
+    quiet?: boolean;
 }
 export interface Property<R = any> {
     key: string;

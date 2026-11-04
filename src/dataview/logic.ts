@@ -130,7 +130,7 @@ export function groupRows<R>(rows: R[], p: Property<R> | null, keepEmpty = false
   const idx = Object.fromEntries(groups.map(g => [g.key, g]))
   for (const r of rows) (idx[getValue(r, p) as string] ?? none).rows.push(r)
   if (none.rows.length || keepEmpty) groups.push(none)
-  return keepEmpty ? groups : groups.filter(g => g.rows.length)
+  return groups.filter(g => g.rows.length || (keepEmpty && !g.option?.quiet))
 }
 
 /** Jours d'une grille de mois (lundi en premier), 5 ou 6 semaines. */
