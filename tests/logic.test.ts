@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { applyView, groupRows, matchRule, createView, filter, sort, defaultsFromFilters, monthGrid, NONE, type Property } from '../src'
+import { applyView, groupRows, matchRule, createView, filter, sort, defaultsFromFilters, monthGrid, NONE, type Property, type PropertyOption } from '../src'
 
 interface Row { id: string; title: string; status: string; due: string | null; estimate: number | null; tags: string[] }
 const schema: Property<Row>[] = [
@@ -46,6 +46,12 @@ describe('groupes', () => {
     const g = groupRows(rows, schema[1], true)
     expect(g.map(x => x.key)).toEqual(['todo', 'doing', 'done', NONE])
     expect(groupRows(rows, schema[1]).map(x => x.key)).toEqual(['todo', 'doing', 'done'])
+  })
+  it('n’ouvre pas de colonne vide pour une option discrète', () => {
+    const p: Property<Row> = { ...schema[1], options: [...(schema[1].options as PropertyOption[]), { value: 'archived', label: 'Archivé', quiet: true }] }
+    expect(groupRows(rows, p, true).map(x => x.key)).toEqual(['todo', 'doing', 'done', NONE])
+    const archived = [...rows, { ...rows[0], id: 'z', status: 'archived' }]
+    expect(groupRows(archived, p, true).map(x => x.key)).toEqual(['todo', 'doing', 'done', 'archived', NONE])
   })
 })
 

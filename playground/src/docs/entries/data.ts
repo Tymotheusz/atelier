@@ -209,6 +209,7 @@ export const data: ComponentDoc[] = [
       'Une propriété `title` par schéma : c’est la colonne principale, toujours première et jamais masquable.',
       'Une propriété avec `compute` est en lecture seule : la calculer dans le schéma, pas dans les lignes.',
       '`options` peut être une fonction de la ligne, pour une relation qui dépend d’une autre colonne (la milestone dépend du projet).',
+      'Une option `quiet` (statut « Archivé ») reste choisissable mais n’ouvre pas de colonne vide au board : sa colonne n’apparaît que si des lignes l’ont.',
       '`hideViews` impose une vue unique : à utiliser dans un panneau ou un onglet, pas sur une page de liste.',
       '`lockViews` garde la barre de vues mais fige leur liste : le bouton « + » et les entrées Dupliquer et Supprimer disparaissent. Tout le reste reste libre et écrit dans `views` : passer d’une vue à l’autre, la renommer (sauf vue système), changer sa disposition, son groupe ou sa date, ses filtres, ses tris, les propriétés affichées, leur ordre et leur largeur.',
       '`resettable` ajoute « Réinitialiser les vues » en bas des paramètres de la vue, y compris avec `lockViews` (sans effet avec `hideViews`, qui retire ces paramètres). Le clic ferme le menu et émet `reset-views` ; le composant ne touche pas aux vues : l’app demande confirmation puis remplace `views` par ses vues par défaut.',

@@ -3,7 +3,8 @@
  * Ordered list of steps to check (a morning routine, an onboarding, a release procedure).
  * Controlled like AtDataView: never writes into `items`, emits `check` and lets the parent update the state.
  * The current step (`v-model:current`) is highlighted and unfolded with its note and the `actions` slot;
- * checking it done or skipped moves `current` to the next step to do.
+ * checking it done or skipped moves `current` to the next step to do, also when the parent checks it
+ * (a « Fait » button of the `actions` slot).
  * With `keyboard`, J / K (↓ / ↑), Space, Enter and S work anywhere on the page while the list is mounted,
  * except while typing in a field, with a menu or modal open, or with Ctrl / ⌘ / Alt held.
  */
@@ -77,6 +78,15 @@ function check(item: ChecklistItem, state: ChecklistState) {
   if (state !== 'todo' && item.id === current.value) setCurrent(nextTodo(ordered.value, item.id))
 }
 
+// Checked by the parent (a button of the actions slot): the current step moves on the same way.
+watch(
+  () => { const it = ordered.value.find(i => i.id === current.value); return it ? `${it.id}:${it.state}` : '' },
+  (now, before) => {
+    const [id, state] = now.split(':')
+    if (id && before === `${id}:todo` && state !== 'todo') setCurrent(nextTodo(ordered.value, id))
+  }
+)
+
 function onChange(item: ChecklistItem, e: Event) {
   const box = e.target as HTMLInputElement
   const want: ChecklistState = box.checked ? 'done' : 'todo'
@@ -105,8 +115,9 @@ function onKeydown(e: KeyboardEvent) {
   if (t?.closest?.(TEXT_FIELD)) return
   if (document.querySelector(`${SHORTCUT_LAYERS}, dialog[open]`)) return
   const key = (e.key ?? '').toLowerCase()
-  // Space and Enter on a focused control keep their own action (the checkbox toggles itself).
-  if ((key === ' ' || key === 'enter') && t?.closest?.(ACTIVABLE)) return
+  // Space and Enter on a focused control keep their own action (the checkbox toggles itself),
+  // but the title of a step only selects it: there, they act on the current step.
+  if ((key === ' ' || key === 'enter') && t?.closest?.(ACTIVABLE) && !t.closest('.at-checklist__title')) return
   const item = currentItem()
   if (key === 'j' || key === 'arrowdown') move(1)
   else if (key === 'k' || key === 'arrowup') move(-1)

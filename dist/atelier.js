@@ -1,5 +1,5 @@
-import { defineComponent as J, computed as A, openBlock as t, createElementBlock as l, normalizeStyle as ue, normalizeClass as W, createBlock as G, createCommentVNode as f, renderSlot as j, createTextVNode as b, toDisplayString as m, ref as K, watch as ke, createElementVNode as r, createVNode as g, Fragment as _, renderList as P, resolveDynamicComponent as fa, withCtx as U, useModel as re, withDirectives as le, mergeProps as ye, vModelCheckbox as bt, mergeModels as se, getCurrentInstance as ga, onBeforeUnmount as Ge, nextTick as Ve, onMounted as an, unref as L, vModelText as Ae, withModifiers as ie, Teleport as wt, withKeys as la, vModelDynamic as Pt, shallowRef as nn, isRef as Ue, vModelSelect as He, Transition as ya, normalizeProps as ln, guardReactiveProps as sn, vShow as on, readonly as rn, reactive as un, TransitionGroup as dn, getCurrentScope as cn, onScopeDispose as pn } from "vue";
-const ba = {
+import { defineComponent as J, computed as S, openBlock as t, createElementBlock as l, normalizeStyle as ue, normalizeClass as Y, createBlock as W, createCommentVNode as f, renderSlot as G, createTextVNode as b, toDisplayString as m, ref as K, watch as fe, createElementVNode as r, createVNode as g, Fragment as _, renderList as U, resolveDynamicComponent as ga, withCtx as N, useModel as re, withDirectives as le, mergeProps as be, vModelCheckbox as bt, mergeModels as se, getCurrentInstance as ya, onBeforeUnmount as Ge, nextTick as Ve, onMounted as nn, unref as D, vModelText as Ae, withModifiers as ie, Teleport as wt, withKeys as la, vModelDynamic as Pt, shallowRef as ln, isRef as Ue, vModelSelect as He, Transition as ba, normalizeProps as sn, guardReactiveProps as on, vShow as rn, readonly as un, reactive as dn, TransitionGroup as cn, getCurrentScope as pn, onScopeDispose as vn } from "vue";
+const ka = {
   plus: '<path d="M8 3v10M3 8h10"/>',
   minus: '<path d="M3 8h10"/>',
   search: '<circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5l3 3"/>',
@@ -63,9 +63,9 @@ const ba = {
   reset: '<path d="M3 8a5 5 0 1 0 1.5-3.6L3 5.5"/><path d="M3 2.5v3h3"/>'
 };
 function cc(s) {
-  Object.assign(ba, s);
+  Object.assign(ka, s);
 }
-const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"], x = /* @__PURE__ */ J({
+const mn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"], x = /* @__PURE__ */ J({
   __name: "AtIcon",
   props: {
     name: {},
@@ -73,7 +73,7 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
     label: {}
   },
   setup(s) {
-    const e = s, n = A(() => ba[e.name] ?? "");
+    const e = s, n = S(() => ka[e.name] ?? "");
     return (a, o) => (t(), l("svg", {
       class: "at-icon",
       viewBox: "0 0 16 16",
@@ -84,9 +84,9 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
       "aria-label": a.label,
       "aria-hidden": a.label ? void 0 : "true",
       innerHTML: n.value
-    }, null, 12, vn));
+    }, null, 12, mn));
   }
-}), mn = ["href", "aria-label"], hn = ["type", "disabled", "aria-busy", "aria-label"], fn = {
+}), hn = ["href", "aria-label"], fn = ["type", "disabled", "aria-busy", "aria-label"], gn = {
   key: 0,
   class: "at-spin",
   "aria-hidden": "true"
@@ -104,7 +104,7 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
     type: { default: "button" }
   },
   setup(s) {
-    const e = s, n = A(() => [
+    const e = s, n = S(() => [
       "at-btn",
       `at-btn--${e.variant}`,
       e.size !== "md" && `at-btn--${e.size}`,
@@ -113,54 +113,54 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
     return (a, o) => a.href && !a.disabled ? (t(), l("a", {
       key: 0,
       href: a.href,
-      class: W(n.value),
+      class: Y(n.value),
       "aria-label": a.iconOnly ? a.label : void 0
     }, [
-      a.icon ? (t(), G(x, {
+      a.icon ? (t(), W(x, {
         key: 0,
         name: a.icon
       }, null, 8, ["name"])) : f("", !0),
-      j(a.$slots, "default", {}, () => [
+      G(a.$slots, "default", {}, () => [
         b(m(a.iconOnly ? "" : a.label), 1)
       ])
-    ], 10, mn)) : (t(), l("button", {
+    ], 10, hn)) : (t(), l("button", {
       key: 1,
       type: a.type,
-      class: W(n.value),
+      class: Y(n.value),
       disabled: a.disabled || a.loading,
       "aria-busy": a.loading || void 0,
       "aria-label": a.iconOnly ? a.label : void 0
     }, [
-      a.loading ? (t(), l("span", fn)) : a.icon ? (t(), G(x, {
+      a.loading ? (t(), l("span", gn)) : a.icon ? (t(), W(x, {
         key: 1,
         name: a.icon
       }, null, 8, ["name"])) : f("", !0),
-      a.iconOnly ? f("", !0) : j(a.$slots, "default", { key: 2 }, () => [
+      a.iconOnly ? f("", !0) : G(a.$slots, "default", { key: 2 }, () => [
         b(m(a.label), 1)
       ])
-    ], 10, hn));
+    ], 10, fn));
   }
-}), gn = { class: "at-shell__side" }, yn = { class: "at-shell__main" }, bn = { class: "at-topbar" }, kn = /* @__PURE__ */ J({
+}), yn = { class: "at-shell__side" }, bn = { class: "at-shell__main" }, kn = { class: "at-topbar" }, _n = /* @__PURE__ */ J({
   __name: "AtAppShell",
   props: {
     routeKey: {}
   },
   setup(s, { expose: e }) {
     const n = s, a = K(!1), o = K();
-    return ke(() => n.routeKey, () => {
+    return fe(() => n.routeKey, () => {
       a.value = !1, o.value && (o.value.scrollTop = 0);
     }), e({ closeNav: () => a.value = !1 }), (i, v) => (t(), l("div", {
-      class: W(["at-shell", a.value && "at-shell--open"])
+      class: Y(["at-shell", a.value && "at-shell--open"])
     }, [
-      r("div", gn, [
-        j(i.$slots, "sidebar")
+      r("div", yn, [
+        G(i.$slots, "sidebar")
       ]),
       r("div", {
         class: "at-shell__scrim",
         onClick: v[0] || (v[0] = (d) => a.value = !1)
       }),
-      r("div", yn, [
-        r("header", bn, [
+      r("div", bn, [
+        r("header", kn, [
           g(te, {
             class: "at-topbar__menu",
             variant: "ghost",
@@ -170,19 +170,19 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
             label: "Ouvrir la navigation",
             onClick: v[1] || (v[1] = (d) => a.value = !a.value)
           }),
-          j(i.$slots, "topbar")
+          G(i.$slots, "topbar")
         ]),
         r("main", {
           ref_key: "page",
           ref: o,
           class: "at-shell__page"
         }, [
-          j(i.$slots, "default")
+          G(i.$slots, "default")
         ], 512)
       ])
     ], 2));
   }
-}), _n = ["title"], $n = ["src", "alt"], Ke = /* @__PURE__ */ J({
+}), $n = ["title"], wn = ["src", "alt"], Ke = /* @__PURE__ */ J({
   __name: "AtAvatar",
   props: {
     name: {},
@@ -191,21 +191,21 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
     tone: { default: "neutral" }
   },
   setup(s) {
-    const e = s, n = A(() => e.name.split(/\s+/).filter(Boolean).map((a) => a[0]).join("").slice(0, 2).toUpperCase() || "?");
+    const e = s, n = S(() => e.name.split(/\s+/).filter(Boolean).map((a) => a[0]).join("").slice(0, 2).toUpperCase() || "?");
     return (a, o) => (t(), l("span", {
-      class: W(["at-avatar", a.size !== "sm" && `at-avatar--${a.size}`, a.tone === "accent" && "at-avatar--accent"]),
+      class: Y(["at-avatar", a.size !== "sm" && `at-avatar--${a.size}`, a.tone === "accent" && "at-avatar--accent"]),
       title: a.name
     }, [
       a.src ? (t(), l("img", {
         key: 0,
         src: a.src,
         alt: a.name
-      }, null, 8, $n)) : (t(), l(_, { key: 1 }, [
+      }, null, 8, wn)) : (t(), l(_, { key: 1 }, [
         b(m(n.value), 1)
       ], 64))
-    ], 10, _n));
+    ], 10, $n));
   }
-}), wn = /* @__PURE__ */ J({
+}), Mn = /* @__PURE__ */ J({
   __name: "AtBadge",
   props: {
     tone: { default: "neutral" },
@@ -213,53 +213,53 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
   },
   setup(s) {
     return (e, n) => (t(), l("span", {
-      class: W(["at-badge", e.tone !== "neutral" && `at-badge--${e.tone}`])
+      class: Y(["at-badge", e.tone !== "neutral" && `at-badge--${e.tone}`])
     }, [
-      j(e.$slots, "default", {}, () => [
+      G(e.$slots, "default", {}, () => [
         b(m(e.label), 1)
       ])
     ], 2));
   }
-}), Mn = {
+}), Cn = {
   class: "at-breadcrumbs at-ellipsis",
   "aria-label": "Fil d'Ariane"
-}, Cn = {
+}, An = {
   key: 0,
   "aria-hidden": "true"
-}, An = {
+}, Sn = {
   key: 1,
   "aria-current": "page",
   class: "at-ellipsis"
-}, Sn = ["href", "onClick"], Vn = /* @__PURE__ */ J({
+}, Vn = ["href", "onClick"], Tn = /* @__PURE__ */ J({
   __name: "AtBreadcrumbs",
   props: {
     items: {}
   },
   setup(s) {
-    return (e, n) => (t(), l("nav", Mn, [
-      (t(!0), l(_, null, P(e.items, (a, o) => (t(), l(_, { key: o }, [
-        o > 0 ? (t(), l("span", Cn, "/")) : f("", !0),
-        o === e.items.length - 1 ? (t(), l("span", An, m(a.label), 1)) : (t(), l("a", {
+    return (e, n) => (t(), l("nav", Cn, [
+      (t(!0), l(_, null, U(e.items, (a, o) => (t(), l(_, { key: o }, [
+        o > 0 ? (t(), l("span", An, "/")) : f("", !0),
+        o === e.items.length - 1 ? (t(), l("span", Sn, m(a.label), 1)) : (t(), l("a", {
           key: 2,
           href: a.href ?? "#",
           onClick: (i) => a.onClick && (i.preventDefault(), a.onClick())
-        }, m(a.label), 9, Sn))
+        }, m(a.label), 9, Vn))
       ], 64))), 128))
     ]));
   }
-}), Tn = {
+}), Ln = {
   key: 0,
   class: "at-card__head"
-}, Ln = {
+}, Dn = {
   key: 0,
   class: "at-card__title"
-}, Dn = {
-  key: 1,
-  class: "at-card__desc"
 }, zn = {
   key: 1,
+  class: "at-card__desc"
+}, En = {
+  key: 1,
   class: "at-card__foot"
-}, En = /* @__PURE__ */ J({
+}, On = /* @__PURE__ */ J({
   __name: "AtCard",
   props: {
     title: {},
@@ -269,30 +269,30 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
     color: {}
   },
   setup(s) {
-    return (e, n) => (t(), G(fa(e.href ? "a" : e.as || "section"), {
+    return (e, n) => (t(), W(ga(e.href ? "a" : e.as || "section"), {
       href: e.href,
-      class: W(["at-card", e.href && "at-card--link", e.color && ["at-card--striped", `at-tone-${e.color}`]])
+      class: Y(["at-card", e.href && "at-card--link", e.color && ["at-card--striped", `at-tone-${e.color}`]])
     }, {
-      default: U(() => [
-        e.title || e.description || e.$slots.actions ? (t(), l("div", Tn, [
+      default: N(() => [
+        e.title || e.description || e.$slots.actions ? (t(), l("div", Ln, [
           r("div", null, [
-            e.title ? (t(), l("h3", Ln, m(e.title), 1)) : f("", !0),
-            e.description ? (t(), l("p", Dn, m(e.description), 1)) : f("", !0)
+            e.title ? (t(), l("h3", Dn, m(e.title), 1)) : f("", !0),
+            e.description ? (t(), l("p", zn, m(e.description), 1)) : f("", !0)
           ]),
-          j(e.$slots, "actions")
+          G(e.$slots, "actions")
         ])) : f("", !0),
-        j(e.$slots, "default"),
-        e.$slots.footer ? (t(), l("div", zn, [
-          j(e.$slots, "footer")
+        G(e.$slots, "default"),
+        e.$slots.footer ? (t(), l("div", En, [
+          G(e.$slots, "footer")
         ])) : f("", !0)
       ]),
       _: 3
     }, 8, ["href", "class"]));
   }
-}), On = {
+}), Bn = {
   key: 0,
   class: "at-toggle"
-}, Bn = ["indeterminate", "disabled"], In = ["indeterminate", "disabled"], ka = /* @__PURE__ */ J({
+}, In = ["indeterminate", "disabled"], Qn = ["indeterminate", "disabled"], _a = /* @__PURE__ */ J({
   inheritAttrs: !1,
   __name: "AtCheckbox",
   props: /* @__PURE__ */ se({
@@ -306,47 +306,47 @@ const vn = ["width", "height", "role", "aria-label", "aria-hidden", "innerHTML"]
   emits: ["update:modelValue"],
   setup(s) {
     const e = re(s, "modelValue");
-    return (n, a) => n.label || n.$slots.default ? (t(), l("label", On, [
-      le(r("input", ye(n.$attrs, {
+    return (n, a) => n.label || n.$slots.default ? (t(), l("label", Bn, [
+      le(r("input", be(n.$attrs, {
         "onUpdate:modelValue": a[0] || (a[0] = (o) => e.value = o),
         type: "checkbox",
         class: "at-check",
         indeterminate: n.indeterminate,
         disabled: n.disabled
-      }), null, 16, Bn), [
+      }), null, 16, In), [
         [bt, e.value]
       ]),
-      j(n.$slots, "default", {}, () => [
+      G(n.$slots, "default", {}, () => [
         b(m(n.label), 1)
       ])
-    ])) : le((t(), l("input", ye({ key: 1 }, n.$attrs, {
+    ])) : le((t(), l("input", be({ key: 1 }, n.$attrs, {
       "onUpdate:modelValue": a[1] || (a[1] = (o) => e.value = o),
       type: "checkbox",
       class: "at-check",
       indeterminate: n.indeterminate,
       disabled: n.disabled
-    }), null, 16, In)), [
+    }), null, 16, Qn)), [
       [bt, e.value]
     ]);
   }
-}), Ut = '.at-pop, [aria-modal="true"]', Qn = { esc: "escape", space: " ", del: "delete", up: "arrowup", down: "arrowdown", left: "arrowleft", right: "arrowright", return: "enter" }, _a = () => typeof navigator < "u" && /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || "");
-function $a(s) {
+}), Ut = '.at-pop, [aria-modal="true"]', xn = { esc: "escape", space: " ", del: "delete", up: "arrowup", down: "arrowdown", left: "arrowleft", right: "arrowright", return: "enter" }, $a = () => typeof navigator < "u" && /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || "");
+function wa(s) {
   const e = s.toLowerCase().split("+");
   let n = e.pop() ?? "";
   n === "" && e.length && (e.pop(), n = "+");
-  const a = { key: Qn[n] ?? n, mod: !1, ctrl: !1, meta: !1, alt: !1, shift: !1 };
+  const a = { key: xn[n] ?? n, mod: !1, ctrl: !1, meta: !1, alt: !1, shift: !1 };
   for (const o of e)
     o === "mod" || o === "ctrl" || o === "meta" || o === "alt" || o === "shift" ? a[o] = !0 : o === "cmd" ? a.meta = !0 : o === "option" && (a.alt = !0);
   return a;
 }
-function xn(s, e, n = _a()) {
-  var S;
+function Fn(s, e, n = $a()) {
+  var A;
   if ((s.key ?? "").toLowerCase() !== e.key) return !1;
   const o = e.ctrl || e.mod && !n, i = e.meta || e.mod && n, v = e.key.length === 1;
-  return (v && !!((S = s.getModifierState) != null && S.call(s, "AltGraph")) ? !1 : s.ctrlKey) !== o || s.metaKey !== i || (e.alt ? !s.altKey : s.altKey && !v) ? !1 : e.shift ? s.shiftKey : e.key.length === 1 || !s.shiftKey;
+  return (v && !!((A = s.getModifierState) != null && A.call(s, "AltGraph")) ? !1 : s.ctrlKey) !== o || s.metaKey !== i || (e.alt ? !s.altKey : s.altKey && !v) ? !1 : e.shift ? s.shiftKey : e.key.length === 1 || !s.shiftKey;
 }
-function pc(s, e = _a()) {
-  const n = $a(s), o = {
+function pc(s, e = $a()) {
+  const n = wa(s), o = {
     enter: "↵",
     escape: "Échap",
     arrowdown: "↓",
@@ -360,23 +360,23 @@ function pc(s, e = _a()) {
   }[n.key] ?? n.key.toUpperCase(), i = [];
   return (n.ctrl || n.mod && !e) && i.push(e ? "⌃" : "Ctrl"), n.alt && i.push(e ? "⌥" : "Alt"), n.shift && i.push(e ? "⇧" : "Maj"), (n.meta || n.mod && e) && i.push("⌘"), e ? i.join("") + o : [...i, o].join(" ");
 }
-const Fn = (s) => {
+const Pn = (s) => {
   var n;
   const e = s;
   return !e || !e.tagName ? !1 : e.tagName === "INPUT" || e.tagName === "TEXTAREA" || e.tagName === "SELECT" || e.isContentEditable || ((n = e.closest) == null ? void 0 : n.call(e, '[contenteditable=""], [contenteditable="true"]')) != null;
-}, Pn = 'button, a[href], summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="tab"], [role="checkbox"], [role="switch"], [role="option"]', Un = (s, e) => {
+}, Un = 'button, a[href], summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="tab"], [role="checkbox"], [role="switch"], [role="option"]', Nn = (s, e) => {
   var n;
-  return (s.key === "Enter" || s.key === " ") && !s.ctrlKey && !s.metaKey && !!((n = e == null ? void 0 : e.closest) != null && n.call(e, Pn));
+  return (s.key === "Enter" || s.key === " ") && !s.ctrlKey && !s.metaKey && !!((n = e == null ? void 0 : e.closest) != null && n.call(e, Un));
 }, Oe = [];
 let ht = !1;
 function sa(s) {
   var i;
   if (s.defaultPrevented || s.isComposing) return;
-  const e = s.target, n = Fn(e), a = typeof document < "u" && document.querySelector(Ut) != null, o = !!((i = e == null ? void 0 : e.closest) != null && i.call(e, Ut));
-  if (!Un(s, e))
+  const e = s.target, n = Pn(e), a = typeof document < "u" && document.querySelector(Ut) != null, o = !!((i = e == null ? void 0 : e.closest) != null && i.call(e, Ut));
+  if (!Nn(s, e))
     for (let v = Oe.length - 1; v >= 0; v--) {
       const d = Oe[v];
-      if (d.combos.some((h) => xn(s, h)) && !(n && !d.opts.allowInInput) && !(a && !(n && d.opts.allowInInput && o)) && !(d.opts.when && !d.opts.when())) {
+      if (d.combos.some((h) => Fn(s, h)) && !(n && !d.opts.allowInInput) && !(a && !(n && d.opts.allowInInput && o)) && !(d.opts.when && !d.opts.when())) {
         s.preventDefault(), d.handler(s);
         return;
       }
@@ -386,22 +386,22 @@ function oa() {
   typeof document > "u" || (Oe.length && !ht ? (document.addEventListener("keydown", sa), ht = !0) : !Oe.length && ht && (document.removeEventListener("keydown", sa), ht = !1));
 }
 function Bt(s, e, n = {}) {
-  const a = { combos: (Array.isArray(s) ? s : [s]).map($a), handler: e, opts: n };
+  const a = { combos: (Array.isArray(s) ? s : [s]).map(wa), handler: e, opts: n };
   Oe.push(a), oa();
   const o = () => {
     const i = Oe.indexOf(a);
     i >= 0 && (Oe.splice(i, 1), oa());
   };
-  return ga() && Ge(o), o;
+  return ya() && Ge(o), o;
 }
-function Nn(s, e) {
+function Hn(s, e) {
   if (!(e != null && e.length)) return s.slice();
   const n = new Set(e.map((o) => o.id)), a = [];
   for (const o of e) for (const i of s) i.group === o.id && a.push(i);
   for (const o of s) (o.group == null || !n.has(o.group)) && a.push(o);
   return a;
 }
-function Hn(s, e) {
+function ra(s, e) {
   const n = e == null ? -1 : s.findIndex((o) => o.id === e), a = (o) => o.state === "todo" && o.id !== e;
   for (let o = n + 1; o < s.length; o++) if (a(s[o])) return s[o].id;
   for (let o = 0; o < s.length; o++) if (a(s[o])) return s[o].id;
@@ -473,146 +473,156 @@ const Kn = {
   }),
   emits: /* @__PURE__ */ se(["check", "open"], ["update:current"]),
   setup(s, { expose: e, emit: n }) {
-    const a = s, o = re(s, "current"), i = n, v = K(), d = K(!1), h = K(""), S = A(() => Nn(a.items, a.groups)), k = A(() => d.value ? /* @__PURE__ */ new Set() : qn(S.value, o.value, a.collapseDone)), V = A(() => {
-      const C = new Map((a.groups ?? []).map((ne) => [ne.id, ne])), H = [];
-      let E, Y = !1;
-      return S.value.forEach((ne, M) => {
+    const a = s, o = re(s, "current"), i = n, v = K(), d = K(!1), h = K(""), A = S(() => Hn(a.items, a.groups)), k = S(() => d.value ? /* @__PURE__ */ new Set() : qn(A.value, o.value, a.collapseDone)), L = S(() => {
+      const M = new Map((a.groups ?? []).map((ne) => [ne.id, ne])), F = [];
+      let T, j = !1;
+      return A.value.forEach((ne, C) => {
         if (k.value.has(ne.id)) {
-          Y || H.push({ kind: "more", key: "__more", count: k.value.size }), Y = !0;
+          j || F.push({ kind: "more", key: "__more", count: k.value.size }), j = !0;
           return;
         }
-        const I = ne.group != null ? C.get(ne.group) : void 0, q = I ? I.id : null;
-        q !== E && (I && H.push({ kind: "group", key: `group:${I.id}`, group: I }), E = q), H.push({ kind: "item", key: ne.id, item: ne, n: M + 1 });
-      }), H;
+        const I = ne.group != null ? M.get(ne.group) : void 0, q = I ? I.id : null;
+        q !== T && (I && F.push({ kind: "group", key: `group:${I.id}`, group: I }), T = q), F.push({ kind: "item", key: ne.id, item: ne, n: C + 1 });
+      }), F;
     });
-    ke(() => a.collapseDone, () => d.value = !1);
-    const z = (C) => C > 1 ? `${C} faites masquées` : "1 faite masquée";
-    function T(C) {
-      o.value = C;
+    fe(() => a.collapseDone, () => d.value = !1);
+    const E = (M) => M > 1 ? `${M} faites masquées` : "1 faite masquée";
+    function V(M) {
+      o.value = M;
     }
-    function y(C, H) {
-      if (H === C.state) return;
-      i("check", C.id, H);
-      const E = S.value.filter((Y) => (Y.id === C.id ? H : Y.state) !== "todo").length;
-      h.value = `${E} sur ${S.value.length}`, H !== "todo" && C.id === o.value && T(Hn(S.value, C.id));
+    function y(M, F) {
+      if (F === M.state) return;
+      i("check", M.id, F);
+      const T = A.value.filter((j) => (j.id === M.id ? F : j.state) !== "todo").length;
+      h.value = `${T} sur ${A.value.length}`, F !== "todo" && M.id === o.value && V(ra(A.value, M.id));
     }
-    function N(C, H) {
-      const E = H.target, Y = E.checked ? "done" : "todo";
-      E.checked = C.state === "done", y(C, Y);
+    fe(
+      () => {
+        const M = A.value.find((F) => F.id === o.value);
+        return M ? `${M.id}:${M.state}` : "";
+      },
+      (M, F) => {
+        const [T, j] = M.split(":");
+        T && F === `${T}:todo` && j !== "todo" && V(ra(A.value, T));
+      }
+    );
+    function H(M, F) {
+      const T = F.target, j = T.checked ? "done" : "todo";
+      T.checked = M.state === "done", y(M, j);
     }
-    const ae = () => S.value.find((C) => C.id === o.value);
-    function O(C) {
-      const H = S.value;
-      if (!H.length) return;
-      const E = o.value == null ? -1 : H.findIndex((ne) => ne.id === o.value), Y = E < 0 ? C > 0 ? 0 : H.length - 1 : Math.max(0, Math.min(H.length - 1, E + C));
-      T(H[Y].id), Ve(() => {
-        var ne, M, I;
-        return (I = (M = (ne = v.value) == null ? void 0 : ne.querySelector('[aria-current="step"]')) == null ? void 0 : M.scrollIntoView) == null ? void 0 : I.call(M, { block: "nearest" });
+    const ae = () => A.value.find((M) => M.id === o.value);
+    function O(M) {
+      const F = A.value;
+      if (!F.length) return;
+      const T = o.value == null ? -1 : F.findIndex((ne) => ne.id === o.value), j = T < 0 ? M > 0 ? 0 : F.length - 1 : Math.max(0, Math.min(F.length - 1, T + M));
+      V(F[j].id), Ve(() => {
+        var ne, C, I;
+        return (I = (C = (ne = v.value) == null ? void 0 : ne.querySelector('[aria-current="step"]')) == null ? void 0 : C.scrollIntoView) == null ? void 0 : I.call(C, { block: "nearest" });
       });
     }
-    function F(C) {
-      var ne, M;
-      if (C.defaultPrevented || C.isComposing || C.ctrlKey || C.metaKey || C.altKey) return;
-      const H = C.target;
-      if ((ne = H == null ? void 0 : H.closest) != null && ne.call(H, ul) || document.querySelector(`${Ut}, dialog[open]`)) return;
-      const E = (C.key ?? "").toLowerCase();
-      if ((E === " " || E === "enter") && ((M = H == null ? void 0 : H.closest) != null && M.call(H, dl))) return;
-      const Y = ae();
-      if (E === "j" || E === "arrowdown") O(1);
-      else if (E === "k" || E === "arrowup") O(-1);
-      else if (E === " ") {
-        if (!Y) return;
-        y(Y, Y.state === "done" ? "todo" : "done");
-      } else if (E === "enter") {
-        if (!(Y != null && Y.href)) return;
-        i("open", Y);
-      } else if (E === "s") {
-        if (!Y || Y.state === "skipped") return;
-        y(Y, "skipped");
+    function P(M) {
+      var ne, C;
+      if (M.defaultPrevented || M.isComposing || M.ctrlKey || M.metaKey || M.altKey) return;
+      const F = M.target;
+      if ((ne = F == null ? void 0 : F.closest) != null && ne.call(F, ul) || document.querySelector(`${Ut}, dialog[open]`)) return;
+      const T = (M.key ?? "").toLowerCase();
+      if ((T === " " || T === "enter") && ((C = F == null ? void 0 : F.closest) != null && C.call(F, dl)) && !F.closest(".at-checklist__title")) return;
+      const j = ae();
+      if (T === "j" || T === "arrowdown") O(1);
+      else if (T === "k" || T === "arrowup") O(-1);
+      else if (T === " ") {
+        if (!j) return;
+        y(j, j.state === "done" ? "todo" : "done");
+      } else if (T === "enter") {
+        if (!(j != null && j.href)) return;
+        i("open", j);
+      } else if (T === "s") {
+        if (!j || j.state === "skipped") return;
+        y(j, "skipped");
       } else return;
-      C.preventDefault();
+      M.preventDefault();
     }
     let R = !1;
-    function Z(C) {
-      typeof document > "u" || C === R || (C ? document.addEventListener("keydown", F) : document.removeEventListener("keydown", F), R = C);
+    function Z(M) {
+      typeof document > "u" || M === R || (M ? document.addEventListener("keydown", P) : document.removeEventListener("keydown", P), R = M);
     }
-    return ke(() => a.keyboard, (C) => Z(!!C), { immediate: !0 }), Ge(() => Z(!1)), e({ move: O }), (C, H) => (t(), l("div", {
+    return fe(() => a.keyboard, (M) => Z(!!M), { immediate: !0 }), Ge(() => Z(!1)), e({ move: O }), (M, F) => (t(), l("div", {
       ref_key: "el",
       ref: v,
-      class: W(["at-checklist", !C.numbered && "at-checklist--plain"])
+      class: Y(["at-checklist", !M.numbered && "at-checklist--plain"])
     }, [
-      C.items.length ? (t(), l("ol", Kn, [
-        (t(!0), l(_, null, P(V.value, (E) => (t(), l(_, {
-          key: E.key
+      M.items.length ? (t(), l("ol", Kn, [
+        (t(!0), l(_, null, U(L.value, (T) => (t(), l(_, {
+          key: T.key
         }, [
-          E.kind === "group" ? (t(), l("li", Rn, [
-            r("span", jn, m(E.group.label), 1),
-            E.group.hint ? (t(), l("span", Gn, m(E.group.hint), 1)) : f("", !0)
-          ])) : E.kind === "more" ? (t(), l("li", Wn, [
+          T.kind === "group" ? (t(), l("li", Rn, [
+            r("span", jn, m(T.group.label), 1),
+            T.group.hint ? (t(), l("span", Gn, m(T.group.hint), 1)) : f("", !0)
+          ])) : T.kind === "more" ? (t(), l("li", Wn, [
             r("button", {
               type: "button",
               class: "at-checklist__more-btn",
-              onClick: H[0] || (H[0] = (Y) => d.value = !0)
+              onClick: F[0] || (F[0] = (j) => d.value = !0)
             }, [
               g(x, { name: "chevron-right" }),
-              b(m(z(E.count)), 1)
+              b(m(E(T.count)), 1)
             ])
           ])) : (t(), l("li", {
             key: 2,
-            class: W([
+            class: Y([
               "at-checklist__item",
-              `at-checklist__item--${E.item.state}`,
-              E.item.id === o.value && "at-checklist__item--current"
+              `at-checklist__item--${T.item.state}`,
+              T.item.id === o.value && "at-checklist__item--current"
             ]),
-            "aria-current": E.item.id === o.value ? "step" : void 0
+            "aria-current": T.item.id === o.value ? "step" : void 0
           }, [
             r("div", Jn, [
-              C.numbered ? (t(), l("span", Zn, m(E.n), 1)) : f("", !0),
+              M.numbered ? (t(), l("span", Zn, m(T.n), 1)) : f("", !0),
               r("input", {
                 type: "checkbox",
                 class: "at-check at-checklist__check",
-                checked: E.item.state === "done",
-                "aria-label": E.item.title,
-                onChange: (Y) => N(E.item, Y)
+                checked: T.item.state === "done",
+                "aria-label": T.item.title,
+                onChange: (j) => H(T.item, j)
               }, null, 40, Xn),
               r("button", {
                 type: "button",
                 class: "at-checklist__title",
-                onClick: (Y) => T(E.item.id)
+                onClick: (j) => V(T.item.id)
               }, [
-                r("span", tl, m(E.item.title), 1),
-                E.item.state === "skipped" ? (t(), l("span", al, "passée")) : f("", !0)
+                r("span", tl, m(T.item.title), 1),
+                T.item.state === "skipped" ? (t(), l("span", al, "passée")) : f("", !0)
               ], 8, el),
-              C.$slots.meta ? (t(), l("span", nl, [
-                j(C.$slots, "meta", {
-                  item: E.item,
-                  current: E.item.id === o.value
+              M.$slots.meta ? (t(), l("span", nl, [
+                G(M.$slots, "meta", {
+                  item: T.item,
+                  current: T.item.id === o.value
                 })
               ])) : f("", !0),
-              E.item.href ? (t(), G(te, {
+              T.item.href ? (t(), W(te, {
                 key: 2,
                 variant: "ghost",
                 size: "sm",
                 icon: "arrow",
                 "icon-only": "",
-                label: `Ouvrir « ${E.item.title} »`,
+                label: `Ouvrir « ${T.item.title} »`,
                 title: "Ouvrir",
                 class: "at-checklist__open",
-                onClick: (Y) => i("open", E.item)
+                onClick: (j) => i("open", T.item)
               }, null, 8, ["label", "onClick"])) : f("", !0)
             ]),
-            E.item.id === o.value && (E.item.note || C.$slots.actions) ? (t(), l("div", ll, [
-              E.item.note ? (t(), l("p", sl, m(E.item.note), 1)) : f("", !0),
-              C.$slots.actions ? (t(), l("div", ol, [
-                j(C.$slots, "actions", {
-                  item: E.item
+            T.item.id === o.value && (T.item.note || M.$slots.actions) ? (t(), l("div", ll, [
+              T.item.note ? (t(), l("p", sl, m(T.item.note), 1)) : f("", !0),
+              M.$slots.actions ? (t(), l("div", ol, [
+                G(M.$slots, "actions", {
+                  item: T.item
                 })
               ])) : f("", !0)
             ])) : f("", !0)
           ], 10, Yn))
         ], 64))), 128))
       ])) : (t(), l("div", rl, [
-        j(C.$slots, "empty", {}, () => [
+        G(M.$slots, "empty", {}, () => [
           b("Aucune étape")
         ])
       ])),
@@ -627,17 +637,17 @@ const Kn = {
 }, pl = {}, vl = { class: "at-kbd" };
 function ml(s, e) {
   return t(), l("kbd", vl, [
-    j(s.$slots, "default")
+    G(s.$slots, "default")
   ]);
 }
-const Le = /* @__PURE__ */ Mt(pl, [["render", ml]]), hl = (s) => String(s).padStart(2, "0"), fl = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."], ra = (s) => new Date(s.getFullYear(), s.getMonth(), s.getDate()).getTime();
+const Le = /* @__PURE__ */ Mt(pl, [["render", ml]]), hl = (s) => String(s).padStart(2, "0"), fl = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."], ia = (s) => new Date(s.getFullYear(), s.getMonth(), s.getDate()).getTime();
 function gl(s, e = /* @__PURE__ */ new Date()) {
   const n = new Date(s);
   if (isNaN(n.getTime())) return "";
   const a = Math.round((e.getTime() - n.getTime()) / 1e3), o = `${n.getHours()}:${hl(n.getMinutes())}`;
   if (a < 45) return "à l’instant";
   if (a < 3600) return `il y a ${Math.max(1, Math.round(a / 60))} min`;
-  const i = Math.round((ra(e) - ra(n)) / 864e5);
+  const i = Math.round((ia(e) - ia(n)) / 864e5);
   if (i === 0) return `il y a ${Math.round(a / 3600)} h`;
   if (i === 1) return `hier à ${o}`;
   const v = `${n.getDate()} ${fl[n.getMonth()]}`;
@@ -662,7 +672,7 @@ const kt = "__none", Nt = "@me", Ht = (s) => String(s).padStart(2, "0"), Gt = (s
 }, kl = (s = Be()) => {
   const e = ((/* @__PURE__ */ new Date(s + "T00:00")).getDay() + 6) % 7;
   return _t(s, 7 - e);
-}, Ie = () => Math.random().toString(36).slice(2, 10), be = (s) => s == null || s === "" || Array.isArray(s) && s.length === 0, he = (s, e) => e.compute ? e.compute(s) : s[e.key], je = (s, e) => typeof s.options == "function" ? s.options(e) : s.options ?? [], $t = (s, e, n) => je(s, e).find((a) => a.value === n), at = (s) => !s.compute && !s.readonly && s.type !== "progress", _l = ["status", "select", "relation", "person"], nt = (s) => _l.includes(s.type), $l = {
+}, Ie = () => Math.random().toString(36).slice(2, 10), ke = (s) => s == null || s === "" || Array.isArray(s) && s.length === 0, he = (s, e) => e.compute ? e.compute(s) : s[e.key], je = (s, e) => typeof s.options == "function" ? s.options(e) : s.options ?? [], $t = (s, e, n) => je(s, e).find((a) => a.value === n), at = (s) => !s.compute && !s.readonly && s.type !== "progress", _l = ["status", "select", "relation", "person"], nt = (s) => _l.includes(s.type), $l = {
   title: "text",
   text: "text",
   status: "status",
@@ -691,7 +701,7 @@ const kt = "__none", Nt = "@me", Ht = (s) => String(s).padStart(2, "0"), Gt = (s
   number: ["eq", "gt", "lt", "empty", "notempty"],
   progress: ["eq", "gt", "lt"],
   checkbox: ["checked", "unchecked"]
-}, ia = {
+}, ua = {
   contains: "contient",
   notcontains: "ne contient pas",
   empty: "est vide",
@@ -707,21 +717,21 @@ const kt = "__none", Nt = "@me", Ht = (s) => String(s).padStart(2, "0"), Gt = (s
   lt: "<",
   checked: "est cochée",
   unchecked: "n’est pas cochée"
-}, wa = ["empty", "notempty", "past", "week", "checked", "unchecked"];
-function Ma(s, e = {}) {
+}, Ma = ["empty", "notempty", "past", "week", "checked", "unchecked"];
+function Ca(s, e = {}) {
   return s === Nt ? e.me || void 0 : s;
 }
 function wl(s, e, n, a = Be(), o = {}) {
   const i = he(s, e);
-  if (!wa.includes(n.op) && be(n.value)) return !0;
-  const v = Ma(n.value, o);
+  if (!Ma.includes(n.op) && ke(n.value)) return !0;
+  const v = Ca(n.value, o);
   if (v === void 0) return !1;
-  const d = { ...n, value: v }, h = (S) => String(S ?? "").toLowerCase();
+  const d = { ...n, value: v }, h = (A) => String(A ?? "").toLowerCase();
   switch (d.op) {
     case "empty":
-      return be(i);
+      return ke(i);
     case "notempty":
-      return !be(i);
+      return !ke(i);
     case "contains":
       return e.type === "multi" ? (i ?? []).includes(d.value) : h(i).includes(h(d.value));
     case "notcontains":
@@ -752,7 +762,7 @@ function wl(s, e, n, a = Be(), o = {}) {
   return !0;
 }
 function Ml(s, e, n) {
-  const a = he(e, s), o = he(n, s), i = be(a), v = be(o);
+  const a = he(e, s), o = he(n, s), i = ke(a), v = ke(o);
   if (i || v) return i === v ? 0 : i ? 1 : -1;
   if (nt(s)) {
     const d = je(s).map((h) => h.value);
@@ -761,14 +771,14 @@ function Ml(s, e, n) {
   return s.type === "number" || s.type === "progress" ? a - o : s.type === "checkbox" ? Number(o) - Number(a) : s.type === "multi" ? a.length - o.length : String(a).localeCompare(String(o), "fr");
 }
 function Cl(s, e, n, a = "", o = {}) {
-  const i = Object.fromEntries(e.map((k) => [k.key, k])), v = e.find((k) => k.type === "title"), d = a.trim().toLowerCase(), h = s.filter((k) => (!d || !v || String(k[v.key] ?? "").toLowerCase().includes(d)) && n.filters.every((V) => !i[V.prop] || wl(k, i[V.prop], V, Be(), o))), S = n.sorts.filter((k) => i[k.prop]);
-  return S.length ? h.sort((k, V) => {
-    for (const z of S) {
-      const T = i[z.prop], y = be(he(k, T)), N = be(he(V, T));
-      if (y !== N) return y ? 1 : -1;
+  const i = Object.fromEntries(e.map((k) => [k.key, k])), v = e.find((k) => k.type === "title"), d = a.trim().toLowerCase(), h = s.filter((k) => (!d || !v || String(k[v.key] ?? "").toLowerCase().includes(d)) && n.filters.every((L) => !i[L.prop] || wl(k, i[L.prop], L, Be(), o))), A = n.sorts.filter((k) => i[k.prop]);
+  return A.length ? h.sort((k, L) => {
+    for (const E of A) {
+      const V = i[E.prop], y = ke(he(k, V)), H = ke(he(L, V));
+      if (y !== H) return y ? 1 : -1;
       if (y) continue;
-      const ae = Ml(T, k, V);
-      if (ae) return z.dir === "desc" ? -ae : ae;
+      const ae = Ml(V, k, L);
+      if (ae) return E.dir === "desc" ? -ae : ae;
     }
     return 0;
   }) : h;
@@ -777,7 +787,10 @@ function Al(s, e, n = !1) {
   if (!e) return [{ key: kt, option: null, rows: s }];
   const a = je(e).map((v) => ({ key: v.value, option: v, rows: [] })), o = { key: kt, option: null, rows: [] }, i = Object.fromEntries(a.map((v) => [v.key, v]));
   for (const v of s) (i[he(v, e)] ?? o).rows.push(v);
-  return (o.rows.length || n) && a.push(o), n ? a : a.filter((v) => v.rows.length);
+  return (o.rows.length || n) && a.push(o), a.filter((v) => {
+    var d;
+    return v.rows.length || n && !((d = v.option) != null && d.quiet);
+  });
 }
 function Sl(s) {
   const [e, n] = s.split("-").map(Number), o = (new Date(e, n - 1, 1).getDay() + 6) % 7, i = [];
@@ -787,11 +800,11 @@ function Sl(s) {
   }
   return i[35].outside ? i.slice(0, 35) : i;
 }
-const ua = (s, e) => {
+const da = (s, e) => {
   const [n, a] = s.split("-").map(Number), o = new Date(n, a - 1 + e, 1);
   return `${o.getFullYear()}-${Ht(o.getMonth() + 1)}`;
 };
-function da(s, e = "table", n = {}) {
+function ca(s, e = "table", n = {}) {
   return { id: Ie(), name: s, layout: e, filters: [], sorts: [], groupBy: null, dateProp: null, hidden: [], order: [], widths: {}, collapsed: [], month: null, ...n };
 }
 const vc = (s, e, n = "") => ({ id: Ie(), prop: s, op: e, value: n }), mc = (s, e = "asc") => ({ id: Ie(), prop: s, dir: e });
@@ -799,13 +812,13 @@ function Vl(s, e, n = {}) {
   const a = {};
   for (const o of s.filters) {
     const i = e.find((d) => d.key === o.prop);
-    if (!i || !at(i) || be(o.value)) continue;
-    const v = Ma(o.value, n);
+    if (!i || !at(i) || ke(o.value)) continue;
+    const v = Ca(o.value, n);
     v !== void 0 && (o.op === "is" && (a[o.prop] = v), o.op === "contains" && i.type === "multi" && (a[o.prop] = [v]));
   }
   return a;
 }
-const Tl = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" }), Ll = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }), Ca = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
+const Tl = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" }), Ll = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }), Aa = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
 function lt(s) {
   if (!s) return "";
   const e = /* @__PURE__ */ new Date(s + "T00:00");
@@ -821,9 +834,9 @@ const Dl = (s) => {
   const n = Se(e), a = n ? Se(s).indexOf(n) : -1;
   return a < 0 ? [s, "", ""] : [s.slice(0, a), s.slice(a, a + n.length), s.slice(a + n.length)];
 };
-let ca = 0;
+let pa = 0;
 function We(s = "at") {
-  return ca += 1, `${s}-${ca}`;
+  return pa += 1, `${s}-${pa}`;
 }
 const Bl = ["aria-label"], Il = {
   key: 0,
@@ -865,78 +878,78 @@ const Bl = ["aria-label"], Il = {
   setup(s, { emit: e }) {
     const n = s, a = e, o = K(/* @__PURE__ */ new Date());
     let i;
-    an(() => {
+    nn(() => {
       i = setInterval(() => {
         o.value = /* @__PURE__ */ new Date();
       }, 6e4);
     }), Ge(() => clearInterval(i));
-    const v = (M) => gl(M, o.value), d = (M) => new Date(M).toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short" }), h = A(() => [...n.items].sort((M, I) => M.at.localeCompare(I.at))), S = (M) => yl(M, n.people), k = typeof navigator < "u" && /Mac|iPhone|iPad/.test(navigator.platform) ? "⌘" : "Ctrl", V = K(""), z = K(), T = We("at-mention"), y = K(null), N = K(0), ae = A(() => {
-      const M = y.value;
-      if (!M) return [];
-      const I = Se(M.query);
+    const v = (C) => gl(C, o.value), d = (C) => new Date(C).toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short" }), h = S(() => [...n.items].sort((C, I) => C.at.localeCompare(I.at))), A = (C) => yl(C, n.people), k = typeof navigator < "u" && /Mac|iPhone|iPad/.test(navigator.platform) ? "⌘" : "Ctrl", L = K(""), E = K(), V = We("at-mention"), y = K(null), H = K(0), ae = S(() => {
+      const C = y.value;
+      if (!C) return [];
+      const I = Se(C.query);
       return n.people.filter((q) => Se(q).includes(I)).slice(0, 6);
     });
     function O() {
-      const M = z.value;
-      y.value = M && n.people.length ? bl(M.value, M.selectionStart ?? M.value.length) : null, N.value = 0;
+      const C = E.value;
+      y.value = C && n.people.length ? bl(C.value, C.selectionStart ?? C.value.length) : null, H.value = 0;
     }
-    function F(M) {
-      const I = z.value, q = y.value;
+    function P(C) {
+      const I = E.value, q = y.value;
       if (!I || !q) return;
-      const X = I.selectionStart ?? V.value.length, de = V.value.slice(0, q.start) + "@" + M + " ";
-      V.value = de + V.value.slice(X), y.value = null, Ve(() => {
+      const X = I.selectionStart ?? L.value.length, de = L.value.slice(0, q.start) + "@" + C + " ";
+      L.value = de + L.value.slice(X), y.value = null, Ve(() => {
         I.focus(), I.setSelectionRange(de.length, de.length);
       });
     }
     function R() {
-      const M = V.value.trim();
-      M && (a("post", M), V.value = "", y.value = null);
+      const C = L.value.trim();
+      C && (a("post", C), L.value = "", y.value = null);
     }
-    function Z(M) {
+    function Z(C) {
       const I = ae.value;
       if (y.value && I.length) {
-        if (M.key === "ArrowDown") {
-          M.preventDefault(), N.value = (N.value + 1) % I.length;
+        if (C.key === "ArrowDown") {
+          C.preventDefault(), H.value = (H.value + 1) % I.length;
           return;
         }
-        if (M.key === "ArrowUp") {
-          M.preventDefault(), N.value = (N.value - 1 + I.length) % I.length;
+        if (C.key === "ArrowUp") {
+          C.preventDefault(), H.value = (H.value - 1 + I.length) % I.length;
           return;
         }
-        if (M.key === "Enter" && !M.metaKey && !M.ctrlKey || M.key === "Tab") {
-          M.preventDefault(), F(I[N.value]);
+        if (C.key === "Enter" && !C.metaKey && !C.ctrlKey || C.key === "Tab") {
+          C.preventDefault(), P(I[H.value]);
           return;
         }
-        if (M.key === "Escape") {
-          M.preventDefault(), M.stopPropagation(), y.value = null;
+        if (C.key === "Escape") {
+          C.preventDefault(), C.stopPropagation(), y.value = null;
           return;
         }
       }
-      M.key === "Enter" && (M.metaKey || M.ctrlKey) && (M.preventDefault(), R());
+      C.key === "Enter" && (C.metaKey || C.ctrlKey) && (C.preventDefault(), R());
     }
-    const C = K(null), H = K("");
-    function E(M) {
-      C.value = M.id, H.value = M.text, Ve(() => {
-        const I = document.getElementById(`${T}-edit`);
+    const M = K(null), F = K("");
+    function T(C) {
+      M.value = C.id, F.value = C.text, Ve(() => {
+        const I = document.getElementById(`${V}-edit`);
         I == null || I.focus(), I == null || I.setSelectionRange(I.value.length, I.value.length);
       });
     }
-    function Y(M) {
-      const I = H.value.trim();
-      I && I !== M.text && a("edit", M, I), C.value = null;
+    function j(C) {
+      const I = F.value.trim();
+      I && I !== C.text && a("edit", C, I), M.value = null;
     }
-    function ne(M, I) {
-      M.key === "Enter" && (M.metaKey || M.ctrlKey) ? (M.preventDefault(), Y(I)) : M.key === "Escape" && (M.preventDefault(), M.stopPropagation(), C.value = null);
+    function ne(C, I) {
+      C.key === "Enter" && (C.metaKey || C.ctrlKey) ? (C.preventDefault(), j(I)) : C.key === "Escape" && (C.preventDefault(), C.stopPropagation(), M.value = null);
     }
-    return (M, I) => (t(), l("section", {
+    return (C, I) => (t(), l("section", {
       class: "at-comments",
-      "aria-label": M.label
+      "aria-label": C.label
     }, [
-      M.label ? (t(), l("div", Il, [
-        r("span", Ql, m(M.label), 1)
+      C.label ? (t(), l("div", Il, [
+        r("span", Ql, m(C.label), 1)
       ])) : f("", !0),
       h.value.length ? (t(), l("ol", xl, [
-        (t(!0), l(_, null, P(h.value, (q) => (t(), l(_, {
+        (t(!0), l(_, null, U(h.value, (q) => (t(), l(_, {
           key: q.id
         }, [
           q.kind === "event" ? (t(), l("li", Fl, [
@@ -952,7 +965,7 @@ const Bl = ["aria-label"], Il = {
             g(Ke, {
               name: q.author,
               size: "md",
-              tone: q.author === M.me ? "accent" : "neutral"
+              tone: q.author === C.me ? "accent" : "neutral"
             }, null, 8, ["name", "tone"]),
             r("div", Nl, [
               r("b", null, m(q.author), 1),
@@ -965,14 +978,14 @@ const Bl = ["aria-label"], Il = {
                 class: "at-comment__edited",
                 title: d(q.editedAt)
               }, "modifié", 8, ql)) : f("", !0),
-              q.author === M.me && C.value !== q.id ? (t(), l("span", Kl, [
+              q.author === C.me && M.value !== q.id ? (t(), l("span", Kl, [
                 g(te, {
                   variant: "ghost",
                   size: "sm",
                   icon: "edit",
                   "icon-only": "",
                   label: "Modifier",
-                  onClick: (X) => E(q)
+                  onClick: (X) => T(q)
                 }, null, 8, ["onClick"]),
                 g(te, {
                   variant: "ghost",
@@ -984,22 +997,22 @@ const Bl = ["aria-label"], Il = {
                 }, null, 8, ["onClick"])
               ])) : f("", !0)
             ]),
-            C.value === q.id ? (t(), l("div", Rl, [
+            M.value === q.id ? (t(), l("div", Rl, [
               le(r("textarea", {
-                id: `${L(T)}-edit`,
-                "onUpdate:modelValue": I[0] || (I[0] = (X) => H.value = X),
+                id: `${D(V)}-edit`,
+                "onUpdate:modelValue": I[0] || (I[0] = (X) => F.value = X),
                 class: "at-composer__text",
                 rows: "1",
                 "aria-label": "Modifier le commentaire",
                 onKeydown: (X) => ne(X, q)
               }, null, 40, jl), [
-                [Ae, H.value]
+                [Ae, F.value]
               ]),
               r("div", Gl, [
                 r("span", Wl, [
                   g(Le, null, {
-                    default: U(() => [
-                      b(m(L(k)) + " ↵", 1)
+                    default: N(() => [
+                      b(m(D(k)) + " ↵", 1)
                     ]),
                     _: 1
                   }),
@@ -1008,9 +1021,9 @@ const Bl = ["aria-label"], Il = {
                 g(te, {
                   size: "sm",
                   variant: "ghost",
-                  onClick: I[1] || (I[1] = (X) => C.value = null)
+                  onClick: I[1] || (I[1] = (X) => M.value = null)
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b("Annuler")
                   ]),
                   _: 1
@@ -1018,17 +1031,17 @@ const Bl = ["aria-label"], Il = {
                 g(te, {
                   size: "sm",
                   variant: "primary",
-                  disabled: !H.value.trim(),
-                  onClick: (X) => Y(q)
+                  disabled: !F.value.trim(),
+                  onClick: (X) => j(q)
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b("Enregistrer")
                   ]),
                   _: 2
                 }, 1032, ["disabled", "onClick"])
               ])
             ])) : (t(), l("p", Yl, [
-              (t(!0), l(_, null, P(S(q.text), (X, de) => (t(), l(_, { key: de }, [
+              (t(!0), l(_, null, U(A(q.text), (X, de) => (t(), l(_, { key: de }, [
                 X.mention ? (t(), l("span", Jl, m(X.text), 1)) : (t(), l(_, { key: 1 }, [
                   b(m(X.text), 1)
                 ], 64))
@@ -1039,36 +1052,36 @@ const Bl = ["aria-label"], Il = {
       ])) : (t(), l("p", Zl, "Aucun commentaire pour l’instant.")),
       r("div", Xl, [
         g(Ke, {
-          name: M.me,
+          name: C.me,
           size: "md",
           tone: "accent"
         }, null, 8, ["name"]),
         r("div", es, [
           le(r("textarea", {
             ref_key: "area",
-            ref: z,
-            "onUpdate:modelValue": I[2] || (I[2] = (q) => V.value = q),
+            ref: E,
+            "onUpdate:modelValue": I[2] || (I[2] = (q) => L.value = q),
             class: "at-composer__text",
             rows: "1",
-            placeholder: M.placeholder,
+            placeholder: C.placeholder,
             "aria-label": "Nouveau commentaire",
             role: "combobox",
             "aria-autocomplete": "list",
             "aria-expanded": !!y.value && ae.value.length > 0,
-            "aria-controls": L(T),
-            "aria-activedescendant": y.value && ae.value.length ? `${L(T)}-${N.value}` : void 0,
+            "aria-controls": D(V),
+            "aria-activedescendant": y.value && ae.value.length ? `${D(V)}-${H.value}` : void 0,
             onKeydown: Z,
             onInput: O,
             onClick: O,
             onBlur: I[3] || (I[3] = (q) => y.value = null)
           }, null, 40, ts), [
-            [Ae, V.value]
+            [Ae, L.value]
           ]),
           r("div", as, [
             r("span", ns, [
               g(Le, null, {
-                default: U(() => [
-                  b(m(L(k)) + " ↵", 1)
+                default: N(() => [
+                  b(m(D(k)) + " ↵", 1)
                 ]),
                 _: 1
               }),
@@ -1077,10 +1090,10 @@ const Bl = ["aria-label"], Il = {
             g(te, {
               variant: "primary",
               size: "sm",
-              disabled: !V.value.trim(),
+              disabled: !L.value.trim(),
               onClick: R
             }, {
-              default: U(() => [
+              default: N(() => [
                 b("Commenter")
               ]),
               _: 1
@@ -1088,26 +1101,26 @@ const Bl = ["aria-label"], Il = {
           ]),
           y.value && ae.value.length ? (t(), l("div", {
             key: 0,
-            id: L(T),
+            id: D(V),
             class: "at-menu at-composer__mentions",
             role: "listbox",
             "aria-label": "Mentionner"
           }, [
             ss,
-            (t(!0), l(_, null, P(ae.value, (q, X) => (t(), l("div", {
-              id: `${L(T)}-${X}`,
+            (t(!0), l(_, null, U(ae.value, (q, X) => (t(), l("div", {
+              id: `${D(V)}-${X}`,
               key: q,
-              class: W(["at-menu-item", X === N.value && "is-active"]),
+              class: Y(["at-menu-item", X === H.value && "is-active"]),
               role: "option",
-              "aria-selected": X === N.value,
-              onMousedown: ie((de) => F(q), ["prevent"]),
-              onMousemove: (de) => N.value = X
+              "aria-selected": X === H.value,
+              onMousedown: ie((de) => P(q), ["prevent"]),
+              onMousemove: (de) => H.value = X
             }, [
               g(Ke, { name: q }, null, 8, ["name"]),
               r("span", null, [
-                b(m(L(Re)(q, y.value.query)[0]), 1),
-                r("mark", null, m(L(Re)(q, y.value.query)[1]), 1),
-                b(m(L(Re)(q, y.value.query)[2]), 1)
+                b(m(D(Re)(q, y.value.query)[0]), 1),
+                r("mark", null, m(D(Re)(q, y.value.query)[1]), 1),
+                b(m(D(Re)(q, y.value.query)[2]), 1)
               ])
             ], 42, os))), 128))
           ], 8, ls)) : f("", !0)
@@ -1128,66 +1141,66 @@ const Bl = ["aria-label"], Il = {
   }),
   emits: /* @__PURE__ */ se(["close"], ["update:open"]),
   setup(s, { expose: e, emit: n }) {
-    const a = re(s, "open"), o = s, i = n, v = K(), d = K(), h = K({ top: -9999, left: -9999 }), S = A(() => {
-      var F;
-      return o.anchor ?? ((F = v.value) == null ? void 0 : F.firstElementChild) ?? v.value ?? null;
+    const a = re(s, "open"), o = s, i = n, v = K(), d = K(), h = K({ top: -9999, left: -9999 }), A = S(() => {
+      var P;
+      return o.anchor ?? ((P = v.value) == null ? void 0 : P.firstElementChild) ?? v.value ?? null;
     });
     function k() {
-      const F = S.value, R = d.value;
-      if (!F || !R) return;
-      const Z = F.getBoundingClientRect(), C = R.offsetWidth, H = R.offsetHeight;
+      const P = A.value, R = d.value;
+      if (!P || !R) return;
+      const Z = P.getBoundingClientRect(), M = R.offsetWidth, F = R.offsetHeight;
       if (o.placement === "over") {
-        const ne = Math.max(8, Math.min(Z.left, window.innerWidth - C - 8)), M = Math.max(8, Math.min(Z.top, window.innerHeight - H - 8));
-        (Math.abs(M - h.value.top) > 0.5 || Math.abs(ne - h.value.left) > 0.5) && (h.value = { top: M, left: ne });
+        const ne = Math.max(8, Math.min(Z.left, window.innerWidth - M - 8)), C = Math.max(8, Math.min(Z.top, window.innerHeight - F - 8));
+        (Math.abs(C - h.value.top) > 0.5 || Math.abs(ne - h.value.left) > 0.5) && (h.value = { top: C, left: ne });
         return;
       }
       if (o.placement === "right") {
-        const ne = Math.max(8, Math.min(Z.right + o.offset, window.innerWidth - C - 8)), M = Math.max(8, Math.min(Z.bottom - H, window.innerHeight - H - 8));
-        (Math.abs(M - h.value.top) > 0.5 || Math.abs(ne - h.value.left) > 0.5) && (h.value = { top: M, left: ne });
+        const ne = Math.max(8, Math.min(Z.right + o.offset, window.innerWidth - M - 8)), C = Math.max(8, Math.min(Z.bottom - F, window.innerHeight - F - 8));
+        (Math.abs(C - h.value.top) > 0.5 || Math.abs(ne - h.value.left) > 0.5) && (h.value = { top: C, left: ne });
         return;
       }
-      let E = o.align === "end" ? Z.right - C : Z.left;
-      E = Math.max(8, Math.min(E, window.innerWidth - C - 8));
-      let Y = Z.bottom + o.offset;
-      Y + H > window.innerHeight - 8 && (Y = Math.max(8, Z.top - H - o.offset)), (Math.abs(Y - h.value.top) > 0.5 || Math.abs(E - h.value.left) > 0.5) && (h.value = { top: Y, left: E });
+      let T = o.align === "end" ? Z.right - M : Z.left;
+      T = Math.max(8, Math.min(T, window.innerWidth - M - 8));
+      let j = Z.bottom + o.offset;
+      j + F > window.innerHeight - 8 && (j = Math.max(8, Z.top - F - o.offset)), (Math.abs(j - h.value.top) > 0.5 || Math.abs(T - h.value.left) > 0.5) && (h.value = { top: j, left: T });
     }
-    function V() {
+    function L() {
       a.value && (a.value = !1, i("close"));
     }
-    function z() {
-      a.value ? V() : a.value = !0;
+    function E() {
+      a.value ? L() : a.value = !0;
     }
-    function T(F) {
-      var Z, C, H;
-      const R = F.target;
-      (Z = d.value) != null && Z.contains(R) || (C = S.value) != null && C.contains(R) || (H = R.closest) != null && H.call(R, ".at-pop") || V();
+    function V(P) {
+      var Z, M, F;
+      const R = P.target;
+      (Z = d.value) != null && Z.contains(R) || (M = A.value) != null && M.contains(R) || (F = R.closest) != null && F.call(R, ".at-pop") || L();
     }
-    function y(F) {
+    function y(P) {
       var R, Z;
-      F.key === "Escape" && (F.stopPropagation(), V(), (Z = (R = S.value) == null ? void 0 : R.focus) == null || Z.call(R));
+      P.key === "Escape" && (P.stopPropagation(), L(), (Z = (R = A.value) == null ? void 0 : R.focus) == null || Z.call(R));
     }
-    let N = null;
+    let H = null;
     function ae() {
-      setTimeout(() => document.addEventListener("mousedown", T), 0), document.addEventListener("keydown", y, !0), window.addEventListener("resize", k), window.addEventListener("scroll", k, !0), Ve(() => {
-        k(), d.value && (N = new ResizeObserver(k), N.observe(d.value));
+      setTimeout(() => document.addEventListener("mousedown", V), 0), document.addEventListener("keydown", y, !0), window.addEventListener("resize", k), window.addEventListener("scroll", k, !0), Ve(() => {
+        k(), d.value && (H = new ResizeObserver(k), H.observe(d.value));
       });
     }
     function O() {
-      document.removeEventListener("mousedown", T), document.removeEventListener("keydown", y, !0), window.removeEventListener("resize", k), window.removeEventListener("scroll", k, !0), N == null || N.disconnect(), N = null, h.value = { top: -9999, left: -9999 };
+      document.removeEventListener("mousedown", V), document.removeEventListener("keydown", y, !0), window.removeEventListener("resize", k), window.removeEventListener("scroll", k, !0), H == null || H.disconnect(), H = null, h.value = { top: -9999, left: -9999 };
     }
-    return ke(a, (F) => F ? ae() : O(), { immediate: !0 }), Ge(O), e({ place: k, close: V, toggle: z }), (F, R) => (t(), l(_, null, [
-      F.$slots.trigger ? (t(), l("span", {
+    return fe(a, (P) => P ? ae() : O(), { immediate: !0 }), Ge(O), e({ place: k, close: L, toggle: E }), (P, R) => (t(), l(_, null, [
+      P.$slots.trigger ? (t(), l("span", {
         key: 0,
         ref_key: "triggerEl",
         ref: v,
         style: { display: "contents" }
       }, [
-        j(F.$slots, "trigger", {
-          toggle: z,
+        G(P.$slots, "trigger", {
+          toggle: E,
           open: a.value
         })
       ], 512)) : f("", !0),
-      (t(), G(wt, { to: "body" }, [
+      (t(), W(wt, { to: "body" }, [
         a.value ? (t(), l("div", {
           key: 0,
           ref_key: "el",
@@ -1195,7 +1208,7 @@ const Bl = ["aria-label"], Il = {
           class: "at-pop",
           style: ue({ top: h.value.top + "px", left: h.value.left + "px" })
         }, [
-          j(F.$slots, "default", { close: V })
+          G(P.$slots, "default", { close: L })
         ], 4)) : f("", !0)
       ]))
     ], 64));
@@ -1203,7 +1216,7 @@ const Bl = ["aria-label"], Il = {
 }), is = ["aria-valuenow", "aria-label"], us = { class: "at-progress__track" }, ds = {
   key: 0,
   class: "at-progress__label"
-}, Aa = /* @__PURE__ */ J({
+}, Sa = /* @__PURE__ */ J({
   __name: "AtProgress",
   props: {
     value: {},
@@ -1212,7 +1225,7 @@ const Bl = ["aria-label"], Il = {
     label: {}
   },
   setup(s) {
-    const e = s, n = A(() => Math.max(0, Math.min(100, Math.round(e.value / e.max * 100))));
+    const e = s, n = S(() => Math.max(0, Math.min(100, Math.round(e.value / e.max * 100))));
     return (a, o) => (t(), l("span", {
       class: "at-progress",
       role: "progressbar",
@@ -1258,15 +1271,15 @@ const Bl = ["aria-label"], Il = {
     row: {}
   },
   setup(s) {
-    const e = s, n = A(() => he(e.row, e.prop)), a = A(() => e.prop.type), o = A(() => nt(e.prop) ? $t(e.prop, e.row, n.value) : void 0), i = A(() => a.value === "multi" ? (n.value ?? []).map((h) => $t(e.prop, e.row, h)).filter(Boolean) : []), v = A(() => {
-      var h, S;
-      return a.value === "date" && !!((S = (h = e.prop).overdue) != null && S.call(h, e.row));
-    }), d = A(() => {
+    const e = s, n = S(() => he(e.row, e.prop)), a = S(() => e.prop.type), o = S(() => nt(e.prop) ? $t(e.prop, e.row, n.value) : void 0), i = S(() => a.value === "multi" ? (n.value ?? []).map((h) => $t(e.prop, e.row, h)).filter(Boolean) : []), v = S(() => {
+      var h, A;
+      return a.value === "date" && !!((A = (h = e.prop).overdue) != null && A.call(h, e.row));
+    }), d = S(() => {
       var h;
       return ((h = o.value) == null ? void 0 : h.label) ?? String(n.value ?? "");
     });
-    return (h, S) => {
-      var k, V, z;
+    return (h, A) => {
+      var k, L, E;
       return a.value === "title" ? (t(), l("span", cs, m(n.value || "Sans titre"), 1)) : a.value === "checkbox" ? (t(), l("input", {
         key: 1,
         type: "checkbox",
@@ -1275,34 +1288,34 @@ const Bl = ["aria-label"], Il = {
         tabindex: "-1",
         "aria-hidden": "true",
         style: { "pointer-events": "none" }
-      }, null, 8, ps)) : L(be)(n.value) ? (t(), l("span", vs, "—")) : a.value === "status" ? (t(), l("span", {
+      }, null, 8, ps)) : D(ke)(n.value) ? (t(), l("span", vs, "—")) : a.value === "status" ? (t(), l("span", {
         key: 3,
-        class: W(["at-badge", ((k = o.value) == null ? void 0 : k.tone) && o.value.tone !== "neutral" && `at-badge--${o.value.tone}`])
+        class: Y(["at-badge", ((k = o.value) == null ? void 0 : k.tone) && o.value.tone !== "neutral" && `at-badge--${o.value.tone}`])
       }, m(d.value), 3)) : a.value === "select" ? (t(), l("span", {
         key: 4,
-        class: W(["at-tag", ((V = o.value) == null ? void 0 : V.color) && o.value.color !== "gray" && `at-tag--${o.value.color}`])
+        class: Y(["at-tag", ((L = o.value) == null ? void 0 : L.color) && o.value.color !== "gray" && `at-tag--${o.value.color}`])
       }, m(d.value), 3)) : a.value === "multi" ? (t(), l("span", ms, [
-        (t(!0), l(_, null, P(i.value, (T) => (t(), l("span", {
-          key: T.value,
-          class: W(["at-tag", T.color && T.color !== "gray" && `at-tag--${T.color}`])
-        }, m(T.label), 3))), 128))
+        (t(!0), l(_, null, U(i.value, (V) => (t(), l("span", {
+          key: V.value,
+          class: Y(["at-tag", V.color && V.color !== "gray" && `at-tag--${V.color}`])
+        }, m(V.label), 3))), 128))
       ])) : a.value === "person" ? (t(), l("span", hs, [
         g(Ke, { name: d.value }, null, 8, ["name"]),
         r("span", fs, m(d.value), 1)
       ])) : a.value === "relation" ? (t(), l("span", gs, [
-        (z = o.value) != null && z.mark ? (t(), l("span", {
+        (E = o.value) != null && E.mark ? (t(), l("span", {
           key: 0,
           class: "at-pv-mark",
           style: ue({ background: o.value.mark })
-        }, null, 4)) : (t(), G(x, {
+        }, null, 4)) : (t(), W(x, {
           key: 1,
           name: h.prop.icon ?? "link"
         }, null, 8, ["name"])),
         r("span", ys, m(o.value ? o.value.label : "Introuvable"), 1)
       ])) : a.value === "date" ? (t(), l("span", {
         key: 8,
-        class: W(["at-pv-date", v.value && "at-pv-over"])
-      }, m(L(lt)(n.value)), 3)) : a.value === "number" ? (t(), l("span", bs, m(L(Ca).format(Number(n.value))) + m(h.prop.suffix ?? ""), 1)) : a.value === "progress" ? (t(), G(Aa, {
+        class: Y(["at-pv-date", v.value && "at-pv-over"])
+      }, m(D(lt)(n.value)), 3)) : a.value === "number" ? (t(), l("span", bs, m(D(Aa).format(Number(n.value))) + m(h.prop.suffix ?? ""), 1)) : a.value === "progress" ? (t(), W(Sa, {
         key: 10,
         value: Number(n.value)
       }, null, 8, ["value"])) : (t(), l("span", ks, m(n.value), 1));
@@ -1343,34 +1356,34 @@ const Bl = ["aria-label"], Il = {
   }),
   emits: /* @__PURE__ */ se(["update", "createOption", "updateOption", "deleteOption"], ["update:open"]),
   setup(s, { emit: e }) {
-    const n = re(s, "open"), a = s, o = e, i = K(""), v = K(), d = A(() => {
+    const n = re(s, "open"), a = s, o = e, i = K(""), v = K(), d = S(() => {
       const $ = a.prop;
       return $ ? $.type === "select" || $.type === "multi" ? "tags" : nt($) ? "options" : $.type === "date" ? "date" : "input" : null;
-    }), h = A(() => a.prop ? je(a.prop, a.row) : []), S = A(() => a.prop && a.row ? a.row[a.prop.key] : null), k = A(() => {
+    }), h = S(() => a.prop ? je(a.prop, a.row) : []), A = S(() => a.prop && a.row ? a.row[a.prop.key] : null), k = S(() => {
       var $;
       return (($ = a.prop) == null ? void 0 : $.type) === "multi";
-    }), V = A(() => {
+    }), L = S(() => {
       var $;
       return !!(($ = a.prop) != null && $.creatable);
-    }), z = K(""), T = K(0), y = K(), N = K({ w: 0, h: 0 }), ae = We("at-tags"), O = A(() => k.value ? S.value ?? [] : S.value != null ? [S.value] : []), F = A(() => O.value.map(($) => h.value.find((D) => D.value === $)).filter(($) => !!$)), R = A(() => zl(h.value, z.value, k.value ? O.value : [])), Z = A(() => V.value && El(h.value, z.value)), C = A(() => R.value.length + (Z.value ? 1 : 0)), H = A(() => Ol(h.value)), E = ($) => ["at-tag", $ && $ !== "gray" && `at-tag--${$}`];
-    ke(z, () => {
-      T.value = 0;
+    }), E = K(""), V = K(0), y = K(), H = K({ w: 0, h: 0 }), ae = We("at-tags"), O = S(() => k.value ? A.value ?? [] : A.value != null ? [A.value] : []), P = S(() => O.value.map(($) => h.value.find((z) => z.value === $)).filter(($) => !!$)), R = S(() => zl(h.value, E.value, k.value ? O.value : [])), Z = S(() => L.value && El(h.value, E.value)), M = S(() => R.value.length + (Z.value ? 1 : 0)), F = S(() => Ol(h.value)), T = ($) => ["at-tag", $ && $ !== "gray" && `at-tag--${$}`];
+    fe(E, () => {
+      V.value = 0;
     });
-    function Y($) {
-      k.value ? (fe([...O.value, $.value], !1), z.value = "") : fe($.value);
+    function j($) {
+      k.value ? (ge([...O.value, $.value], !1), E.value = "") : ge($.value);
     }
     function ne() {
-      const $ = { value: Ie(), label: z.value.trim(), color: H.value };
-      o("createOption", $), Y($);
+      const $ = { value: Ie(), label: E.value.trim(), color: F.value };
+      o("createOption", $), j($);
     }
-    function M($) {
-      var D;
-      fe(O.value.filter((B) => B !== $), !1), (D = y.value) == null || D.focus();
+    function C($) {
+      var z;
+      ge(O.value.filter((B) => B !== $), !1), (z = y.value) == null || z.focus();
     }
     function I($) {
       var B;
-      const D = C.value;
-      $.key === "ArrowDown" ? ($.preventDefault(), D && (T.value = (T.value + 1) % D)) : $.key === "ArrowUp" ? ($.preventDefault(), D && (T.value = (T.value - 1 + D) % D)) : $.key === "Enter" ? ($.preventDefault(), T.value < R.value.length ? Y(R.value[T.value]) : Z.value && ne()) : $.key === "Tab" ? n.value = !1 : $.key === "Backspace" && !z.value && O.value.length && ($.preventDefault(), k.value ? fe(O.value.slice(0, -1), !1) : (B = a.prop) != null && B.required || fe(null, !1));
+      const z = M.value;
+      $.key === "ArrowDown" ? ($.preventDefault(), z && (V.value = (V.value + 1) % z)) : $.key === "ArrowUp" ? ($.preventDefault(), z && (V.value = (V.value - 1 + z) % z)) : $.key === "Enter" ? ($.preventDefault(), V.value < R.value.length ? j(R.value[V.value]) : Z.value && ne()) : $.key === "Tab" ? n.value = !1 : $.key === "Backspace" && !E.value && O.value.length && ($.preventDefault(), k.value ? ge(O.value.slice(0, -1), !1) : (B = a.prop) != null && B.required || ge(null, !1));
     }
     const q = [
       { value: "gray", label: "Gris" },
@@ -1382,17 +1395,17 @@ const Bl = ["aria-label"], Il = {
       { value: "purple", label: "Violet" },
       { value: "pink", label: "Rose" },
       { value: "red", label: "Rouge" }
-    ], X = K(!1), de = K(null), Te = K(null), ce = A(() => h.value.find(($) => $.value === Te.value) ?? null);
-    function Ye($, D) {
-      if (X.value && Te.value === D.value) {
+    ], X = K(!1), de = K(null), Te = K(null), ce = S(() => h.value.find(($) => $.value === Te.value) ?? null);
+    function Ye($, z) {
+      if (X.value && Te.value === z.value) {
         X.value = !1;
         return;
       }
-      de.value = $.currentTarget, Te.value = D.value, X.value = !0;
+      de.value = $.currentTarget, Te.value = z.value, X.value = !0;
     }
     function xe($) {
-      const D = $.trim();
-      ce.value && D && D !== ce.value.label && o("updateOption", ce.value.value, { label: D });
+      const z = $.trim();
+      ce.value && z && z !== ce.value.label && o("updateOption", ce.value.value, { label: z });
     }
     function Je($) {
       ce.value && o("updateOption", ce.value.value, { color: $ });
@@ -1405,15 +1418,15 @@ const Bl = ["aria-label"], Il = {
       var $;
       ($ = y.value) == null || $.focus();
     }
-    ke(n, ($) => {
+    fe(n, ($) => {
       var B;
       if (!$) {
         X.value = !1;
         return;
       }
-      i.value = S.value ?? "", z.value = "", T.value = 0;
-      const D = (B = a.anchor) == null ? void 0 : B.getBoundingClientRect();
-      N.value = { w: (D == null ? void 0 : D.width) ?? 0, h: (D == null ? void 0 : D.height) ?? 0 }, Ve(() => {
+      i.value = A.value ?? "", E.value = "", V.value = 0;
+      const z = (B = a.anchor) == null ? void 0 : B.getBoundingClientRect();
+      H.value = { w: (z == null ? void 0 : z.width) ?? 0, h: (z == null ? void 0 : z.height) ?? 0 }, Ve(() => {
         var we, De, Me;
         if (d.value === "tags") {
           (we = y.value) == null || we.focus();
@@ -1423,7 +1436,7 @@ const Bl = ["aria-label"], Il = {
         oe == null || oe.focus(), (Me = oe == null ? void 0 : oe.select) == null || Me.call(oe);
       });
     });
-    const it = A(() => {
+    const it = S(() => {
       n.value;
       const $ = Be();
       return [
@@ -1433,29 +1446,29 @@ const Bl = ["aria-label"], Il = {
         { label: "Dans une semaine", value: _t($, 7) }
       ];
     }), At = ($) => ({ ...a.row, [a.prop.key]: $ });
-    function fe($, D = !0) {
-      o("update", $), D && (n.value = !1);
+    function ge($, z = !0) {
+      o("update", $), z && (n.value = !1);
     }
     function St() {
-      var D;
+      var z;
       let $ = i.value;
-      ((D = a.prop) == null ? void 0 : D.type) === "number" && ($ = $ === "" || $ == null ? null : Number($)), $ !== S.value && o("update", $), n.value = !1;
+      ((z = a.prop) == null ? void 0 : z.type) === "number" && ($ = $ === "" || $ == null ? null : Number($)), $ !== A.value && o("update", $), n.value = !1;
     }
     function Vt() {
       var $;
       if (d.value === "input") {
-        let D = i.value;
-        (($ = a.prop) == null ? void 0 : $.type) === "number" && (D = D === "" ? null : Number(D)), D !== S.value && o("update", D);
+        let z = i.value;
+        (($ = a.prop) == null ? void 0 : $.type) === "number" && (z = z === "" ? null : Number(z)), z !== A.value && o("update", z);
       }
     }
-    return ($, D) => (t(), G($e, {
+    return ($, z) => (t(), W($e, {
       open: n.value,
-      "onUpdate:open": D[14] || (D[14] = (B) => n.value = B),
+      "onUpdate:open": z[14] || (z[14] = (B) => n.value = B),
       anchor: $.anchor,
       placement: d.value === "tags" ? "over" : "bottom",
       onClose: Vt
     }, {
-      default: U(() => [
+      default: N(() => [
         $.prop ? (t(), l("div", {
           key: 0,
           ref_key: "box",
@@ -1464,28 +1477,28 @@ const Bl = ["aria-label"], Il = {
           d.value === "tags" ? (t(), l("div", {
             key: 0,
             class: "at-tagedit",
-            style: ue({ width: Math.max(N.value.w, 240) + "px" })
+            style: ue({ width: Math.max(H.value.w, 240) + "px" })
           }, [
             r("div", {
               class: "at-tagedit__field",
-              style: ue({ minHeight: N.value.h + "px" }),
-              onMousedown: D[2] || (D[2] = ie((B) => {
+              style: ue({ minHeight: H.value.h + "px" }),
+              onMousedown: z[2] || (z[2] = ie((B) => {
                 var oe;
                 return (oe = y.value) == null ? void 0 : oe.focus();
               }, ["self", "prevent"]))
             }, [
-              (t(!0), l(_, null, P(F.value, (B) => (t(), l("span", {
+              (t(!0), l(_, null, U(P.value, (B) => (t(), l("span", {
                 key: B.value,
-                class: W(E(B.color))
+                class: Y(T(B.color))
               }, [
                 b(m(B.label) + " ", 1),
                 k.value ? (t(), l("button", {
                   key: 0,
                   type: "button",
                   "aria-label": `Retirer ${B.label}`,
-                  onMousedown: D[0] || (D[0] = ie(() => {
+                  onMousedown: z[0] || (z[0] = ie(() => {
                   }, ["prevent"])),
-                  onClick: (oe) => M(B.value)
+                  onClick: (oe) => C(B.value)
                 }, [
                   g(x, { name: "x" })
                 ], 40, _s)) : f("", !0)
@@ -1493,61 +1506,61 @@ const Bl = ["aria-label"], Il = {
               le(r("input", {
                 ref_key: "input",
                 ref: y,
-                "onUpdate:modelValue": D[1] || (D[1] = (B) => z.value = B),
+                "onUpdate:modelValue": z[1] || (z[1] = (B) => E.value = B),
                 type: "text",
                 role: "combobox",
                 "aria-autocomplete": "list",
                 "aria-expanded": "true",
-                "aria-controls": L(ae),
-                "aria-activedescendant": C.value ? `${L(ae)}-${T.value}` : void 0,
+                "aria-controls": D(ae),
+                "aria-activedescendant": M.value ? `${D(ae)}-${V.value}` : void 0,
                 "aria-label": $.prop.name,
                 autocomplete: "off",
                 spellcheck: "false",
                 onKeydown: I
               }, null, 40, $s), [
-                [Ae, z.value]
+                [Ae, E.value]
               ])
             ], 36),
             r("div", {
-              id: L(ae),
+              id: D(ae),
               class: "at-menu at-tagedit__menu",
               role: "listbox",
               "aria-label": $.prop.name,
               "aria-multiselectable": k.value || void 0
             }, [
-              z.value.trim() ? f("", !0) : (t(), l("div", Ms, m(V.value ? "Choisir, ou taper pour créer" : "Choisir une option"), 1)),
-              (t(!0), l(_, null, P(R.value, (B, oe) => (t(), l("div", {
-                id: `${L(ae)}-${oe}`,
+              E.value.trim() ? f("", !0) : (t(), l("div", Ms, m(L.value ? "Choisir, ou taper pour créer" : "Choisir une option"), 1)),
+              (t(!0), l(_, null, U(R.value, (B, oe) => (t(), l("div", {
+                id: `${D(ae)}-${oe}`,
                 key: B.value,
-                class: W(["at-menu-item", "at-tagedit__opt", oe === T.value && "is-active"]),
+                class: Y(["at-menu-item", "at-tagedit__opt", oe === V.value && "is-active"]),
                 role: "option",
                 "aria-selected": O.value.includes(B.value),
-                onMousedown: D[4] || (D[4] = ie(() => {
+                onMousedown: z[4] || (z[4] = ie(() => {
                 }, ["prevent"])),
-                onMousemove: (we) => T.value = oe,
-                onClick: (we) => Y(B)
+                onMousemove: (we) => V.value = oe,
+                onClick: (we) => j(B)
               }, [
                 r("span", {
-                  class: W(E(B.color))
+                  class: Y(T(B.color))
                 }, [
                   r("span", null, [
-                    b(m(L(Re)(B.label, z.value)[0]), 1),
-                    r("mark", null, m(L(Re)(B.label, z.value)[1]), 1),
-                    b(m(L(Re)(B.label, z.value)[2]), 1)
+                    b(m(D(Re)(B.label, E.value)[0]), 1),
+                    r("mark", null, m(D(Re)(B.label, E.value)[1]), 1),
+                    b(m(D(Re)(B.label, E.value)[2]), 1)
                   ])
                 ], 2),
-                !k.value && B.value === S.value ? (t(), G(x, {
+                !k.value && B.value === A.value ? (t(), W(x, {
                   key: 0,
                   name: "check",
                   class: "at-menu-check"
                 })) : f("", !0),
-                V.value ? (t(), l("button", {
+                L.value ? (t(), l("button", {
                   key: 1,
                   type: "button",
                   class: "at-tagedit__more",
                   "aria-label": `Modifier ${B.label}`,
                   "aria-expanded": X.value && Te.value === B.value,
-                  onMousedown: D[3] || (D[3] = ie(() => {
+                  onMousedown: z[3] || (z[3] = ie(() => {
                   }, ["prevent"])),
                   onClick: ie((we) => Ye(we, B), ["stop"])
                 }, [
@@ -1556,35 +1569,35 @@ const Bl = ["aria-label"], Il = {
               ], 42, Cs))), 128)),
               Z.value ? (t(), l("div", {
                 key: 1,
-                id: `${L(ae)}-${R.value.length}`,
-                class: W(["at-menu-item", "at-tagedit__opt", "at-tagedit__create", T.value === R.value.length && "is-active"]),
+                id: `${D(ae)}-${R.value.length}`,
+                class: Y(["at-menu-item", "at-tagedit__opt", "at-tagedit__create", V.value === R.value.length && "is-active"]),
                 role: "option",
                 "aria-selected": "false",
-                onMousedown: D[5] || (D[5] = ie(() => {
+                onMousedown: z[5] || (z[5] = ie(() => {
                 }, ["prevent"])),
-                onMousemove: D[6] || (D[6] = (B) => T.value = R.value.length),
+                onMousemove: z[6] || (z[6] = (B) => V.value = R.value.length),
                 onClick: ne
               }, [
                 g(x, { name: "plus" }),
                 b("Créer "),
                 r("span", {
-                  class: W(E(H.value))
-                }, m(z.value.trim()), 3)
+                  class: Y(T(F.value))
+                }, m(E.value.trim()), 3)
               ], 42, Ss)) : f("", !0),
-              C.value ? f("", !0) : (t(), l("div", Vs, m(z.value.trim() ? "Aucune option ne correspond" : "Toutes les options sont choisies"), 1)),
+              M.value ? f("", !0) : (t(), l("div", Vs, m(E.value.trim() ? "Aucune option ne correspond" : "Toutes les options sont choisies"), 1)),
               r("div", Ts, [
                 r("span", null, [
                   g(Le, null, {
-                    default: U(() => [
+                    default: N(() => [
                       b("↵")
                     ]),
                     _: 1
                   }),
-                  b(m(Z.value && T.value === R.value.length ? "créer" : "choisir"), 1)
+                  b(m(Z.value && V.value === R.value.length ? "créer" : "choisir"), 1)
                 ]),
                 r("span", null, [
                   g(Le, null, {
-                    default: U(() => [
+                    default: N(() => [
                       b("Échap")
                     ]),
                     _: 1
@@ -1593,7 +1606,7 @@ const Bl = ["aria-label"], Il = {
                 ]),
                 k.value ? (t(), l("span", Ls, [
                   g(Le, null, {
-                    default: U(() => [
+                    default: N(() => [
                       b("⌫")
                     ]),
                     _: 1
@@ -1604,12 +1617,12 @@ const Bl = ["aria-label"], Il = {
             ], 8, ws),
             g($e, {
               open: X.value,
-              "onUpdate:open": D[9] || (D[9] = (B) => X.value = B),
+              "onUpdate:open": z[9] || (z[9] = (B) => X.value = B),
               anchor: de.value,
               placement: "right",
               onClose: rt
             }, {
-              default: U(() => [
+              default: N(() => [
                 ce.value ? (t(), l("div", {
                   key: 0,
                   class: "at-menu at-tagedit__panel",
@@ -1622,8 +1635,8 @@ const Bl = ["aria-label"], Il = {
                     type: "text",
                     value: ce.value.label,
                     "aria-label": "Nom de l’option",
-                    onChange: D[7] || (D[7] = (B) => xe(B.target.value)),
-                    onKeydown: D[8] || (D[8] = la(ie((B) => {
+                    onChange: z[7] || (z[7] = (B) => xe(B.target.value)),
+                    onKeydown: z[8] || (z[8] = la(ie((B) => {
                       xe(B.target.value), X.value = !1, rt();
                     }, ["prevent"]), ["enter"]))
                   }, null, 40, zs)),
@@ -1638,7 +1651,7 @@ const Bl = ["aria-label"], Il = {
                   ]),
                   Es,
                   Os,
-                  (t(), l(_, null, P(q, (B) => r("button", {
+                  (t(), l(_, null, U(q, (B) => r("button", {
                     key: B.value,
                     type: "button",
                     class: "at-menu-item",
@@ -1647,10 +1660,10 @@ const Bl = ["aria-label"], Il = {
                     onClick: (oe) => Je(B.value)
                   }, [
                     r("span", {
-                      class: W([...E(B.value), "at-tagedit__swatch"])
+                      class: Y([...T(B.value), "at-tagedit__swatch"])
                     }, null, 2),
                     b(m(B.label) + " ", 1),
-                    (ce.value.color ?? "gray") === B.value ? (t(), G(x, {
+                    (ce.value.color ?? "gray") === B.value ? (t(), W(x, {
                       key: 0,
                       name: "check",
                       class: "at-menu-check"
@@ -1667,19 +1680,19 @@ const Bl = ["aria-label"], Il = {
             "aria-label": $.prop.name
           }, [
             r("div", Qs, m($.prop.name), 1),
-            (t(!0), l(_, null, P(h.value, (B) => (t(), l("button", {
+            (t(!0), l(_, null, U(h.value, (B) => (t(), l("button", {
               key: B.value,
               type: "button",
               class: "at-menu-item",
               role: "option",
-              "aria-selected": B.value === S.value,
-              onClick: (oe) => fe(B.value)
+              "aria-selected": B.value === A.value,
+              onClick: (oe) => ge(B.value)
             }, [
               g(Ce, {
                 prop: $.prop,
                 row: At(B.value)
               }, null, 8, ["prop", "row"]),
-              B.value === S.value ? (t(), G(x, {
+              B.value === A.value ? (t(), W(x, {
                 key: 0,
                 name: "check",
                 class: "at-menu-check"
@@ -1691,7 +1704,7 @@ const Bl = ["aria-label"], Il = {
               r("button", {
                 type: "button",
                 class: "at-menu-item",
-                onClick: D[10] || (D[10] = (B) => fe(null))
+                onClick: z[10] || (z[10] = (B) => ge(null))
               }, [
                 g(x, { name: "x" }),
                 b("Effacer")
@@ -1702,27 +1715,27 @@ const Bl = ["aria-label"], Il = {
             r("input", {
               type: "date",
               class: "at-input",
-              value: S.value ?? "",
+              value: A.value ?? "",
               "aria-label": $.prop.name,
-              onChange: D[11] || (D[11] = (B) => fe(B.target.value || null, !1))
+              onChange: z[11] || (z[11] = (B) => ge(B.target.value || null, !1))
             }, null, 40, Hs),
             r("div", qs, [
-              (t(!0), l(_, null, P(it.value, (B) => (t(), l("button", {
+              (t(!0), l(_, null, U(it.value, (B) => (t(), l("button", {
                 key: B.label,
                 type: "button",
                 class: "at-menu-item",
-                onClick: (oe) => fe(B.value)
+                onClick: (oe) => ge(B.value)
               }, [
                 b(m(B.label), 1),
-                r("span", Rs, m(L(lt)(B.value)), 1)
+                r("span", Rs, m(D(lt)(B.value)), 1)
               ], 8, Ks))), 128)),
               $.prop.required ? f("", !0) : (t(), l(_, { key: 0 }, [
                 js,
                 r("button", {
                   type: "button",
                   class: "at-menu-item",
-                  disabled: !S.value,
-                  onClick: D[12] || (D[12] = (B) => fe(null))
+                  disabled: !A.value,
+                  onClick: z[12] || (z[12] = (B) => ge(null))
                 }, [
                   g(x, { name: "x" }),
                   b("Effacer")
@@ -1732,7 +1745,7 @@ const Bl = ["aria-label"], Il = {
           ])) : (t(), l("div", Ws, [
             r("span", Ys, m($.prop.name), 1),
             le(r("input", {
-              "onUpdate:modelValue": D[13] || (D[13] = (B) => i.value = B),
+              "onUpdate:modelValue": z[13] || (z[13] = (B) => i.value = B),
               class: "at-input",
               type: $.prop.type === "number" ? "number" : "text",
               "aria-label": $.prop.name,
@@ -1865,26 +1878,26 @@ const Bl = ["aria-label"], Il = {
     resettable: { type: Boolean },
     context: {}
   }, {
-    views: { default: () => [da("Tableau", "table")] },
+    views: { default: () => [ca("Tableau", "table")] },
     viewsModifiers: {},
     activeView: { default: "" },
     activeViewModifiers: {}
   }),
   emits: /* @__PURE__ */ se(["update", "create", "open", "delete", "createOption", "updateOption", "deleteOption", "resetViews"], ["update:views", "update:activeView"]),
   setup(s, { emit: e }) {
-    const n = s, a = re(s, "views"), o = re(s, "activeView"), i = e, v = (c) => c[n.rowKey], d = A(() => a.value.find((c) => c.id === o.value) ?? a.value[0]), h = A(() => Object.fromEntries(n.schema.map((c) => [c.key, c]))), S = A(() => n.schema.find((c) => c.type === "title")), k = A(() => {
+    const n = s, a = re(s, "views"), o = re(s, "activeView"), i = e, v = (c) => c[n.rowKey], d = S(() => a.value.find((c) => c.id === o.value) ?? a.value[0]), h = S(() => Object.fromEntries(n.schema.map((c) => [c.key, c]))), A = S(() => n.schema.find((c) => c.type === "title")), k = S(() => {
       var c;
-      return ((c = S.value) == null ? void 0 : c.key) ?? n.rowKey;
-    }), V = A(() => {
+      return ((c = A.value) == null ? void 0 : c.key) ?? n.rowKey;
+    }), L = S(() => {
       const c = (d.value.order ?? []).filter((Q) => h.value[Q]);
       for (const Q of n.schema) c.includes(Q.key) || c.push(Q.key);
       const p = c.indexOf(k.value);
       return p > 0 && (c.splice(p, 1), c.unshift(k.value)), c.map((Q) => h.value[Q]);
-    }), z = A(() => V.value.filter((c) => c.type === "title" || !d.value.hidden.includes(c.key))), T = A(() => z.value.filter((c) => c.type !== "title")), y = A(() => n.schema.filter(nt)), N = A(() => n.schema.filter((c) => c.type === "date")), ae = A(() => n.schema.find((c) => c.type === "status")), O = K(""), F = A(() => n.context ?? {}), R = A(() => Cl(n.rows, n.schema, d.value, O.value, F.value)), Z = A(() => {
+    }), E = S(() => L.value.filter((c) => c.type === "title" || !d.value.hidden.includes(c.key))), V = S(() => E.value.filter((c) => c.type !== "title")), y = S(() => n.schema.filter(nt)), H = S(() => n.schema.filter((c) => c.type === "date")), ae = S(() => n.schema.find((c) => c.type === "status")), O = K(""), P = S(() => n.context ?? {}), R = S(() => Cl(n.rows, n.schema, d.value, O.value, P.value)), Z = S(() => {
       var p, Q;
       const c = d.value.groupBy && h.value[d.value.groupBy] ? d.value.groupBy : null;
       return d.value.layout === "board" && !c ? ((p = ae.value) == null ? void 0 : p.key) ?? ((Q = y.value[0]) == null ? void 0 : Q.key) ?? null : c;
-    }), C = A(() => Z.value && d.value.layout !== "calendar" ? h.value[Z.value] : null), H = A(() => Al(R.value, C.value, d.value.layout === "board")), E = (c) => ({ [Z.value]: c === kt ? null : c }), Y = A(() => d.value.filters.filter((c) => h.value[c.prop])), ne = A(() => d.value.sorts.filter((c) => h.value[c.prop])), M = K({}), I = K(null), q = K(null);
+    }), M = S(() => Z.value && d.value.layout !== "calendar" ? h.value[Z.value] : null), F = S(() => Al(R.value, M.value, d.value.layout === "board")), T = (c) => ({ [Z.value]: c === kt ? null : c }), j = S(() => d.value.filters.filter((c) => h.value[c.prop])), ne = S(() => d.value.sorts.filter((c) => h.value[c.prop])), C = K({}), I = K(null), q = K(null);
     function X(c, p) {
       if (I.value === c && q.value === p) {
         I.value = null;
@@ -1892,11 +1905,11 @@ const Bl = ["aria-label"], Il = {
       }
       q.value = p ?? null, I.value = c;
     }
-    const de = (c) => A({ get: () => I.value === c, set: (p) => {
+    const de = (c) => S({ get: () => I.value === c, set: (p) => {
       !p && I.value === c && (I.value = null);
     } }), Te = de("add"), ce = de("filter"), Ye = de("sort"), xe = de("group"), Je = de("props"), Ze = de("settings");
     function rt(c) {
-      c.id === d.value.id ? X("settings", M.value[c.id]) : o.value = c.id;
+      c.id === d.value.id ? X("settings", C.value[c.id]) : o.value = c.id;
     }
     const it = () => {
       var c, p;
@@ -1904,10 +1917,10 @@ const Bl = ["aria-label"], Il = {
     };
     function At(c) {
       if (n.lockViews) return;
-      const p = da(ft.find((Q) => Q.value === c).label, c, { groupBy: c === "board" ? it() : null });
-      a.value.push(p), o.value = p.id, I.value = null, Ve(() => X("settings", M.value[p.id]));
+      const p = ca(ft.find((Q) => Q.value === c).label, c, { groupBy: c === "board" ? it() : null });
+      a.value.push(p), o.value = p.id, I.value = null, Ve(() => X("settings", C.value[p.id]));
     }
-    function fe(c) {
+    function ge(c) {
       d.value.layout = c, c === "board" && !d.value.groupBy && (d.value.groupBy = it());
     }
     function St() {
@@ -1923,10 +1936,10 @@ const Bl = ["aria-label"], Il = {
     function $() {
       I.value = null, i("resetViews");
     }
-    ke(() => d.value.id, () => {
+    fe(() => d.value.id, () => {
       pe.value = [], I.value = null;
     });
-    function D() {
+    function z() {
       if (d.value.locked) return;
       const c = n.schema.find((p) => p.type !== "title" && p.type !== "progress") ?? n.schema[0];
       d.value.filters.push({ id: Ie(), prop: c.key, op: It[c.type][0], value: "" });
@@ -1937,7 +1950,7 @@ const Bl = ["aria-label"], Il = {
     const oe = (c) => {
       var p;
       return It[(p = h.value[c.prop]) == null ? void 0 : p.type] ?? [];
-    }, we = (c) => !wa.includes(c.op);
+    }, we = (c) => !Ma.includes(c.op);
     function De(c) {
       const p = h.value[c.prop];
       return p ? nt(p) || p.type === "multi" ? "options" : p.type === "date" ? "date" : p.type === "number" || p.type === "progress" ? "number" : "text" : "text";
@@ -1950,9 +1963,9 @@ const Bl = ["aria-label"], Il = {
         const u = De(c);
         Q = c.value === Nt && p.type === "person" ? "Moi" : u === "options" ? ((me = $t(p, void 0, c.value)) == null ? void 0 : me.label) ?? "…" : u === "date" ? lt(c.value) || "…" : c.value === "" ? "…" : c.value;
       }
-      return { name: p.name, op: ia[c.op], val: Q };
+      return { name: p.name, op: ua[c.op], val: Q };
     }
-    function Qa() {
+    function xa() {
       const c = d.value.sorts.map((Q) => Q.prop), p = n.schema.find((Q) => !c.includes(Q.key)) ?? n.schema[0];
       d.value.sorts.push({ id: Ie(), prop: p.key, dir: "asc" });
     }
@@ -1960,14 +1973,14 @@ const Bl = ["aria-label"], Il = {
       const Q = c.indexOf(p);
       Q >= 0 && c.splice(Q, 1);
     };
-    function xa() {
+    function Fa() {
       d.value.locked || d.value.filters.splice(0), d.value.sorts.splice(0);
     }
-    const Fa = A(() => !d.value.locked || ne.value.length > 0);
+    const Pa = S(() => !d.value.locked || ne.value.length > 0);
     function Tt(c) {
       d.value.groupBy = c, d.value.collapsed = [], d.value.layout !== "board" && (I.value = null);
     }
-    function Pa(c) {
+    function Ua(c) {
       const p = d.value.hidden, Q = p.indexOf(c.key);
       Q < 0 ? p.push(c.key) : p.splice(Q, 1);
     }
@@ -1975,13 +1988,13 @@ const Bl = ["aria-label"], Il = {
       d.value.hidden = c ? [] : n.schema.filter((p) => p.type !== "title").map((p) => p.key);
     }
     const Xe = K(null), ut = K(null);
-    function Ua(c) {
+    function Na(c) {
       if (Xe.value == null) return;
-      const p = V.value.map((me) => me.key), [Q] = p.splice(Xe.value, 1);
+      const p = L.value.map((me) => me.key), [Q] = p.splice(Xe.value, 1);
       p.splice(c, 0, Q), d.value.order = p, Xe.value = null, ut.value = null;
     }
-    const Lt = (c) => d.value.widths[c.key] ?? c.width ?? 160, Na = A(() => 36 + z.value.reduce((c, p) => c + Lt(p), 0) + 44), Dt = K(null);
-    function Ha(c, p) {
+    const Lt = (c) => d.value.widths[c.key] ?? c.width ?? 160, Ha = S(() => 36 + E.value.reduce((c, p) => c + Lt(p), 0) + 44), Dt = K(null);
+    function qa(c, p) {
       const Q = c.clientX, me = Lt(p);
       Dt.value = p.key;
       const u = (ee) => {
@@ -1991,15 +2004,15 @@ const Bl = ["aria-label"], Il = {
       };
       window.addEventListener("mousemove", u), window.addEventListener("mouseup", w);
     }
-    const pe = K([]), zt = A(() => R.value.length > 0 && R.value.every((c) => pe.value.includes(v(c)))), qa = A(() => pe.value.length > 0 && !zt.value);
-    function Ka(c) {
+    const pe = K([]), zt = S(() => R.value.length > 0 && R.value.every((c) => pe.value.includes(v(c)))), Ka = S(() => pe.value.length > 0 && !zt.value);
+    function Ra(c) {
       const p = pe.value.indexOf(v(c));
       p < 0 ? pe.value.push(v(c)) : pe.value.splice(p, 1);
     }
-    function Ra() {
+    function ja() {
       pe.value = zt.value ? [] : R.value.map(v);
     }
-    function ja() {
+    function Ga() {
       i("delete", n.rows.filter((c) => pe.value.includes(v(c)))), pe.value = [];
     }
     const Fe = (c) => d.value.collapsed.includes(c);
@@ -2010,7 +2023,7 @@ const Bl = ["aria-label"], Il = {
     function Et(c) {
       const p = R.value;
       if (c.type === "title") return { label: "Total", value: String(p.length) };
-      if (c.type === "number") return { label: "Somme", value: Ca.format(p.reduce((Q, me) => Q + (Number(he(me, c)) || 0), 0)) + (c.suffix ?? "") };
+      if (c.type === "number") return { label: "Somme", value: Aa.format(p.reduce((Q, me) => Q + (Number(he(me, c)) || 0), 0)) + (c.suffix ?? "") };
       if (c.type === "progress" && p.length) return { label: "Moyenne", value: Math.round(p.reduce((Q, me) => Q + Number(he(me, c)), 0) / p.length) + " %" };
       if (c.type === "date" && c.overdue) {
         const Q = p.filter((me) => c.overdue(me)).length;
@@ -2018,8 +2031,8 @@ const Bl = ["aria-label"], Il = {
       }
       return c.type === "checkbox" ? { label: "Cochées", value: String(p.filter((Q) => he(Q, c)).length) } : null;
     }
-    const ve = nn(null), ea = K(null), Ot = K(!1);
-    function Ga(c, p, Q) {
+    const ve = ln(null), ea = K(null), Ot = K(!1);
+    function Wa(c, p, Q) {
       if (Q.type === "title") {
         i("open", p);
         return;
@@ -2033,7 +2046,7 @@ const Bl = ["aria-label"], Il = {
       }
     }
     function ze(c = {}) {
-      i("create", { ...Vl(d.value, n.schema, F.value), ...c });
+      i("create", { ...Vl(d.value, n.schema, P.value), ...c });
     }
     const dt = K(null), Pe = K(null);
     function ta(c, p) {
@@ -2043,40 +2056,40 @@ const Bl = ["aria-label"], Il = {
       dt.value = null, Pe.value = null;
     }
     const aa = () => n.rows.find((c) => v(c) === dt.value);
-    function Wa(c) {
+    function Ya(c) {
       const p = aa();
       p && Z.value && i("update", p, Z.value, c === kt ? null : c), ct();
     }
-    function Ya(c) {
+    function Ja(c) {
       const p = aa();
       p && _e.value && i("update", p, _e.value, c), ct();
     }
-    const _e = A(() => {
+    const _e = S(() => {
       var c;
-      return d.value.dateProp && h.value[d.value.dateProp] ? d.value.dateProp : ((c = N.value[0]) == null ? void 0 : c.key) ?? null;
-    }), pt = A(() => d.value.month ?? Be().slice(0, 7)), Ja = A(() => Sl(pt.value).map((c) => ({ ...c, today: c.iso === Be(), rows: _e.value ? R.value.filter((p) => p[_e.value] === c.iso) : [] }))), na = A(() => _e.value ? R.value.filter((c) => !c[_e.value]).length : 0), Za = { neutral: "var(--ink-subtle)", info: "var(--info)", success: "var(--success)", warning: "var(--warning)", danger: "var(--danger)" }, Xa = (c) => {
+      return d.value.dateProp && h.value[d.value.dateProp] ? d.value.dateProp : ((c = H.value[0]) == null ? void 0 : c.key) ?? null;
+    }), pt = S(() => d.value.month ?? Be().slice(0, 7)), Za = S(() => Sl(pt.value).map((c) => ({ ...c, today: c.iso === Be(), rows: _e.value ? R.value.filter((p) => p[_e.value] === c.iso) : [] }))), na = S(() => _e.value ? R.value.filter((c) => !c[_e.value]).length : 0), Xa = { neutral: "var(--ink-subtle)", info: "var(--info)", success: "var(--success)", warning: "var(--warning)", danger: "var(--danger)" }, en = (c) => {
       const p = ae.value, Q = p ? $t(p, c, c[p.key]) : void 0;
-      return Za[(Q == null ? void 0 : Q.tone) ?? "neutral"];
-    }, en = (c) => {
+      return Xa[(Q == null ? void 0 : Q.tone) ?? "neutral"];
+    }, tn = (c) => {
       const p = ae.value;
       if (!p) return !1;
       const Q = je(p, c);
       return Q.length > 0 && c[p.key] === Q[Q.length - 1].value;
-    }, vt = (c, p = 0) => n.iconTools ? { iconOnly: !p, label: c, title: c, "aria-label": p ? `${c} (${p})` : c } : {}, tn = (c) => {
+    }, vt = (c, p = 0) => n.iconTools ? { iconOnly: !p, label: c, title: c, "aria-label": p ? `${c} (${p})` : c } : {}, an = (c) => {
       var p;
       return ((p = ft.find((Q) => Q.value === c)) == null ? void 0 : p.icon) ?? "table";
-    }, mt = A(() => C.value ? `Sans ${C.value.name.toLowerCase()}` : "");
+    }, mt = S(() => M.value ? `Sans ${M.value.name.toLowerCase()}` : "");
     return (c, p) => {
       var Q, me;
       return t(), l("section", Zs, [
         r("div", Xs, [
           c.hideViews ? f("", !0) : (t(), l(_, { key: 0 }, [
             r("div", eo, [
-              (t(!0), l(_, null, P(a.value, (u) => (t(), l("button", {
+              (t(!0), l(_, null, U(a.value, (u) => (t(), l("button", {
                 key: u.id,
                 ref_for: !0,
                 ref: (w) => {
-                  w && (M.value[u.id] = w);
+                  w && (C.value[u.id] = w);
                 },
                 type: "button",
                 class: "at-tab",
@@ -2086,10 +2099,10 @@ const Bl = ["aria-label"], Il = {
                 onClick: (w) => rt(u)
               }, [
                 g(x, {
-                  name: tn(u.layout)
+                  name: an(u.layout)
                 }, null, 8, ["name"]),
                 b(m(u.name), 1),
-                u.locked ? (t(), G(x, {
+                u.locked ? (t(), W(x, {
                   key: 0,
                   name: "lock",
                   class: "at-dv-lock",
@@ -2097,7 +2110,7 @@ const Bl = ["aria-label"], Il = {
                 })) : f("", !0)
               ], 8, to))), 128))
             ]),
-            c.lockViews ? f("", !0) : (t(), G(te, {
+            c.lockViews ? f("", !0) : (t(), W(te, {
               key: 0,
               variant: "ghost",
               size: "sm",
@@ -2108,29 +2121,29 @@ const Bl = ["aria-label"], Il = {
             }))
           ], 64)),
           r("div", ao, [
-            g(te, ye(vt("Filtrer", Y.value.length), {
+            g(te, be(vt("Filtrer", j.value.length), {
               variant: "ghost",
               size: "sm",
               icon: "filter",
-              class: { "is-on": Y.value.length },
+              class: { "is-on": j.value.length },
               onClick: p[1] || (p[1] = (u) => X("filter", u.currentTarget))
             }), {
-              default: U(() => [
+              default: N(() => [
                 c.iconTools ? f("", !0) : (t(), l(_, { key: 0 }, [
                   b("Filtrer")
                 ], 64)),
-                Y.value.length ? (t(), l("span", no, m(Y.value.length), 1)) : f("", !0)
+                j.value.length ? (t(), l("span", no, m(j.value.length), 1)) : f("", !0)
               ]),
               _: 1
             }, 16, ["class"]),
-            g(te, ye(vt("Trier", ne.value.length), {
+            g(te, be(vt("Trier", ne.value.length), {
               variant: "ghost",
               size: "sm",
               icon: "sort",
               class: { "is-on": ne.value.length },
               onClick: p[2] || (p[2] = (u) => X("sort", u.currentTarget))
             }), {
-              default: U(() => [
+              default: N(() => [
                 c.iconTools ? f("", !0) : (t(), l(_, { key: 0 }, [
                   b("Trier")
                 ], 64)),
@@ -2138,25 +2151,25 @@ const Bl = ["aria-label"], Il = {
               ]),
               _: 1
             }, 16, ["class"]),
-            d.value.layout !== "calendar" ? (t(), G(te, ye({ key: 0 }, vt("Grouper"), {
+            d.value.layout !== "calendar" ? (t(), W(te, be({ key: 0 }, vt("Grouper"), {
               variant: "ghost",
               size: "sm",
               icon: "group",
               class: { "is-on": d.value.groupBy },
               onClick: p[3] || (p[3] = (u) => X("group", u.currentTarget))
             }), {
-              default: U(() => [
+              default: N(() => [
                 b("Grouper")
               ]),
               _: 1
             }, 16, ["class"])) : f("", !0),
-            g(te, ye(vt("Propriétés"), {
+            g(te, be(vt("Propriétés"), {
               variant: "ghost",
               size: "sm",
               icon: "eye",
               onClick: p[4] || (p[4] = (u) => X("props", u.currentTarget))
             }), {
-              default: U(() => [
+              default: N(() => [
                 b("Propriétés")
               ]),
               _: 1
@@ -2172,7 +2185,7 @@ const Bl = ["aria-label"], Il = {
                 [Ae, O.value]
               ])
             ]),
-            c.hideViews ? f("", !0) : (t(), G(te, {
+            c.hideViews ? f("", !0) : (t(), W(te, {
               key: 1,
               variant: "ghost",
               size: "sm",
@@ -2187,15 +2200,15 @@ const Bl = ["aria-label"], Il = {
               icon: "plus",
               onClick: p[7] || (p[7] = (u) => ze())
             }, {
-              default: U(() => [
+              default: N(() => [
                 b(m(c.newLabel), 1)
               ]),
               _: 1
             })
           ])
         ]),
-        Y.value.length || ne.value.length ? (t(), l("div", oo, [
-          (t(!0), l(_, null, P(Y.value, (u) => (t(), l("button", {
+        j.value.length || ne.value.length ? (t(), l("div", oo, [
+          (t(!0), l(_, null, U(j.value, (u) => (t(), l("button", {
             key: u.id,
             type: "button",
             class: "at-dv-chip",
@@ -2205,7 +2218,7 @@ const Bl = ["aria-label"], Il = {
             b(m(Me(u).name) + " " + m(Me(u).op) + " ", 1),
             r("b", null, m(Me(u).val), 1)
           ]))), 128)),
-          (t(!0), l(_, null, P(ne.value, (u) => (t(), l("button", {
+          (t(!0), l(_, null, U(ne.value, (u) => (t(), l("button", {
             key: u.id,
             type: "button",
             class: "at-dv-chip",
@@ -2215,13 +2228,13 @@ const Bl = ["aria-label"], Il = {
             b(m(h.value[u.prop].name) + " ", 1),
             r("b", null, m(u.dir === "asc" ? "↑" : "↓"), 1)
           ]))), 128)),
-          Fa.value ? (t(), G(te, {
+          Pa.value ? (t(), W(te, {
             key: 0,
             variant: "ghost",
             size: "sm",
-            onClick: xa
+            onClick: Fa
           }, {
-            default: U(() => [
+            default: N(() => [
               b(m(d.value.locked ? "Effacer les tris" : "Tout effacer"), 1)
             ]),
             _: 1
@@ -2231,11 +2244,11 @@ const Bl = ["aria-label"], Il = {
           r("div", ro, [
             r("table", {
               class: "at-table at-dv-table",
-              style: ue({ width: Na.value + "px", minWidth: "100%" })
+              style: ue({ width: Ha.value + "px", minWidth: "100%" })
             }, [
               r("colgroup", null, [
                 io,
-                (t(!0), l(_, null, P(z.value, (u) => (t(), l("col", {
+                (t(!0), l(_, null, U(E.value, (u) => (t(), l("col", {
                   key: u.key,
                   style: ue({ width: Lt(u) + "px" })
                 }, null, 4))), 128)),
@@ -2249,24 +2262,24 @@ const Bl = ["aria-label"], Il = {
                       class: "at-check",
                       "aria-label": "Tout sélectionner",
                       checked: zt.value,
-                      indeterminate: qa.value,
-                      onChange: Ra
+                      indeterminate: Ka.value,
+                      onChange: ja
                     }, null, 40, po)
                   ]),
-                  (t(!0), l(_, null, P(z.value, (u) => (t(), l("th", {
+                  (t(!0), l(_, null, U(E.value, (u) => (t(), l("th", {
                     key: u.key,
-                    class: W({ "at-num": u.type === "number" })
+                    class: Y({ "at-num": u.type === "number" })
                   }, [
                     r("span", vo, [
                       g(x, {
-                        name: L(gt)(u)
+                        name: D(gt)(u)
                       }, null, 8, ["name"]),
                       b(m(u.name), 1)
                     ]),
                     r("span", {
-                      class: W(["at-dv-resize", Dt.value === u.key && "on"]),
+                      class: Y(["at-dv-resize", Dt.value === u.key && "on"]),
                       "aria-hidden": "true",
-                      onMousedown: ie((w) => Ha(w, u), ["prevent"])
+                      onMousedown: ie((w) => qa(w, u), ["prevent"])
                     }, null, 42, mo)
                   ], 2))), 128)),
                   r("th", ho, [
@@ -2281,12 +2294,12 @@ const Bl = ["aria-label"], Il = {
                   ])
                 ])
               ]),
-              (t(!0), l(_, null, P(H.value, (u) => (t(), l("tbody", {
+              (t(!0), l(_, null, U(F.value, (u) => (t(), l("tbody", {
                 key: u.key
               }, [
-                C.value ? (t(), l("tr", fo, [
+                M.value ? (t(), l("tr", fo, [
                   r("td", {
-                    colspan: z.value.length + 2
+                    colspan: E.value.length + 2
                   }, [
                     r("button", {
                       type: "button",
@@ -2296,19 +2309,19 @@ const Bl = ["aria-label"], Il = {
                     }, [
                       g(x, {
                         name: "chevron-down",
-                        class: W({ "at-rot": Fe(u.key) })
+                        class: Y({ "at-rot": Fe(u.key) })
                       }, null, 8, ["class"]),
-                      u.option ? (t(), G(Ce, {
+                      u.option ? (t(), W(Ce, {
                         key: 0,
-                        prop: C.value,
-                        row: E(u.key)
+                        prop: M.value,
+                        row: T(u.key)
                       }, null, 8, ["prop", "row"])) : (t(), l("span", bo, m(mt.value), 1)),
                       r("span", ko, m(u.rows.length), 1)
                     ], 8, yo)
                   ], 8, go)
                 ])) : f("", !0),
                 Fe(u.key) ? f("", !0) : (t(), l(_, { key: 1 }, [
-                  (t(!0), l(_, null, P(u.rows, (w) => (t(), l("tr", {
+                  (t(!0), l(_, null, U(u.rows, (w) => (t(), l("tr", {
                     key: v(w),
                     "aria-selected": pe.value.includes(v(w)) ? "true" : void 0
                   }, [
@@ -2318,13 +2331,13 @@ const Bl = ["aria-label"], Il = {
                         class: "at-check",
                         "aria-label": "Sélectionner la ligne",
                         checked: pe.value.includes(v(w)),
-                        onChange: (ee) => Ka(w)
+                        onChange: (ee) => Ra(w)
                       }, null, 40, wo)
                     ]),
-                    (t(!0), l(_, null, P(z.value, (ee) => (t(), l("td", {
+                    (t(!0), l(_, null, U(E.value, (ee) => (t(), l("td", {
                       key: ee.key,
-                      class: W({ "at-num": ee.type === "number", "at-dv-titlecell": ee.type === "title", "is-edit": ee.type !== "title" && L(at)(ee) }),
-                      onClick: (ge) => Ga(ge, w, ee)
+                      class: Y({ "at-num": ee.type === "number", "at-dv-titlecell": ee.type === "title", "is-edit": ee.type !== "title" && D(at)(ee) }),
+                      onClick: (ye) => Wa(ye, w, ee)
                     }, [
                       g(Ce, {
                         prop: ee,
@@ -2334,7 +2347,7 @@ const Bl = ["aria-label"], Il = {
                         key: 0,
                         type: "button",
                         class: "at-dv-open",
-                        onClick: ie((ge) => i("open", w), ["stop"])
+                        onClick: ie((ye) => i("open", w), ["stop"])
                       }, "Ouvrir", 8, Co)) : f("", !0)
                     ], 10, Mo))), 128)),
                     Ao
@@ -2342,12 +2355,12 @@ const Bl = ["aria-label"], Il = {
                   r("tr", So, [
                     Vo,
                     r("td", {
-                      colspan: z.value.length + 1
+                      colspan: E.value.length + 1
                     }, [
                       r("button", {
                         type: "button",
                         class: "at-dv-new",
-                        onClick: (w) => ze(C.value ? E(u.key) : {})
+                        onClick: (w) => ze(M.value ? T(u.key) : {})
                       }, [
                         g(x, { name: "plus" }),
                         b(m(c.newLabel), 1)
@@ -2359,9 +2372,9 @@ const Bl = ["aria-label"], Il = {
               r("tfoot", null, [
                 r("tr", null, [
                   Do,
-                  (t(!0), l(_, null, P(z.value, (u) => (t(), l("td", {
+                  (t(!0), l(_, null, U(E.value, (u) => (t(), l("td", {
                     key: u.key,
-                    class: W({ "at-num": u.type === "number" })
+                    class: Y({ "at-num": u.type === "number" })
                   }, [
                     Et(u) ? (t(), l(_, { key: 0 }, [
                       b(m(Et(u).label) + " ", 1),
@@ -2382,9 +2395,9 @@ const Bl = ["aria-label"], Il = {
               variant: "danger",
               size: "sm",
               icon: "trash",
-              onClick: ja
+              onClick: Ga
             }, {
-              default: U(() => [
+              default: N(() => [
                 b("Supprimer")
               ]),
               _: 1
@@ -2394,27 +2407,27 @@ const Bl = ["aria-label"], Il = {
               size: "sm",
               onClick: p[11] || (p[11] = (u) => pe.value = [])
             }, {
-              default: U(() => [
+              default: N(() => [
                 b("Désélectionner")
               ]),
               _: 1
             })
           ])) : f("", !0)
         ], 64)) : d.value.layout === "board" ? (t(), l("div", Bo, [
-          C.value ? (t(!0), l(_, { key: 1 }, P(H.value, (u) => {
+          M.value ? (t(!0), l(_, { key: 1 }, U(F.value, (u) => {
             var w;
             return t(), l("div", {
               key: u.key,
-              class: W(["at-dv-col", Pe.value === u.key && "over"]),
+              class: Y(["at-dv-col", Pe.value === u.key && "over"]),
               onDragover: ie((ee) => Pe.value = u.key, ["prevent"]),
               onDragleave: p[12] || (p[12] = ie((ee) => Pe.value = null, ["self"])),
-              onDrop: ie((ee) => Wa(u.key), ["prevent"])
+              onDrop: ie((ee) => Ya(u.key), ["prevent"])
             }, [
               r("div", xo, [
-                u.option ? (t(), G(Ce, {
+                u.option ? (t(), W(Ce, {
                   key: 0,
-                  prop: C.value,
-                  row: E(u.key)
+                  prop: M.value,
+                  row: T(u.key)
                 }, null, 8, ["prop", "row"])) : (t(), l("span", Fo, m(mt.value), 1)),
                 r("span", Po, m(u.rows.length), 1),
                 Uo,
@@ -2424,27 +2437,27 @@ const Bl = ["aria-label"], Il = {
                   icon: "plus",
                   "icon-only": "",
                   label: `Ajouter dans ${((w = u.option) == null ? void 0 : w.label) ?? mt.value}`,
-                  onClick: (ee) => ze(E(u.key))
+                  onClick: (ee) => ze(T(u.key))
                 }, null, 8, ["label", "onClick"])
               ]),
               r("div", No, [
-                (t(!0), l(_, null, P(u.rows, (ee) => (t(), l("button", {
+                (t(!0), l(_, null, U(u.rows, (ee) => (t(), l("button", {
                   key: v(ee),
                   type: "button",
-                  class: W(["at-dv-card", dt.value === v(ee) && "dragging"]),
+                  class: Y(["at-dv-card", dt.value === v(ee) && "dragging"]),
                   draggable: "true",
-                  onDragstart: (ge) => ta(ge, ee),
+                  onDragstart: (ye) => ta(ye, ee),
                   onDragend: ct,
-                  onClick: (ge) => i("open", ee)
+                  onClick: (ye) => i("open", ee)
                 }, [
                   r("span", qo, m(ee[k.value] || "Sans titre"), 1),
-                  T.value.some((ge) => !L(be)(L(he)(ee, ge)) || ge.type === "checkbox") ? (t(), l("span", Ko, [
-                    (t(!0), l(_, null, P(T.value, (ge) => (t(), l(_, {
-                      key: ge.key
+                  V.value.some((ye) => !D(ke)(D(he)(ee, ye)) || ye.type === "checkbox") ? (t(), l("span", Ko, [
+                    (t(!0), l(_, null, U(V.value, (ye) => (t(), l(_, {
+                      key: ye.key
                     }, [
-                      L(be)(L(he)(ee, ge)) ? f("", !0) : (t(), G(Ce, {
+                      D(ke)(D(he)(ee, ye)) ? f("", !0) : (t(), W(Ce, {
                         key: 0,
-                        prop: ge,
+                        prop: ye,
                         row: ee
                       }, null, 8, ["prop", "row"]))
                     ], 64))), 128))
@@ -2453,7 +2466,7 @@ const Bl = ["aria-label"], Il = {
                 r("button", {
                   type: "button",
                   class: "at-dv-new",
-                  onClick: (ee) => ze(E(u.key))
+                  onClick: (ee) => ze(T(u.key))
                 }, [
                   g(x, { name: "plus" }),
                   b(m(c.newLabel), 1)
@@ -2463,10 +2476,10 @@ const Bl = ["aria-label"], Il = {
           }), 128)) : (t(), l("div", Io, "Ce board a besoin d’une propriété statut, select, relation ou personne pour former ses colonnes."))
         ])) : d.value.layout === "list" ? (t(), l("div", jo, [
           R.value.length ? (t(), l("div", Wo, [
-            (t(!0), l(_, null, P(H.value, (u) => (t(), l(_, {
+            (t(!0), l(_, null, U(F.value, (u) => (t(), l(_, {
               key: u.key
             }, [
-              C.value ? (t(), l("div", Yo, [
+              M.value ? (t(), l("div", Yo, [
                 r("button", {
                   type: "button",
                   class: "at-dv-grouphead",
@@ -2475,17 +2488,17 @@ const Bl = ["aria-label"], Il = {
                 }, [
                   g(x, {
                     name: "chevron-down",
-                    class: W({ "at-rot": Fe(u.key) })
+                    class: Y({ "at-rot": Fe(u.key) })
                   }, null, 8, ["class"]),
-                  u.option ? (t(), G(Ce, {
+                  u.option ? (t(), W(Ce, {
                     key: 0,
-                    prop: C.value,
-                    row: E(u.key)
+                    prop: M.value,
+                    row: T(u.key)
                   }, null, 8, ["prop", "row"])) : (t(), l("span", Zo, m(mt.value), 1)),
                   r("span", Xo, m(u.rows.length), 1)
                 ], 8, Jo)
               ])) : f("", !0),
-              Fe(u.key) ? f("", !0) : (t(!0), l(_, { key: 1 }, P(u.rows, (w) => (t(), l("button", {
+              Fe(u.key) ? f("", !0) : (t(!0), l(_, { key: 1 }, U(u.rows, (w) => (t(), l("button", {
                 key: v(w),
                 type: "button",
                 class: "at-dv-li",
@@ -2493,10 +2506,10 @@ const Bl = ["aria-label"], Il = {
               }, [
                 r("span", tr, m(w[k.value] || "Sans titre"), 1),
                 r("span", ar, [
-                  (t(!0), l(_, null, P(T.value, (ee) => (t(), l(_, {
+                  (t(!0), l(_, null, U(V.value, (ee) => (t(), l(_, {
                     key: ee.key
                   }, [
-                    L(be)(L(he)(w, ee)) ? f("", !0) : (t(), G(Ce, {
+                    D(ke)(D(he)(w, ee)) ? f("", !0) : (t(), W(Ce, {
                       key: 0,
                       prop: ee,
                       row: w
@@ -2522,7 +2535,7 @@ const Bl = ["aria-label"], Il = {
               icon: "plus",
               onClick: p[13] || (p[13] = (u) => ze())
             }, {
-              default: U(() => [
+              default: N(() => [
                 b(m(c.newLabel), 1)
               ]),
               _: 1
@@ -2530,20 +2543,20 @@ const Bl = ["aria-label"], Il = {
           ]))
         ])) : (t(), l(_, { key: 4 }, [
           r("div", lr, [
-            r("span", sr, m(L(Dl)(pt.value)), 1),
+            r("span", sr, m(D(Dl)(pt.value)), 1),
             g(te, {
               variant: "ghost",
               size: "sm",
               icon: "chevron-left",
               "icon-only": "",
               label: "Mois précédent",
-              onClick: p[15] || (p[15] = (u) => d.value.month = L(ua)(pt.value, -1))
+              onClick: p[15] || (p[15] = (u) => d.value.month = D(da)(pt.value, -1))
             }),
             g(te, {
               size: "sm",
-              onClick: p[16] || (p[16] = (u) => d.value.month = L(Be)().slice(0, 7))
+              onClick: p[16] || (p[16] = (u) => d.value.month = D(Be)().slice(0, 7))
             }, {
-              default: U(() => [
+              default: N(() => [
                 b("Aujourd’hui")
               ]),
               _: 1
@@ -2554,7 +2567,7 @@ const Bl = ["aria-label"], Il = {
               icon: "chevron-right",
               "icon-only": "",
               label: "Mois suivant",
-              onClick: p[17] || (p[17] = (u) => d.value.month = L(ua)(pt.value, 1))
+              onClick: p[17] || (p[17] = (u) => d.value.month = D(da)(pt.value, 1))
             }),
             r("span", or, [
               _e.value ? (t(), l(_, { key: 0 }, [
@@ -2569,17 +2582,17 @@ const Bl = ["aria-label"], Il = {
           ]),
           r("div", rr, [
             r("div", ir, [
-              (t(), l(_, null, P(["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"], (u) => r("div", {
+              (t(), l(_, null, U(["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"], (u) => r("div", {
                 key: u,
                 class: "at-dv-dow"
               }, m(u), 1)), 64))
             ]),
             r("div", ur, [
-              (t(!0), l(_, null, P(Ja.value, (u) => (t(), l("div", {
+              (t(!0), l(_, null, U(Za.value, (u) => (t(), l("div", {
                 key: u.iso,
-                class: W(["at-dv-day", u.outside && "out", u.today && "today", Pe.value === u.iso && "over"]),
+                class: Y(["at-dv-day", u.outside && "out", u.today && "today", Pe.value === u.iso && "over"]),
                 onDragover: ie((w) => Pe.value = u.iso, ["prevent"]),
-                onDrop: ie((w) => Ya(u.iso), ["prevent"])
+                onDrop: ie((w) => Ja(u.iso), ["prevent"])
               }, [
                 r("div", cr, [
                   r("span", null, m(u.day), 1),
@@ -2587,16 +2600,16 @@ const Bl = ["aria-label"], Il = {
                     key: 0,
                     type: "button",
                     class: "at-dv-dayadd",
-                    "aria-label": `Ajouter le ${L(lt)(u.iso)}`,
+                    "aria-label": `Ajouter le ${D(lt)(u.iso)}`,
                     onClick: (w) => ze({ [_e.value]: u.iso })
                   }, [
                     g(x, { name: "plus" })
                   ], 8, pr)) : f("", !0)
                 ]),
-                (t(!0), l(_, null, P(u.rows, (w) => (t(), l("button", {
+                (t(!0), l(_, null, U(u.rows, (w) => (t(), l("button", {
                   key: v(w),
                   type: "button",
-                  class: W(["at-dv-calitem", en(w) && "done"]),
+                  class: Y(["at-dv-calitem", tn(w) && "done"]),
                   draggable: "true",
                   onDragstart: (ee) => ta(ee, w),
                   onDragend: ct,
@@ -2604,7 +2617,7 @@ const Bl = ["aria-label"], Il = {
                 }, [
                   r("span", {
                     class: "dot",
-                    style: ue({ background: Xa(w) })
+                    style: ue({ background: en(w) })
                   }, null, 4),
                   r("span", null, m(w[k.value] || "Sans titre"), 1)
                 ], 42, vr))), 128))
@@ -2613,14 +2626,14 @@ const Bl = ["aria-label"], Il = {
           ])
         ], 64)),
         g($e, {
-          open: L(Te),
+          open: D(Te),
           "onUpdate:open": p[18] || (p[18] = (u) => Ue(Te) ? Te.value = u : null),
           anchor: q.value
         }, {
-          default: U(() => [
+          default: N(() => [
             r("div", mr, [
               hr,
-              (t(!0), l(_, null, P(L(ft), (u) => (t(), l("button", {
+              (t(!0), l(_, null, U(D(ft), (u) => (t(), l("button", {
                 key: u.value,
                 type: "button",
                 class: "at-menu-item",
@@ -2637,12 +2650,12 @@ const Bl = ["aria-label"], Il = {
           _: 1
         }, 8, ["open", "anchor"]),
         g($e, {
-          open: L(ce),
+          open: D(ce),
           "onUpdate:open": p[19] || (p[19] = (u) => Ue(ce) ? ce.value = u : null),
           anchor: q.value,
           align: "end"
         }, {
-          default: U(() => [
+          default: N(() => [
             r("div", gr, [
               yr,
               d.value.locked ? (t(), l("div", br, [
@@ -2650,8 +2663,8 @@ const Bl = ["aria-label"], Il = {
                   g(x, { name: "lock" }),
                   b("Vue système : ses filtres ne se modifient pas.")
                 ]),
-                Y.value.length ? f("", !0) : (t(), l("span", _r, "Aucun filtre : la vue affiche toutes les lignes.")),
-                (t(!0), l(_, null, P(Y.value, (u) => (t(), l("div", {
+                j.value.length ? f("", !0) : (t(), l("span", _r, "Aucun filtre : la vue affiche toutes les lignes.")),
+                (t(!0), l(_, null, U(j.value, (u) => (t(), l("div", {
                   key: u.id,
                   class: "at-dv-chip is-static"
                 }, [
@@ -2661,7 +2674,7 @@ const Bl = ["aria-label"], Il = {
                 ]))), 128))
               ])) : (t(), l("div", $r, [
                 d.value.filters.length ? f("", !0) : (t(), l("span", wr, "Aucun filtre : la vue affiche toutes les lignes.")),
-                (t(!0), l(_, null, P(d.value.filters, (u) => (t(), l("div", {
+                (t(!0), l(_, null, U(d.value.filters, (u) => (t(), l("div", {
                   key: u.id,
                   class: "at-rule"
                 }, [
@@ -2671,7 +2684,7 @@ const Bl = ["aria-label"], Il = {
                       "aria-label": "Propriété",
                       onChange: (w) => B(u)
                     }, [
-                      (t(!0), l(_, null, P(c.schema, (w) => (t(), l("option", {
+                      (t(!0), l(_, null, U(c.schema, (w) => (t(), l("option", {
                         key: w.key,
                         value: w.key
                       }, m(w.name), 9, Ar))), 128))
@@ -2685,10 +2698,10 @@ const Bl = ["aria-label"], Il = {
                       "onUpdate:modelValue": (w) => u.op = w,
                       "aria-label": "Condition"
                     }, [
-                      (t(!0), l(_, null, P(oe(u), (w) => (t(), l("option", {
+                      (t(!0), l(_, null, U(oe(u), (w) => (t(), l("option", {
                         key: w,
                         value: w
-                      }, m(L(ia)[w]), 9, Tr))), 128))
+                      }, m(D(ua)[w]), 9, Tr))), 128))
                     ], 8, Vr), [
                       [He, u.op]
                     ]),
@@ -2703,9 +2716,9 @@ const Bl = ["aria-label"], Il = {
                         zr,
                         h.value[u.prop].type === "person" ? (t(), l("option", {
                           key: 0,
-                          value: L(Nt)
+                          value: D(Nt)
                         }, "Moi", 8, Er)) : f("", !0),
-                        (t(!0), l(_, null, P(L(je)(h.value[u.prop]), (w) => (t(), l("option", {
+                        (t(!0), l(_, null, U(D(je)(h.value[u.prop]), (w) => (t(), l("option", {
                           key: w.value,
                           value: w.value
                         }, m(w.label), 9, Or))), 128))
@@ -2754,9 +2767,9 @@ const Bl = ["aria-label"], Il = {
                   variant: "ghost",
                   size: "sm",
                   icon: "plus",
-                  onClick: D
+                  onClick: z
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b("Ajouter un filtre")
                   ]),
                   _: 1
@@ -2767,17 +2780,17 @@ const Bl = ["aria-label"], Il = {
           _: 1
         }, 8, ["open", "anchor"]),
         g($e, {
-          open: L(Ye),
+          open: D(Ye),
           "onUpdate:open": p[20] || (p[20] = (u) => Ue(Ye) ? Ye.value = u : null),
           anchor: q.value,
           align: "end"
         }, {
-          default: U(() => [
+          default: N(() => [
             r("div", Pr, [
               Ur,
               r("div", Nr, [
                 d.value.sorts.length ? f("", !0) : (t(), l("span", Hr, "Aucun tri : ordre des données.")),
-                (t(!0), l(_, null, P(d.value.sorts, (u) => (t(), l("div", {
+                (t(!0), l(_, null, U(d.value.sorts, (u) => (t(), l("div", {
                   key: u.id,
                   class: "at-rule sort"
                 }, [
@@ -2786,7 +2799,7 @@ const Bl = ["aria-label"], Il = {
                       "onUpdate:modelValue": (w) => u.prop = w,
                       "aria-label": "Propriété"
                     }, [
-                      (t(!0), l(_, null, P(c.schema, (w) => (t(), l("option", {
+                      (t(!0), l(_, null, U(c.schema, (w) => (t(), l("option", {
                         key: w.key,
                         value: w.key
                       }, m(w.name), 9, Rr))), 128))
@@ -2819,9 +2832,9 @@ const Bl = ["aria-label"], Il = {
                   variant: "ghost",
                   size: "sm",
                   icon: "plus",
-                  onClick: Qa
+                  onClick: xa
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b("Ajouter un tri")
                   ]),
                   _: 1
@@ -2832,12 +2845,12 @@ const Bl = ["aria-label"], Il = {
           _: 1
         }, 8, ["open", "anchor"]),
         g($e, {
-          open: L(xe),
+          open: D(xe),
           "onUpdate:open": p[22] || (p[22] = (u) => Ue(xe) ? xe.value = u : null),
           anchor: q.value,
           align: "end"
         }, {
-          default: U(() => [
+          default: N(() => [
             r("div", Xr, [
               r("div", ei, m(d.value.layout === "board" ? "Colonnes du board" : "Grouper par"), 1),
               d.value.layout !== "board" ? (t(), l("button", {
@@ -2848,23 +2861,23 @@ const Bl = ["aria-label"], Il = {
               }, [
                 g(x, { name: "x" }),
                 b("Aucun groupe"),
-                d.value.groupBy ? f("", !0) : (t(), G(x, {
+                d.value.groupBy ? f("", !0) : (t(), W(x, {
                   key: 0,
                   name: "check",
                   class: "at-menu-check"
                 }))
               ])) : f("", !0),
-              (t(!0), l(_, null, P(y.value, (u) => (t(), l("button", {
+              (t(!0), l(_, null, U(y.value, (u) => (t(), l("button", {
                 key: u.key,
                 type: "button",
                 class: "at-menu-item",
                 onClick: (w) => Tt(u.key)
               }, [
                 g(x, {
-                  name: L(gt)(u)
+                  name: D(gt)(u)
                 }, null, 8, ["name"]),
                 b(m(u.name), 1),
-                Z.value === u.key ? (t(), G(x, {
+                Z.value === u.key ? (t(), W(x, {
                   key: 0,
                   name: "check",
                   class: "at-menu-check"
@@ -2875,21 +2888,21 @@ const Bl = ["aria-label"], Il = {
           _: 1
         }, 8, ["open", "anchor"]),
         g($e, {
-          open: L(Je),
+          open: D(Je),
           "onUpdate:open": p[26] || (p[26] = (u) => Ue(Je) ? Je.value = u : null),
           anchor: q.value,
           align: "end"
         }, {
-          default: U(() => [
+          default: N(() => [
             r("div", ai, [
               ni,
-              (t(!0), l(_, null, P(V.value, (u, w) => (t(), l("div", {
+              (t(!0), l(_, null, U(L.value, (u, w) => (t(), l("div", {
                 key: u.key,
-                class: W(["at-menu-item", "at-pi", ut.value === w && "drop"]),
+                class: Y(["at-menu-item", "at-pi", ut.value === w && "drop"]),
                 draggable: u.type !== "title",
                 onDragstart: (ee) => Xe.value = w,
                 onDragover: ie((ee) => ut.value = w, ["prevent"]),
-                onDrop: ie((ee) => Ua(w), ["prevent"]),
+                onDrop: ie((ee) => Na(w), ["prevent"]),
                 onDragend: p[23] || (p[23] = (ee) => {
                   Xe.value = null, ut.value = null;
                 })
@@ -2899,7 +2912,7 @@ const Bl = ["aria-label"], Il = {
                   class: "grip"
                 }),
                 g(x, {
-                  name: L(gt)(u)
+                  name: D(gt)(u)
                 }, null, 8, ["name"]),
                 r("span", si, m(u.name), 1),
                 r("input", {
@@ -2909,7 +2922,7 @@ const Bl = ["aria-label"], Il = {
                   "aria-label": `Afficher ${u.name}`,
                   checked: u.type === "title" || !d.value.hidden.includes(u.key),
                   disabled: u.type === "title",
-                  onChange: (ee) => Pa(u)
+                  onChange: (ee) => Ua(u)
                 }, null, 40, oi)
               ], 42, li))), 128)),
               ri,
@@ -2919,7 +2932,7 @@ const Bl = ["aria-label"], Il = {
                   size: "sm",
                   onClick: p[24] || (p[24] = (u) => Zt(!0))
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b("Tout afficher")
                   ]),
                   _: 1
@@ -2929,7 +2942,7 @@ const Bl = ["aria-label"], Il = {
                   size: "sm",
                   onClick: p[25] || (p[25] = (u) => Zt(!1))
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b("Tout masquer")
                   ]),
                   _: 1
@@ -2940,11 +2953,11 @@ const Bl = ["aria-label"], Il = {
           _: 1
         }, 8, ["open", "anchor"]),
         g($e, {
-          open: L(Ze),
+          open: D(Ze),
           "onUpdate:open": p[30] || (p[30] = (u) => Ue(Ze) ? Ze.value = u : null),
           anchor: q.value
         }, {
-          default: U(() => [
+          default: N(() => [
             r("div", ui, [
               di,
               d.value.locked ? (t(), l(_, { key: 0 }, [
@@ -2963,12 +2976,12 @@ const Bl = ["aria-label"], Il = {
                 [Ae, d.value.name]
               ]),
               r("div", vi, [
-                (t(!0), l(_, null, P(L(ft), (u) => (t(), l("button", {
+                (t(!0), l(_, null, U(D(ft), (u) => (t(), l("button", {
                   key: u.value,
                   type: "button",
                   class: "at-layout-opt",
                   "aria-pressed": d.value.layout === u.value,
-                  onClick: (w) => fe(u.value)
+                  onClick: (w) => ge(u.value)
                 }, [
                   g(x, {
                     name: u.icon
@@ -2985,7 +2998,7 @@ const Bl = ["aria-label"], Il = {
                     onChange: p[28] || (p[28] = (u) => Tt(u.target.value || null))
                   }, [
                     d.value.layout !== "board" ? (t(), l("option", yi, "Aucun")) : f("", !0),
-                    (t(!0), l(_, null, P(y.value, (u) => (t(), l("option", {
+                    (t(!0), l(_, null, U(y.value, (u) => (t(), l("option", {
                       key: u.key,
                       value: u.key
                     }, m(u.name), 9, bi))), 128))
@@ -3000,7 +3013,7 @@ const Bl = ["aria-label"], Il = {
                     "aria-label": "Date utilisée",
                     onChange: p[29] || (p[29] = (u) => d.value.dateProp = u.target.value)
                   }, [
-                    (t(!0), l(_, null, P(N.value, (u) => (t(), l("option", {
+                    (t(!0), l(_, null, U(H.value, (u) => (t(), l("option", {
                       key: u.key,
                       value: u.key
                     }, m(u.name), 9, Mi))), 128))
@@ -3077,15 +3090,15 @@ const Bl = ["aria-label"], Il = {
     function o(i) {
       i.key === "Escape" && !document.querySelector(".at-pop") && (e.value = !1);
     }
-    return ke(e, (i) => {
+    return fe(e, (i) => {
       var v;
       i ? (a = document.activeElement, document.addEventListener("keydown", o), Ve(() => {
         var d;
         return (d = n.value) == null ? void 0 : d.focus();
       })) : (document.removeEventListener("keydown", o), (v = a == null ? void 0 : a.focus) == null || v.call(a));
-    }, { immediate: !0 }), Ge(() => document.removeEventListener("keydown", o)), (i, v) => (t(), G(wt, { to: "body" }, [
-      g(ya, { name: "at-drawer" }, {
-        default: U(() => [
+    }, { immediate: !0 }), Ge(() => document.removeEventListener("keydown", o)), (i, v) => (t(), W(wt, { to: "body" }, [
+      g(ba, { name: "at-drawer" }, {
+        default: N(() => [
           e.value ? (t(), l("div", Ti, [
             r("div", {
               class: "at-overlay",
@@ -3103,12 +3116,12 @@ const Bl = ["aria-label"], Il = {
             }, [
               r("header", Di, [
                 r("span", zi, [
-                  j(i.$slots, "crumb", {}, () => [
+                  G(i.$slots, "crumb", {}, () => [
                     b(m(i.label), 1)
                   ])
                 ]),
                 Ei,
-                j(i.$slots, "actions"),
+                G(i.$slots, "actions"),
                 g(te, {
                   variant: "ghost",
                   size: "sm",
@@ -3119,7 +3132,7 @@ const Bl = ["aria-label"], Il = {
                 })
               ]),
               r("div", Oi, [
-                j(i.$slots, "default")
+                G(i.$slots, "default")
               ])
             ], 12, Li)
           ])) : f("", !0)
@@ -3131,7 +3144,7 @@ const Bl = ["aria-label"], Il = {
 }), Ii = ["aria-label"], Qi = {
   key: 0,
   class: "at-menu-label"
-}, Sa = /* @__PURE__ */ J({
+}, Va = /* @__PURE__ */ J({
   __name: "AtMenu",
   props: {
     label: {},
@@ -3158,10 +3171,10 @@ const Bl = ["aria-label"], Il = {
       onKeydown: n
     }, [
       a.label ? (t(), l("div", Qi, m(a.label), 1)) : f("", !0),
-      j(a.$slots, "default")
+      G(a.$slots, "default")
     ], 44, Ii));
   }
-}), Va = /* @__PURE__ */ J({
+}), Ta = /* @__PURE__ */ J({
   __name: "AtDropdown",
   props: {
     label: {},
@@ -3174,23 +3187,23 @@ const Bl = ["aria-label"], Il = {
     function n(a) {
       a.target.closest('.at-menu-item[role="menuitem"]') && (e.value = !1);
     }
-    return (a, o) => (t(), G($e, {
+    return (a, o) => (t(), W($e, {
       open: e.value,
       "onUpdate:open": o[0] || (o[0] = (i) => e.value = i),
       align: a.align,
       placement: a.placement
     }, {
-      trigger: U((i) => [
-        j(a.$slots, "trigger", ln(sn(i)))
+      trigger: N((i) => [
+        G(a.$slots, "trigger", sn(on(i)))
       ]),
-      default: U(() => [
-        g(Sa, {
+      default: N(() => [
+        g(Va, {
           label: a.label,
           "min-width": a.minWidth,
           onClick: n
         }, {
-          default: U(() => [
-            j(a.$slots, "default")
+          default: N(() => [
+            G(a.$slots, "default")
           ]),
           _: 3
         }, 8, ["label", "min-width"])
@@ -3205,10 +3218,10 @@ const Bl = ["aria-label"], Il = {
   },
   setup(s) {
     return (e, n) => (t(), l("div", xi, [
-      j(e.$slots, "default", {}, () => [
+      G(e.$slots, "default", {}, () => [
         b(m(e.message), 1)
       ]),
-      j(e.$slots, "action")
+      G(e.$slots, "action")
     ]));
   }
 }), Pi = { class: "at-field" }, Ui = ["for"], Ni = ["id"], Hi = ["id"], qt = /* @__PURE__ */ J({
@@ -3225,25 +3238,25 @@ const Bl = ["aria-label"], Il = {
       a.label ? (t(), l("label", {
         key: 0,
         class: "at-label",
-        for: L(n)
+        for: D(n)
       }, m(a.label), 9, Ui)) : f("", !0),
-      j(a.$slots, "default", {
-        id: L(n),
+      G(a.$slots, "default", {
+        id: D(n),
         invalid: !!a.error,
-        describedby: a.error || a.hint ? L(n) + "-hint" : void 0
+        describedby: a.error || a.hint ? D(n) + "-hint" : void 0
       }),
       a.error ? (t(), l("span", {
         key: 1,
-        id: L(n) + "-hint",
+        id: D(n) + "-hint",
         class: "at-hint at-hint--error"
       }, m(a.error), 9, Ni)) : a.hint ? (t(), l("span", {
         key: 2,
-        id: L(n) + "-hint",
+        id: D(n) + "-hint",
         class: "at-hint"
       }, m(a.hint), 9, Hi)) : f("", !0)
     ]));
   }
-}), qi = ["role", "aria-label", "aria-hidden"], Ta = /* @__PURE__ */ J({
+}), qi = ["role", "aria-label", "aria-hidden"], La = /* @__PURE__ */ J({
   __name: "AtIconTile",
   props: {
     name: {},
@@ -3253,7 +3266,7 @@ const Bl = ["aria-label"], Il = {
   },
   setup(s) {
     return (e, n) => (t(), l("span", {
-      class: W(["at-tile", e.size !== "sm" && `at-tile--${e.size}`, e.color === "neutral" ? "at-tile--neutral" : `at-tone-${e.color}`]),
+      class: Y(["at-tile", e.size !== "sm" && `at-tile--${e.size}`, e.color === "neutral" ? "at-tile--neutral" : `at-tone-${e.color}`]),
       role: e.label ? "img" : void 0,
       "aria-label": e.label,
       "aria-hidden": e.label ? void 0 : "true"
@@ -3286,11 +3299,11 @@ const Bl = ["aria-label"], Il = {
       var i;
       return (i = o.value) == null ? void 0 : i.focus();
     }, el: o }), (i, v) => i.icon || i.kbd ? (t(), l("div", Ki, [
-      i.icon ? (t(), G(x, {
+      i.icon ? (t(), W(x, {
         key: 0,
         name: i.icon
       }, null, 8, ["name"])) : f("", !0),
-      le(r("input", ye(i.$attrs, {
+      le(r("input", be(i.$attrs, {
         ref_key: "el",
         ref: o,
         "onUpdate:modelValue": v[0] || (v[0] = (d) => n.value = d),
@@ -3303,13 +3316,13 @@ const Bl = ["aria-label"], Il = {
       }), null, 16, Ri), [
         [Pt, n.value]
       ]),
-      i.kbd ? (t(), G(Le, { key: 1 }, {
-        default: U(() => [
+      i.kbd ? (t(), W(Le, { key: 1 }, {
+        default: N(() => [
           b(m(i.kbd), 1)
         ]),
         _: 1
       })) : f("", !0)
-    ])) : le((t(), l("input", ye({ key: 1 }, i.$attrs, {
+    ])) : le((t(), l("input", be({ key: 1 }, i.$attrs, {
       ref_key: "el",
       ref: o,
       "onUpdate:modelValue": v[1] || (v[1] = (d) => n.value = d),
@@ -3339,75 +3352,75 @@ const Bl = ["aria-label"], Il = {
   }),
   emits: /* @__PURE__ */ se(["open"], ["update:active"]),
   setup(s, { expose: e, emit: n }) {
-    const a = s, o = re(s, "active"), i = n, v = K(), d = We("at-list"), h = (O) => typeof a.rowKey == "function" ? a.rowKey(O) : String(O == null ? void 0 : O[a.rowKey]), S = A(() => a.items.map(h)), k = A(() => o.value == null ? -1 : S.value.indexOf(o.value)), V = (O) => `${d}-${O}`, z = (O) => {
-      const F = O;
-      return String((F == null ? void 0 : F.label) ?? (F == null ? void 0 : F.title) ?? (F == null ? void 0 : F.name) ?? h(O));
+    const a = s, o = re(s, "active"), i = n, v = K(), d = We("at-list"), h = (O) => typeof a.rowKey == "function" ? a.rowKey(O) : String(O == null ? void 0 : O[a.rowKey]), A = S(() => a.items.map(h)), k = S(() => o.value == null ? -1 : A.value.indexOf(o.value)), L = (O) => `${d}-${O}`, E = (O) => {
+      const P = O;
+      return String((P == null ? void 0 : P.label) ?? (P == null ? void 0 : P.title) ?? (P == null ? void 0 : P.name) ?? h(O));
     };
-    function T(O) {
-      const F = S.value.length;
-      if (!F) return;
-      const R = k.value, Z = R < 0 ? O > 0 ? 0 : F - 1 : Math.max(0, Math.min(F - 1, R + O));
-      o.value = S.value[Z];
+    function V(O) {
+      const P = A.value.length;
+      if (!P) return;
+      const R = k.value, Z = R < 0 ? O > 0 ? 0 : P - 1 : Math.max(0, Math.min(P - 1, R + O));
+      o.value = A.value[Z];
     }
     function y(O) {
-      S.value.length && (o.value = S.value[Math.max(0, Math.min(S.value.length - 1, O))]);
+      A.value.length && (o.value = A.value[Math.max(0, Math.min(A.value.length - 1, O))]);
     }
-    function N() {
+    function H() {
       const O = k.value;
       O >= 0 && i("open", a.items[O]);
     }
     function ae(O) {
       if (O.ctrlKey || O.metaKey || O.altKey) return;
-      const F = O.key.toLowerCase();
-      if (F === "arrowdown" || F === "j") T(1);
-      else if (F === "arrowup" || F === "k") T(-1);
-      else if (F === "home") y(0);
-      else if (F === "end") y(S.value.length - 1);
-      else if (F === "enter") N();
+      const P = O.key.toLowerCase();
+      if (P === "arrowdown" || P === "j") V(1);
+      else if (P === "arrowup" || P === "k") V(-1);
+      else if (P === "home") y(0);
+      else if (P === "end") y(A.value.length - 1);
+      else if (P === "enter") H();
       else return;
       O.preventDefault();
     }
     if (a.global) {
       const O = () => a.items.length > 0;
-      Bt(["j", "arrowdown"], () => T(1), { when: O }), Bt(["k", "arrowup"], () => T(-1), { when: O }), Bt("enter", N, { when: () => k.value >= 0 });
+      Bt(["j", "arrowdown"], () => V(1), { when: O }), Bt(["k", "arrowup"], () => V(-1), { when: O }), Bt("enter", H, { when: () => k.value >= 0 });
     }
-    return ke(k, (O) => {
+    return fe(k, (O) => {
       O < 0 || Ve(() => {
-        var F, R;
-        return (R = (F = document.getElementById(V(O))) == null ? void 0 : F.scrollIntoView) == null ? void 0 : R.call(F, { block: "nearest" });
+        var P, R;
+        return (R = (P = document.getElementById(L(O))) == null ? void 0 : P.scrollIntoView) == null ? void 0 : R.call(P, { block: "nearest" });
       });
     }), e({ focus: () => {
       var O;
       return (O = v.value) == null ? void 0 : O.focus();
-    }, move: T }), (O, F) => (t(), l("div", {
+    }, move: V }), (O, P) => (t(), l("div", {
       ref_key: "el",
       ref: v,
       class: "at-list",
       role: "listbox",
       tabindex: "0",
       "aria-label": O.label,
-      "aria-activedescendant": k.value >= 0 ? V(k.value) : void 0,
+      "aria-activedescendant": k.value >= 0 ? L(k.value) : void 0,
       onKeydown: ae
     }, [
-      (t(!0), l(_, null, P(O.items, (R, Z) => (t(), l("div", {
-        id: V(Z),
-        key: S.value[Z],
-        class: W(["at-list__item", Z === k.value && "is-active"]),
+      (t(!0), l(_, null, U(O.items, (R, Z) => (t(), l("div", {
+        id: L(Z),
+        key: A.value[Z],
+        class: Y(["at-list__item", Z === k.value && "is-active"]),
         role: "option",
         "aria-selected": Z === k.value,
-        onClick: (C) => o.value = S.value[Z],
-        onDblclick: (C) => i("open", R)
+        onClick: (M) => o.value = A.value[Z],
+        onDblclick: (M) => i("open", R)
       }, [
-        j(O.$slots, "item", {
+        G(O.$slots, "item", {
           item: R,
           active: Z === k.value,
           index: Z
         }, () => [
-          b(m(z(R)), 1)
+          b(m(E(R)), 1)
         ])
       ], 42, Wi))), 128)),
       O.items.length ? f("", !0) : (t(), l("div", Yi, [
-        j(O.$slots, "empty", {}, () => [
+        G(O.$slots, "empty", {}, () => [
           b("Aucun élément")
         ])
       ]))
@@ -3506,12 +3519,12 @@ const fc = {
     label: {}
   },
   setup(s) {
-    const e = s, n = A(() => Rt[e.app] ?? Rt.atelier), a = A(() => e.name ?? n.value.name), o = A(() => Math.max(16, e.size)), i = A(() => ({
+    const e = s, n = S(() => Rt[e.app] ?? Rt.atelier), a = S(() => e.name ?? n.value.name), o = S(() => Math.max(16, e.size)), i = S(() => ({
       "--at-logo-size": o.value + "px",
       "--at-logo-fill": `var(--${n.value.color})`
     }));
     return (v, d) => (t(), l("span", {
-      class: W(["at-logo", v.wordmark && "at-logo--wordmark"]),
+      class: Y(["at-logo", v.wordmark && "at-logo--wordmark"]),
       style: ue(i.value),
       role: !v.wordmark && v.label ? "img" : void 0,
       "aria-label": v.wordmark ? void 0 : v.label,
@@ -3519,7 +3532,7 @@ const fc = {
     }, [
       (t(), l("svg", {
         class: "at-logo__mark",
-        viewBox: `0 0 ${L(xt).size} ${L(xt).size}`,
+        viewBox: `0 0 ${D(xt).size} ${D(xt).size}`,
         width: o.value,
         height: o.value,
         "aria-hidden": "true",
@@ -3527,11 +3540,11 @@ const fc = {
       }, [
         r("path", {
           class: "at-logo__tile",
-          d: L(Zi)
+          d: D(Zi)
         }, null, 8, tu),
         r("g", {
           class: "at-logo__glyph",
-          "stroke-width": L(xt).stroke,
+          "stroke-width": D(xt).stroke,
           innerHTML: n.value.glyph
         }, null, 8, au)
       ], 8, eu)),
@@ -3586,95 +3599,95 @@ const fc = {
   }),
   emits: /* @__PURE__ */ se(["submit", "passkey"], ["update:username", "update:password", "update:remember"]),
   setup(s, { expose: e, emit: n }) {
-    const a = re(s, "username"), o = re(s, "password"), i = re(s, "remember"), v = s, d = n, h = We("login"), S = A(() => v.loading !== !1), k = A(() => {
+    const a = re(s, "username"), o = re(s, "password"), i = re(s, "remember"), v = s, d = n, h = We("login"), A = S(() => v.loading !== !1), k = S(() => {
       var y;
       return (v.mark ?? ((y = v.brand) == null ? void 0 : y.trim().charAt(0)) ?? "").toUpperCase();
-    }), V = K(), z = K();
-    function T() {
-      var y, N;
-      if (!S.value) {
-        if (!a.value.trim()) return (y = V.value) == null ? void 0 : y.focus();
-        if (!o.value) return (N = z.value) == null ? void 0 : N.focus();
+    }), L = K(), E = K();
+    function V() {
+      var y, H;
+      if (!A.value) {
+        if (!a.value.trim()) return (y = L.value) == null ? void 0 : y.focus();
+        if (!o.value) return (H = E.value) == null ? void 0 : H.focus();
         d("submit", { username: a.value.trim(), password: o.value, remember: i.value });
       }
     }
     return e({
       focusUsername: () => {
         var y;
-        return (y = V.value) == null ? void 0 : y.focus();
+        return (y = L.value) == null ? void 0 : y.focus();
       },
       focusPassword: () => {
         var y;
-        return (y = z.value) == null ? void 0 : y.focus();
+        return (y = E.value) == null ? void 0 : y.focus();
       }
-    }), (y, N) => (t(), G(fa(y.as), { class: "at-login" }, {
-      default: U(() => [
+    }), (y, H) => (t(), W(ga(y.as), { class: "at-login" }, {
+      default: N(() => [
         r("div", su, [
           y.brand || y.$slots.brand ? (t(), l("div", ou, [
-            j(y.$slots, "brand", {}, () => [
+            G(y.$slots, "brand", {}, () => [
               r("span", ru, m(k.value), 1),
               b(m(y.brand), 1)
             ])
           ])) : f("", !0),
           r("section", {
             class: "at-login__card",
-            "aria-labelledby": L(h)
+            "aria-labelledby": D(h)
           }, [
             r("header", uu, [
               r("h1", {
-                id: L(h),
+                id: D(h),
                 class: "at-login__title"
               }, m(y.title), 9, du),
               y.description ? (t(), l("p", cu, m(y.description), 1)) : f("", !0)
             ]),
             y.error ? (t(), l("p", pu, m(y.error), 1)) : f("", !0),
-            j(y.$slots, "default", {}, () => [
+            G(y.$slots, "default", {}, () => [
               r("form", {
                 class: "at-login__form",
                 novalidate: "",
-                onSubmit: ie(T, ["prevent"])
+                onSubmit: ie(V, ["prevent"])
               }, [
                 g(qt, { label: y.usernameLabel }, {
-                  default: U((ae) => [
+                  default: N((ae) => [
                     g(Kt, {
                       id: ae.id,
                       ref_key: "usernameInput",
-                      ref: V,
+                      ref: L,
                       modelValue: a.value,
-                      "onUpdate:modelValue": N[0] || (N[0] = (O) => a.value = O),
+                      "onUpdate:modelValue": H[0] || (H[0] = (O) => a.value = O),
                       name: "username",
                       autocomplete: "username",
                       autocapitalize: "none",
                       spellcheck: "false",
-                      disabled: S.value,
+                      disabled: A.value,
                       invalid: !!y.error
                     }, null, 8, ["id", "modelValue", "disabled", "invalid"])
                   ]),
                   _: 1
                 }, 8, ["label"]),
                 g(qt, { label: y.passwordLabel }, {
-                  default: U((ae) => [
+                  default: N((ae) => [
                     g(Kt, {
                       id: ae.id,
                       ref_key: "passwordInput",
-                      ref: z,
+                      ref: E,
                       modelValue: o.value,
-                      "onUpdate:modelValue": N[1] || (N[1] = (O) => o.value = O),
+                      "onUpdate:modelValue": H[1] || (H[1] = (O) => o.value = O),
                       type: "password",
                       name: "password",
                       autocomplete: "current-password",
-                      disabled: S.value,
+                      disabled: A.value,
                       invalid: !!y.error
                     }, null, 8, ["id", "modelValue", "disabled", "invalid"])
                   ]),
                   _: 1
                 }, 8, ["label"]),
-                y.rememberable ? (t(), G(ka, {
+                y.rememberable ? (t(), W(_a, {
                   key: 0,
                   modelValue: i.value,
-                  "onUpdate:modelValue": N[2] || (N[2] = (ae) => i.value = ae),
+                  "onUpdate:modelValue": H[2] || (H[2] = (ae) => i.value = ae),
                   label: y.rememberLabel,
-                  disabled: S.value
+                  disabled: A.value
                 }, null, 8, ["modelValue", "label", "disabled"])) : f("", !0),
                 g(te, {
                   type: "submit",
@@ -3682,9 +3695,9 @@ const fc = {
                   size: "lg",
                   class: "at-login__submit",
                   loading: y.loading === !0 || y.loading === "password",
-                  disabled: S.value
+                  disabled: A.value
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b(m(y.submitLabel), 1)
                   ]),
                   _: 1
@@ -3697,10 +3710,10 @@ const fc = {
                   icon: "key",
                   class: "at-login__submit",
                   loading: y.loading === "passkey",
-                  disabled: S.value,
-                  onClick: N[3] || (N[3] = (ae) => d("passkey"))
+                  disabled: A.value,
+                  onClick: H[3] || (H[3] = (ae) => d("passkey"))
                 }, {
-                  default: U(() => [
+                  default: N(() => [
                     b(m(y.passkeyLabel), 1)
                   ]),
                   _: 1
@@ -3709,7 +3722,7 @@ const fc = {
             ])
           ], 8, iu),
           y.$slots.footer ? (t(), l("footer", mu, [
-            j(y.$slots, "footer")
+            G(y.$slots, "footer")
           ])) : f("", !0)
         ])
       ]),
@@ -3734,25 +3747,25 @@ const fc = {
   setup(s) {
     return (e, n) => (t(), l("button", {
       type: "button",
-      class: W(["at-menu-item", e.danger && "at-menu-item--danger"]),
+      class: Y(["at-menu-item", e.danger && "at-menu-item--danger"]),
       role: e.checked !== void 0 ? "menuitemcheckbox" : "menuitem",
       "aria-checked": e.checked !== void 0 ? e.checked : void 0,
       disabled: e.disabled,
       onClick: n[0] || (n[0] = (a) => e.$emit("select", a))
     }, [
-      e.icon ? (t(), G(x, {
+      e.icon ? (t(), W(x, {
         key: 0,
         name: e.icon
       }, null, 8, ["name"])) : f("", !0),
-      j(e.$slots, "default", {}, () => [
+      G(e.$slots, "default", {}, () => [
         b(m(e.label), 1)
       ]),
-      e.kbd ? (t(), G(Le, { key: 1 }, {
-        default: U(() => [
+      e.kbd ? (t(), W(Le, { key: 1 }, {
+        default: N(() => [
           b(m(e.kbd), 1)
         ]),
         _: 1
-      })) : e.meta ? (t(), l("span", gu, m(e.meta), 1)) : e.checked ? (t(), G(x, {
+      })) : e.meta ? (t(), l("span", gu, m(e.meta), 1)) : e.checked ? (t(), W(x, {
         key: 3,
         name: "check",
         class: "at-menu-check"
@@ -3762,7 +3775,7 @@ const fc = {
 }), yu = {}, bu = { class: "at-menu-label" };
 function ku(s, e) {
   return t(), l("div", bu, [
-    j(s.$slots, "default")
+    G(s.$slots, "default")
   ]);
 }
 const jt = /* @__PURE__ */ Mt(yu, [["render", ku]]), _u = {}, $u = {
@@ -3799,15 +3812,15 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
     function o(i) {
       i.key === "Escape" && !document.querySelector(".at-pop") && (e.value = !1);
     }
-    return ke(e, (i) => {
+    return fe(e, (i) => {
       var v;
       i ? (a = document.activeElement, document.addEventListener("keydown", o), Ve(() => {
         var d;
         return (d = n.value) == null ? void 0 : d.focus();
       })) : (document.removeEventListener("keydown", o), (v = a == null ? void 0 : a.focus) == null || v.call(a));
-    }, { immediate: !0 }), Ge(() => document.removeEventListener("keydown", o)), (i, v) => (t(), G(wt, { to: "body" }, [
-      g(ya, { name: "at-modal" }, {
-        default: U(() => [
+    }, { immediate: !0 }), Ge(() => document.removeEventListener("keydown", o)), (i, v) => (t(), W(wt, { to: "body" }, [
+      g(ba, { name: "at-modal" }, {
+        default: N(() => [
           e.value ? (t(), l("div", Mu, [
             r("div", {
               class: "at-overlay",
@@ -3817,7 +3830,7 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
             r("div", {
               ref_key: "panel",
               ref: n,
-              class: W(["at-modal", i.size !== "md" && `at-modal--${i.size}`]),
+              class: Y(["at-modal", i.size !== "md" && `at-modal--${i.size}`]),
               role: "dialog",
               "aria-modal": "true",
               "aria-label": i.title,
@@ -3828,7 +3841,7 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
                   r("h2", Vu, m(i.title), 1),
                   i.description ? (t(), l("p", Tu, m(i.description), 1)) : f("", !0)
                 ]),
-                i.dismissible ? (t(), G(te, {
+                i.dismissible ? (t(), W(te, {
                   key: 0,
                   variant: "ghost",
                   size: "sm",
@@ -3839,10 +3852,10 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
                 })) : f("", !0)
               ]),
               r("div", Lu, [
-                j(i.$slots, "default")
+                G(i.$slots, "default")
               ]),
               i.$slots.footer ? (t(), l("footer", Du, [
-                j(i.$slots, "footer", {
+                G(i.$slots, "footer", {
                   close: () => e.value = !1
                 })
               ])) : f("", !0)
@@ -3878,7 +3891,7 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
           type: "button",
           class: "at-nav-label at-nav-toggle",
           "aria-expanded": n.value,
-          "aria-controls": L(a),
+          "aria-controls": D(a),
           onClick: i[0] || (i[0] = (v) => n.value = !n.value)
         }, [
           o.mark ? (t(), l("span", {
@@ -3889,16 +3902,16 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
           r("span", Bu, m(o.label), 1),
           g(x, {
             name: "chevron-down",
-            class: W({ "at-rot": !n.value })
+            class: Y({ "at-rot": !n.value })
           }, null, 8, ["class"])
         ], 8, Ou),
         le(r("div", {
-          id: L(a),
+          id: D(a),
           class: "at-nav-body"
         }, [
-          j(o.$slots, "default")
+          G(o.$slots, "default")
         ], 8, Iu), [
-          [on, n.value]
+          [rn, n.value]
         ])
       ], 64)) : (t(), l(_, { key: 1 }, [
         o.label ? (t(), l("div", Qu, [
@@ -3909,7 +3922,7 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
           }, null, 4)) : f("", !0),
           b(m(o.label), 1)
         ])) : f("", !0),
-        j(o.$slots, "default")
+        G(o.$slots, "default")
       ], 64))
     ], 8, Eu));
   }
@@ -3941,16 +3954,16 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
         key: 0,
         class: "at-nav-mark",
         style: ue({ background: e.mark })
-      }, null, 4)) : e.icon && e.tile ? (t(), G(Ta, {
+      }, null, 4)) : e.icon && e.tile ? (t(), W(La, {
         key: 1,
         name: e.icon,
         color: e.tile
-      }, null, 8, ["name", "color"])) : e.icon ? (t(), G(x, {
+      }, null, 8, ["name", "color"])) : e.icon ? (t(), W(x, {
         key: 2,
         name: e.icon
       }, null, 8, ["name"])) : f("", !0),
       r("span", Pu, [
-        j(e.$slots, "default", {}, () => [
+        G(e.$slots, "default", {}, () => [
           b(m(e.label), 1)
         ])
       ]),
@@ -3969,15 +3982,15 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
   },
   setup(s) {
     return (e, n) => (t(), l("div", {
-      class: W(["at-page", e.wide && "at-page--wide"])
+      class: Y(["at-page", e.wide && "at-page--wide"])
     }, [
       e.title || e.$slots.head ? (t(), l("div", Hu, [
-        j(e.$slots, "head", {}, () => [
+        G(e.$slots, "head", {}, () => [
           r("h1", qu, m(e.title), 1),
           e.description ? (t(), l("p", Ku, m(e.description), 1)) : f("", !0)
         ])
       ])) : f("", !0),
-      j(e.$slots, "default")
+      G(e.$slots, "default")
     ], 2));
   }
 }), ju = { class: "at-proplist" }, Gu = ["disabled", "onClick"], Wu = /* @__PURE__ */ J({
@@ -3989,51 +4002,51 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
   },
   emits: ["update", "createOption", "updateOption", "deleteOption"],
   setup(s, { expose: e, emit: n }) {
-    const a = s, o = n, i = A(() => a.schema.filter((z) => {
-      var T;
-      return z.type !== "title" && !((T = a.exclude) != null && T.includes(z.key));
-    })), v = K(null), d = K(null), h = K(!1), S = {};
-    function k(z, T) {
-      if (at(z)) {
-        if (z.type === "checkbox") {
-          o("update", z.key, !a.row[z.key]);
+    const a = s, o = n, i = S(() => a.schema.filter((E) => {
+      var V;
+      return E.type !== "title" && !((V = a.exclude) != null && V.includes(E.key));
+    })), v = K(null), d = K(null), h = K(!1), A = {};
+    function k(E, V) {
+      if (at(E)) {
+        if (E.type === "checkbox") {
+          o("update", E.key, !a.row[E.key]);
           return;
         }
-        d.value = T, v.value = z, h.value = !0;
+        d.value = V, v.value = E, h.value = !0;
       }
     }
-    function V(z) {
-      var N;
-      const T = i.value.find((ae) => ae.key === z);
-      if (!T) return;
-      const y = S[z] ?? null;
-      (N = y == null ? void 0 : y.scrollIntoView) == null || N.call(y, { block: "nearest" }), k(T, y);
+    function L(E) {
+      var H;
+      const V = i.value.find((ae) => ae.key === E);
+      if (!V) return;
+      const y = A[E] ?? null;
+      (H = y == null ? void 0 : y.scrollIntoView) == null || H.call(y, { block: "nearest" }), k(V, y);
     }
-    return e({ edit: V }), (z, T) => (t(), l(_, null, [
+    return e({ edit: L }), (E, V) => (t(), l(_, null, [
       r("dl", ju, [
-        (t(!0), l(_, null, P(i.value, (y) => (t(), l(_, {
+        (t(!0), l(_, null, U(i.value, (y) => (t(), l(_, {
           key: y.key
         }, [
           r("dt", null, [
             g(x, {
-              name: L(gt)(y)
+              name: D(gt)(y)
             }, null, 8, ["name"]),
             b(m(y.name), 1)
           ]),
           r("dd", null, [
             r("button", {
               ref_for: !0,
-              ref: (N) => {
-                N ? S[y.key] = N : delete S[y.key];
+              ref: (H) => {
+                H ? A[y.key] = H : delete A[y.key];
               },
               type: "button",
               class: "at-proplist__value",
-              disabled: !L(at)(y),
-              onClick: (N) => k(y, N.currentTarget)
+              disabled: !D(at)(y),
+              onClick: (H) => k(y, H.currentTarget)
             }, [
               g(Ce, {
                 prop: y,
-                row: z.row
+                row: E.row
               }, null, 8, ["prop", "row"])
             ], 8, Gu)
           ])
@@ -4041,14 +4054,14 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
       ]),
       g(Wt, {
         open: h.value,
-        "onUpdate:open": T[0] || (T[0] = (y) => h.value = y),
+        "onUpdate:open": V[0] || (V[0] = (y) => h.value = y),
         prop: v.value,
-        row: z.row,
+        row: E.row,
         anchor: d.value,
-        onUpdate: T[1] || (T[1] = (y) => v.value && o("update", v.value.key, y)),
-        onCreateOption: T[2] || (T[2] = (y) => v.value && o("createOption", v.value.key, y)),
-        onUpdateOption: T[3] || (T[3] = (y, N) => v.value && o("updateOption", v.value.key, y, N)),
-        onDeleteOption: T[4] || (T[4] = (y) => v.value && o("deleteOption", v.value.key, y))
+        onUpdate: V[1] || (V[1] = (y) => v.value && o("update", v.value.key, y)),
+        onCreateOption: V[2] || (V[2] = (y) => v.value && o("createOption", v.value.key, y)),
+        onUpdateOption: V[3] || (V[3] = (y, H) => v.value && o("updateOption", v.value.key, y, H)),
+        onDeleteOption: V[4] || (V[4] = (y) => v.value && o("deleteOption", v.value.key, y))
       }, null, 8, ["open", "prop", "row", "anchor"])
     ], 64));
   }
@@ -4069,7 +4082,7 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
       role: "group",
       "aria-label": n.label
     }, [
-      (t(!0), l(_, null, P(n.items, (o) => (t(), l("button", {
+      (t(!0), l(_, null, U(n.items, (o) => (t(), l("button", {
         key: String(o.value),
         type: "button",
         "aria-pressed": e.value === o.value,
@@ -4078,7 +4091,7 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
         disabled: o.disabled,
         onClick: (i) => e.value = o.value
       }, [
-        o.icon ? (t(), G(x, {
+        o.icon ? (t(), W(x, {
           key: 0,
           name: o.icon
         }, null, 8, ["name"])) : f("", !0),
@@ -4109,14 +4122,14 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
   setup(s) {
     const e = re(s, "modelValue");
     return (n, a) => (t(), l("div", Xu, [
-      le(r("select", ye(n.$attrs, {
+      le(r("select", be(n.$attrs, {
         "onUpdate:modelValue": a[0] || (a[0] = (o) => e.value = o),
         disabled: n.disabled,
         "aria-invalid": n.invalid || void 0,
         style: n.size === "sm" ? { height: "var(--h-sm)", fontSize: "13px" } : void 0
       }), [
         n.placeholder ? (t(), l("option", td, m(n.placeholder), 1)) : f("", !0),
-        (t(!0), l(_, null, P(n.options, (o) => (t(), l("option", {
+        (t(!0), l(_, null, U(n.options, (o) => (t(), l("option", {
           key: String(o.value),
           value: o.value,
           disabled: o.disabled
@@ -4136,17 +4149,17 @@ const yt = /* @__PURE__ */ Mt(_u, [["render", wu]]), Mu = {
 };
 function rd(s, e) {
   return t(), l("aside", sd, [
-    j(s.$slots, "header"),
-    j(s.$slots, "default"),
+    G(s.$slots, "header"),
+    G(s.$slots, "default"),
     s.$slots.footer ? (t(), l("div", od, [
-      j(s.$slots, "footer")
+      G(s.$slots, "footer")
     ])) : f("", !0)
   ]);
 }
 const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__label" }, dd = { class: "at-stat__row" }, cd = { class: "at-stat__value" }, pd = ["viewBox"], vd = ["d"], md = ["d"], hd = ["cx", "cy"], fd = {
   key: 1,
   class: "at-stat__foot"
-}, pa = 220, et = 32, gd = /* @__PURE__ */ J({
+}, va = 220, et = 32, gd = /* @__PURE__ */ J({
   __name: "AtStat",
   props: {
     label: {},
@@ -4158,31 +4171,31 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
     color: {}
   },
   setup(s) {
-    const e = s, n = A(() => {
+    const e = s, n = S(() => {
       const a = e.spark;
       if (!a || a.length < 2) return null;
-      const o = Math.min(...a), i = Math.max(...a), v = i - o || 1, d = a.map((k, V) => [2 + V * (pa - 4) / (a.length - 1), et - 3 - (k - o) / v * (et - 8)]), h = "M" + d.map((k) => k.map((V) => V.toFixed(1)).join(" ")).join(" L"), S = d[d.length - 1];
-      return { line: h, area: `${h} L${S[0].toFixed(1)} ${et} L2 ${et} Z`, end: S };
+      const o = Math.min(...a), i = Math.max(...a), v = i - o || 1, d = a.map((k, L) => [2 + L * (va - 4) / (a.length - 1), et - 3 - (k - o) / v * (et - 8)]), h = "M" + d.map((k) => k.map((L) => L.toFixed(1)).join(" ")).join(" L"), A = d[d.length - 1];
+      return { line: h, area: `${h} L${A[0].toFixed(1)} ${et} L2 ${et} Z`, end: A };
     });
     return (a, o) => (t(), l("div", {
-      class: W(["at-stat", a.color && ["at-stat--striped", `at-tone-${a.color}`]])
+      class: Y(["at-stat", a.color && ["at-stat--striped", `at-tone-${a.color}`]])
     }, [
       r("span", ud, m(a.label), 1),
       r("div", dd, [
         r("span", cd, [
-          j(a.$slots, "value", {}, () => [
+          G(a.$slots, "value", {}, () => [
             b(m(a.value), 1)
           ])
         ]),
         a.delta ? (t(), l("span", {
           key: 0,
-          class: W(["at-stat__delta", a.trend && `at-stat__delta--${a.trend}`])
+          class: Y(["at-stat__delta", a.trend && `at-stat__delta--${a.trend}`])
         }, m(a.delta), 3)) : f("", !0)
       ]),
       n.value ? (t(), l("svg", {
         key: 0,
         class: "at-stat__spark",
-        viewBox: `0 0 ${pa} ${et}`,
+        viewBox: `0 0 ${va} ${et}`,
         preserveAspectRatio: "none",
         "aria-hidden": "true"
       }, [
@@ -4203,7 +4216,7 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
         }, null, 8, hd)
       ], 8, pd)) : f("", !0),
       a.foot || a.$slots.foot ? (t(), l("span", fd, [
-        j(a.$slots, "foot", {}, () => [
+        G(a.$slots, "foot", {}, () => [
           b(m(a.foot), 1)
         ])
       ])) : f("", !0)
@@ -4230,9 +4243,9 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
   },
   emits: ["select"],
   setup(s, { emit: e }) {
-    const n = s, a = e, o = /^\d{4}-\d{2}-\d{2}$/, i = (h) => h.label ?? (o.test(h.date) ? lt(h.date) : h.date), v = (h) => `${i(h)} : ${n.labels[h.level] ?? ""}`, d = A(() => ({ "--at-streak-columns": String(Math.max(1, Math.floor(n.columns) || 1)) }));
-    return (h, S) => (t(), l("div", {
-      class: W(["at-streak", h.tone === "accent" && "at-streak--accent"])
+    const n = s, a = e, o = /^\d{4}-\d{2}-\d{2}$/, i = (h) => h.label ?? (o.test(h.date) ? lt(h.date) : h.date), v = (h) => `${i(h)} : ${n.labels[h.level] ?? ""}`, d = S(() => ({ "--at-streak-columns": String(Math.max(1, Math.floor(n.columns) || 1)) }));
+    return (h, A) => (t(), l("div", {
+      class: Y(["at-streak", h.tone === "accent" && "at-streak--accent"])
     }, [
       r("div", {
         class: "at-streak__grid",
@@ -4240,21 +4253,21 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
         "aria-label": h.summary || "Régularité",
         style: ue(d.value)
       }, [
-        (t(!0), l(_, null, P(h.days, (k) => (t(), l("button", {
+        (t(!0), l(_, null, U(h.days, (k) => (t(), l("button", {
           key: k.date,
           type: "button",
-          class: W(["at-streak__day", k.level > 0 && `at-streak__day--${k.level}`]),
+          class: Y(["at-streak__day", k.level > 0 && `at-streak__day--${k.level}`]),
           title: v(k),
           "aria-label": v(k),
-          onClick: (V) => a("select", k.date)
+          onClick: (L) => a("select", k.date)
         }, null, 10, bd))), 128))
       ], 12, yd),
       h.legend || h.summary ? (t(), l("div", kd, [
         h.summary ? (t(), l("p", _d, m(h.summary), 1)) : f("", !0),
         h.legend ? (t(), l("ul", $d, [
-          (t(!0), l(_, null, P(h.labels, (k, V) => (t(), l("li", { key: V }, [
+          (t(!0), l(_, null, U(h.labels, (k, L) => (t(), l("li", { key: L }, [
             r("span", {
-              class: W(["at-streak__swatch", V > 0 && `at-streak__day--${V}`]),
+              class: Y(["at-streak__swatch", L > 0 && `at-streak__day--${L}`]),
               "aria-hidden": "true"
             }, null, 2),
             b(m(k), 1)
@@ -4280,7 +4293,7 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
   setup(s) {
     const e = re(s, "modelValue");
     return (n, a) => n.label || n.$slots.default ? (t(), l("label", Md, [
-      le(r("input", ye(n.$attrs, {
+      le(r("input", be(n.$attrs, {
         "onUpdate:modelValue": a[0] || (a[0] = (o) => e.value = o),
         type: "checkbox",
         role: "switch",
@@ -4289,10 +4302,10 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
       }), null, 16, Cd), [
         [bt, e.value]
       ]),
-      j(n.$slots, "default", {}, () => [
+      G(n.$slots, "default", {}, () => [
         b(m(n.label), 1)
       ])
-    ])) : le((t(), l("input", ye({ key: 1 }, n.$attrs, {
+    ])) : le((t(), l("input", be({ key: 1 }, n.$attrs, {
       "onUpdate:modelValue": a[1] || (a[1] = (o) => e.value = o),
       type: "checkbox",
       role: "switch",
@@ -4316,24 +4329,24 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
       r("table", Td, [
         r("thead", null, [
           r("tr", null, [
-            (t(!0), l(_, null, P(e.columns, (a) => (t(), l("th", {
+            (t(!0), l(_, null, U(e.columns, (a) => (t(), l("th", {
               key: a.key,
-              class: W({ "at-num": a.align === "right" }),
+              class: Y({ "at-num": a.align === "right" }),
               style: ue(a.width ? { width: a.width } : void 0)
             }, m(a.label), 7))), 128))
           ])
         ]),
         r("tbody", null, [
-          (t(!0), l(_, null, P(e.rows, (a, o) => (t(), l("tr", {
+          (t(!0), l(_, null, U(e.rows, (a, o) => (t(), l("tr", {
             key: e.rowKey ? a[e.rowKey] : o,
             style: ue(e.$attrs.onRowClick ? { cursor: "pointer" } : void 0),
             onClick: (i) => e.$emit("rowClick", a)
           }, [
-            (t(!0), l(_, null, P(e.columns, (i) => (t(), l("td", {
+            (t(!0), l(_, null, U(e.columns, (i) => (t(), l("td", {
               key: i.key,
-              class: W({ "at-num": i.align === "right" })
+              class: Y({ "at-num": i.align === "right" })
             }, [
-              j(e.$slots, `cell-${i.key}`, {
+              G(e.$slots, `cell-${i.key}`, {
                 row: a,
                 value: a[i.key]
               }, () => [
@@ -4372,7 +4385,7 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
       role: "tablist",
       "aria-label": n.label
     }, [
-      (t(!0), l(_, null, P(n.items, (o) => (t(), l("button", {
+      (t(!0), l(_, null, U(n.items, (o) => (t(), l("button", {
         key: String(o.value),
         class: "at-tab",
         role: "tab",
@@ -4381,7 +4394,7 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
         disabled: o.disabled,
         onClick: (i) => e.value = o.value
       }, [
-        o.icon ? (t(), G(x, {
+        o.icon ? (t(), W(x, {
           key: 0,
           name: o.icon
         }, null, 8, ["name"])) : f("", !0),
@@ -4398,9 +4411,9 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
   },
   setup(s) {
     return (e, n) => (t(), l("span", {
-      class: W(["at-tag", e.color !== "gray" && `at-tag--${e.color}`])
+      class: Y(["at-tag", e.color !== "gray" && `at-tag--${e.color}`])
     }, [
-      j(e.$slots, "default", {}, () => [
+      G(e.$slots, "default", {}, () => [
         b(m(e.label), 1)
       ])
     ], 2));
@@ -4420,7 +4433,7 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
   emits: ["update:modelValue"],
   setup(s) {
     const e = re(s, "modelValue");
-    return (n, a) => le((t(), l("textarea", ye(n.$attrs, {
+    return (n, a) => le((t(), l("textarea", be(n.$attrs, {
       "onUpdate:modelValue": a[0] || (a[0] = (o) => e.value = o),
       class: "at-input",
       rows: n.rows ?? 3,
@@ -4445,22 +4458,22 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
   },
   emits: ["toggle"],
   setup(s, { emit: e }) {
-    const n = s, a = e, o = 2 * Math.PI * Ft, i = A(() => n.target != null && n.target > 0), v = A(() => i.value && n.seconds > n.target), d = A(() => {
-      const V = Math.max(0, n.seconds || 0);
-      return i.value ? Math.min(1, V / n.target) : Math.floor(V) % 60 / 60;
-    }), h = A(() => o * (1 - d.value)), S = A(() => {
-      const V = Ne(n.seconds);
-      return n.paused ? `En pause · ${V}` : i.value ? v.value ? `+${Ne(n.seconds - n.target)}` : `${V} / ${Ne(n.target)}` : V;
-    }), k = A(() => {
-      let z = `${Ne(n.seconds)} écoulées`;
-      return i.value && (z += ` sur ${Ne(n.target)} prévues`), v.value && (z += `, ${Ne(n.seconds - n.target)} de plus`), `Pause du minuteur (${z})`;
+    const n = s, a = e, o = 2 * Math.PI * Ft, i = S(() => n.target != null && n.target > 0), v = S(() => i.value && n.seconds > n.target), d = S(() => {
+      const L = Math.max(0, n.seconds || 0);
+      return i.value ? Math.min(1, L / n.target) : Math.floor(L) % 60 / 60;
+    }), h = S(() => o * (1 - d.value)), A = S(() => {
+      const L = Ne(n.seconds);
+      return n.paused ? `En pause · ${L}` : i.value ? v.value ? `+${Ne(n.seconds - n.target)}` : `${L} / ${Ne(n.target)}` : L;
+    }), k = S(() => {
+      let E = `${Ne(n.seconds)} écoulées`;
+      return i.value && (E += ` sur ${Ne(n.target)} prévues`), v.value && (E += `, ${Ne(n.seconds - n.target)} de plus`), `Pause du minuteur (${E})`;
     });
-    return (V, z) => (t(), l("button", {
+    return (L, E) => (t(), l("button", {
       type: "button",
-      class: W(["at-timer", V.size === "md" && "at-timer--md", v.value && "at-timer--over", V.paused && "at-timer--paused"]),
-      "aria-pressed": V.paused,
+      class: Y(["at-timer", L.size === "md" && "at-timer--md", v.value && "at-timer--over", L.paused && "at-timer--paused"]),
+      "aria-pressed": L.paused,
       "aria-label": k.value,
-      onClick: z[0] || (z[0] = (T) => a("toggle"))
+      onClick: E[0] || (E[0] = (V) => a("toggle"))
     }, [
       (t(), l("svg", Nd, [
         r("circle", {
@@ -4484,17 +4497,17 @@ const id = /* @__PURE__ */ Mt(ld, [["render", rd]]), ud = { class: "at-stat__lab
           opacity: d.value > 0 ? 1 : 0
         }, null, 8, Hd)
       ])),
-      r("span", qd, m(S.value), 1)
+      r("span", qd, m(A.value), 1)
     ], 10, Ud));
   }
-}), La = 3, Qe = un([]), st = /* @__PURE__ */ new Map();
+}), Da = 3, Qe = dn([]), st = /* @__PURE__ */ new Map();
 let Rd = 0, ot = !1;
 function jd(s) {
   const e = st.get(s);
   !e || e.handle || ot || (e.started = Date.now(), e.handle = setTimeout(() => Ct(s), e.remaining));
 }
 function Yt() {
-  Qe.slice(0, La).forEach((s) => jd(s.id));
+  Qe.slice(0, Da).forEach((s) => jd(s.id));
 }
 function Gd(s) {
   const e = ++Rd, n = s.duration ?? 5e3;
@@ -4528,46 +4541,46 @@ function Jd(s) {
 function gc() {
   return { toast: Gd, dismiss: Ct };
 }
-const Ee = { items: rn(Qe), pause: Wd, resume: Yd, runAction: Jd, dismiss: Ct }, Zd = ["role", "aria-live"], Xd = { class: "at-toast__msg" }, ec = /* @__PURE__ */ J({
+const Ee = { items: un(Qe), pause: Wd, resume: Yd, runAction: Jd, dismiss: Ct }, Zd = ["role", "aria-live"], Xd = { class: "at-toast__msg" }, ec = /* @__PURE__ */ J({
   __name: "AtToaster",
   setup(s) {
-    const e = A(() => Ee.items.slice(0, La)), n = { success: "check", danger: "alert", warning: "alert", info: "info" };
+    const e = S(() => Ee.items.slice(0, Da)), n = { success: "check", danger: "alert", warning: "alert", info: "info" };
     function a(o) {
       o.currentTarget.contains(o.relatedTarget) || Ee.resume();
     }
-    return (o, i) => (t(), G(wt, { to: "body" }, [
+    return (o, i) => (t(), W(wt, { to: "body" }, [
       r("section", {
         class: "at-toaster",
         "aria-label": "Notifications",
         "aria-live": "polite",
         "aria-relevant": "additions",
-        onMouseenter: i[0] || (i[0] = (v) => L(Ee).pause()),
-        onMouseleave: i[1] || (i[1] = (v) => L(Ee).resume()),
-        onFocusin: i[2] || (i[2] = (v) => L(Ee).pause()),
+        onMouseenter: i[0] || (i[0] = (v) => D(Ee).pause()),
+        onMouseleave: i[1] || (i[1] = (v) => D(Ee).resume()),
+        onFocusin: i[2] || (i[2] = (v) => D(Ee).pause()),
         onFocusout: a
       }, [
-        g(dn, { name: "at-toast" }, {
-          default: U(() => [
-            (t(!0), l(_, null, P(e.value, (v) => (t(), l("div", {
+        g(cn, { name: "at-toast" }, {
+          default: N(() => [
+            (t(!0), l(_, null, U(e.value, (v) => (t(), l("div", {
               key: v.id,
-              class: W(["at-toast", v.tone !== "neutral" && `at-toast--${v.tone}`]),
+              class: Y(["at-toast", v.tone !== "neutral" && `at-toast--${v.tone}`]),
               role: v.tone === "danger" ? "alert" : "status",
               "aria-live": v.tone === "danger" ? "assertive" : void 0
             }, [
-              n[v.tone] ? (t(), G(x, {
+              n[v.tone] ? (t(), W(x, {
                 key: 0,
                 name: n[v.tone],
                 class: "at-toast__icon"
               }, null, 8, ["name"])) : f("", !0),
               r("span", Xd, m(v.message), 1),
-              v.action ? (t(), G(te, {
+              v.action ? (t(), W(te, {
                 key: 1,
                 variant: "ghost",
                 size: "sm",
                 class: "at-toast__action",
-                onClick: (d) => L(Ee).runAction(v.id)
+                onClick: (d) => D(Ee).runAction(v.id)
               }, {
-                default: U(() => [
+                default: N(() => [
                   b(m(v.action.label), 1)
                 ]),
                 _: 2
@@ -4578,7 +4591,7 @@ const Ee = { items: rn(Qe), pause: Wd, resume: Yd, runAction: Jd, dismiss: Ct },
                 icon: "x",
                 "icon-only": "",
                 label: "Fermer",
-                onClick: (d) => L(Ee).dismiss(v.id)
+                onClick: (d) => D(Ee).dismiss(v.id)
               }, null, 8, ["onClick"])
             ], 10, Zd))), 128))
           ]),
@@ -4587,41 +4600,41 @@ const Ee = { items: rn(Qe), pause: Wd, resume: Yd, runAction: Jd, dismiss: Ct },
       ], 32)
     ]));
   }
-}), Da = "atelier:theme", za = "atelier:density", Ea = (s) => {
+}), za = "atelier:theme", Ea = "atelier:density", Oa = (s) => {
   try {
     return localStorage.getItem(s);
   } catch {
     return null;
   }
-}, va = (s, e) => {
+}, ma = (s, e) => {
   try {
     localStorage.setItem(s, e);
   } catch {
   }
-}, ma = () => typeof document < "u" ? document.documentElement : null, tt = K(Ea(Da) || "system"), Oa = K(Ea(za) || "comfortable"), Ba = K(typeof matchMedia < "u" && matchMedia("(prefers-color-scheme: dark)").matches);
-let ha = !1;
-function Ia() {
-  if (ha || typeof window > "u") return;
-  ha = !0, matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    Ba.value = e.matches;
-  }), ke(tt, (e) => {
-    const n = ma();
-    n && (e === "system" ? n.removeAttribute("data-theme") : n.dataset.theme = e, va(Da, e));
-  }, { immediate: !0 }), ke(Oa, (e) => {
-    const n = ma();
-    n && (n.dataset.density = e, va(za, e));
+}, ha = () => typeof document < "u" ? document.documentElement : null, tt = K(Oa(za) || "system"), Ba = K(Oa(Ea) || "comfortable"), Ia = K(typeof matchMedia < "u" && matchMedia("(prefers-color-scheme: dark)").matches);
+let fa = !1;
+function Qa() {
+  if (fa || typeof window > "u") return;
+  fa = !0, matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    Ia.value = e.matches;
+  }), fe(tt, (e) => {
+    const n = ha();
+    n && (e === "system" ? n.removeAttribute("data-theme") : n.dataset.theme = e, ma(za, e));
+  }, { immediate: !0 }), fe(Ba, (e) => {
+    const n = ha();
+    n && (n.dataset.density = e, ma(Ea, e));
   }, { immediate: !0 });
 }
 function tc() {
-  Ia();
-  const s = A(() => tt.value === "system" ? Ba.value ? "dark" : "light" : tt.value), e = () => {
+  Qa();
+  const s = S(() => tt.value === "system" ? Ia.value ? "dark" : "light" : tt.value), e = () => {
     tt.value = s.value === "dark" ? "light" : "dark";
   };
-  return cn() && pn(() => {
+  return pn() && vn(() => {
   }), { mode: tt, resolved: s, toggle: e };
 }
 function ac() {
-  return Ia(), { density: Oa };
+  return Qa(), { density: Ba };
 }
 const nc = ["aria-expanded", "aria-label", "onClick"], lc = { class: "at-user__text" }, sc = { class: "at-user__name" }, oc = {
   key: 0,
@@ -4638,7 +4651,7 @@ const nc = ["aria-expanded", "aria-label", "onClick"], lc = { class: "at-user__t
   emits: ["profile", "settings", "logout"],
   setup(s) {
     var d;
-    const e = ((d = ga()) == null ? void 0 : d.vnode.props) ?? {}, n = (h) => typeof e[h] == "function" || Array.isArray(e[h]), { mode: a } = tc(), { density: o } = ac(), i = [
+    const e = ((d = ya()) == null ? void 0 : d.vnode.props) ?? {}, n = (h) => typeof e[h] == "function" || Array.isArray(e[h]), { mode: a } = tc(), { density: o } = ac(), i = [
       { value: "system", label: "Système", icon: "monitor" },
       { value: "light", label: "Clair", icon: "sun" },
       { value: "dark", label: "Sombre", icon: "moon" }
@@ -4646,16 +4659,16 @@ const nc = ["aria-expanded", "aria-label", "onClick"], lc = { class: "at-user__t
       { value: "comfortable", label: "Confortable", icon: "list" },
       { value: "compact", label: "Compacte", icon: "menu" }
     ];
-    return (h, S) => (t(), G(Va, {
+    return (h, A) => (t(), W(Ta, {
       placement: "right",
       "min-width": 232
     }, {
-      trigger: U(({ toggle: k, open: V }) => [
+      trigger: N(({ toggle: k, open: L }) => [
         r("button", {
           type: "button",
           class: "at-user",
           "aria-haspopup": "menu",
-          "aria-expanded": V,
+          "aria-expanded": L,
           "aria-label": `Compte de ${h.name}`,
           onClick: k
         }, [
@@ -4672,77 +4685,77 @@ const nc = ["aria-expanded", "aria-label", "onClick"], lc = { class: "at-user__t
           g(x, { name: "chevron-right" })
         ], 8, nc)
       ]),
-      default: U(() => [
+      default: N(() => [
         n("onProfile") || n("onSettings") || h.$slots.default ? (t(), l(_, { key: 0 }, [
-          n("onProfile") ? (t(), G(qe, {
+          n("onProfile") ? (t(), W(qe, {
             key: 0,
             icon: "person",
-            onSelect: S[0] || (S[0] = (k) => h.$emit("profile"))
+            onSelect: A[0] || (A[0] = (k) => h.$emit("profile"))
           }, {
-            default: U(() => [
+            default: N(() => [
               b("Mon profil")
             ]),
             _: 1
           })) : f("", !0),
-          n("onSettings") ? (t(), G(qe, {
+          n("onSettings") ? (t(), W(qe, {
             key: 1,
             icon: "settings",
-            onSelect: S[1] || (S[1] = (k) => h.$emit("settings"))
+            onSelect: A[1] || (A[1] = (k) => h.$emit("settings"))
           }, {
-            default: U(() => [
+            default: N(() => [
               b("Paramètres")
             ]),
             _: 1
           })) : f("", !0),
-          j(h.$slots, "default"),
-          h.theme || h.density || n("onLogout") ? (t(), G(yt, { key: 2 })) : f("", !0)
+          G(h.$slots, "default"),
+          h.theme || h.density || n("onLogout") ? (t(), W(yt, { key: 2 })) : f("", !0)
         ], 64)) : f("", !0),
         h.theme ? (t(), l(_, { key: 1 }, [
           g(jt, null, {
-            default: U(() => [
+            default: N(() => [
               b("Thème")
             ]),
             _: 1
           }),
-          (t(), l(_, null, P(i, (k) => g(qe, {
+          (t(), l(_, null, U(i, (k) => g(qe, {
             key: k.value,
             icon: k.icon,
-            checked: L(a) === k.value,
-            onSelect: (V) => a.value = k.value
+            checked: D(a) === k.value,
+            onSelect: (L) => a.value = k.value
           }, {
-            default: U(() => [
+            default: N(() => [
               b(m(k.label), 1)
             ]),
             _: 2
           }, 1032, ["icon", "checked", "onSelect"])), 64))
         ], 64)) : f("", !0),
-        h.theme && h.density ? (t(), G(yt, { key: 2 })) : f("", !0),
+        h.theme && h.density ? (t(), W(yt, { key: 2 })) : f("", !0),
         h.density ? (t(), l(_, { key: 3 }, [
           g(jt, null, {
-            default: U(() => [
+            default: N(() => [
               b("Densité")
             ]),
             _: 1
           }),
-          (t(), l(_, null, P(v, (k) => g(qe, {
+          (t(), l(_, null, U(v, (k) => g(qe, {
             key: k.value,
             icon: k.icon,
-            checked: L(o) === k.value,
-            onSelect: (V) => o.value = k.value
+            checked: D(o) === k.value,
+            onSelect: (L) => o.value = k.value
           }, {
-            default: U(() => [
+            default: N(() => [
               b(m(k.label), 1)
             ]),
             _: 2
           }, 1032, ["icon", "checked", "onSelect"])), 64))
         ], 64)) : f("", !0),
         n("onLogout") ? (t(), l(_, { key: 4 }, [
-          h.theme || h.density ? (t(), G(yt, { key: 0 })) : f("", !0),
+          h.theme || h.density ? (t(), W(yt, { key: 0 })) : f("", !0),
           g(qe, {
             icon: "logout",
-            onSelect: S[2] || (S[2] = (k) => h.$emit("logout"))
+            onSelect: A[2] || (A[2] = (k) => h.$emit("logout"))
           }, {
-            default: U(() => [
+            default: N(() => [
               b("Se déconnecter")
             ]),
             _: 1
@@ -5632,28 +5645,28 @@ const nc = ["aria-expanded", "aria-label", "onClick"], lc = { class: "at-user__t
     ]
   }
 }, ic = (s) => `var(--${s})`, bc = ["chart-1", "chart-2", "chart-3", "chart-4", "chart-5"].map(ic), uc = {
-  AtAppShell: kn,
+  AtAppShell: _n,
   AtAvatar: Ke,
-  AtBadge: wn,
-  AtBreadcrumbs: Vn,
+  AtBadge: Mn,
+  AtBreadcrumbs: Tn,
   AtButton: te,
-  AtCard: En,
-  AtCheckbox: ka,
+  AtCard: On,
+  AtCheckbox: _a,
   AtChecklist: cl,
   AtComments: rs,
   AtDataView: Vi,
   AtDrawer: Bi,
-  AtDropdown: Va,
+  AtDropdown: Ta,
   AtEmpty: Fi,
   AtField: qt,
   AtIcon: x,
-  AtIconTile: Ta,
+  AtIconTile: La,
   AtInput: Kt,
   AtKbd: Le,
   AtList: Ji,
   AtLogo: lu,
   AtLogin: hu,
-  AtMenu: Sa,
+  AtMenu: Va,
   AtMenuItem: qe,
   AtMenuLabel: jt,
   AtMenuSeparator: yt,
@@ -5662,7 +5675,7 @@ const nc = ["aria-expanded", "aria-label", "onClick"], lc = { class: "at-user__t
   AtNavItem: Nu,
   AtPage: Ru,
   AtPopover: $e,
-  AtProgress: Aa,
+  AtProgress: Sa,
   AtPropertyEditor: Wt,
   AtPropertyList: Wu,
   AtPropertyValue: Ce,
@@ -5685,28 +5698,28 @@ const nc = ["aria-expanded", "aria-label", "onClick"], lc = { class: "at-user__t
   }
 };
 export {
-  kn as AtAppShell,
+  _n as AtAppShell,
   Ke as AtAvatar,
-  wn as AtBadge,
-  Vn as AtBreadcrumbs,
+  Mn as AtBadge,
+  Tn as AtBreadcrumbs,
   te as AtButton,
-  En as AtCard,
-  ka as AtCheckbox,
+  On as AtCard,
+  _a as AtCheckbox,
   cl as AtChecklist,
   rs as AtComments,
   Vi as AtDataView,
   Bi as AtDrawer,
-  Va as AtDropdown,
+  Ta as AtDropdown,
   Fi as AtEmpty,
   qt as AtField,
   x as AtIcon,
-  Ta as AtIconTile,
+  La as AtIconTile,
   Kt as AtInput,
   Le as AtKbd,
   Ji as AtList,
   hu as AtLogin,
   lu as AtLogo,
-  Sa as AtMenu,
+  Va as AtMenu,
   qe as AtMenuItem,
   jt as AtMenuLabel,
   yt as AtMenuSeparator,
@@ -5715,7 +5728,7 @@ export {
   Nu as AtNavItem,
   Ru as AtPage,
   $e as AtPopover,
-  Aa as AtProgress,
+  Sa as AtProgress,
   Wt as AtPropertyEditor,
   Wu as AtPropertyList,
   Ce as AtPropertyValue,
@@ -5738,10 +5751,10 @@ export {
   Nt as ME,
   kt as NONE,
   It as OPS,
-  ia as OP_LABEL,
+  ua as OP_LABEL,
   Ut as SHORTCUT_LAYERS,
   Qt as TAG_ROTATION,
-  La as TOAST_VISIBLE,
+  Da as TOAST_VISIBLE,
   fc as WORDMARK,
   _t as addDays,
   Cl as applyView,
@@ -5749,7 +5762,7 @@ export {
   El as canCreate,
   bc as chartColors,
   Ml as compareRows,
-  da as createView,
+  ca as createView,
   ic as cssVar,
   kc as default,
   Vl as defaultsFromFilters,
@@ -5762,23 +5775,23 @@ export {
   pc as formatShortcut,
   he as getValue,
   Al as groupRows,
-  ba as icons,
-  be as isEmpty,
+  ka as icons,
+  ke as isEmpty,
   Rt as logoApps,
   zl as matchOptions,
   wl as matchRule,
-  xn as matchShortcut,
+  Fn as matchShortcut,
   bl as mentionAt,
   Sl as monthGrid,
   kl as nextMonday,
   Ol as nextTagColor,
   Se as normalize,
   je as optionsOf,
-  $a as parseShortcut,
+  wa as parseShortcut,
   cc as registerIcons,
   hc as registerLogoApps,
-  Ma as resolveValue,
-  ua as shiftMonth,
+  Ca as resolveValue,
+  da as shiftMonth,
   mc as sort,
   Re as splitMatch,
   yl as splitMentions,
