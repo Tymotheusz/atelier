@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.10.0] - 2026-11-03
+
+- `AtChecklist` : étapes ordonnées à cocher (routine, onboarding, procédure), numérotées en continu, avec intertitres de
+  groupe. Contrôlé comme `AtDataView` : émet `check(id, state)` (`todo`, `done`, `skipped`) et `open(item)`. L'étape
+  courante (`v-model:current`) se déplie avec sa note et un slot `actions`, et avance seule à la prochaine étape à faire
+  après une coche. Slot `meta`, `collapseDone` (« N faites masquées »), clavier au niveau de la page avec `keyboard`
+  (J / K, Espace, Entrée, S), annonce « N sur M », cibles de 44 px sur écran étroit. Types `ChecklistItem`, `ChecklistGroup`.
+- `AtTimer` : minuteur discret d'une étape (anneau et texte « 0:42 / 1:00 », « +0:40 » au-delà, « En pause · 0:42 »),
+  piloté par le parent, émet `toggle`. Fonction `formatDuration` (`m:ss`, `h:mm:ss`).
+- `AtStreak` : grille de régularité, un carré par jour sur trois niveaux, sans rouge ; légende, résumé, `select(date)`.
+  Type `StreakDay`.
+
 ## [0.9.0] - 2026-11-03
 
 - Tuiles d’icône et bandes de widget aux 9 couleurs des tags, pour les entités que l’utilisateur colore (projet, domaine).
