@@ -297,6 +297,7 @@ export const navigation: ComponentDoc[] = [
       '`icon` + `tile` est la convention pour une entité (projet, dossier) : même icône et même couleur que partout ailleurs.',
       '`mark` seul, une pastille de couleur, reste possible quand l’entité n’a pas d’icône.',
       '`count` ne montre que ce qui demande une action (non lus, ouvertes), jamais un total décoratif.',
+      'Le slot `end` reste court (une roue, un pictogramme) : le libellé garde la place ; son sens est dit aussi en texte (`label`, `title`).',
       'Le libellé se tronque par la fin : les noms longs ne cassent pas la largeur.'
     ],
     props: [
@@ -309,8 +310,11 @@ export const navigation: ComponentDoc[] = [
       { name: 'count', type: 'number | string', desc: 'Compteur à droite.' }
     ],
     events: [{ name: 'click', type: '(e: MouseEvent)', desc: 'Item activé.' }],
-    slots: [{ name: 'default', type: '—', desc: 'Libellé.' }],
-    classes: ['at-nav-item', 'at-nav-count', 'at-nav-mark', 'at-tile'],
+    slots: [
+      { name: 'default', type: '—', desc: 'Libellé.' },
+      { name: 'end', type: '—', desc: 'Indicateurs à droite, après `count` (roue d’avancement, pictogramme de statut). Ne se tronque pas.' }
+    ],
+    classes: ['at-nav-item', 'at-nav-count', 'at-nav-end', 'at-nav-mark', 'at-tile'],
     related: ['at-nav-group', 'at-sidebar', 'at-icon-tile'],
     examples: [
       {
@@ -323,6 +327,10 @@ export const navigation: ComponentDoc[] = [
               <AtNavItem icon="globe" tile="chart-2" :active="actif === 'site'" @click="actif = 'site'">Refonte du site</AtNavItem>
               <AtNavItem mark="var(--chart-3)" :active="actif === 'archives'" @click="actif = 'archives'">Archives, brouillons et notes de travail</AtNavItem>
               <AtNavItem icon="link" href="#/doc/composants">Un lien réel</AtNavItem>
+              <AtNavItem icon="book" tile="purple" :active="actif === 'missel'" @click="actif = 'missel'">
+                Missel v3
+                <template #end><AtIcon name="pause" style="color: var(--warning)" /><AtProgress variant="ring" :value="65" tone="warning" label="En pause, 65 % fait" /></template>
+              </AtNavItem>
             </AtNavGroup>
           </div>
         `,

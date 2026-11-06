@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0] - 2026-11-05
+
+- `AtProgress` : `variant="ring"`, une roue de 16 px avec le pourcentage à gauche, pour une ligne de liste ou de
+  navigation ; `tone` colore la barre ou la roue selon un statut (`neutral`, `info`, `success`, `warning`, `danger`).
+- `AtNavItem` : slot `end`, des indicateurs à droite qui ne se tronquent pas (roue d’avancement, statut).
+- Pictogramme `pause`.
+
 ## [0.11.0] - 2026-11-04
 
 - `PropertyOption.quiet` : option choisissable mais sans colonne vide au board (statut « Archivé ») ; sa colonne

@@ -110,20 +110,26 @@ export const status: ComponentDoc[] = [
     name: 'AtProgress',
     slug: 'at-progress',
     family: 'Statut',
-    tagline: 'Barre d’avancement avec pourcentage.',
-    about: ['La valeur est bornée à l’intervalle 0–`max` et arrondie au pourcentage entier ; `role="progressbar"` et les `aria-value*` sont posés.'],
+    tagline: 'Avancement avec pourcentage : barre, ou roue de 16 px.',
+    about: [
+      'La valeur est bornée à l’intervalle 0–`max` et arrondie au pourcentage entier ; `role="progressbar"` et les `aria-value*` sont posés.',
+      '`variant="ring"` donne une roue de 16 px, le pourcentage à sa gauche : pour une ligne de liste ou de navigation (slot `end` d’`AtNavItem`). `tone` colore l’arc ou la barre selon un statut.'
+    ],
     rules: [
       '`showLabel` à faux dans une cellule étroite, où la place manque.',
       '`label` donne le nom de ce qui progresse, pour les lecteurs d’écran.',
-      'Pour un avancement calculé à partir de lignes, utiliser une propriété `progress` avec `compute`.'
+      'Pour un avancement calculé à partir de lignes, utiliser une propriété `progress` avec `compute`.',
+      'Une roue colorée par statut ne repose pas que sur la couleur : `label` dit le statut, et un pictogramme l’accompagne quand il demande l’attention (pause).'
     ],
     props: [
       { name: 'value', type: 'number', required: true, desc: 'Valeur courante.' },
       { name: 'max', type: 'number', default: '100', desc: 'Valeur maximale.' },
       { name: 'showLabel', type: 'boolean', default: 'true', desc: 'Affiche le pourcentage à droite.' },
-      { name: 'label', type: 'string', desc: '`aria-label` de la barre.' }
+      { name: 'label', type: 'string', desc: '`aria-label` de la barre.' },
+      { name: 'variant', type: `'bar' | 'ring'`, default: `'bar'`, desc: 'Barre horizontale, ou roue de 16 px.' },
+      { name: 'tone', type: `'accent' | Tone`, default: `'accent'`, desc: 'Couleur de l’avancement (`neutral` : encre atténuée).' }
     ],
-    classes: ['at-progress', 'at-progress__track', 'at-progress__bar', 'at-progress__label'],
+    classes: ['at-progress', 'at-progress--ring', 'at-progress--info', 'at-progress__track', 'at-progress__bar', 'at-progress__label', 'at-progress__ring', 'at-progress__ring-track', 'at-progress__ring-val'],
     related: ['at-stat', 'at-property-value'],
     examples: [
       {
@@ -135,6 +141,18 @@ export const status: ComponentDoc[] = [
           <AtButton size="sm" @click="avance = (avance + 10) % 110">Avancer</AtButton>
         `,
         setup: () => ({ avance: ref(40) })
+      },
+      {
+        title: 'Roue',
+        desc: 'Une roue par statut de projet, comme dans la barre latérale de tasks.',
+        code: `
+          <AtProgress variant="ring" :value="40" tone="info" label="Actif, 40 % fait" />
+          <AtProgress variant="ring" :value="0" tone="neutral" label="Planifié, 0 % fait" />
+          <AtProgress variant="ring" :value="65" tone="warning" label="En pause, 65 % fait" />
+          <AtProgress variant="ring" :value="100" tone="success" label="Terminé" />
+          <AtProgress variant="ring" :value="avance" :show-label="false" />
+        `,
+        setup: () => ({ avance: ref(70) })
       }
     ]
   },

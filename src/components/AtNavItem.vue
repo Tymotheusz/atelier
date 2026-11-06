@@ -28,5 +28,6 @@ defineEmits<{ click: [e: MouseEvent] }>()
     <AtIcon v-else-if="icon" :name="icon" />
     <span class="at-ellipsis"><slot>{{ label }}</slot></span>
     <span v-if="count != null && count !== ''" class="at-nav-count">{{ count }}</span>
+    <span v-if="$slots.end" class="at-nav-end"><slot name="end" /></span>
   </a>
 </template>

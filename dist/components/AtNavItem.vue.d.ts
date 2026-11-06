@@ -14,6 +14,7 @@ declare function __VLS_template(): {
     attrs: Partial<{}>;
     slots: {
         default?(_: {}): any;
+        end?(_: {}): any;
     };
     refs: {};
     rootEl: HTMLAnchorElement;
