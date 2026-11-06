@@ -1,16 +1,27 @@
+import type { Tone } from '../types';
 type __VLS_Props = {
     value: number;
     max?: number;
     showLabel?: boolean;
     label?: string;
+    /** `bar` : barre horizontale ; `ring` : roue de 16 px, pour une ligne de liste ou de navigation. */
+    variant?: 'bar' | 'ring';
+    /** Couleur de l'avancement ; `accent` par défaut. */
+    tone?: 'accent' | Tone;
 };
 declare const _default: import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_Props>, {
     max: number;
     showLabel: boolean;
+    variant: string;
+    tone: string;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_Props>, {
     max: number;
     showLabel: boolean;
+    variant: string;
+    tone: string;
 }>>>, {
+    variant: "bar" | "ring";
+    tone: "accent" | Tone;
     max: number;
     showLabel: boolean;
 }, {}>;
